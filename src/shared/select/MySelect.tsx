@@ -13,7 +13,7 @@ const MySelect:React.FC <Iselect> = ({width , name}) => {
                     {name}
                 </div>
                 <div className={styles.drop}>
-                    <img src="/public/iconsReg/arrow-down.png" alt="" />
+                    <img src="/iconsReg/arrow-down.png" alt="" />
                 </div>
             </div>
         </>

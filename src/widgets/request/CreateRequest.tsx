@@ -53,14 +53,14 @@ const CreateRequest:React.FC = () => {
                     <div className={styles.textAll}>Даты:</div>
                     <div className={styles.data}>
                         <div className={styles.dates1}>
-                            <DataDiv name='Дата начала' dates='дд.мм.гггг' src='/public/iconsReg/calendar.png'/>
-                            <DataDiv name='Срок выполнения' dates='xx дней' src='/public/iconsReg/timer.png'/>
-                            <DataDiv name='Дата отправки' dates='дд.мм.гггг' src='/public/iconsReg/calendar.png'/>
+                            <DataDiv name='Дата начала' dates='дд.мм.гггг' src='/iconsReg/calendar.png'/>
+                            <DataDiv name='Срок выполнения' dates='xx дней' src='/iconsReg/timer.png'/>
+                            <DataDiv name='Дата отправки' dates='дд.мм.гггг' src='/iconsReg/calendar.png'/>
                         </div>
                         <div className={styles.dates2}>
-                            <DataDiv name='Дата окончания' dates='дд.мм.гггг'src='/public/iconsReg/calendar.png'/>
-                            <DataDiv name='Дата подачи' dates='дд.мм.гггг' src='/public/iconsReg/calendar.png'/>
-                            <DataDiv name='Дата утверждения' dates='дд.мм.гггг' src='/public/iconsReg/calendar.png'/>
+                            <DataDiv name='Дата окончания' dates='дд.мм.гггг'src='/iconsReg/calendar.png'/>
+                            <DataDiv name='Дата подачи' dates='дд.мм.гггг' src='/iconsReg/calendar.png'/>
+                            <DataDiv name='Дата утверждения' dates='дд.мм.гггг' src='/iconsReg/calendar.png'/>
                         </div>
                     </div>
                 </div>
