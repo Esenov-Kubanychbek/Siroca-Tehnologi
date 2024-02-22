@@ -1,0 +1,72 @@
+.Items {
+   margin-left: 19px;
+   margin-top: 20px;
+   box-shadow: 0px 1px 20px 0px #16161626;
+}
+
+.Header {
+   width: 1575px;
+   height: 56px;
+   font-weight: 700;
+   font-size: 18px;
+   display: flex;
+   color: white;
+   align-items: center;
+   border-radius: 8px 8px 0 0;
+   background-color: #1c6ab1;
+}
+
+.Number,
+.Company,
+.Name,
+.Description,
+.Person,
+.Manager,
+.Begin,
+.End,
+.Level,
+.Status {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.Number {
+   width: 160px;
+}
+
+.Company {
+   width: 124px;
+}
+
+.Name {
+   width: 240px;
+}
+
+.Description {
+   width: 200px;
+}
+
+.Person {
+   width: 128px;
+}
+
+.Manager {
+   width: 174px;
+}
+
+.Begin {
+   width: 150px;
+}
+
+.End {
+   width: 180px;
+}
+
+.Level {
+   width: 122px;
+}
+
+.Status {
+   width: 97px;
+}
