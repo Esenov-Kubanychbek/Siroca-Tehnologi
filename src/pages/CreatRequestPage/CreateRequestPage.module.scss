@@ -1,0 +1,19 @@
+.bodyAll{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 1920;
+    height: 2300;
+}
+.menu{
+    width: 270px;
+}
+.bodyRequest{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.header{
+    width: 1575px;
+    height: 160px;
+}

@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Authorization from "./pages/Authorization/Authorization";
 import ClientPage from "./pages/ClientPage/ClientPage";
-import Notification from "./pages/Notification/Notification";
+import CreateRequestPage from "./pages/CreatRequestPage/CreateRequestPage";
 
 const App = () => {
    return (
@@ -15,8 +15,8 @@ const App = () => {
             element={<ClientPage />}
          />
          <Route
-            path="/notification"
-            element={<Notification />}
+            path="/createRequestPage"
+            element={<CreateRequestPage/>}
          />
       </Routes>
    );
