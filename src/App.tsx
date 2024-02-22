@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Authorization from "./pages/Authorization/Authorization";
 import ClientPage from "./pages/ClientPage/ClientPage";
+import CreateRequestPage from "./pages/CreatRequestPage/CreateRequestPage";
 
 const App = () => {
    return (
@@ -12,6 +13,10 @@ const App = () => {
          <Route
             path="/clientpage"
             element={<ClientPage />}
+         />
+         <Route
+            path="/createRequestPage"
+            element={<CreateRequestPage/>}
          />
       </Routes>
    );
