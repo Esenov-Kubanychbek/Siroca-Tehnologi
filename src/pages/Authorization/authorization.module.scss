@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: center;
     // background: rgb(172, 49, 49);
-    margin-top: 20vh;
+    margin-top: 120px;
 
     .form_container {
         width: 560px;
@@ -34,6 +34,7 @@
             text-align: left;
 
             .input_type {
+                font-weight: 700;
                 font-size: 20px;
                 line-height: 22.64px;
             }
@@ -44,7 +45,7 @@
                 height: 56px;
                 border-radius: 8px;
                 padding: 10px 16px;
-                color: #25252526;
+                color: #252525;
                 font-size: 20px;
             }
             .input2 {
@@ -53,7 +54,7 @@
                 height: 56px;
                 border-radius: 8px;
                 padding: 10px 16px;
-                color: #25252526;
+                color: #252525;
                 font-size: 20px;
                 background: url(/src/pages/Authorization/eye-slash.png);
                 background-repeat: no-repeat;

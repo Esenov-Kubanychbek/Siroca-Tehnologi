@@ -1,9 +1,7 @@
 import styles from "./Header.module.scss";
-import notification from "/notification.png";
-import profileImage from "/profileImage.png";
-import arrow from "/arrow.png";
 import search from "/search-normal.png";
 import filter from "/filter.png";
+import Profile from "./Profile";
 
 const Header = () => {
    return (
@@ -16,28 +14,7 @@ const Header = () => {
                <div className={styles.Line} />
                <div>Закрыто: 2</div>
             </div>
-            <div className={styles.DataProfile}>
-               <div className={styles.Notification}>
-                  <img
-                     alt="notification"
-                     src={notification}
-                  />
-                  <div className={styles.NotifNumber}>5</div>
-               </div>
-               <div className={styles.Profile}>
-                  <img
-                     alt="profile"
-                     src={profileImage}
-                     className={styles.ProfileImage}
-                  />
-                  <div className={styles.ProfileWord}>Мой профиль</div>
-                  <img
-                     alt="profileIcon"
-                     src={arrow}
-                     className={styles.ProfileIcon}
-                  />
-               </div>
-            </div>
+            <Profile/>
          </div>
          <div className={styles.SearchData}>
             <div className={styles.Filter}>

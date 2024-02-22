@@ -3,6 +3,9 @@
    height: 56px;
    display: flex;
    align-items: center;
+   &:hover {
+      background-color: rgb(237, 237, 237);
+   }
 }
 
 .Number,
