@@ -1,26 +1,20 @@
 import { Route, Routes } from "react-router-dom";
-import Registration from "./pages/Registration/Registration";
-import MainPage from "./pages/MainPage/MainPage";
-import Profile from "./pages/Profile/Profile";
-
+import Authorization from "./pages/Authorization/Authorization";
+import ClientPage from "./pages/ClientPage/ClientPage";
 
 const App = () => {
-  return (
-    <Routes>
-      <Route
-        path="/registration"
-        element={<Registration />}
-      />
-      <Route
-        path="/"
-        element={<MainPage />}
-      />
-      <Route
-        path="/profile"
-        element={<Profile/>}
-      />
-    </Routes>
-  )
-}
+   return (
+      <Routes>
+         <Route
+            path="/"
+            element={<Authorization />}
+         />
+         <Route
+            path="/clientpage"
+            element={<ClientPage />}
+         />
+      </Routes>
+   );
+};
 
-export default App
+export default App;
