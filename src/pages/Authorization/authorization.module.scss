@@ -1,94 +1,75 @@
-.authorization_form {
-    width: 100%;
-    height: 100%;   
-    // padding: 50px 145px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    // background: rgb(172, 49, 49);
-    margin-top: 120px;
+@import "../../app/styles/index.scss";
 
-    .form_container {
-        width: 560px;
-        height: 459px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+.Authorization {
+   width: 560px;
+   height: 562px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-top: 120px;
+   
+   .Logo {
+      width: 316px;
+      height: 100px;
+   }
 
-        .logo {
-            width: 316px;
-            height: 100px;
-        }
+   .H1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: black;
+   }
 
-        .header_h3 {
-            font-size: 32px;
-            line-height: 40px;
-            color: black;
-        }
-        .inputs_block{
-            display: flex;
-            flex-direction: column;
-            justify-content: left;
-        }
-        .input_cont {
-            text-align: left;
+   .InputsBlock {
+      padding: 0;
+      margin-top: 80px;
+      margin-bottom: 47px;
+      width: 100%;
+      height: 219px;
+   }
+   
+   .InputCont {
+      height: 83px;
+      margin-bottom: 20px;
+      p {
+         font-size: 18px;
+         font-weight: 700;
+         margin: 0 0 4px 0;
+      }
+      input {
+         padding-left: 16px;
+         border: 1px solid #25252526;
+         width: 100%;
+         height: 52px !important;
+         border-radius: 8px;
+         color: $black;
+         font-size: 18px;
+      }
+   }
 
-            .input_type {
-                font-weight: 700;
-                font-size: 20px;
-                line-height: 22.64px;
-            }
-
-            .input {
-                border: 1px solid #25252526;
-                width: 560px;
-                height: 56px;
-                border-radius: 8px;
-                padding: 10px 16px;
-                color: #252525;
-                font-size: 20px;
-            }
-            .input2 {
-                border: 1px solid #25252526;
-                width: 560px;
-                height: 56px;
-                border-radius: 8px;
-                padding: 10px 16px;
-                color: #252525;
-                font-size: 20px;
-                background: url(/src/pages/Authorization/eye-slash.png);
-                background-repeat: no-repeat;
-                background-position: right 20px center;
-                background-size: 24px;
-                padding-right: 20px;
-            }
-        }
-        .link {
-            width: 100%;
-            text-align: left;
-            margin-top: 10px;
-            font-size: 18px;
-            line-height: 22.64px;
-        }
-        .enter_btn{
-            text-decoration: none;
-            font-size: 25px;
-            margin-top: 47px;
-            width: 100%;
-            height: 56px;
-            border: none;
-            border-radius: 8px;
-            padding: 16px 24px;
-            color: white;
-            background: #1C6AB1E5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .enter_btn:active{
-            border: none;
-        }
-
-    }
-
+   .Link {
+      width: 100%;
+      text-align: left;
+      font-weight: 700;
+      font-size: 18px;
+      color: $blue;
+   }
+   
+   .EnterButton {
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      width: 100%;
+      height: 56px;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      background: $blue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
+   
+   .EnterButton:active {
+      border: none;
+   }
 }

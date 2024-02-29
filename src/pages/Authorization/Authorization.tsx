@@ -1,31 +1,45 @@
-import styles from "./authorization.module.scss"
-import logo from "./logo.png"
-import { NavLink } from "react-router-dom" 
+import styles from "./Authorization.module.scss";
+import { NavLink } from "react-router-dom";
 
 const Authorization = () => {
-  return (
-    <form className={styles.authorization_form}>
+   return (
+      <form className={styles.Authorization}>
+         <img
+            className={styles.Logo}
+            src="/Logo.svg"
+            alt=""
+         />
+         <h1 className={styles.H1}>Вход в личный кабинет</h1>
+         <div className={styles.InputsBlock}>
+            <div className={styles.InputCont}>
+               <p>Логин</p>
+               <input
+                  placeholder="Введите логин"
+                  type="text"
+               />
+            </div>
+            <div className={styles.InputCont}>
+               <p>Пароль</p>
+               <input
+                  placeholder="Введите пароль"
+                  type="password"
+               />
+            </div>
+            <a
+               className={styles.Link}
+               href="#"
+            >
+               Не могу войти
+            </a>
+         </div>
+         <NavLink
+            to="/clientpage"
+            className={styles.EnterButton}
+         >
+            Войти
+         </NavLink>
+      </form>
+   );
+};
 
-      <div className={styles.form_container}>
-        <img className={styles.logo} src={logo} alt="" />
-        <h3 className={styles.header_h3}>Вход в личный кабинет</h3>
-        <div className={styles.inputs_block}>
-          <div className={styles.input_cont}>
-            <p className={styles.input_type}>Логин</p>
-            <input className={styles.input} placeholder="Введите логин" type="text" />
-          </div>
-          <div className={styles.input_cont}>
-            <p className={styles.input_type} >Пароль</p>
-            <input className={styles.input2} placeholder={`Введите пароль`} type="password"/>
-          </div>
-          <a className={styles.link} href="#">Не могу войти</a>
-          <NavLink to="/clientpage" className={styles.enter_btn}>Войти</NavLink>
-        </div>
-
-      </div>
-
-    </form>
-  )
-}
-
-export default Authorization
+export default Authorization;

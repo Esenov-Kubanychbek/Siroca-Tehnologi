@@ -1,0 +1,38 @@
+$blue: #1c6ab1;
+$black: #252525;
+$black3b: #3B3B3B;
+$black5c: #5C5C5C;
+$black71: #717171;
+$black92: #929292;
+$blacka8: #A8A8A8;
+$blackde: #DEDEDE;
+$blackf4: #F4F4F4;
+$success: #00c41f;
+$error: #e51616;
+$background: #f4f4f4;
+
+@mixin sm {
+   @media screen and (max-width: 1200px) {
+      @content;
+   }
+}
+
+@mixin md {
+   @media screen and (max-width: 1440px) {
+      @content;
+   }
+}
+
+@mixin lg {
+   @media screen and (max-width: 1920px) {
+      @content;
+   }
+}
+
+body {
+   display: flex;
+   justify-content: center;
+   font-family: "Geometria", sans-serif;
+   margin: 0;
+   padding: 0;
+}
