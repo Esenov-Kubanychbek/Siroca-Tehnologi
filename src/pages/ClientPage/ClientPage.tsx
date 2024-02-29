@@ -1,17 +1,15 @@
 import styles from "./ClientPage.module.scss";
-import Dashboard from "../../widgets/Dashboard/ui/Dashboard";
-import Header from "../../widgets/Header/ui/Header";
-import Items from "../../widgets/Items/ui/Items";
-import AllButton from "../../shared/buttons/AllButton";
+import { Dashboard } from "../../widgets/Dashboard";
+import { Header } from "../../widgets/Header";
+import { Items } from "../../widgets/Items";
 
 const ClientPage = () => {
    return (
       <div className={styles.ClientPage}>
-         <Dashboard />
-         <div>
+         <Dashboard role="admin" />
+         <div className={styles.Inner}>
             <Header />
             <Items />
-            <AllButton />
          </div>
       </div>
    );

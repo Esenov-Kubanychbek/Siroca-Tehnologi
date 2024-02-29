@@ -1,0 +1,53 @@
+.notificationModalWindow {
+   width: 100%;
+   height: 100vh;
+   display: flex;
+   justify-content: center;
+   position: relative;
+   background-color: #00000057;
+   transition: all 0.3s;
+
+   .container {
+      border-radius: 8px;
+      padding: 50px 70px;
+      width: 790px;
+      height: 800px;
+      background: #ffffff;
+      position: absolute;
+      top: 140px;
+      overflow: hidden;
+      transition: all 0.3s;
+      .contentBlock {
+         width: 100%;
+         height: 800px;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         overflow-x: hidden;
+         overflow-y: scroll;
+      }
+      .headerNotification {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         width: 100%;
+         height: 40px;
+         .notifactionHeaderH3 {
+            display: flex;
+            align-items: center;
+            font-family: Geometria;
+            color: #252525e5;
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 40.26px;
+            width: 100%;
+            height: 80px;
+            background: #ffffff;
+            text-align: left;
+         }
+      }
+   }
+   .contentBlock::-webkit-scrollbar {
+      display: none;
+   }
+}

@@ -1,0 +1,23 @@
+@import "../../app/styles/index.scss";
+
+.Items {
+   margin-top: 20px;
+   box-shadow: 0px 1px 20px 0px #16161626;
+}
+
+.Header {
+   width: 1575px;
+   height: 56px;
+   font-weight: 700;
+   font-size: 18px;
+   display: flex;
+   color: white;
+   justify-content: space-between;
+   align-items: center;
+   border-radius: 8px 8px 0 0;
+   background-color: $blue;
+}
+
+.ItemsTopName {
+   padding: 16px;
+}
