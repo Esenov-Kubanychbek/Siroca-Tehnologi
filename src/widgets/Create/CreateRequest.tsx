@@ -1,12 +1,7 @@
 import styles from "./CreateRequest.module.scss";
-import MyInput from "./ui/input/MyInput";
-import MySelect from "./ui/select/MySelect";
-import DataDiv from "./ui/dataDiv/DataDiv";
-import CheckBox from "./ui/checkBox/CheckBox";
-import ButtonSave from "./ui/buttonsSave/ButtonSave";
-import TextAreaReg from "./ui/textArea/TextAreaReg";
+import { Input, ButtonSave, CheckBox, MySelect, DataDiv, TextAreaReg} from "../../shared/ui";
 
-const CreateRequest: React.FC = () => {
+export const CreateRequest = () => {
    return (
       <>
          <div className={styles.CreateReg}>
@@ -19,17 +14,11 @@ const CreateRequest: React.FC = () => {
             <div className={styles.elementsReg}>
                <div className={styles.requestStyle}>
                   <div className={styles.textAll}>Название заявки</div>
-                  <MyInput
-                     placeholder="Напишите..."
-                     className="inputName"
-                  />
+                  <Input placeholder="Напишите..." width="386px"/>
                </div>
                <div className={styles.requestStyle}>
                   <div className={styles.textAll}>Название компании</div>
-                  <MyInput
-                     placeholder="Напишите..."
-                     className="inputName"
-                  />
+                  <Input placeholder="Напишите..." width="386px"/>
                </div>
             </div>
             <div className={styles.elementsReg}>
@@ -44,10 +33,7 @@ const CreateRequest: React.FC = () => {
             </div>
             <div className={styles.link}>
                <div className={styles.textAll}>Ссылка на Jira</div>
-               <MyInput
-                  placeholder="https://"
-                  className="inputLink"
-               />
+               <Input placeholder="https://" width="386px"/>
             </div>
             <div className={styles.humans}>
                <div className={styles.textAll}>Люди</div>
@@ -128,5 +114,3 @@ const CreateRequest: React.FC = () => {
       </>
    );
 };
-
-export default CreateRequest;

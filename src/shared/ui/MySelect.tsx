@@ -1,11 +1,6 @@
-import React from "react";
-import styles from "./Myselect.module.scss";
-export interface Iselect {
-   name?: string;
-   width?: string;
-}
+import styles from "./styles.module.scss";
 
-const MySelect: React.FC<Iselect> = ({ width, name }) => {
+export const MySelect: React.FC<TypesUi.Iselect> = ({ width, name }) => {
    return (
       <>
          <div
@@ -23,5 +18,3 @@ const MySelect: React.FC<Iselect> = ({ width, name }) => {
       </>
    );
 };
-
-export default MySelect;

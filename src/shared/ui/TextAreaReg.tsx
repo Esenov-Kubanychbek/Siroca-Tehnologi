@@ -1,10 +1,6 @@
-import React from "react";
-import style from "./textAreaReg.module.scss";
-interface Itext {
-   placeholder: string;
-}
+import style from "./styles.module.scss";
 
-const TextAreaReg: React.FC<Itext> = ({ placeholder }) => {
+export const TextAreaReg: React.FC<TypesUi.Itext> = ({ placeholder }) => {
    return (
       <>
          <textarea
@@ -18,5 +14,3 @@ const TextAreaReg: React.FC<Itext> = ({ placeholder }) => {
       </>
    );
 };
-
-export default TextAreaReg;

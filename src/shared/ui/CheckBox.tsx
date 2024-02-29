@@ -1,10 +1,6 @@
-import React from "react";
-import styles from "./checkBox.module.scss";
-interface Icheck {
-   name: string;
-}
+import styles from "./styles.module.scss";
 
-const CheckBox: React.FC<Icheck> = ({ name }) => {
+export const CheckBox: React.FC<TypesUi.Icheck> = ({ name }) => {
    return (
       <>
          <label className={styles.container}>
@@ -15,5 +11,3 @@ const CheckBox: React.FC<Icheck> = ({ name }) => {
       </>
    );
 };
-
-export default CheckBox;

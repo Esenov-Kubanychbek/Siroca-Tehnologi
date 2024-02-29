@@ -7,7 +7,7 @@ const Authorization = () => {
          <img
             className={styles.Logo}
             src="/Logo.svg"
-            alt=""
+            alt="Logo"
          />
          <h1 className={styles.H1}>Вход в личный кабинет</h1>
          <div className={styles.InputsBlock}>
