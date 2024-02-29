@@ -1,4 +1,4 @@
-declare module DashboardTypes {
+declare namespace DashboardTypes {
    interface IDashboardProps {
       role: string;
    }

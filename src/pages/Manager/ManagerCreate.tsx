@@ -1,5 +1,5 @@
 import styles from "./Manager.module.scss";
-// import CreateRequest from "../../widgets/request/CreateRequest";
+import { CreateRequest } from "../../widgets/Create";
 import { ProfButton } from "../../features/Header";
 import { Dashboard } from "../../widgets/Dashboard";
 
@@ -14,7 +14,7 @@ const ManagerCreate: React.FC = () => {
                <div className={styles.Header}>
                   <ProfButton />
                </div>
-               {/* <CreateRequest /> */}
+               <CreateRequest />
             </div>
          </div>
       </>

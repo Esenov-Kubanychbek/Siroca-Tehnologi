@@ -1,12 +1,6 @@
-import React from "react";
-import styles from "./dataDiv.module.scss";
-interface Idata {
-   name: string;
-   dates: string;
-   src: string;
-}
+import styles from "./styles.module.scss";
 
-const DataDiv: React.FC<Idata> = ({ name, dates, src }) => {
+export const DataDiv: React.FC<TypesUi.Idata> = ({ name, dates, src }) => {
    return (
       <>
          <div className={styles.dataDiv}>
@@ -24,5 +18,3 @@ const DataDiv: React.FC<Idata> = ({ name, dates, src }) => {
       </>
    );
 };
-
-export default DataDiv;
