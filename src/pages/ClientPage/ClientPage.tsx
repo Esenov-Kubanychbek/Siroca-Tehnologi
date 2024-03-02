@@ -3,7 +3,7 @@ import { Dashboard } from "../../widgets/Dashboard";
 import { Header } from "../../widgets/Header";
 import { Items } from "../../widgets/Items";
 
-const ClientPage = () => {
+export const ClientPage = () => {
    return (
       <div className={styles.ClientPage}>
          <Dashboard role="admin" />
@@ -14,5 +14,3 @@ const ClientPage = () => {
       </div>
    );
 };
-
-export default ClientPage;

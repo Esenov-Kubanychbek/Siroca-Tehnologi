@@ -1,52 +1,43 @@
 import { DashboardButton } from "../../../features/Dashboard";
-import { Edit, Home, HomeHashtag, People, Profile2User, ProfileTick, UserAdd, UserEdit } from "iconsax-react";
+import { AddSquare, Edit, Home, HomeHashtag, People, Profile2User, ProfileTick, UserAdd, UserEdit } from "iconsax-react";
 
 export const AdminButtons = () => {
    return (
       <div>
          <div>
             <DashboardButton
-               src={<Home />}
                name="/clientpage"
-            />
+            ><Home /></DashboardButton>
             <DashboardButton
-               src={<Edit />}
                name="/managercreate"
-            />
+            ><Edit /></DashboardButton>
             <div></div>
          </div>
          <div>
             <DashboardButton
-               src={<HomeHashtag />}
                name="/createcompany"
-            />
+            ><AddSquare /></DashboardButton>
             <DashboardButton
-               src={<UserAdd />}
                name="/createuser"
-            />
+            ><UserAdd/></DashboardButton>
             <DashboardButton
-               src={<UserEdit />}
                name="/createposition"
-            />
+            ><UserEdit/></DashboardButton>
             <div></div>
          </div>
          <div>
             <DashboardButton
-               src={<HomeHashtag />}
                name="/companies"
-            />
+            ><HomeHashtag/></DashboardButton>
             <DashboardButton
-               src={<People />}
                name="/users"
-            />
+            ><People/></DashboardButton>
             <DashboardButton
-               src={<ProfileTick />}
                name="/positions"
-            />
+            ><ProfileTick/></DashboardButton>
             <DashboardButton
-               src={<Profile2User />}
                name="/roles"
-            />
+            ><Profile2User/></DashboardButton>
             <div></div>
          </div>
       </div>

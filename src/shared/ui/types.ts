@@ -2,6 +2,7 @@ declare namespace TypesUi {
    interface IButton {
       variant: boolean;
       width: string;
+      text: string
    }
    interface IbuttonSave {
       text: string;

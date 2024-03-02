@@ -1,9 +1,10 @@
-declare namespace DashboardTypes {
-   interface IDashboardProps {
-      role: string;
-   }
-   interface IButtonProps {
-      src: any;
-      name: string;
-   }
+import { ReactNode } from "react";
+
+export interface IDashboardProps {
+   role: string;
+}
+
+export interface IButtonProps {
+   children: ReactNode;
+   name: string;
 }
