@@ -5,14 +5,15 @@ interface IbuttonSave {
    text: string;
    color?: string;
    backgroundColor?: string;
+   border?: string;
 }
 
-const ButtonSave: React.FC<IbuttonSave> = ({ text, color, backgroundColor }) => {
+const ButtonSave: React.FC<IbuttonSave> = ({ text, color, backgroundColor, border }) => {
    return (
       <>
          <button
             className={styles.Button}
-            style={{ color, backgroundColor }}
+            style={{ color, backgroundColor, border }}
          >
             {text}
          </button>

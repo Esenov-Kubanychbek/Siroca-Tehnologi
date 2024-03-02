@@ -145,6 +145,7 @@
 }
 
 .Report {
+   cursor: pointer;
    width: 289px;
    height: 56px;
    display: flex;
@@ -156,4 +157,7 @@
    line-height: 22px;
    border-radius: 8px;
    border: 1px solid $blue;
+}
+.ReportNone{
+   display: none;
 }
