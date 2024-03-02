@@ -1,11 +1,9 @@
 .bodyAll {
-   margin: 0 100px;
+   width: 1738px;
+   margin-left: 100px;
    display: flex;
 }
 
-.menu {
-   width: 270px;
-}
 .bodyRequest {
    display: flex;
    justify-content: space-between;
@@ -13,6 +11,11 @@
 }
 
 .Header {
-   margin-left: 1267px;
+   margin-left: 1487px;
    margin-top: 48px;
+   width: 254px;
+   height: 56px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
 }

@@ -4,7 +4,11 @@ import { Login } from "iconsax-react";
 
 export const LoginButton = () => {
    return (
-      <NavLink to="/" className={styles.LoginButton} aria-label="link">
+      <NavLink
+         to="/"
+         className={styles.LoginButton}
+         aria-label="link"
+      >
          <Login color="#1C6AB1" />
       </NavLink>
    );

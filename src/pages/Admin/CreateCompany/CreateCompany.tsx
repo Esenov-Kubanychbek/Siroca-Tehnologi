@@ -1,10 +1,13 @@
+import styles from "../Admin.module.scss";
 import { Dashboard } from "../../../widgets/Dashboard";
-import styles from "./CreateCompany.module.scss";
+// import { Notification } from "../../../widgets/Notification";
 
-const CreateCompany = () => {
-   return <div className={styles.CreateCompany}>
-      <Dashboard role="admin"/>
-      CreateCompany</div>;
+export const CreateCompany = () => {
+   return (
+      <div className={styles.CreateCompany}>
+         <Dashboard role="admin" />
+         CreateCompany
+         {/* <Notification/> */}
+      </div>
+   );
 };
-
-export default CreateCompany;

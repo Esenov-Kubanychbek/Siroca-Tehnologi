@@ -1,7 +1,7 @@
 import styles from "./Authorization.module.scss";
 import { NavLink } from "react-router-dom";
 
-const Authorization = () => {
+export const Authorization = () => {
    return (
       <form className={styles.Authorization}>
          <img
@@ -41,5 +41,3 @@ const Authorization = () => {
       </form>
    );
 };
-
-export default Authorization;

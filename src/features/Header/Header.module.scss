@@ -91,7 +91,7 @@
    position: relative;
    width: 600px;
    height: 56px;
-   margin-left: 177px;
+   margin-left: 337px;
    display: flex;
    & svg {
       position: absolute;
@@ -142,18 +142,4 @@
    background-color: $blue;
    margin: 0 20px;
    border-radius: 8px;
-}
-
-.Report {
-   width: 289px;
-   height: 56px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   color: $blue;
-   font-weight: 700;
-   font-size: 18px;
-   line-height: 22px;
-   border-radius: 8px;
-   border: 1px solid $blue;
 }

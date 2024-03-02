@@ -1,4 +1,6 @@
-.notificationSingle {
+@import "../../../app/styles/index.scss";
+
+.NotificationSingle {
    width: 96%;
    height: 97px;
    box-shadow:
@@ -9,45 +11,45 @@
    display: flex;
    flex-direction: column;
    justify-content: space-around;
-   .headerBlockSingle {
+   .HeaderBlockSingle {
       width: 100%;
       height: 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      .headerBlockActive {
+      .HeaderBlockActive {
          width: 24px;
          height: 24px;
          border-radius: 50%;
-         background: #00a91b;
+         background: $success;
       }
-      .headerBlockAnactive {
+      .HeaderBlockAnactive {
          width: 24px;
          height: 24px;
          border-radius: 50%;
          background: #25252566;
       }
-      .timeOnWose {
+      .TimeOnWose {
          color: #252525a6;
          font-size: 14px;
          line-height: 17.61px;
       }
    }
-   .notificationContent {
+   .NotificationContent {
       width: 100%;
       height: 31px;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      .numNotification {
+      .NumNotification {
          color: #252525e5;
          font-size: 18px;
          line-height: 22.64px;
          font-weight: 500;
-         .span {
+         .Span {
             font-weight: 700;
-            color: #1c6ab1;
+            color: $blue;
          }
       }
    }

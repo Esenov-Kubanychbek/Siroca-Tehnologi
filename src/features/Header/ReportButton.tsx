@@ -1,5 +1,5 @@
-import styles from "./Header.module.scss";
+import { Button } from "../../shared/ui";
 
 export const ReportButton = () => {
-   return <div className={styles.Report}>Cкачать отчет</div>;
+   return <Button variant={false} width="292px" text="Cкачать отчет"/>
 };

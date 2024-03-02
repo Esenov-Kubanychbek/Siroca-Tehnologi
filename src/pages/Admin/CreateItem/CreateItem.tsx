@@ -1,7 +1,11 @@
-import styles from "./CreateItem.module.scss";
+import { Dashboard } from "../../../widgets/Dashboard";
+import styles from "../Admin.module.scss";
 
-const CreateItem = () => {
-   return <div className={styles.CreateItem}>CreateItem</div>;
+export const CreateItem = () => {
+   return (
+      <div className={styles.CreateItem}>
+         <Dashboard role="admin" />
+         CreateItem
+      </div>
+   );
 };
-
-export default CreateItem;

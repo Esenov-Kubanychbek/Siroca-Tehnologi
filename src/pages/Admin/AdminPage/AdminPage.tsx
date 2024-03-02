@@ -1,7 +1,11 @@
-import styles from "./AdminPage.module.scss";
+import { Dashboard } from "../../../widgets/Dashboard";
+import styles from "../Admin.module.scss"
 
-const AdminPage = () => {
-   return <div className={styles.AdminPage}>AdminPage</div>;
+export const AdminPage = () => {
+   return (
+      <div className={styles.AdminPage}>
+         <Dashboard role="admin" />
+         AdminPage
+      </div>
+   );
 };
-
-export default AdminPage;
