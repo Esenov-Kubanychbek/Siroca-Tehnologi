@@ -143,3 +143,21 @@
    margin: 0 20px;
    border-radius: 8px;
 }
+
+.Report {
+   cursor: pointer;
+   width: 289px;
+   height: 56px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   color: $blue;
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 22px;
+   border-radius: 8px;
+   border: 1px solid $blue;
+}
+.ReportNone{
+   display: none;
+}

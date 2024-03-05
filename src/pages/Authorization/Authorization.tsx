@@ -1,9 +1,34 @@
 import styles from "./Authorization.module.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState, useEffect, FormEvent } from "react";
+import axios from "axios";
 
 export const Authorization = () => {
+   const [login, setLogin] = useState<String>('')
+   const [password, setPasswod] = useState<String>('')
+   const navigate = useNavigate();
+   const handleLogin = async(ev: FormEvent<HTMLFormElement>) => {
+      ev.preventDefault()
+      const loginInfo = {
+         username: login,
+         password: password
+      }
+      try {
+         const response = await axios.post("http://localhost:3001/login", loginInfo)
+         console.log(response.data.isReg);
+         
+         if(response.data.isReg === 4){
+            navigate('/clientpage')
+         }else{
+            console.log("Not logined");
+         }
+      } catch (error) {
+         
+      }
+   }
+
    return (
-      <form className={styles.Authorization}>
+      <form onSubmit={handleLogin} className={styles.Authorization}>
          <img
             className={styles.Logo}
             src="/Logo.svg"
@@ -14,6 +39,7 @@ export const Authorization = () => {
             <div className={styles.InputCont}>
                <p>Логин</p>
                <input
+                  onChange={(ev) => setLogin(ev.target.value)}
                   placeholder="Введите логин"
                   type="text"
                />
@@ -21,6 +47,7 @@ export const Authorization = () => {
             <div className={styles.InputCont}>
                <p>Пароль</p>
                <input
+                  onChange={(ev) => setPasswod(ev.target.value)}
                   placeholder="Введите пароль"
                   type="password"
                />
@@ -32,12 +59,13 @@ export const Authorization = () => {
                Не могу войти
             </a>
          </div>
-         <NavLink
+         {/* <NavLink
             to="/clientpage"
             className={styles.EnterButton}
          >
             Войти
-         </NavLink>
+         </NavLink> */}
+         <button className={styles.EnterButton} type="submit">Войти</button>
       </form>
    );
 };
