@@ -1,22 +1,20 @@
-import styles from "./notification.module.scss";
-import CloseBtn from "./close_button/Close_button.tsx";
-import New_notification from "./New_notification.tsx";
+import styles from "./Notification.module.scss";
+import { NewNotification } from ".";
+import { CloseSquare } from "iconsax-react";
 
-const Notification: React.FC = () => {
+export const Notification = () => {
    return (
-      <div className={styles.notificationModalWindow}>
-         <div className={styles.container}>
-            <div className={styles.headerNotification}>
-               <h3 className={styles.notifactionHeaderH3}>Уведомление</h3>
-               <CloseBtn />
+      <div className={styles.NotificationModalWindow}>
+         <div className={styles.Container}>
+            <div className={styles.HeaderNotification}>
+               <h3 className={styles.NotifactionHeaderH3}>Уведомление</h3>
+               <CloseSquare size={32}/>
             </div>
-            <div className={styles.contentBlock}>
-               <New_notification active={true} />
-               <New_notification active={false} />
+            <div className={styles.ContentBlock}>
+               <NewNotification active={true} />
+               <NewNotification active={false} />
             </div>
          </div>
       </div>
    );
 };
-
-export default Notification;

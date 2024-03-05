@@ -1,8 +1,10 @@
 @import "../../app/styles/index.scss";
 
 .Dashboard {
-   z-index: 10;
-   position: absolute;
+   position: fixed;
+   z-index: 2;
+   top: 0;
+   left: 0;
    width: 126px;
    height: 100vh;
    background-color: white;
@@ -28,6 +30,7 @@
    .ArrowButton {
       height: 56px;
       width: 40px;
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -37,6 +40,10 @@
       left: 96px;
       top: 178px;
       transition: all 0.37s ease-in-out;
+      svg {
+         position: absolute;
+         z-index: 2;
+      }
    }
    .Line {
       width: 100%;
@@ -47,17 +54,17 @@
    .Buttons {
       margin-top: 40px;
    }
-   &:hover {
-      width: 334px;
-      .Logo {
-         img {
-            width: 229px;
-            height: 55px;
-         }
-      }
-      .ArrowButton {
-         rotate: 180deg;
-         left: 301px;
-      }
-   }
+   // &:hover {
+   //    width: 334px;
+   //    .Logo {
+   //       img {
+   //          width: 229px;
+   //          height: 55px;
+   //       }
+   //    }
+   //    .ArrowButton {
+   //       rotate: 180deg;
+   //       left: 301px;
+   //    }
+   // }
 }

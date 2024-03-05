@@ -1,17 +1,18 @@
 import { Route, Routes } from "react-router-dom";
-import Authorization from "../pages/Authorization/Authorization";
-import ClientPage from "../pages/ClientPage/ClientPage";
-import ManagerPage from "../pages/Manager/ManagerPage";
-import ManagerCreate from "../pages/Manager/ManagerCreate";
-import AdminPage from "../pages/Admin/AdminPage/AdminPage";
-import CreateItem from "../pages/Admin/CreateItem/CreateItem";
-import CreateCompany from "../pages/Admin/CreateCompany/CreateCompany";
-import CreateUser from "../pages/Admin/CreateUser/CreateUser";
-import CreatePosition from "../pages/Admin/CreatePosition/CreatePosition";
-import Companies from "../pages/Admin/Companies/Companies";
-import Users from "../pages/Admin/Users/Users";
-import Positions from "../pages/Admin/Positions/Positions";
-import Roles from "../pages/Admin/Roles/Roles";
+import { Authorization } from "../pages/Authorization";
+import { ClientPage } from "../pages/ClientPage";
+import { ManagerPage, ManagerCreate } from "../pages/Manager";
+import {
+   AdminPage,
+   Companies,
+   CreateCompany,
+   CreateItem,
+   CreatePosition,
+   CreateUser,
+   Positions,
+   Roles,
+   Users,
+} from "../pages/Admin";
 
 const App = () => {
    return (

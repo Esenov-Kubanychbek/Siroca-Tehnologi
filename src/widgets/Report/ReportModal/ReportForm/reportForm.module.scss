@@ -114,11 +114,16 @@
 }
 
 .ChooseMenu{
+    display: flex;
+    flex-direction: column;
+
     position: absolute;
     top: 60%;
-    width: 160px;
+    width: 140px;
     padding: 20px 10px;
-    background: #ffffff81;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 20px 10px 10px rgba(0, 0, 0, 0.123);
     border-radius: 8px;
 
     p{

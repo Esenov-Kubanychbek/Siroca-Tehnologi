@@ -1,7 +1,11 @@
-import styles from "./Users.module.scss";
+import { Dashboard } from "../../../widgets/Dashboard";
+import styles from "../Admin.module.scss";
 
-const Users = () => {
-   return <div className={styles.Users}>Users</div>;
+export const Users = () => {
+   return (
+      <div className={styles.Users}>
+         <Dashboard role="admin" />
+         Users
+      </div>
+   );
 };
-
-export default Users;

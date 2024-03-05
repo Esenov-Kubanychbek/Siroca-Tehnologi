@@ -1,24 +1,19 @@
 import styles from "./Manager.module.scss";
-// import CreateRequest from "../../widgets/request/CreateRequest";
-import { ProfButton } from "../../features/Header";
+import { CreateRequest } from "../../widgets/Create";
+import { NotifButton, ProfButton } from "../../features/Header";
 import { Dashboard } from "../../widgets/Dashboard";
 
-const ManagerCreate: React.FC = () => {
+export const ManagerCreate = () => {
    return (
-      <>
-         <div className={styles.bodyAll}>
-            <div className={styles.Menu}>
-               <Dashboard role="admin" />
+      <div className={styles.bodyAll}>
+         <Dashboard role="admin" />
+         <div className={styles.bodyReguest}>
+            <div className={styles.Header}>
+               <NotifButton />
+               <ProfButton />
             </div>
-            <div className={styles.bodyReguest}>
-               <div className={styles.Header}>
-                  <ProfButton />
-               </div>
-               {/* <CreateRequest /> */}
-            </div>
+            <CreateRequest />
          </div>
-      </>
+      </div>
    );
 };
-
-export default ManagerCreate;
