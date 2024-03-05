@@ -1,13 +1,14 @@
 import styles from "./Authorization.module.scss";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import axios from "axios";
 
 const Authorization = () => {
    const [login, setLogin] = useState<String>('')
    const [password, setPasswod] = useState<String>('')
    const navigate = useNavigate();
-   const handleLogin = async() => {
+   const handleLogin = async(ev: FormEvent<HTMLFormElement>) => {
+      ev.preventDefault()
       const loginInfo = {
          username: login,
          password: password
@@ -27,7 +28,7 @@ const Authorization = () => {
    }
 
    return (
-      <div className={styles.Authorization}>
+      <form onSubmit={handleLogin} className={styles.Authorization}>
          <img
             className={styles.Logo}
             src="/Logo.svg"
@@ -64,8 +65,8 @@ const Authorization = () => {
          >
             Войти
          </NavLink> */}
-         <button className={styles.EnterButton} onClick={handleLogin}>Войти</button>
-      </div>
+         <button className={styles.EnterButton} type="submit">Войти</button>
+      </form>
    );
 };
 
