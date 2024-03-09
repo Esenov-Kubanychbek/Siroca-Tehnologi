@@ -1,0 +1,23 @@
+@import "../../../app/styles/index.scss";
+
+.Primary,
+.Secondary {
+   height: 56px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-weight: 700;
+   font-size: 18px;
+   border-radius: 8px;
+}
+
+.Primary {
+   background-color: $blue;
+   color: white;
+}
+
+.Secondary {
+   background-color: white;
+   color: $blue;
+   border: 1px solid $blue;
+}

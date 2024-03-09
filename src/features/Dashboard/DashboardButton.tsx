@@ -1,7 +1,7 @@
 import styles from "./Dashboard.module.scss";
 import "../../app/styles/index.scss";
 import { NavLink } from "react-router-dom";
-import { IButtonProps } from "../../widgets/Dashboard/types";
+import { IButtonProps } from "./types";
 
 export const DashboardButton: React.FC<IButtonProps> = ({ name, children }) => {
    return (

@@ -1,10 +1,10 @@
 import { Dashboard } from "../../../widgets/Dashboard";
-import styles from "../Admin.module.scss";
+import styles from "./Roles.module.scss";
 
 export const Roles = () => {
    return (
       <div className={styles.Roles}>
-         <Dashboard role="admin" />
+         <Dashboard />
          Roles
       </div>
    );

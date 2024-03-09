@@ -1,0 +1,28 @@
+@import "../../../app/styles/index.scss";
+
+.Filter {
+   width: 414px;
+   height: 56px;
+   display: flex;
+   position: relative;
+}
+
+.Time {
+   width: 138px;
+   height: 54px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 22px;
+}
+
+.Border {
+   position: absolute;
+   width: 138px;
+   height: 2px;
+   background-color: $blue;
+   left: 0;
+   bottom: 0;
+}

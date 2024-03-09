@@ -1,4 +1,4 @@
-import styles from "./Notification.module.scss";
+import styles from "./notif.module.scss";
 import { NewNotification } from ".";
 import { CloseSquare } from "iconsax-react";
 
@@ -8,7 +8,7 @@ export const Notification = () => {
          <div className={styles.Container}>
             <div className={styles.HeaderNotification}>
                <h3 className={styles.NotifactionHeaderH3}>Уведомление</h3>
-               <CloseSquare size={32}/>
+               <CloseSquare size={32} />
             </div>
             <div className={styles.ContentBlock}>
                <NewNotification active={true} />

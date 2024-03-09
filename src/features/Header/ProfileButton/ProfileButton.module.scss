@@ -1,0 +1,21 @@
+@import "../../../app/styles/index.scss";
+
+.Profile {
+   width: 200px;
+   height: 56px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-inline: 16px;
+}
+
+.ProfileImage {
+   width: 34px;
+   height: 34px;
+}
+
+.ProfileWord {
+   font-weight: 700;
+   font-size: 20px;
+   line-height: 25px;
+}
