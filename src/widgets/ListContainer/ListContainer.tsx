@@ -1,12 +1,12 @@
-import styles from "./RequestList.module.scss";
+import styles from "./ListContainer.module.scss";
 import Request from "../../features/Request/Request";
 import RequestApi from "./RequestApi.json";
-import { RequestTop } from ".";
+import { ListTop } from ".";
 
-export const RequestList = () => {
+export const ListContainer = () => {
    return (
-      <div className={styles.RequestList}>
-         <RequestTop />
+      <div className={styles.ListContainer}>
+         <ListTop />
          {RequestApi.map((card, i) => (
             <Request
                key={i}

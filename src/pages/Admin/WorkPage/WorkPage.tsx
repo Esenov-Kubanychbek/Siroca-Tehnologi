@@ -1,3 +1,4 @@
+<<<<<<< src/pages/Admin/WorkPage/WorkPage.tsx
 import { Dashboard } from "../../../widgets/Dashboard";
 import { Administration } from './../../../widgets/Administration/Administration';
 import styles from "./WorkPage.module.scss";
