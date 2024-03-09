@@ -1,8 +1,7 @@
 import styles from "./Header.module.scss";
-import { useState } from "react";
 import {
-   DataNumber,
-   ProfButton,
+   StatusNumber,
+   ProfileButton,
    NotifButton,
    TimeFilter,
    SearchInput,
@@ -10,28 +9,28 @@ import {
    ReportButton,
 } from "../../features/Header";
 
-interface HeaderProps{
-   reportModalOpenFunc: any
+interface HeaderProps {
+   reportModalOpenFunc: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({reportModalOpenFunc}) => {
+export const Header: React.FC<HeaderProps> = ({ reportModalOpenFunc }) => {
    const handleClick = () => {
-      reportModalOpenFunc()
-   }
+      reportModalOpenFunc();
+   };
    return (
       <div className={styles.Header}>
          <div className={styles.HeaderTop}>
-            <DataNumber />
+            <StatusNumber />
             <div className={styles.DataProfile}>
                <NotifButton />
-               <ProfButton />
+               <ProfileButton />
             </div>
          </div>
          <div className={styles.HeaderBottom}>
             <TimeFilter />
             <SearchInput />
             <FilterButton />
-            <ReportButton onClick={handleClick}/>
+            <ReportButton onClick={handleClick} />
          </div>
       </div>
    );

@@ -1,10 +1,8 @@
 import styles from "./Dashboard.module.scss";
 import { DashboardButton, LoginButton } from "../../features/Dashboard";
-import { ManagerButtons, AdminButtons } from ".";
-import { Home } from "iconsax-react";
-import { IDashboardProps } from "./types";
+import { Home, TagUser } from "iconsax-react";
 
-export const Dashboard: React.FC<IDashboardProps> = ({ role }) => {
+export const Dashboard = () => {
    return (
       <div className={styles.Dashboard}>
          <div className={styles.Logo}>
@@ -14,20 +12,13 @@ export const Dashboard: React.FC<IDashboardProps> = ({ role }) => {
             />
          </div>
          <div className={styles.Line} />
-         <div className={styles.ArrowButton}>
-            <img
-               alt="ArrowDash"
-               src="/ArrowDash.svg"
-            />
-         </div>
          <div className={styles.Buttons}>
-            {role === "client" && (
-               <DashboardButton
-                  name="home"
-               ><Home/></DashboardButton>
-            )}
-            {role === "manager" && <ManagerButtons />}
-            {role === "admin" && <AdminButtons />}
+            <DashboardButton name="/adminpage">
+               <Home />
+            </DashboardButton>
+            <DashboardButton name="/workpage">
+               <TagUser />
+            </DashboardButton>
          </div>
          <LoginButton />
       </div>

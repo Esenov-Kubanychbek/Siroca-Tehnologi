@@ -1,0 +1,14 @@
+@import "../../../app/styles/index.scss";
+
+.Input {
+   padding-left: 24px;
+   color: $black5c;
+   border: none;
+   font-size: 18px;
+   font-weight: 500;
+   border-radius: 8px;
+   background-color: $blackf4;
+   height: 51px;
+   display: flex;
+   align-items: center;
+}

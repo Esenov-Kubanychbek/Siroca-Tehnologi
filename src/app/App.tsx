@@ -1,18 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Authorization } from "../pages/Authorization";
-import { ClientPage } from "../pages/ClientPage";
-import { ManagerPage, ManagerCreate } from "../pages/Manager";
-import {
-   AdminPage,
-   Companies,
-   CreateCompany,
-   CreateItem,
-   CreatePosition,
-   CreateUser,
-   Positions,
-   Roles,
-   Users,
-} from "../pages/Admin";
+import { Authorization, ClientPage, ManagerPage, AdminPage, Companies, Users, Roles, WorkPage } from "../pages";
 
 const App = () => {
    return (
@@ -30,28 +17,12 @@ const App = () => {
             element={<ManagerPage />}
          />
          <Route
-            path="/managercreate"
-            element={<ManagerCreate />}
-         />
-         <Route
             path="/adminpage"
             element={<AdminPage />}
          />
          <Route
-            path="/createitem"
-            element={<CreateItem />}
-         />
-         <Route
-            path="/createcompany"
-            element={<CreateCompany />}
-         />
-         <Route
-            path="/createuser"
-            element={<CreateUser />}
-         />
-         <Route
-            path="/createposition"
-            element={<CreatePosition />}
+            path="/workpage"
+            element={<WorkPage />}
          />
          <Route
             path="/companies"
@@ -60,10 +31,6 @@ const App = () => {
          <Route
             path="/users"
             element={<Users />}
-         />
-         <Route
-            path="/positions"
-            element={<Positions />}
          />
          <Route
             path="/roles"
