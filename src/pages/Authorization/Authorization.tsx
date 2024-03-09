@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, FormEvent } from "react";
 import axios from "axios";
 import { EyeSlash } from "iconsax-react";
+import { Typography } from "../../shared/ui";
 
 export const Authorization = () => {
    const [login, setLogin] = useState<string>("");
@@ -38,7 +39,8 @@ export const Authorization = () => {
             src="/Logo.svg"
             alt="Logo"
          />
-         <h1 className={styles.H1}>Вход в личный кабинет</h1>
+         {/* <h1 className={styles.H1}>Вход в личный кабинет</h1> */}
+         <Typography variant="h3">Вход в личный кабинет</Typography>
          <div className={styles.InputsBlock}>
             <div className={styles.InputCont}>
                <p>Логин</p>

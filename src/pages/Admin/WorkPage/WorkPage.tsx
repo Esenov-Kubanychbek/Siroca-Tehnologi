@@ -1,5 +1,5 @@
-import { Dashboard } from "../../../widgets/Dashboard";
 import styles from "./WorkPage.module.scss";
+import { Dashboard } from "../../../widgets/Dashboard";
 
 export const WorkPage = () => {
    return (
