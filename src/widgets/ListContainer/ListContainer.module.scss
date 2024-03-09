@@ -1,12 +1,12 @@
 @import "../../app/styles/index.scss";
 
-.RequestList {
+.ListContainer {
    margin-top: 20px;
    width: 1738px;
    box-shadow: 0px 1px 20px 0px #16161626;
 }
 
-.RequestTop {
+.ListTop {
    width: 1738px;
    height: 56px;
    font-weight: 700;
@@ -19,6 +19,6 @@
    background-color: $blue;
 }
 
-.RequestTopName {
+.ListTopName {
    padding: 16px;
 }

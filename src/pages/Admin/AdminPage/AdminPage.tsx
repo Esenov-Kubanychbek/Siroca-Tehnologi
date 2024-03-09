@@ -1,7 +1,7 @@
 import styles from "./AdminPage.module.scss";
 import { Dashboard } from "../../../widgets/Dashboard";
 import { Header } from "../../../widgets/Header";
-import { RequestList } from "../../../widgets/RequestList";
+import { ListContainer } from "../../../widgets/ListContainer";
 import { useState } from "react";
 import ReportModal from "../../../widgets/Report/ReportModal/ReportModal";
 
@@ -19,7 +19,7 @@ export const AdminPage = () => {
          <Dashboard />
          <div className={styles.Inner}>
             <Header reportModalOpenFunc={openRepModal} />
-            {isClickedFind ? null : <RequestList />}
+            {isClickedFind ? null : <ListContainer />}
             {repModalwin ? <ReportModal onClose={closeRepModal} /> : null}
          </div>
       </div>
