@@ -1,0 +1,43 @@
+@import "../../app/styles/index.scss";
+
+.AdminNavigate{
+   margin-top: 70px;
+   margin-bottom: 45px;
+   position: relative;
+}
+.Links {
+   width:674px;
+   margin-left: 10px;
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+   gap: 36px;
+}
+
+.Name {
+   font-size: 24px;
+   font-weight: 700;
+   text-decoration: none;
+   color: black
+};
+
+.Name:global(.active) {
+   color: $blue;
+}
+
+.Line{
+   position: absolute;
+   width: 1720px;
+   height: 3px;
+   background-color: $blackf4;
+   margin-top: 10px;
+   border-radius: 2px;
+   transition: all 0,5s ease-in-out;
+   div{
+      width: 140px;
+      height: 100%;
+      background-color: $blue;
+      border-radius: 2px;
+      transition: all 1s ease-in-out;
+   }
+}

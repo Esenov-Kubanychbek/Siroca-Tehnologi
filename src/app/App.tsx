@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Authorization, ClientPage, ManagerPage, AdminPage, Companies, Users, Roles, WorkPage } from "../pages";
+import { Authorization, ClientPage, ManagerPage, AdminPage, Companies, Users, Roles, WorkPage, Positions } from "../pages";
 
 const App = () => {
    return (
@@ -25,16 +25,20 @@ const App = () => {
             element={<WorkPage />}
          />
          <Route
-            path="/companies"
+            path="/workpage/companies"
             element={<Companies />}
          />
          <Route
-            path="/users"
+            path="/workpage/users"
             element={<Users />}
          />
          <Route
-            path="/roles"
+            path="/workpage/roles"
             element={<Roles />}
+         />
+         <Route
+            path="/workpage/positions"
+            element={<Positions/>}
          />
          <Route
             path="*"
