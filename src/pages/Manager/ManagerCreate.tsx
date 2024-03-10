@@ -14,7 +14,6 @@ const ManagerCreate: React.FC = () => {
                <div className={styles.Header}>
                   <ProfButton />
                </div>
-               {/* <CreateRequest /> */}
             </div>
          </div>
       </>

@@ -1,4 +1,4 @@
-export { ProfButton } from "./ProfButton";
+export { default as ProfButton } from './ProfButton';
 export { DataNumber } from "./DataNumber";
 export { NotifButton } from "./NotifButton";
 export { TimeFilter } from "./TimeFilter";
