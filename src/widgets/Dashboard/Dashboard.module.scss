@@ -1,8 +1,8 @@
 @import "../../app/styles/index.scss";
 
 .Dashboard {
+   z-index: 3;
    position: fixed;
-   z-index: 2;
    top: 0;
    left: 0;
    width: 126px;
