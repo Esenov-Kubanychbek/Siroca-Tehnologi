@@ -1,0 +1,55 @@
+@import "../../app/styles/index.scss";
+
+.NotificationModalWindow {
+   width: 100%;
+   height: 95vh;
+   display: flex;
+   justify-content: center;
+   position: relative;
+   background-color: $blackde;
+   transition: all 0.3s;
+
+   .Container {
+      border-radius: 8px;
+      padding: 50px 70px;
+      width: 790px;
+      height: 800px;
+      background: #ffffff;
+      position: absolute;
+      top: 100px;
+      overflow: hidden;
+      transition: all 0.3s;
+      .ContentBlock {
+         width: 100%;
+         height: 800px;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         overflow-x: hidden;
+         overflow-y: scroll;
+      }
+      .HeaderNotification {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         width: 100%;
+         height: 40px;
+         .NotifactionHeaderH3 {
+            display: flex;
+            align-items: center;
+            font-family: Geometria;
+            color: #252525e5;
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 40.26px;
+            width: 100%;
+            height: 80px;
+            background: #ffffff;
+            text-align: left;
+         }
+      }
+   }
+   .ContentBlock::-webkit-scrollbar {
+      display: none;
+   }
+}

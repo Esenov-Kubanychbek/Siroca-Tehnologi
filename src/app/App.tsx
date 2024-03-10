@@ -1,17 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Authorization from "../pages/Authorization/Authorization";
-import ClientPage from "../pages/ClientPage/ClientPage";
-import ManagerPage from "../pages/Manager/ManagerPage";
-import ManagerCreate from "../pages/Manager/ManagerCreate";
-import AdminPage from "../pages/Admin/AdminPage/AdminPage";
-import CreateItem from "../pages/Admin/CreateItem/CreateItem";
-import CreateCompany from "../pages/Admin/CreateCompany/CreateCompany";
-import CreateUser from "../pages/Admin/CreateUser/CreateUser";
-import CreatePosition from "../pages/Admin/CreatePosition/CreatePosition";
-import Companies from "../pages/Admin/Companies/Companies";
-import Users from "../pages/Admin/Users/Users";
-import Positions from "../pages/Admin/Positions/Positions";
-import Roles from "../pages/Admin/Roles/Roles";
+import { Authorization, ClientPage, ManagerPage, AdminPage, Companies, Users, Roles, WorkPage, Positions } from "../pages";
 
 const App = () => {
    return (
@@ -29,44 +17,28 @@ const App = () => {
             element={<ManagerPage />}
          />
          <Route
-            path="/managercreate"
-            element={<ManagerCreate />}
-         />
-         <Route
             path="/adminpage"
             element={<AdminPage />}
          />
          <Route
-            path="/createitem"
-            element={<CreateItem />}
+            path="/workpage"
+            element={<WorkPage />}
          />
          <Route
-            path="/createcompany"
-            element={<CreateCompany />}
-         />
-         <Route
-            path="/createuser"
-            element={<CreateUser />}
-         />
-         <Route
-            path="/createposition"
-            element={<CreatePosition />}
-         />
-         <Route
-            path="/companies"
+            path="/workpage/companies"
             element={<Companies />}
          />
          <Route
-            path="/users"
+            path="/workpage/users"
             element={<Users />}
          />
          <Route
-            path="/positions"
-            element={<Positions />}
+            path="/workpage/roles"
+            element={<Roles />}
          />
          <Route
-            path="/roles"
-            element={<Roles />}
+            path="/workpage/positions"
+            element={<Positions/>}
          />
          <Route
             path="*"

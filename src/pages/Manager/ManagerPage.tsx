@@ -1,7 +1,5 @@
-import styles from "./Manager.module.scss";
+import styles from "./ManagerPage.module.scss";
 
-const ManagerPage = () => {
+export const ManagerPage = () => {
    return <div className={styles.ManagerPage}>ManagerPage</div>;
 };
-
-export default ManagerPage;

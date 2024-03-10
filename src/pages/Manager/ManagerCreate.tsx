@@ -8,7 +8,7 @@ const ManagerCreate: React.FC = () => {
       <>
          <div className={styles.bodyAll}>
             <div className={styles.Menu}>
-               <Dashboard role="admin" />
+               <Dashboard />
             </div>
             <div className={styles.bodyReguest}>
                <div className={styles.Header}>
