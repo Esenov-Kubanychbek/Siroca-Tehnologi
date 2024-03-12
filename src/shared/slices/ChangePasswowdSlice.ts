@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-export interface changePassword {
+interface changePassword {
     changePassword: boolean;
 }
 
@@ -8,18 +8,17 @@ const initialState: changePassword = {
     changePassword: false,
 };
 
-
 const changePassword = createSlice({
-  name: 'changePassword',
-  initialState,
-  reducers: {
-    openChangePassword: (state) => {
-      state.changePassword = true;
+    name: "changePassword",
+    initialState,
+    reducers: {
+        openChangePassword: (state) => {
+            state.changePassword = true;
+        },
+        closeChangePassword: (state) => {
+            state.changePassword = false;
+        },
     },
-    closeChangePassword: (state) => {
-      state.changePassword = false;
-    },  
-  },
 });
 
 export const { openChangePassword, closeChangePassword } = changePassword.actions;

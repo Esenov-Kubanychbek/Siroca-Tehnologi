@@ -1,21 +1,26 @@
 @import "../../../app/styles/index.scss";
 
 .Profile {
-   width: 200px;
-   height: 56px;
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   margin-inline: 16px;
+    cursor: pointer;
+    width: 200px;
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-inline: 16px;
+    background: none;
+    border: none;
 }
 
 .ProfileImage {
-   width: 34px;
-   height: 34px;
+    width: 34px;
+    height: 34px;
 }
 
 .ProfileWord {
-   font-weight: 700;
-   font-size: 20px;
-   line-height: 25px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+    background: none;
+    border: none;
 }

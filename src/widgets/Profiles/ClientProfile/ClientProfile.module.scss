@@ -5,22 +5,20 @@
     padding: 75px 0;
     margin: 0;
     position: fixed;
-    border-left: 2px solid var(---200, #DEDEDE);
-    background: var(---White, #FFF);
+    border-left: 2px solid var(---200, #dedede);
+    background: var(---White, #fff);
     height: 100%;
-    transition: transform .5s ease;
+    transition: transform 0.5s ease;
     z-index: 5;
     .closeButton {
         position: absolute;
         right: 100px;
         top: 30px;
     }
-
 }
-.open{
-     transform: translateX(1000px);
-
+.open {
+    transform: translateX(1000px);
 }
-.close{
+.close {
     transform: translateX(1830px);
 }

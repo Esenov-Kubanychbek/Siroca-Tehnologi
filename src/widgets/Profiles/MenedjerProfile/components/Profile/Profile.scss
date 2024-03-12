@@ -1,6 +1,6 @@
 .Profile {
     font-weight: 700;
-    background-color: #F4F4F4;
+    background-color: #f4f4f4;
     display: flex;
     padding-bottom: 20px;
     flex-direction: column;
@@ -10,22 +10,20 @@
     margin: 10px;
     .block1 {
         padding: 0 230px 0 10px;
-        border-bottom: 1px solid var(---300, #A8A8A8);
+        border-bottom: 1px solid var(---300, #a8a8a8);
 
         p {
             color: var(---800, #252525);
             font-size: 32px;
-
         }
     }
-
 
     .block2 {
         width: 320px;
         padding-top: 25px;
 
         label {
-            color: rgba(37, 37, 37, 0.90);
+            color: rgba(37, 37, 37, 0.9);
             font-size: 18px;
         }
     }

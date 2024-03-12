@@ -1,29 +1,29 @@
 @import "../../app/styles/index.scss";
 
 .DashboardButton {
-   width: 60px;
-   height: 56px;
-   display: flex;
-   background-color: $background;
-   justify-content: center;
-   align-items: center;
-   border-radius: 8px;
-   margin-bottom: 20px;
-   svg {
-      color: $black3b;
-   }
+    width: 60px;
+    height: 56px;
+    display: flex;
+    background-color: $background;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    svg {
+        color: $black3b;
+    }
 }
 
 .DashboardButton:global(.active) {
-   background-color: $blue;
-   svg {
-      color: white;
-   }
+    background-color: $blue;
+    svg {
+        color: white;
+    }
 }
 
 .LoginButton {
-   margin: 18px;
-   position: absolute;
-   left: 33px;
-   bottom: 40px;
+    margin: 18px;
+    position: absolute;
+    left: 33px;
+    bottom: 40px;
 }

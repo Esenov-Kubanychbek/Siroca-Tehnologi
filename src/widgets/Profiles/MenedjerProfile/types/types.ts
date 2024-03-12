@@ -1,8 +1,8 @@
 export interface propsInput {
-    name: string,
-    placeholder: string,
+    name: string;
+    placeholder: string;
 }
 export interface propsButton {
-    className: string,
-    value: string,
+    className: string;
+    value: string;
 }
