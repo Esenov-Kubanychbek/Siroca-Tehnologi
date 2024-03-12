@@ -8,29 +8,27 @@
     border-radius: 8px;
     width: 400px;
     margin: 10px;
-    
-    border-left: 2px solid var(---200, #DEDEDE);
+
+    border-left: 2px solid var(---200, #dedede);
     .block1 {
         padding: 0 230px 0 10px;
 
         p {
             color: var(---800, #252525);
             font-size: 32px;
-
         }
     }
-
 
     .block2 {
         width: 320px;
         padding-top: 25px;
 
         label {
-            color: rgba(37, 37, 37, 0.90);
+            color: rgba(37, 37, 37, 0.9);
             font-size: 18px;
         }
     }
 }
-.close{
+.close {
     display: none;
 }

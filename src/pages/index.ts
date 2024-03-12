@@ -2,8 +2,4 @@ export { Authorization } from "./Authorization/Authorization";
 export { ClientPage } from "./Client/ClientPage";
 export { ManagerPage } from "./Manager/ManagerPage";
 export { AdminPage } from "./Admin/AdminPage/AdminPage";
-export { Companies } from "./Admin/Companies/Companies";
-export { Users } from "./Admin/Users/Users";
-export { Positions } from "./Admin/Positions/Positions";
-export { Roles } from "./Admin/Roles/Roles";
 export { WorkPage } from "./Admin/WorkPage/WorkPage";

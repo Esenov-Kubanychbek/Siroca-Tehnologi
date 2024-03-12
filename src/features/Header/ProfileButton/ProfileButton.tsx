@@ -1,42 +1,44 @@
-<<<<<<< HEAD:src/features/Header/ProfButton.tsx
-import { useAppDispatch } from '../../app/store/hooks';
-import styles from './Header.module.scss';
-import profileImage from '../../shared/assets/profileImage.png';
-import { openModal } from '../../shared/slices/ModalSlice';
-
-const ProfButton = () => {
-  const dispatch = useAppDispatch();
-
-  const handleOpenModal = () => {
-    dispatch(openModal('clientProfile'));
-  };
-
-  return (
-    <div onClick={handleOpenModal} className={styles.Profile}>
-      <img
-        alt="profile"
-        src={profileImage}
-        className={styles.ProfileImage}
-      />
-      <div className={styles.ProfileWord}>Мой профиль</div>
-    </div>
-  );
-=======
 import styles from "./ProfileButton.module.scss";
 import profileImage from "../../../shared/assets/profileImage.svg";
+import { Modal } from "antd";
+import { useState } from "react";
+import Profile from "../../../widgets/Profiles/ClientProfile/components/Profile/Profile";
 
 export const ProfileButton = () => {
-   return (
-      <div className={styles.Profile}>
-         <img
-            alt="profile"
-            src={profileImage}
-            className={styles.ProfileImage}
-         />
-         <div className={styles.ProfileWord}>Мой профиль</div>
-      </div>
-   );
->>>>>>> e3548300379137e7374ed948f601a3e1ccf888cd:src/features/Header/ProfileButton/ProfileButton.tsx
-};
+    const [isModal, setIsModal] = useState<boolean>(false);
 
-export default ProfButton;
+    const showModal = () => {
+        setIsModal(true);
+    };
+
+    const handleOk = () => {
+        setIsModal(false);
+    };
+
+    const handleCancel = () => {
+        setIsModal(false);
+    };
+    return (
+        <button aria-label="profile" className={styles.Profile}>
+            <img
+                alt="profile"
+                src={profileImage}
+                className={styles.ProfileImage}
+            />
+            <button
+                onClick={showModal} 
+                className={styles.ProfileWord}
+                aria-label="profile"
+            >
+                Мой профиль
+            </button>
+            <Modal
+                open={isModal}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                <Profile />
+            </Modal>
+        </button>
+    );
+};

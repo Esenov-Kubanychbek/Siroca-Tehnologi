@@ -1,30 +1,37 @@
-import styles from './AdminNavigate.module.scss';
-import { NavLink } from 'react-router-dom';
-interface IMargin{
-   margin:number
-   width?:number
-}
+import { FC } from "react";
+import { Tabs } from "antd";
+import type { TabsProps } from "antd";
+import { Companies, Positions, Roles, Users, } from "./../../widgets";
+import styles from "./AdminNavigate.module.scss";
 
-export const AdminNavigate:React.FC<IMargin> = ({margin,width}) => {
-   return (
-      <div className={styles.AdminNavigate}>
-         <div className={styles.Links}>
-            <NavLink className={styles.Name} to="/workpage/companies">
-               Компании
-            </NavLink>
-            <NavLink className={styles.Name} to="/workpage/users">
-               Пользователи
-            </NavLink>
-            <NavLink className={styles.Name} to="/workpage/positions">
-               Должности
-            </NavLink>
-            <NavLink className={styles.Name} to="/workpage/roles">
-               Тип роли
-            </NavLink>
-         </div>
-         <div className={styles.Line}>
-            <div style={{marginLeft:`${margin}px`, width:`${width}px`}}/>
-         </div>
-      </div>
-   )
-}
+export const AdminNavigate: FC = () => {
+    const items: TabsProps["items"] = [
+        {
+            key: "1",
+            label: "Компании",
+            children: <Companies />,
+        },
+        {
+            key: "2",
+            label: "Пользователи",
+            children: <Users/>,
+        },
+        {
+            key: "3",
+            label: "Должности",
+            children: <Positions/>,
+        },
+        {
+            key: "4",
+            label: "Тип роли",
+            children: <Roles/>,
+        },
+    ];
+    return (
+        <Tabs
+            className={styles.Tabs}
+            defaultActiveKey="1"
+            items={items}
+        />
+    );
+};

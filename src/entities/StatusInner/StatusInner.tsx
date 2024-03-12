@@ -1,7 +1,5 @@
-interface IStatus {
-   count: number;
-}
+import { FC } from "react";
 
-export const StatusInner: React.FC<IStatus> = ({ count }) => {
-   return <div>{count}</div>;
+export const StatusInner: FC<{ count: number }> = ({ count }) => {
+    return <div>{count}</div>;
 };

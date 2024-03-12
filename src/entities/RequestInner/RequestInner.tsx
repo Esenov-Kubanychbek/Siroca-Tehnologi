@@ -1,8 +1,7 @@
-interface IPropsInner {
-   content: string;
-   width?: number;
-}
+import { FC } from "react";
+import { IRequestInner } from "./model/types";
 
-export const RequestInner: React.FC<IPropsInner> = ({ content, width }) => {
-   return <div style={{ width: `${width}px` }}>{content}</div>;
+export const RequestInner: FC<IRequestInner> = (props) => {
+    const { content, width } = props;
+    return <div style={{ width: `${width}px` }}>{content}</div>;
 };

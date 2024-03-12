@@ -12,21 +12,36 @@ $error: #e51616;
 $background: #f4f4f4;
 
 @mixin md {
-   @media screen and (max-width: 1440px) {
-      @content;
-   }
+    @media screen and (max-width: 1440px) {
+        @content;
+    }
 }
 
 @mixin lg {
-   @media screen and (max-width: 1920px) {
-      @content;
-   }
+    @media screen and (max-width: 1920px) {
+        @content;
+    }
 }
 
 body {
-   display: flex;
-   justify-content: center;
-   font-family: "Geometria", sans-serif;
-   margin: 0;
-   padding: 0;
+    display: flex;
+    justify-content: center;
+    font-family: "Geometria", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    font-family: "Geometria", sans-serif;
+    cursor: pointer;
+}
+
+*::-webkit-scrollbar {
+    background-color: $blackf4;
+    width: 22px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $blue;
+    border-radius: 30px;
 }
