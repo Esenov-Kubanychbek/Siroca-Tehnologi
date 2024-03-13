@@ -1,9 +1,15 @@
 @import "../../../app/styles/index.scss";
 
-.Notification {
+.NotifButton {
     width: 34px;
     height: 34px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
 }
 
 .NotifNumber {
