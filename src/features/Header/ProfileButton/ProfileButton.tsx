@@ -1,44 +1,37 @@
 import styles from "./ProfileButton.module.scss";
 import profileImage from "../../../shared/assets/profileImage.svg";
 import { Modal } from "antd";
-import { useState } from "react";
 import Profile from "../../../widgets/Profiles/ClientProfile/components/Profile/Profile";
+import useModal from "./ProfileZustand";
 
 export const ProfileButton = () => {
-    const [isModal, setIsModal] = useState<boolean>(false);
-
-    const showModal = () => {
-        setIsModal(true);
-    };
-
-    const handleOk = () => {
-        setIsModal(false);
-    };
-
-    const handleCancel = () => {
-        setIsModal(false);
-    };
+    const modal = useModal();
     return (
-        <button aria-label="profile" className={styles.Profile}>
-            <img
-                alt="profile"
-                src={profileImage}
-                className={styles.ProfileImage}
-            />
+        <>
             <button
-                onClick={showModal} 
-                className={styles.ProfileWord}
+                onClick={modal.open}
                 aria-label="profile"
+                className={styles.Profile}
             >
-                Мой профиль
+                <img
+                    alt="profile"
+                    src={profileImage}
+                    className={styles.ProfileImage}
+                />
+                <button
+                    className={styles.ProfileWord}
+                    aria-label="profile-second"
+                >
+                    Мой профиль
+                </button>
             </button>
             <Modal
-                open={isModal}
-                onOk={handleOk}
-                onCancel={handleCancel}
+                open={modal.isOpen}
+                onOk={modal.close}
+                onCancel={modal.close}
             >
                 <Profile />
             </Modal>
-        </button>
+        </>
     );
 };
