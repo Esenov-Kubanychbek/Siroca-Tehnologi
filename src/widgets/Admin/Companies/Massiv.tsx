@@ -1,0 +1,25 @@
+
+
+ export const massiv = [
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+        {compani: 'Оптима', strcompani: 'Кыргызстан', kolUser: '------', kolZayavok: '5', menedjer: 'Аширжанова Уулкан', daraCreate: '12.08.24', redact: '15.08.24'},
+    ]
