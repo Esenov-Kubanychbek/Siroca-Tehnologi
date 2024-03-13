@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
-import { Companies, Positions, Roles, Users, } from "./../../widgets";
+import { Companies, Positions, Roles, Users } from "./../../widgets";
 import styles from "./AdminNavigate.module.scss";
 
 export const AdminNavigate: FC = () => {
@@ -14,17 +14,17 @@ export const AdminNavigate: FC = () => {
         {
             key: "2",
             label: "Пользователи",
-            children: <Users/>,
+            children: <Users />,
         },
         {
             key: "3",
             label: "Должности",
-            children: <Positions/>,
+            children: <Positions />,
         },
         {
             key: "4",
             label: "Тип роли",
-            children: <Roles/>,
+            children: <Roles />,
         },
     ];
     return (

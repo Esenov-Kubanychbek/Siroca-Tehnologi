@@ -1,1 +1,32 @@
 @import "../../../app/styles/index.scss";
+
+.Positions {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Name {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.Input {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0 20px 0;
+}
+
+.PositionsList {
+    height: 700px;
+    width: 380px;
+    .Inner {
+        width: 350px;
+        box-shadow: 0px 1px 20px 0px rgba(22, 22, 22, 0.15);
+    }
+    overflow-x: hidden;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+}
