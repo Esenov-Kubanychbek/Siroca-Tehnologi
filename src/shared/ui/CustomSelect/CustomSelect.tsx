@@ -6,7 +6,7 @@ import { ISelect } from "./model/types";
 export const CustomSelect: FC<ISelect> = (props) => {
     const { width, name } = props;
     return (
-        <div
+        <select
             className={styles.DropDown}
             style={{ width: `${width}px` }}
         >
@@ -14,6 +14,6 @@ export const CustomSelect: FC<ISelect> = (props) => {
             <div className={styles.Drop}>
                 <ArrowDown2 />
             </div>
-        </div>
+        </select>
     );
 };
