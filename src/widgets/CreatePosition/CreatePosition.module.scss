@@ -1,0 +1,26 @@
+@import "../../app/styles/index.scss";
+
+.CreatePosition {
+    width: 560px;
+    height: 216px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Word {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.Buttons {
+    width: 316px;
+    display: flex;
+    justify-content: space-between;
+}
