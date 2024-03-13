@@ -1,0 +1,85 @@
+.HeaderSettings {
+    display: flex;
+
+    /* Добавляем горизонтальный скролл при нехватке места */
+    .HeaderItem {
+        min-width: 226px;
+        height: 60px;
+        display: flex;
+        padding: 10px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-right: 1px solid var(--White, #FFF);
+        border-left: 1px solid var(--White, #FFF);
+        background: var(--800, #1C6AB1);
+
+        p {
+            color: var(---White, #FFF);
+            text-align: center;
+
+            /* 1920/Body M/700 */
+            font-family: Geometria;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            margin: 0;
+        }
+    }
+
+    .HeaderName {
+        display: flex;
+        min-width: 270px;
+        height: 60px;
+        padding: 10px 16px;
+        align-items: center;
+        gap: 10px;
+        border-right: 1px solid var(---White, #FFF);
+        border-left: 1px solid var(---White, #FFF);
+        background: var(---800, #1C6AB1);
+
+        .name {
+            color: var(---White, #FFF);
+
+            /* 1920/Body L/700 */
+            font-family: Geometria;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            margin: 0;
+        }
+
+    }
+
+    .HeaderNum {
+        display: flex;
+        min-width: 48px;
+        height: 60px;
+        padding: 10px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-right: 1px solid var(---White, #FFF);
+        border-left: 1px solid var(---White, #FFF);
+        background: var(---800, #1C6AB1);
+
+        .num {
+            color: var(---White, #FFF);
+            text-align: center;
+
+            /* 1920/Body L/700 */
+            font-family: Geometria;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            width: 24px;
+            height: 25px;
+            flex-shrink: 0;
+        }
+
+    }
+}
