@@ -2,12 +2,13 @@ import styles from "./Auth.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useState, FormEvent } from "react";
 import axios from "axios";
-import { EyeSlash } from "iconsax-react";
+import { EyeSlash, InfoCircle } from "iconsax-react";
 
 export const Authorization = () => {
     const [login, setLogin] = useState<string>("");
     const [password, setPasswod] = useState<string>("");
     const navigate = useNavigate();
+    const [err, setErr] = useState(false)
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const loginInfo = {
@@ -21,7 +22,7 @@ export const Authorization = () => {
             if (response.data.isReg === 4) {
                 navigate("/clientpage");
             } else {
-                console.log("Not logined");
+                setErr(true)
             }
         } catch (error) {
             console.log(error, "error");
@@ -39,8 +40,14 @@ export const Authorization = () => {
                 alt="Logo"
             />
             <h1 className={styles.H1}>Вход в личный кабинет</h1>
-            <div className={styles.InputsBlock}>
-                <div className={styles.InputCont}>
+            {err ? <div className={styles.Err}>
+                <InfoCircle size={32} color="red"/>
+                <p>Вы ввели неправильный логин или пароль.
+                    Проверьте свои данные еще раз.</p>
+            </div> : null}
+
+            <div className={err ? styles.InputsBlockErr : styles.InputsBlock}>
+                <div className={err ? styles.ErrInputCont :styles.InputCont}>
                     <p>Логин</p>
                     <input
                         onChange={(e) => setLogin(e.target.value)}
@@ -48,7 +55,7 @@ export const Authorization = () => {
                         type="text"
                     />
                 </div>
-                <div className={styles.InputCont}>
+                <div className={err ? styles.ErrInputCont :styles.InputCont}>
                     <p>Пароль</p>
                     <div>
                         <input
@@ -56,7 +63,7 @@ export const Authorization = () => {
                             placeholder="Введите пароль"
                             type="password"
                         />
-                        <EyeSlash color="#3B3B3B" />
+                        <EyeSlash color={err ? "#E51616" : "#3B3B3B"} />
                     </div>
                 </div>
                 <a
@@ -67,7 +74,7 @@ export const Authorization = () => {
                 </a>
             </div>
             <button
-                className={styles.EnterButton}
+                className={err? styles.ErrEnterButton : styles.EnterButton}
                 type="submit"
             >
                 Войти
