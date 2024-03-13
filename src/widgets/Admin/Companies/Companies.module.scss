@@ -1,40 +1,50 @@
 @import "../../../app/styles/index.scss";
-.Companies{
-    .searchCompanies{
+
+.Companies {
+    .searchCompanies {
         display: flex;
         justify-content: space-between;
-        margin-right: 16px; 
+        margin-right: 50px;
     }
-    ul{
-        margin-right: 20px;
+
+    ul {
         margin-left: -40px;
-        box-shadow: 10px 10px 10px rgba(206, 191, 191, 0.16);
-        .scrol{
+
+        .scrol {
             height: 648px;
             overflow-y: auto;
-            &::-webkit-scrollbar{
-                width: 22px;
+
+            &::-webkit-scrollbar {
+                width: 10px;
             }
-            &::-webkit-scrollbar-thumb{
-                width: 22px;
-                margin-right: -100px;
+
+            div {
+
+                margin-right: 40px;
+                border-radius: 0 0 8px 8px;
+                
+        box-shadow: 10px 10px 10px rgba(206, 191, 191, 0.16);
             }
         }
-        li{
+
+        li {
             list-style-type: none;
             display: flex;
             justify-content: space-between;
             padding: 16px 26px;
-            
-            div{
+
+            div {
                 font-size: 18px;
                 font-weight: 700;
             }
         }
-        .h{
+
+        .h {
             background-color: $blue;
             color: $blackf4;
             border-radius: 8px 8px 0 0;
+            
+            margin-right: 50px;
         }
     }
 }
