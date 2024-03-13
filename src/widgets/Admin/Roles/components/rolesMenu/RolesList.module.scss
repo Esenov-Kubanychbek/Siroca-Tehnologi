@@ -1,0 +1,50 @@
+.MenuCont {
+    width: 450px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    .HeaderPrg {
+        p{
+            color: var(---800, #252525);
+        text-align: center;
+        /* 1920/Header/h3 */
+        font-family: Geometria;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin: 0;  
+        }
+       
+    }
+
+    .ListItem {
+        display: flex;
+        width: 418px;
+        padding: 16px;
+        align-items: flex-start;
+        gap: 16px;
+        border-radius: 8px;
+        background: var(---100, #F4F4F4);
+
+        input {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0; 
+
+        }
+
+        p {
+            color: var(---700, #3B3B3B);
+            margin: 0;
+            /* 1920/Body L/500 */
+            font-family: Geometria;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+    }
+}
