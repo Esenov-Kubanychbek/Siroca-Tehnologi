@@ -1,0 +1,27 @@
+@import '../../../app/styles/index.scss';
+
+.RoleContainer{
+    width: 340px;
+    height: 60px;
+    background-color: $blackf4;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    input{
+        width: 28px;
+        height: 28px;
+    }
+}
+.Role{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 34px;
+    margin-top: 16px;
+    margin-right: 34px;
+    margin-bottom: 16px;
+}
+
+.Text{
+    font-size: 16px;
+    font-weight: 500;
+}
