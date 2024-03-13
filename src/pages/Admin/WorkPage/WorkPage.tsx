@@ -7,7 +7,7 @@ export const WorkPage = () => {
         <div className={styles.WorkPage}>
             <Dashboard />
             <div className={styles.Inner}>
-                <Administration margin={0} />
+                <Administration />
             </div>
         </div>
     );
