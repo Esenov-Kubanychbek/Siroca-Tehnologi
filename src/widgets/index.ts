@@ -13,3 +13,4 @@ export { Users } from "./Admin/Users/Users";
 export { CallToAdmin } from "./CallToAdmin/CallToAdmin";
 export { RequestList } from "./ListContainer/RequestList/RequestList";
 export { RequestTop } from "./ListContainer/RequestList/RequestTop";
+export {ModalProfile} from "./ModalProfile/ModalProfile"
