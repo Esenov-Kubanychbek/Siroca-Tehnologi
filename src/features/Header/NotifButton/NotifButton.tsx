@@ -1,16 +1,11 @@
 import { Notification } from "iconsax-react";
 import styles from "./NotifButton.module.scss";
-import { Modal } from "antd";
-import useModal from "../ProfileButton/ProfileZustand";
-import { ListContainer } from "../../../widgets";
 
 export const NotifButton = () => {
-    const modal = useModal();
     return (
         <>
             <button
                 aria-label="notif"
-                onClick={modal.open}
                 className={styles.NotifButton}
             >
                 <Notification
@@ -20,13 +15,6 @@ export const NotifButton = () => {
                 />
                 <div className={styles.NotifNumber}>5</div>
             </button>
-            <Modal
-                open={modal.isOpen}
-                onOk={modal.close}
-                onCancel={modal.close}
-            >
-                <ListContainer />
-            </Modal>
         </>
     );
 };

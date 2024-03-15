@@ -13,3 +13,4 @@ export { Companies } from "./Admin/Companies/Companies";
 export { Positions } from "./Admin/Positions/Positions";
 export { Roles } from "./Admin/Roles/Roles";
 export { Users } from "./Admin/Users/Users";
+export {ModalProfile} from "./ModalProfile/ModalProfile"
