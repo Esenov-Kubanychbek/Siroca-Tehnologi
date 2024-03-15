@@ -7,7 +7,7 @@ export const FilterButton = () => {
             <Filter
                 size={34}
                 variant={"Bold"}
-                color="white"
+                color="#1C6AB1"
             />
         </div>
     );

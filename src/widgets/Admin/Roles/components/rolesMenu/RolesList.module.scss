@@ -6,18 +6,17 @@
     gap: 10px;
 
     .HeaderPrg {
-        p{
+        p {
             color: var(---800, #252525);
-        text-align: center;
-        /* 1920/Header/h3 */
-        font-family: Geometria;
-        font-size: 32px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        margin: 0;  
+            text-align: center;
+            /* 1920/Header/h3 */
+            font-family: Geometria;
+            font-size: 32px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            margin: 0;
         }
-       
     }
 
     .ListItem {
@@ -27,17 +26,16 @@
         align-items: flex-start;
         gap: 16px;
         border-radius: 8px;
-        background: var(---100, #F4F4F4);
+        background: var(---100, #f4f4f4);
 
         input {
             width: 20px;
             height: 20px;
-            flex-shrink: 0; 
-
+            flex-shrink: 0;
         }
 
         p {
-            color: var(---700, #3B3B3B);
+            color: var(---700, #3b3b3b);
             margin: 0;
             /* 1920/Body L/500 */
             font-family: Geometria;

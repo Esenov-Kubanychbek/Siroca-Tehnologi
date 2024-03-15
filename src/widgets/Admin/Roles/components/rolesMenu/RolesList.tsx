@@ -1,30 +1,28 @@
-import React from "react"
-import styles from "./RolesList.module.scss"
+import React from "react";
+import styles from "./RolesList.module.scss";
 
-interface IRolesList{
-    list: object,
-    listType: string
+interface IRolesList {
+    list: object;
+    listType: string;
 }
 
-const RolesList:React.FC<IRolesList> = ({list, listType}) => {
-   
-    return(
-        <div className={styles.MenuCont}>   
-        <div className={styles.HeaderPrg}>
-            <p>{listType}</p>
-        </div>
-        {/* <div className={styles.RenderCont}> */}
-            {
-                list.map((el) => {
-                    return <div className={styles.ListItem}>
+const RolesList: React.FC<IRolesList> = ({ list, listType }) => {
+    return (
+        <div className={styles.MenuCont}>
+            <div className={styles.HeaderPrg}>
+                <p>{listType}</p>
+            </div>
+            {/* <div className={styles.RenderCont}> */}
+            {list.map((el) => {
+                return (
+                    <div className={styles.ListItem}>
                         <input type="checkbox" /> <p>{el}</p>
                     </div>
-                })
-            }
-        {/* </div> */}
-            
+                );
+            })}
+            {/* </div> */}
         </div>
-    )
-}
+    );
+};
 
-export default RolesList
+export default RolesList;

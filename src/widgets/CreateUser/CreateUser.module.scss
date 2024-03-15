@@ -1,6 +1,6 @@
-@import '../../app/styles/index.scss';
+@import "../../app/styles/index.scss";
 
-.CreateUser{
+.CreateUser {
     width: 700px;
     height: 684px;
     display: flex;
@@ -9,32 +9,32 @@
     margin-left: 70px;
     margin-right: 70px;
 
-    .TextTop{
+    .TextTop {
         font-size: 32px;
         font-weight: 700;
     }
 }
-.Top{
+.Top {
     display: flex;
     justify-content: space-between;
-    
-    .Close{
+
+    .Close {
         cursor: pointer;
     }
 }
 
-.Text{
+.Text {
     font-size: 18px;
     font-weight: 700;
 }
-.Text2{
+.Text2 {
     margin-top: 20px;
     font-size: 16px;
     font-weight: 500;
     color: $black;
 }
 
-.AddPhoto{
+.AddPhoto {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,24 +47,24 @@
     text-align: center;
 }
 
-.Description{
+.Description {
     display: flex;
     justify-content: space-between;
     height: 190px;
     width: 560px;
 }
 
-.Login{
+.Login {
     display: flex;
     justify-content: space-between;
 }
 
-.AddRole{
+.AddRole {
     display: flex;
     justify-content: space-between;
 }
 
-.Buttons{
+.Buttons {
     display: flex;
     justify-content: space-between;
     width: 316px;

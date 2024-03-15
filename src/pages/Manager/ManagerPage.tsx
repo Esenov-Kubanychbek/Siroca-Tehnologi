@@ -1,13 +1,10 @@
-import { ListTopName } from "../../shared/ui/ListTop/ListTopName";
 import styles from "./ManagerPage.module.scss";
+import { Header } from "../../widgets";
 
 export const ManagerPage = () => {
     return (
         <div className={styles.ManagerPage}>
-            <ListTopName
-                width={100}
-                name="IT"
-            />
+            <Header role="manager" />
         </div>
     );
 };

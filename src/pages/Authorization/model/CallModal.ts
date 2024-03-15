@@ -6,10 +6,10 @@ interface IModal {
     close: () => void;
 }
 
-const userModal = create<IModal>((set) => ({
+const callModal = create<IModal>((set) => ({
     isOpen: false,
     open: () => set({ isOpen: true }),
     close: () => set({ isOpen: false }),
 }));
 
-export default userModal;
+export default callModal;

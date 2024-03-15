@@ -11,14 +11,8 @@ $success: #008a15;
 $error: #e51616;
 $background: #f4f4f4;
 
-@mixin md {
-    @media screen and (max-width: 1440px) {
-        @content;
-    }
-}
-
 @mixin lg {
-    @media screen and (max-width: 1920px) {
+    @media screen and (max-width: 1820px) {
         @content;
     }
 }
@@ -36,7 +30,8 @@ button {
     font-family: "Geometria", sans-serif;
     cursor: pointer;
 }
-p{
+
+p {
     margin: 0;
     padding: 0;
 }

@@ -1,103 +1,70 @@
 @import "../../../app/styles/index.scss";
 
-.regular {
-    font-weight: 400;
-}
-
 .medium {
     font-weight: 500;
 }
 
-.semibold {
-    font-weight: 600;
-}
-
-.bold {
-    font-weight: 700;
-}
-
-.black {
-    color: $colorBlack;
+.blue {
+    color: $blue;
 }
 
 .white {
-    color: $colorWhite;
+    color: white;
 }
 
-.gold {
-    color: $colorPrimary;
+.black {
+    color: $black;
 }
 
-.ellipsis {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+.error {
+    color: $error;
 }
 
-.large {
-    font-size: 90px;
-    @extend .bold;
-    @include tablet {
-        font-size: 44px;
-    }
-    @include mobile {
-        font-size: 44px;
-    }
+.h1,
+.h2,
+.h3,
+.h4 {
+    font-weight: 700;
 }
 
 .h1 {
-    font-size: 42px;
-    @extend .bold;
-    @include tablet {
-        font-size: 28px;
-    }
-    @include mobile {
-        font-size: 28px;
+    font-size: 48px;
+    @include lg {
+        font-size: 38px;
     }
 }
 
 .h2 {
-    font-size: 36px;
-    @extend .bold;
-    @include tablet {
-        font-size: 26px;
-    }
-    @include mobile {
-        font-size: 26px;
+    font-size: 40px;
+    @include lg {
+        font-size: 30px;
     }
 }
 
 .h3 {
-    font-size: 28px;
-    @extend .semibold;
-    @extend .gold;
-    @include tablet {
-        font-size: 23px;
+    font-size: 32px;
+    @include lg {
+        font-size: 24px;
     }
-    @include mobile {
-        font-size: 23px;
+}
+
+.h4 {
+    font-size: 24px;
+    @include lg {
+        font-size: 20px;
     }
 }
 
 .button {
     font-size: 24px;
-    @extend .regular;
-    @include tablet {
-        font-size: 14px;
-    }
-    @include mobile {
+    @include lg {
         font-size: 14px;
     }
 }
 
 .body {
     font-size: 20px;
-    @extend .regular;
-    @extend .white;
-    @include tablet {
-        font-size: 14px;
-    }
-    @include mobile {
+    @include lg {
         font-size: 14px;
     }
 }
