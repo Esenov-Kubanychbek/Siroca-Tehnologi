@@ -1,8 +1,7 @@
 import { FC } from "react";
-import { Tabs } from "antd";
+import { ConfigProvider, Tabs } from "antd";
 import type { TabsProps } from "antd";
 import { Companies, Positions, Roles, Users } from "./../../widgets";
-import styles from "./AdminNavigate.module.scss";
 
 export const AdminNavigate: FC = () => {
     const items: TabsProps["items"] = [
@@ -28,10 +27,26 @@ export const AdminNavigate: FC = () => {
         },
     ];
     return (
-        <Tabs
-            className={styles.Tabs}
-            defaultActiveKey="1"
-            items={items}
-        />
+        <ConfigProvider
+            theme={{
+                components: {
+                    Tabs: {
+                        itemColor: "#252525",
+                        itemHoverColor: "#1C6AD2",
+                        itemSelectedColor: "#1C6AB1",
+                        fontFamily: "Geometria",
+                        fontSize: 24,
+                    },
+                },
+            }}
+        >
+            <Tabs
+                defaultActiveKey="1"
+                items={items}
+                tabBarStyle={{
+                    fontWeight: 700,
+                }}
+            />
+        </ConfigProvider>
     );
 };

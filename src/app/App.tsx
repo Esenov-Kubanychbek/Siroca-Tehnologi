@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import { Authorization, ClientPage, ManagerPage, AdminPage, WorkPage } from "../pages";
-import CallToAdmin from "../widgets/CallToAdmin/CallToAdmin";
 
 const App = () => {
     return (

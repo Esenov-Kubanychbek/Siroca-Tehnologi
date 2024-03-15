@@ -10,12 +10,12 @@
         justify-content: center;
         align-items: center;
         gap: 10px;
-        border-right: 1px solid var(--White, #FFF);
-        border-left: 1px solid var(--White, #FFF);
-        background: var(--800, #1C6AB1);
+        border-right: 1px solid var(--White, #fff);
+        border-left: 1px solid var(--White, #fff);
+        background: var(--800, #1c6ab1);
 
         p {
-            color: var(---White, #FFF);
+            color: var(---White, #fff);
             text-align: center;
 
             /* 1920/Body M/700 */
@@ -35,12 +35,12 @@
         padding: 10px 16px;
         align-items: center;
         gap: 10px;
-        border-right: 1px solid var(---White, #FFF);
-        border-left: 1px solid var(---White, #FFF);
-        background: var(---800, #1C6AB1);
+        border-right: 1px solid var(---White, #fff);
+        border-left: 1px solid var(---White, #fff);
+        background: var(---800, #1c6ab1);
 
         .name {
-            color: var(---White, #FFF);
+            color: var(---White, #fff);
 
             /* 1920/Body L/700 */
             font-family: Geometria;
@@ -50,7 +50,6 @@
             line-height: normal;
             margin: 0;
         }
-
     }
 
     .HeaderNum {
@@ -62,12 +61,12 @@
         justify-content: center;
         align-items: center;
         gap: 10px;
-        border-right: 1px solid var(---White, #FFF);
-        border-left: 1px solid var(---White, #FFF);
-        background: var(---800, #1C6AB1);
+        border-right: 1px solid var(---White, #fff);
+        border-left: 1px solid var(---White, #fff);
+        background: var(---800, #1c6ab1);
 
         .num {
-            color: var(---White, #FFF);
+            color: var(---White, #fff);
             text-align: center;
 
             /* 1920/Body L/700 */
@@ -80,6 +79,5 @@
             height: 25px;
             flex-shrink: 0;
         }
-
     }
 }

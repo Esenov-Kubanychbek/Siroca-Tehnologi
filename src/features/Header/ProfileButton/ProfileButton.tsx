@@ -16,14 +16,8 @@ export const ProfileButton = () => {
                 <img
                     alt="profile"
                     src={profileImage}
-                    className={styles.ProfileImage}
                 />
-                <button
-                    className={styles.ProfileWord}
-                    aria-label="profile-second"
-                >
-                    Мой профиль
-                </button>
+                <div aria-label="profile-second">Мой профиль</div>
             </button>
             <Modal
                 bodyStyle={{

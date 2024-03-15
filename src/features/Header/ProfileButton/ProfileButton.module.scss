@@ -7,20 +7,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-inline: 16px;
+    padding: 16px;
     background: none;
     border: none;
-}
-
-.ProfileImage {
-    width: 34px;
-    height: 34px;
-}
-
-.ProfileWord {
     font-weight: 700;
     font-size: 18px;
-    line-height: 25px;
-    background: none;
-    border: none;
+    img {
+        width: 34px;
+        height: 34px;
+    }
 }
