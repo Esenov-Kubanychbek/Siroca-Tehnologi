@@ -15,10 +15,10 @@ export const Authorization = () => {
             password: password,
         };
         try {
-            const response = await axios.post("http://localhost:3001/login", loginInfo);
-            console.log(response.data.isReg);
-
-            if (response.data.isReg === 4) {
+            const response = await axios.post("http://18.237.99.45/api/v1/users/login/", loginInfo);
+            console.log(response);
+            
+            if (response) {
                 navigate("/clientpage");
             } else {
                 console.log("Not logined");

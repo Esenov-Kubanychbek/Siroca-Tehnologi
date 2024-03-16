@@ -1,28 +1,28 @@
-.repModalWindow {
+.RepModalWindow {
     display: inline-flex;
     padding: 50px 70px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 32px;
-    width: 860px;
-    height: 385px;
+    // gap: 32px;
+    width: 886px;
+    height: 556px;
     z-index: 11;
     position: fixed;
     background: #ffffff;
     box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.089);
     border-radius: 8px;
     .CloseBtn {
-        margin-right: -140px;
+        // margin-right: -140px;
         border: none;
         background: none;
         display: flex;
         justify-content: end;
     }
-    .header1 {
+    .Header1 {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 720px;
+        width: 886px;
         height: 40px;
         color: var(---800, #252525);
         /* 1920/Header/h3 */
@@ -33,35 +33,39 @@
         line-height: normal;
     }
 
-    .header2 {
+    .Header2 {
         color: var(---800, #252525);
-        margin-top: 32px;
-        /* 1920/Body M/600 */
+        /* 1920/Body L/700 */
         font-family: Geometria;
-        font-size: 16px;
+        font-size: 18px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
+        margin-top: 32px;
     }
 
-    .results {
+    .Results {
         color: var(---800, #252525);
-        /* 1920/Body XL/500 */
         font-family: Geometria;
         font-size: 20px;
         font-style: normal;
         font-weight: 500;
         line-height: normal;
+        margin-top: 82px;
+        z-index: 0;
+        position: relative;
     }
-    .form {
+    .Form {
         width: 100%;
-        height: 104px;
-        display: flex;
-        justify-content: center;
+        height: 109px;
+        margin-bottom: 20px;
+        // display: flex;
+        // justify-content: center;
+        // background: #000;
     }
 }
 
-.bg {
+.Bg {
     width: 100%;
     height: 100%;
     position: absolute;

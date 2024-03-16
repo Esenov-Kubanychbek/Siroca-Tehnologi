@@ -37,9 +37,14 @@ button {
     cursor: pointer;
 }
 
+p{
+    margin: 0;
+    padding: 0;
+}
+
 *::-webkit-scrollbar {
     background-color: $blackf4;
-    width: 22px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-thumb {
