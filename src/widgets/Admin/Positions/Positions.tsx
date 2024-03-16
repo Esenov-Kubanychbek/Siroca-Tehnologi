@@ -9,12 +9,12 @@ import { CreatePosition } from "../../CreatePosition/CreatePosition";
 import positionModal from "../../CreatePosition/model/PositionModal";
 
 export const Positions = () => {
-    const modal = positionModal()
+    const modal = positionModal();
     return (
         <div className={styles.Positions}>
             <div className={styles.Name}>Поиск по должностям</div>
             <div className={styles.Input}>
-                <SearchInput /> 
+                <SearchInput />
                 <div onClick={modal.open}>
                     <ButtonCreate />
                 </div>
@@ -98,7 +98,7 @@ export const Positions = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    margin: "30px 0"
+                    margin: "30px 0",
                 }}
                 footer={null}
                 width={700}
@@ -107,7 +107,7 @@ export const Positions = () => {
                 open={modal.isOpen}
                 onCancel={modal.close}
             >
-                <CreatePosition/>
+                <CreatePosition />
             </Modal>
         </div>
     );

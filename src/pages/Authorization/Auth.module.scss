@@ -17,10 +17,10 @@
         align-items: flex-start;
         gap: 10px;
         border-radius: 8px;
-        background: var(---100, #F4F4F4);
+        background: var(---100, #f4f4f4);
 
         p {
-            color: var(---Error, #E51616);
+            color: var(---Error, #e51616);
 
             /* 1920/Body L/500 */
             font-family: Geometria;
@@ -52,7 +52,7 @@
         flex-direction: column;
         justify-content: space-between;
     }
-    .InputsBlockErr{
+    .InputsBlockErr {
         padding: 0;
         margin-top: 12px;
         width: 100%;
@@ -82,9 +82,9 @@
         }
 
         input {
-            color: #E51616;
+            color: #e51616;
             padding-left: 16px;
-            border: 1px solid var(---Error, #E51616);
+            border: 1px solid var(---Error, #e51616);
             width: 540px;
             height: 48px;
             border-radius: 8px;
@@ -158,7 +158,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: var(---300, #A8A8A8);
+        background: var(---300, #a8a8a8);
     }
 
     .EnterButton:active {

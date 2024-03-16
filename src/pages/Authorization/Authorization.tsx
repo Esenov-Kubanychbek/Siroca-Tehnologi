@@ -8,7 +8,7 @@ export const Authorization = () => {
     const [login, setLogin] = useState<string>("");
     const [password, setPasswod] = useState<string>("");
     const navigate = useNavigate();
-    const [err, setErr] = useState(false)
+    const [err, setErr] = useState(false);
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const loginInfo = {
@@ -22,7 +22,7 @@ export const Authorization = () => {
             if (response.data.isReg === 4) {
                 navigate("/clientpage");
             } else {
-                setErr(true)
+                setErr(true);
             }
         } catch (error) {
             console.log(error, "error");
@@ -40,14 +40,18 @@ export const Authorization = () => {
                 alt="Logo"
             />
             <h1 className={styles.H1}>Вход в личный кабинет</h1>
-            {err ? <div className={styles.Err}>
-                <InfoCircle size={32} color="red"/>
-                <p>Вы ввели неправильный логин или пароль.
-                    Проверьте свои данные еще раз.</p>
-            </div> : null}
+            {err ? (
+                <div className={styles.Err}>
+                    <InfoCircle
+                        size={32}
+                        color="red"
+                    />
+                    <p>Вы ввели неправильный логин или пароль. Проверьте свои данные еще раз.</p>
+                </div>
+            ) : null}
 
             <div className={err ? styles.InputsBlockErr : styles.InputsBlock}>
-                <div className={err ? styles.ErrInputCont :styles.InputCont}>
+                <div className={err ? styles.ErrInputCont : styles.InputCont}>
                     <p>Логин</p>
                     <input
                         onChange={(e) => setLogin(e.target.value)}
@@ -55,7 +59,7 @@ export const Authorization = () => {
                         type="text"
                     />
                 </div>
-                <div className={err ? styles.ErrInputCont :styles.InputCont}>
+                <div className={err ? styles.ErrInputCont : styles.InputCont}>
                     <p>Пароль</p>
                     <div>
                         <input
@@ -74,7 +78,7 @@ export const Authorization = () => {
                 </a>
             </div>
             <button
-                className={err? styles.ErrEnterButton : styles.EnterButton}
+                className={err ? styles.ErrEnterButton : styles.EnterButton}
                 type="submit"
             >
                 Войти

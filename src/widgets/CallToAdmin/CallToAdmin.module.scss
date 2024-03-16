@@ -1,5 +1,4 @@
 .CallToAdmin {
-
     width: 578px;
     height: 388px;
     display: inline-flex;
@@ -9,19 +8,19 @@
     justify-content: space-between;
     // gap: 60px;
     border-radius: 8px;
-    background: var(---White, #FFF);
+    background: var(---White, #fff);
 
     /* Desktop/Effect 1 */
     box-shadow: 0px 1px 20px 0px rgba(22, 22, 22, 0.15);
-    .Contacts{
+    .Contacts {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: 30  8px;
+        height: 30 8px;
         width: 576px;
     }
     .contPrg {
-        color: var(---700, #3B3B3B);
+        color: var(---700, #3b3b3b);
 
         /* 1920/Header/h4 */
         font-family: Geometria;
@@ -37,7 +36,7 @@
         justify-content: space-between;
 
         .prgTp {
-            color: var(---700, #3B3B3B);
+            color: var(---700, #3b3b3b);
             margin: 0;
             /* 1920/Header/h4 */
             font-family: Geometria;
@@ -48,7 +47,7 @@
         }
 
         .prgBt {
-            color: var(---Error, #E51616);
+            color: var(---Error, #e51616);
             font-family: Geometria;
             font-size: 32px;
             font-style: normal;

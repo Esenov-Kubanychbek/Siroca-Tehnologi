@@ -1,72 +1,75 @@
-@import '../../app/styles/index.scss';
+@import "../../app/styles/index.scss";
 
-.CreateUser{
-    width: 700px;
-    height: 684px;
+.CreateUser {
+    width: 560px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: column;
-    margin-left: 70px;
-    margin-right: 70px;
+    gap: 32px;
 
-    .TextTop{
+    .TextTop {
         font-size: 32px;
         font-weight: 700;
     }
 }
-.Top{
+.Top {
     display: flex;
     justify-content: space-between;
-    
-    .Close{
+
+    .Close {
         cursor: pointer;
     }
 }
 
-.Text{
+.Text {
     font-size: 18px;
     font-weight: 700;
 }
-.Text2{
-    margin-top: 20px;
+.Text2 {
     font-size: 16px;
     font-weight: 500;
     color: $black;
 }
+.UserRole{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+}
 
-.AddPhoto{
+.AddPhoto {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 204px;
     height: 186px;
-    margin-right: 16px;
     border-radius: 8px;
     background-color: $blackf4;
     text-align: center;
-}
-
-.Description{
-    display: flex;
-    justify-content: space-between;
-    height: 190px;
-    width: 560px;
-}
-
-.Login{
-    display: flex;
-    justify-content: space-between;
-}
-
-.AddRole{
-    display: flex;
-    justify-content: space-between;
-}
-
-.Buttons{
-    display: flex;
-    justify-content: space-between;
-    width: 316px;
     cursor: pointer;
+}
+
+.Description {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.Login {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.AddRole {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.Buttons {
+    display: flex;
+    justify-content: start;
+    gap: 16px;
 }
