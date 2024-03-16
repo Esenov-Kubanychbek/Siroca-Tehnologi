@@ -1,21 +1,18 @@
 @import "../../app/styles/index.scss";
 
 .Request {
-    width: 1738px;
+    width: 1820px;
     height: 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    div {
-        margin-inline: 16px;
-    }
     &:hover {
         background-color: $blackde;
     }
 }
 
-.Level {
-    width: 122px;
+.Prioritet {
+    width: 150px;
     height: 46px;
     color: $error;
     border-radius: 8px;
@@ -27,8 +24,7 @@
 }
 
 .Status {
-    margin-left: 3px;
-    width: 92px;
+    width: 140px;
     height: 46px;
     color: $success;
     border-radius: 8px;

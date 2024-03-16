@@ -9,4 +9,5 @@ export interface IRequestProps {
     end: string;
     prioritet: string;
     status: string;
+    role: string;
 }

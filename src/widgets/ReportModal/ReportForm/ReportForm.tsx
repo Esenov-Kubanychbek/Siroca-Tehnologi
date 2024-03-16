@@ -1,3 +1,4 @@
+import { ArrowLeft, ArrowLeft2 } from "iconsax-react";
 import ChooseMenu from "./ChooseMenu";
 import styles from "./reportForm.module.scss";
 import { useState, FC } from "react";
@@ -9,21 +10,21 @@ interface ReportFormProps {
 const ReportForm: FC = ({ onSub }) => {
     const [company, setCompany] = useState<boolean>(false);
     const [maneger, setManeger] = useState<boolean>(false);
-    const [begin, setBegin] = useState<boolean>(false);
-    const [end, setEnd] = useState<boolean>(false);
 
     const [openCompany, setOpenCompany] = useState<string>("");
     const [openManeger, setOpenManeger] = useState<string>("");
-    const [openBegin, setOpenBegin] = useState<string>("Дата началы");
-    const [openEnd, setOpenEnd] = useState<string>("Дата окончания");
+    const [openBegin, setOpenBegin] = useState<string>();
+    const [openEnd, setOpenEnd] = useState<string>();
+
+
     const CleanFilters = () => {
         setOpenCompany("");
         setOpenManeger("");
         setOpenBegin("Дата началы");
         setOpenEnd("Дата конца");
     };
-    const openMenu = (ev: any) => {
-        const id = ev.target.id;
+    const openMenu = (e: any) => {
+        const id = e.target.id;
         if (id === "company") {
             setCompany(!company);
             setManeger(false);
@@ -59,18 +60,18 @@ const ReportForm: FC = ({ onSub }) => {
     const menuCompanys = ["Optima", "Ail bank", "Mbank"];
     const menuManeger = ["Abu", "Aman", "Daler", "Kubanych"];
 
-    const getChoose = (ev: object) => {
-        if (ev.input === "company") {
-            setOpenCompany(ev.choosedItem);
+    const getChoose = (e: object) => {
+        if (e.input === "company") {
+            setOpenCompany(e.choosedItem);
             setCompany(!company);
-        } else if (ev.input === "maneger") {
-            setOpenManeger(ev.choosedItem);
+        } else if (e.input === "maneger") {
+            setOpenManeger(e.choosedItem);
             setManeger(!maneger);
-        } else if (ev.input === "begin") {
-            setOpenBegin(ev.choosedItem);
+        } else if (e.input === "begin") {
+            setOpenBegin(e.choosedItem);
             setBegin(!begin);
-        } else if (ev.input === "end") {
-            setOpenEnd(ev.choosedItem);
+        } else if (e.input === "end") {
+            setOpenEnd(e.choosedItem);
             setEnd(!end);
         }
     };
@@ -79,20 +80,17 @@ const ReportForm: FC = ({ onSub }) => {
         <form className={styles.Form}>
             <ul>
                 <div className={styles.InputCont}>
+                <p>Компания</p>
                     <input
                         type="text"
-                        placeholder="Компания"
+                        placeholder="Выбрать"
                         value={openCompany}
-                        onChange={(ev) => {
-                            setOpenCompany(ev.target.value);
+                        onChange={(e) => {
+                            setOpenCompany(e.target.value);
                         }}
                     />
-                    <div className={styles.contIcn}>
-                        <div
-                            id="company"
-                            onClick={openMenu}
-                            className={company ? styles.OpenFindClose : styles.OpenFind}
-                        ></div>
+                    <div onClick={() => setCompany(!company)} className={company ? styles.DrdownIcnOpen : styles.DrdownIcn}>
+                    <ArrowLeft2/>
                     </div>
                     {company ? (
                         <ChooseMenu
@@ -101,21 +99,21 @@ const ReportForm: FC = ({ onSub }) => {
                             inputId="company"
                         />
                     ) : null}
+
                 </div>
                 <div className={styles.InputCont}>
+                    <p>Менеджер</p>
                     <input
                         type="text"
-                        placeholder="Менеджер"
+                        placeholder="Выбрать"
                         value={openManeger}
-                        onChange={(ev) => {
-                            setOpenManeger(ev.target.value);
+                        onChange={(e) => {
+                            setOpenManeger(e.target.value);
                         }}
                     />
-                    <div
-                        id="maneger"
-                        onClick={openMenu}
-                        className={maneger ? styles.OpenFindClose : styles.OpenFind}
-                    ></div>
+                    <div onClick={() => setManeger(!maneger)} className={maneger ? styles.DrdownIcnOpen : styles.DrdownIcn}>
+                    <ArrowLeft2/>
+                    </div>
                     {maneger ? (
                         <ChooseMenu
                             upChoose={getChoose}
@@ -125,34 +123,28 @@ const ReportForm: FC = ({ onSub }) => {
                     ) : null}
                 </div>
                 <div className={styles.InputCont}>
-                    <p>{openBegin}</p>
-                    <div
-                        id="begin"
-                        onClick={openMenu}
-                        className={begin ? styles.OpenFindClose : styles.OpenFind}
-                    ></div>
-                    {begin ? (
-                        <ChooseMenu
-                            upChoose={getChoose}
-                            itemsData={menuManeger}
-                            inputId="begin"
-                        />
-                    ) : null}
+                <p>Дата начало</p>
+                <input
+                        type="date"
+                        placeholder="Выбрать"
+                        value={openBegin}
+                        onChange={(ev) => {
+                            setOpenBegin(ev.target.value);
+                        }}
+                    />
+                    
                 </div>
                 <div className={styles.InputCont}>
-                    <p>{openEnd}</p>
-                    <div
-                        id="end"
-                        onClick={openMenu}
-                        className={end ? styles.OpenFindClose : styles.OpenFind}
-                    ></div>
-                    {end ? (
-                        <ChooseMenu
-                            upChoose={getChoose}
-                            itemsData={menuManeger}
-                            inputId="end"
-                        />
-                    ) : null}
+                <p>Дата конец</p>
+                <input
+                        type="date"
+                        placeholder=""
+                        value={openEnd}
+                        onChange={(ev) => {
+                            setOpenEnd(ev.target.value);
+                        }}
+                        
+                    />
                 </div>
             </ul>
             <div className={styles.EnterCont}>

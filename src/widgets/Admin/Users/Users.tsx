@@ -9,7 +9,6 @@ import userModal from "../../CreateUser/model/UserModal";
 
 export const Users: FC = () => {
     const modal = userModal();
-
     return (
         <div className={styles.UsersComponent}>
             <div className={styles.UsersSearch}>

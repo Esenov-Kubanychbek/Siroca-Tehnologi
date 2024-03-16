@@ -2,7 +2,7 @@ import { Call, CloseSquare, Sms, Whatsapp } from "iconsax-react";
 import styles from "./CallToAdmin.module.scss";
 import Contact from "./ui/Contact";
 
-const CallToAdmin = () => {
+export const CallToAdmin = () => {
     const items = {
         whatsapp: {
             icon: (

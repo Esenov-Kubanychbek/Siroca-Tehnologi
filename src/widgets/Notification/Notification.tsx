@@ -8,11 +8,13 @@ export const Notification = () => {
             <div className={styles.Container}>
                 <div className={styles.HeaderNotification}>
                     <h3 className={styles.NotifactionHeaderH3}>Уведомление</h3>
-                    <CloseSquare size={32} />
+                    <CloseSquare size={34} />
                 </div>
                 <div className={styles.ContentBlock}>
-                    <NewNotification active={true} />
-                    <NewNotification active={false} />
+                    <div className={styles.InerCont}>
+                       <NewNotification active={true} />
+                        <NewNotification active={false} /> 
+                    </div>
                 </div>
             </div>
         </div>

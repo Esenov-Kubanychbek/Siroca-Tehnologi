@@ -2,11 +2,10 @@
     width: 578px;
     height: 388px;
     display: inline-flex;
-    padding: 50px;
+    padding: 30px 50px;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-    // gap: 60px;
     border-radius: 8px;
     background: var(---White, #fff);
 
@@ -38,7 +37,6 @@
         .prgTp {
             color: var(---700, #3b3b3b);
             margin: 0;
-            /* 1920/Header/h4 */
             font-family: Geometria;
             font-size: 24px;
             font-style: normal;

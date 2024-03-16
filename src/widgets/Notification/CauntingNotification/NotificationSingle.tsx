@@ -10,16 +10,12 @@ export const NotificationSingle: FC<{ active: boolean }> = ({ active }) => {
             </div>
             <div className={styles.NotificationContent}>
                 <p className={styles.NumNotification}>
-                    №:
-                    <span className={styles.Span}>051123</span>
+                    <span className={styles.Span}>051123 </span>
+                    Интеграл ЛИС Mbank
+
                 </p>
                 <p className={styles.NumNotification}>
-                    Названия:
-                    <span className={styles.Span}>Интеграл ЛИС Mbank</span>
-                </p>
-                <p className={styles.NumNotification}>
-                    Логин:
-                    <span className={styles.Span}>ivanivanov</span>
+                Иван Иванов изменил(а) приоритет заявки
                 </p>
             </div>
         </div>

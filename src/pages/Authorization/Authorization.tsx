@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useState, FormEvent } from "react";
 import axios from "axios";
 import { EyeSlash, InfoCircle } from "iconsax-react";
+import { Modal } from "antd";
+import { CallToAdmin } from "../../widgets";
+import callModal from "./model/CallModal";
 
 export const Authorization = () => {
     const [login, setLogin] = useState<string>("");
@@ -16,19 +19,21 @@ export const Authorization = () => {
             password: password,
         };
         try {
-            const response = await axios.post("http://localhost:3001/login", loginInfo);
-            console.log(response.data.isReg);
-
-            if (response.data.isReg === 4) {
-                navigate("/clientpage");
+            const response = await axios.post("http://18.237.99.45/api/v1/users/login/", loginInfo);
+            console.log(response);
+            
+            if (response.status) {
+                // navigate("/clientpage");
+                setErr(true);
             } else {
                 setErr(true);
             }
         } catch (error) {
-            console.log(error, "error");
+            // console.log(error, "error");
+            setErr(true);
         }
     };
-
+    const modal = callModal();
     return (
         <form
             onSubmit={handleLogin}
@@ -70,12 +75,12 @@ export const Authorization = () => {
                         <EyeSlash color={err ? "#E51616" : "#3B3B3B"} />
                     </div>
                 </div>
-                <a
+                <button
+                    onClick={modal.open}
                     className={styles.Link}
-                    href="#"
                 >
                     Не могу войти
-                </a>
+                </button>
             </div>
             <button
                 className={err ? styles.ErrEnterButton : styles.EnterButton}
@@ -83,6 +88,23 @@ export const Authorization = () => {
             >
                 Войти
             </button>
+            <Modal
+                bodyStyle={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: "0px",
+                    padding: "0px",
+                }}
+                footer={null}
+                width={678}
+                centered
+                closeIcon={false}
+                open={modal.isOpen}
+                onCancel={modal.close}
+            >
+                <CallToAdmin />
+            </Modal>
         </form>
     );
 };

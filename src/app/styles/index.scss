@@ -11,14 +11,8 @@ $success: #008a15;
 $error: #e51616;
 $background: #f4f4f4;
 
-@mixin md {
-    @media screen and (max-width: 1440px) {
-        @content;
-    }
-}
-
 @mixin lg {
-    @media screen and (max-width: 1920px) {
+    @media screen and (max-width: 1820px) {
         @content;
     }
 }
@@ -43,10 +37,14 @@ p {
 
 *::-webkit-scrollbar {
     background-color: $blackf4;
-    width: 22px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-thumb {
     background-color: $blue;
     border-radius: 30px;
+}
+input{
+    padding: 0;
+    margin: 0;
 }
