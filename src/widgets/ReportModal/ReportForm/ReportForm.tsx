@@ -23,8 +23,8 @@ const ReportForm: FC = ({ onSub }) => {
         setOpenBegin("Дата началы");
         setOpenEnd("Дата конца");
     };
-    const openMenu = (ev: any) => {
-        const id = ev.target.id;
+    const openMenu = (e: any) => {
+        const id = e.target.id;
         if (id === "company") {
             setCompany(!company);
             setManeger(false);
@@ -60,18 +60,18 @@ const ReportForm: FC = ({ onSub }) => {
     const menuCompanys = ["Optima", "Ail bank", "Mbank"];
     const menuManeger = ["Abu", "Aman", "Daler", "Kubanych"];
 
-    const getChoose = (ev: object) => {
-        if (ev.input === "company") {
-            setOpenCompany(ev.choosedItem);
+    const getChoose = (e: object) => {
+        if (e.input === "company") {
+            setOpenCompany(e.choosedItem);
             setCompany(!company);
-        } else if (ev.input === "maneger") {
-            setOpenManeger(ev.choosedItem);
+        } else if (e.input === "maneger") {
+            setOpenManeger(e.choosedItem);
             setManeger(!maneger);
-        } else if (ev.input === "begin") {
-            setOpenBegin(ev.choosedItem);
+        } else if (e.input === "begin") {
+            setOpenBegin(e.choosedItem);
             setBegin(!begin);
-        } else if (ev.input === "end") {
-            setOpenEnd(ev.choosedItem);
+        } else if (e.input === "end") {
+            setOpenEnd(e.choosedItem);
             setEnd(!end);
         }
     };
@@ -85,8 +85,8 @@ const ReportForm: FC = ({ onSub }) => {
                         type="text"
                         placeholder="Выбрать"
                         value={openCompany}
-                        onChange={(ev) => {
-                            setOpenCompany(ev.target.value);
+                        onChange={(e) => {
+                            setOpenCompany(e.target.value);
                         }}
                     />
                     <div onClick={() => setCompany(!company)} className={company ? styles.DrdownIcnOpen : styles.DrdownIcn}>
@@ -107,8 +107,8 @@ const ReportForm: FC = ({ onSub }) => {
                         type="text"
                         placeholder="Выбрать"
                         value={openManeger}
-                        onChange={(ev) => {
-                            setOpenManeger(ev.target.value);
+                        onChange={(e) => {
+                            setOpenManeger(e.target.value);
                         }}
                     />
                     <div onClick={() => setManeger(!maneger)} className={maneger ? styles.DrdownIcnOpen : styles.DrdownIcn}>

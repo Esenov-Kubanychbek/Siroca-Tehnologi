@@ -8,8 +8,8 @@
         padding: 10px 16px;
         align-items: center;
         gap: 10px;
-        border-top: 1px solid var(---200, #DEDEDE);
-        border-bottom: 1px solid var(---200, #DEDEDE);
+        border-top: 1px solid var(---200, #dedede);
+        border-bottom: 1px solid var(---200, #dedede);
 
         p {
             color: #000;
@@ -56,14 +56,13 @@
         justify-content: center;
         align-items: center;
         gap: 10px;
-        border-top: 1px solid var(---200, #DEDEDE);
-        border-bottom: 1px solid var(---200, #DEDEDE);
-        border-left: 2px solid var(---200, #DEDEDE);
+        border-top: 1px solid var(---200, #dedede);
+        border-bottom: 1px solid var(---200, #dedede);
+        border-left: 2px solid var(---200, #dedede);
 
         input {
             width: 34px;
             height: 34px;
-            
         }
     }
 }

@@ -2,12 +2,16 @@ import styles from "./Auth.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useState, FormEvent } from "react";
 import axios from "axios";
-import { EyeSlash } from "iconsax-react";
+import { EyeSlash, InfoCircle } from "iconsax-react";
+import { Modal } from "antd";
+import { CallToAdmin } from "../../widgets";
+import callModal from "./model/CallModal";
 
 export const Authorization = () => {
     const [login, setLogin] = useState<string>("");
     const [password, setPasswod] = useState<string>("");
     const navigate = useNavigate();
+    const [err, setErr] = useState(false);
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const loginInfo = {
@@ -18,16 +22,18 @@ export const Authorization = () => {
             const response = await axios.post("http://18.237.99.45/api/v1/users/login/", loginInfo);
             console.log(response);
             
-            if (response) {
-                navigate("/clientpage");
+            if (response.status) {
+                // navigate("/clientpage");
+                setErr(true);
             } else {
-                console.log("Not logined");
+                setErr(true);
             }
         } catch (error) {
-            console.log(error, "error");
+            // console.log(error, "error");
+            setErr(true);
         }
     };
-
+    const modal = callModal();
     return (
         <form
             onSubmit={handleLogin}
@@ -39,8 +45,18 @@ export const Authorization = () => {
                 alt="Logo"
             />
             <h1 className={styles.H1}>Вход в личный кабинет</h1>
-            <div className={styles.InputsBlock}>
-                <div className={styles.InputCont}>
+            {err ? (
+                <div className={styles.Err}>
+                    <InfoCircle
+                        size={32}
+                        color="red"
+                    />
+                    <p>Вы ввели неправильный логин или пароль. Проверьте свои данные еще раз.</p>
+                </div>
+            ) : null}
+
+            <div className={err ? styles.InputsBlockErr : styles.InputsBlock}>
+                <div className={err ? styles.ErrInputCont : styles.InputCont}>
                     <p>Логин</p>
                     <input
                         onChange={(e) => setLogin(e.target.value)}
@@ -48,7 +64,7 @@ export const Authorization = () => {
                         type="text"
                     />
                 </div>
-                <div className={styles.InputCont}>
+                <div className={err ? styles.ErrInputCont : styles.InputCont}>
                     <p>Пароль</p>
                     <div>
                         <input
@@ -56,22 +72,39 @@ export const Authorization = () => {
                             placeholder="Введите пароль"
                             type="password"
                         />
-                        <EyeSlash color="#3B3B3B" />
+                        <EyeSlash color={err ? "#E51616" : "#3B3B3B"} />
                     </div>
                 </div>
-                <a
+                <button
+                    onClick={modal.open}
                     className={styles.Link}
-                    href="#"
                 >
                     Не могу войти
-                </a>
+                </button>
             </div>
             <button
-                className={styles.EnterButton}
+                className={err ? styles.ErrEnterButton : styles.EnterButton}
                 type="submit"
             >
                 Войти
             </button>
+            <Modal
+                bodyStyle={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: "0px",
+                    padding: "0px",
+                }}
+                footer={null}
+                width={678}
+                centered
+                closeIcon={false}
+                open={modal.isOpen}
+                onCancel={modal.close}
+            >
+                <CallToAdmin />
+            </Modal>
         </form>
     );
 };

@@ -5,3 +5,5 @@ export { CustomInput } from "./CustomInput/CustomInput";
 export { CustomSelect } from "./CustomSelect/CustomSelect";
 export { CustomTextArea } from "./CustomTextArea/CustomTextArea";
 export { ModalBlack } from "./ModalBlack/ModalBlack";
+export { ListTop } from "./ListTop/ListTop";
+export { ListTopName } from "./ListTop/ListTopName";

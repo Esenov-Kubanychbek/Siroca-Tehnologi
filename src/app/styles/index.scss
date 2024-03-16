@@ -11,14 +11,8 @@ $success: #008a15;
 $error: #e51616;
 $background: #f4f4f4;
 
-@mixin md {
-    @media screen and (max-width: 1440px) {
-        @content;
-    }
-}
-
 @mixin lg {
-    @media screen and (max-width: 1920px) {
+    @media screen and (max-width: 1820px) {
         @content;
     }
 }
@@ -37,7 +31,7 @@ button {
     cursor: pointer;
 }
 
-p{
+p {
     margin: 0;
     padding: 0;
 }
@@ -50,4 +44,8 @@ p{
 ::-webkit-scrollbar-thumb {
     background-color: $blue;
     border-radius: 30px;
+}
+input{
+    padding: 0;
+    margin: 0;
 }
