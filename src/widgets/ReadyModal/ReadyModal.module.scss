@@ -1,0 +1,79 @@
+
+
+.ReadyModal {
+    display: flex;
+    width: 550px;
+    height: 450px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: var(---White, #FFF);
+    box-shadow: 0px 1px 20px 0px rgba(22, 22, 22, 0.15);
+    p {
+        color: var(---800, #252525);
+        font-family: Geometria;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .Container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .BtnCont {
+        display: flex;
+        gap: 16px;
+        margin-top: 10px;
+        button{
+            border: none;
+        }
+
+        .BtnYes {
+            display: flex;
+            width: 100px;
+            padding: 10px 16px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            background: var(---700, rgba(28, 106, 177, 0.90));
+            color: var(---White, #FFF);
+            text-align: center;
+
+            /* 1920/Body L/700 */
+            font-family: Geometria;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+
+        .BtnNo {
+            display: flex;
+            width: 100px;
+            padding: 10px 24px;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            border-radius: 8px;
+            background: var(---Error, #E51616);
+            color: var(---White, #FFF);
+            text-align: center;
+
+            /* 1920/Body L/700 */
+            font-family: Geometria;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+    }
+}

@@ -19,16 +19,18 @@ export const Authorization = () => {
             password: password,
         };
         try {
-            const response = await axios.post("http://localhost:3001/login", loginInfo);
-            console.log(response.data.isReg);
-
-            if (response.data.isReg === 4) {
-                navigate("/clientpage");
+            const response = await axios.post("http://18.237.99.45/api/v1/users/login/", loginInfo);
+            console.log(response);
+            
+            if (response.status) {
+                // navigate("/clientpage");
+                setErr(true);
             } else {
                 setErr(true);
             }
         } catch (error) {
-            console.log(error, "error");
+            // console.log(error, "error");
+            setErr(true);
         }
     };
     const modal = callModal();
