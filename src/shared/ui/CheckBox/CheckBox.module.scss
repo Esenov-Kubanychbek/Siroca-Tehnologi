@@ -29,7 +29,7 @@
     left: 0;
     height: 28px;
     width: 28px;
-    border-radius: 8px;
+    border-radius: 5px;
     background-color: #eee;
 }
 
@@ -38,7 +38,7 @@
 }
 
 .Container input:checked ~ .CheckMark {
-    background-color: #2196f3;
+    background-color: $blue;
 }
 
 .CheckMark:after {
@@ -46,7 +46,7 @@
     position: absolute;
     display: none;
     border: 1px;
-    border-color: black;
+    border-color: $black;
 }
 
 .Container input:checked ~ .CheckMark:after {

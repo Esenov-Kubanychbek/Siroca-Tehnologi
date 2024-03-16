@@ -1,7 +1,9 @@
 import { FC } from "react";
 import { Request } from "../../../features";
 import { RequestTop } from "../..";
-import { ConfigProvider, Pagination } from "antd";
+import { ConfigProvider, Modal, Pagination } from "antd";
+import { RequestView } from "../../RequestView/RequestView";
+import ViewModal from "../../RequestView/model/ViewModal";
 
 interface IObject {
     number: string;
@@ -22,6 +24,7 @@ interface IRequest {
 }
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
+    const modal = ViewModal();
     return (
         <div>
             <RequestTop role={role} />
@@ -40,7 +43,24 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     prioritet={card.prioritet}
                     status={card.status}
                 />
+                
             ))}
+            <Modal
+                bodyStyle={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding:"30px",
+                }}
+                footer={null}
+                width={700}
+                centered
+                closeIcon={false}
+                open={modal.isOpen}
+                onCancel={modal.close}
+            >
+                <RequestView/>
+            </Modal>
             <div
                 style={{
                     width: "100%",

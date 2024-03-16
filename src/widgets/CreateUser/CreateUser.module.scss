@@ -1,13 +1,11 @@
 @import "../../app/styles/index.scss";
 
 .CreateUser {
-    width: 700px;
-    height: 684px;
+    width: 560px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: column;
-    margin-left: 70px;
-    margin-right: 70px;
+    gap: 32px;
 
     .TextTop {
         font-size: 32px;
@@ -28,10 +26,15 @@
     font-weight: 700;
 }
 .Text2 {
-    margin-top: 20px;
     font-size: 16px;
     font-weight: 500;
     color: $black;
+}
+.UserRole{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .AddPhoto {
@@ -41,32 +44,32 @@
     flex-direction: column;
     width: 204px;
     height: 186px;
-    margin-right: 16px;
     border-radius: 8px;
     background-color: $blackf4;
     text-align: center;
+    cursor: pointer;
 }
 
 .Description {
     display: flex;
-    justify-content: space-between;
-    height: 190px;
-    width: 560px;
+    justify-content: center;
+    gap: 16px;
 }
 
 .Login {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 16px;
 }
 
 .AddRole {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 6px;
 }
 
 .Buttons {
     display: flex;
-    justify-content: space-between;
-    width: 316px;
-    cursor: pointer;
+    justify-content: start;
+    gap: 16px;
 }

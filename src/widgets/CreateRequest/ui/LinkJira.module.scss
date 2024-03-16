@@ -1,0 +1,11 @@
+@import '../../../app/styles/index.scss';
+.LinkJira{
+    .Text {
+        font-size: 18px;
+        font-weight: 700;
+    }
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+}

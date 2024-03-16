@@ -1,0 +1,33 @@
+@import "../../../app/styles/index.scss";
+
+.Menu {
+    width: 56px;
+    height: 870px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    background-color: $blackf4;
+}
+
+.MenuIcon {
+    height: 320px;
+    margin-top: 70px;
+}
+
+.Icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.Icon:global(.active) {
+    background-color: $blue;
+    svg {
+        color: white;
+    }
+}

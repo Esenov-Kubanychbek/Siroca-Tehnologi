@@ -1,0 +1,19 @@
+@import '../../../app/styles/index.scss';
+
+.DatesContainer{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 16px;
+    .Text {
+        color: $black5c;
+        font-size: 18px;
+        font-weight: 700;
+    }
+    .Dates{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
