@@ -24,7 +24,7 @@ export const ProfileButton = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    margin: "30px 0"
+                    margin: "30px 0",
                 }}
                 footer={null}
                 width={574}
@@ -33,7 +33,7 @@ export const ProfileButton = () => {
                 open={modal.isOpen}
                 onCancel={modal.close}
             >
-                <ModalProfile/>
+                <ModalProfile />
             </Modal>
         </>
     );

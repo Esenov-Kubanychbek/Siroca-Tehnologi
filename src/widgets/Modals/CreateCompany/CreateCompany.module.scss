@@ -1,0 +1,33 @@
+.CreateCompany {
+    width: 700px;
+    height: 579px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: white;
+    div {
+        .blockOne {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 35px 55px;
+        }
+        .blockTwo {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 40px;
+            label {
+                font-size: 18px;
+                font-weight: 700;
+                padding: 8px;
+            }
+        }
+        .buttons {
+            width: 316px;
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 40px;
+        }
+    }
+}

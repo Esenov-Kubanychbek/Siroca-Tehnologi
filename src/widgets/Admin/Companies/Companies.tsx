@@ -1,10 +1,10 @@
 import { Modal } from "antd";
 import { SearchInput } from "../../../features";
 import { ButtonCreate } from "../../../shared/ui/ButtonCreate/ButtonCreate";
-import { CreateCompamy } from "../../CreateCompamy/CreateCompamy";
 import styles from "./Companies.module.scss";
 import { massiv } from "./Massiv";
-import companiesModal from "./CompaniesModal";
+import companiesModal from "../../Modals/CreateCompany/CompaniesModal";
+import { CreateCompany } from "../..";
 
 export const Companies = () => {
     const modal = companiesModal();
@@ -57,7 +57,7 @@ export const Companies = () => {
                 open={modal.isOpen}
                 onCancel={modal.close}
             >
-                <CreateCompamy />
+                <CreateCompany />
             </Modal>
         </div>
     );

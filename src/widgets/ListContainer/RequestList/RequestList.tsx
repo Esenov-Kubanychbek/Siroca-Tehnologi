@@ -2,45 +2,40 @@ import { FC } from "react";
 import { Request } from "../../../features";
 import { RequestTop } from "../..";
 import { ConfigProvider, Pagination } from "antd";
-
-interface IObject {
-    number: string;
-    company: string;
-    request: string;
-    description: string;
-    client: string;
-    manager: string;
-    begin: string;
-    end: string;
-    prioritet: string;
-    status: string;
-}
-
-interface IRequest {
-    role: string;
-    api: IObject[];
-}
+import { IRequest } from "./model/types";
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
     return (
-        <div>
-            <RequestTop role={role} />
-            {api.map((card, i) => (
-                <Request
-                    role={role}
-                    key={i}
-                    number={card.number}
-                    company={card.company}
-                    request={card.request}
-                    description={card.description}
-                    client={card.client}
-                    manager={card.manager}
-                    begin={card.begin}
-                    end={card.end}
-                    prioritet={card.prioritet}
-                    status={card.status}
-                />
-            ))}
+        <div
+            style={{
+                height: "800px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                alignItems: "center",
+            }}
+        >
+            <div>
+                <RequestTop role={role} />
+                <div className="list">
+                    {api.map((card, i) => (
+                        <Request
+                            role={role}
+                            key={i}
+                            number={card.number}
+                            company={card.company}
+                            request={card.request}
+                            description={card.description}
+                            client={card.client}
+                            manager={card.manager}
+                            begin={card.begin}
+                            end={card.end}
+                            prioritet={card.prioritet}
+                            status={card.status}
+                        />
+                    ))}
+                </div>
+            </div>
             <div
                 style={{
                     width: "100%",
