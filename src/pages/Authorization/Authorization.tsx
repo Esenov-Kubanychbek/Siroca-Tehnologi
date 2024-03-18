@@ -1,5 +1,4 @@
 import styles from "./Auth.module.scss";
-import { useNavigate } from "react-router-dom";
 import { useState, FormEvent } from "react";
 import axios from "axios";
 import { EyeSlash, InfoCircle } from "iconsax-react";
@@ -10,7 +9,6 @@ import callModal from "./model/CallModal";
 export const Authorization = () => {
     const [login, setLogin] = useState<string>("");
     const [password, setPasswod] = useState<string>("");
-    const navigate = useNavigate();
     const [err, setErr] = useState(false);
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -23,13 +21,11 @@ export const Authorization = () => {
             console.log(response);
             
             if (response.status) {
-                // navigate("/clientpage");
                 setErr(true);
             } else {
                 setErr(true);
             }
         } catch (error) {
-            // console.log(error, "error");
             setErr(true);
         }
     };

@@ -4,8 +4,8 @@ import { SearchInput } from "./../../../features/Header/SearchInput/SearchInput"
 import { ButtonCreate } from "../../../shared/ui/ButtonCreate/ButtonCreate";
 import { UsersList } from "./ui/UsersList";
 import { Modal } from "antd";
-import { CreateUser } from "../../CreateUser/CreateUser";
-import userModal from "../../CreateUser/model/UserModal";
+import { CreateUser } from "../../Modals/CreateUser/CreateUser";
+import userModal from "../../Modals/CreateUser/model/UserModal";
 
 export const Users: FC = () => {
     const modal = userModal();

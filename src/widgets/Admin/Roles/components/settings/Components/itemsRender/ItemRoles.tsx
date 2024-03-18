@@ -1,4 +1,3 @@
-import { CheckBox } from "../../../../../../../shared/ui";
 import styles from "./ItemRoles.module.scss";
 
 interface IItemSettingRoles {
