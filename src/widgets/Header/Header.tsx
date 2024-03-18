@@ -4,7 +4,7 @@ import { FC } from "react";
 import { Login } from "iconsax-react";
 import { NavLink } from "react-router-dom";
 import { ButtonRequest } from './../../features/Header/ButtonRequest/ButtonRequest';
-import RequestModal from "../CreateRequest/model/RequestModal";
+import RequestModal from "../Modals/CreateRequest/model/RequestModal";
 import { Modal } from 'antd';
 import { CreateRequest } from "..";
 

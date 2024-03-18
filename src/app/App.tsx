@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import { Authorization, ClientPage, ManagerPage, AdminPage, WorkPage } from "../pages";
 import { Notification } from "../widgets";
-import SuccesModal from "../widgets/SuccessModal/SuccessModal";
-import ReadyModal from "../widgets/ReadyModal/ReadyModal";
+import SuccesModal from "../widgets/Modals/SuccessModal/SuccessModal";
+import ReadyModal from "../widgets/Modals/ReadyModal/ReadyModal";
 
 const App = () => {
     return (

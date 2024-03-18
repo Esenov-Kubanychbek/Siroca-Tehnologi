@@ -1,10 +1,6 @@
 import { Call, CloseSquare, Sms, Whatsapp } from "iconsax-react";
 import styles from "./CallToAdmin.module.scss";
 import Contact from "./ui/Contact";
-<<<<<<< HEAD:src/widgets/Modals/CallToAdmin/CallToAdmin.tsx
-import callModal from "../../../pages/Authorization/model/CallModal";
-=======
->>>>>>> 8b5efcec7e4a0c7eb51fed0f1cb9cea83a95902e:src/widgets/CallToAdmin/CallToAdmin.tsx
 
 export const CallToAdmin = () => {
     const items = {

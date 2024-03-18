@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styles from './Comments.module.scss';
-import { DropDown } from '../../CreateRequest/ui/DropDown';
+import { DropDown } from '../../Modals/CreateRequest/ui/DropDown';
 import { MoreSquare } from 'iconsax-react';
 import { CustomInput } from '../../../shared/ui';
 

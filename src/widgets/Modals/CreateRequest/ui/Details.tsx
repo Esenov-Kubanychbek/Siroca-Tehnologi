@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './Details.module.scss';
 import { DropDown } from './DropDown';
-import { CustomInput} from '../../../shared/ui';
+import { CustomInput} from '../../../../shared/ui';
 
 import { Button, Dropdown, MenuProps } from 'antd';
 

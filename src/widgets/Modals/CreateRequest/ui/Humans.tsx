@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './Humans.module.scss';
 import { DropDown } from './DropDown';
-import { CustomSelect } from '../../CreateCompamy/ui/CustomSelect';
+import { CustomSelect } from '../../CreateCompany/ui/CustomSelect';
 
 export const Humans:FC = () => {
     const data: string[] = ["Менеджер","заявитель",];
