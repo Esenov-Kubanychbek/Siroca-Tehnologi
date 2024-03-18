@@ -12,8 +12,8 @@ export const ReportModal: FC = () => {
     };
     const modal = reportModalWindow();
     return (
-        <div className={styles.repModalWindow}>
-            <div className={styles.header1}>
+        <div className={styles.RepModalWindow}>
+            <div className={styles.Header1}>
                 <p>Скачивания отчета</p>
                 <button
                     onClick={modal.close}
@@ -25,13 +25,13 @@ export const ReportModal: FC = () => {
                     />
                 </button>
             </div>
-            <div className={styles.header2}>
+            <div className={styles.Header2}>
                 <p>Ведение данных для поиска</p>
             </div>
-            <div className={styles.form}>
+            <div className={styles.Form}>
                 <ReportForm onSub={subResults} />
             </div>
-            <div className={styles.results}>
+            <div className={styles.Results}>
                 <p>Результаты:</p>
             </div>
         </div>

@@ -28,15 +28,15 @@ export const CreateUser: FC = () => {
                     />
                     <div className={styles.Text2}>Добавьте фотографию пользователя</div>
                 </div>
-                <div>
+                <div className={styles.UserRole}>
                     <div>
                         <div className={styles.Text}>Фамилия имя</div>
                         <CustomInput
-                            width={324}
+                            width={290}
                             placeholder="Напишите..."
                         />
                     </div>
-                    <div className={styles.Des}>
+                    <div>
                         <div className={styles.Text}>Тип роли</div>
                         <RoleButton />
                     </div>
@@ -46,14 +46,14 @@ export const CreateUser: FC = () => {
                 <div>
                     <div className={styles.Text}>Логин</div>
                     <CustomInput
-                        width={246}
+                        width={222}
                         placeholder="@siroca.com"
                     />
                 </div>
                 <div>
                     <div className={styles.Text}>Пароль</div>
                     <CustomInput
-                        width={246}
+                        width={222}
                         placeholder="Напишите..."
                     />
                 </div>
@@ -62,7 +62,7 @@ export const CreateUser: FC = () => {
                 <div>
                     <div className={styles.Text}>Компания</div>
                     <CustomInput
-                        width={246}
+                        width={222}
                         placeholder="Напишите..."
                     />
                 </div>
@@ -70,7 +70,7 @@ export const CreateUser: FC = () => {
                     <div className={styles.Text}>Должность в компании</div>
                     <div className={styles.AddRole}>
                         <CustomInput
-                            width={184}
+                            width={160}
                             placeholder="Напишите..."
                         />
                         <AddButton />
@@ -81,7 +81,7 @@ export const CreateUser: FC = () => {
                 <div onClick={modal.close}>
                     <CustomButton
                         variant="Secondary"
-                        width={150}
+                        width={160}
                         text="Отменить"
                     />
                 </div>

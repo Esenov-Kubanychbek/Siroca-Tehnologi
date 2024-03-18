@@ -2,13 +2,14 @@
 
 .Primary,
 .Secondary {
-    height: 56px;
     display: flex;
     justify-content: center;
+    height: 56px;
     align-items: center;
     font-weight: 700;
     font-size: 18px;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .Primary {
@@ -20,4 +21,27 @@
     background-color: white;
     color: $blue;
     border: 1px solid $blue;
+}
+
+.Request,
+.Application{
+    cursor: pointer;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 18px;
+    border-radius: 8px;
+}
+
+.Application{
+    background-color: $blackde;
+    color: $blue;
+    border: none;
+}
+
+.Request{
+    background-color: $blue;
+    color: white;
 }

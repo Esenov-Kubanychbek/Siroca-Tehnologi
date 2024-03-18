@@ -26,12 +26,12 @@ export const Users: FC = () => {
             <Modal
                 bodyStyle={{
                     display: "flex",
-                    justifyContent: "space-between",
+                    justifyContent: "center",
                     alignItems: "center",
-                    margin: "30px 0",
+                    padding:"30px",
                 }}
                 footer={null}
-                width={748}
+                width={700}
                 centered
                 closeIcon={false}
                 open={modal.isOpen}

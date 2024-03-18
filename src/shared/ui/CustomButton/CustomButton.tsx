@@ -6,7 +6,7 @@ export const CustomButton: FC<IButton> = (props) => {
     const { width, variant, text } = props;
     return (
         <div
-            style={{ width: `${width}px` }}
+            style={{ width: `${width}px`}}
             className={styles[variant]}
         >
             {text}

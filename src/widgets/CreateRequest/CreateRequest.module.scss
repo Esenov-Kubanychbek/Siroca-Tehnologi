@@ -1,0 +1,44 @@
+@import "../../app/styles/index.scss";
+
+
+.Text {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.Container {
+    width: 590px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.Top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .TextTop {
+        font-size: 24px;
+        font-weight: 700;
+    }
+    .Close {
+        cursor: pointer;
+    }
+}
+
+.NumberRequest {
+    font-size: 20px;
+    font-weight: 700;
+    span {
+        color: $blue;
+    }
+}
+
+.Buttons{
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+}

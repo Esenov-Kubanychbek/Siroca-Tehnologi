@@ -30,7 +30,6 @@ button {
     font-family: "Geometria", sans-serif;
     cursor: pointer;
 }
-
 p {
     margin: 0;
     padding: 0;
@@ -38,10 +37,14 @@ p {
 
 *::-webkit-scrollbar {
     background-color: $blackf4;
-    width: 22px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-thumb {
     background-color: $blue;
     border-radius: 30px;
+}
+input{
+    padding: 0;
+    margin: 0;
 }

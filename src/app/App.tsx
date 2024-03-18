@@ -1,5 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import { Authorization, ClientPage, ManagerPage, AdminPage, WorkPage } from "../pages";
+import { Notification } from "../widgets";
+import SuccesModal from "../widgets/SuccessModal/SuccessModal";
+import ReadyModal from "../widgets/ReadyModal/ReadyModal";
 
 const App = () => {
     return (
@@ -25,8 +28,20 @@ const App = () => {
                 element={<WorkPage />}
             />
             <Route
+                path="/notific"
+                element={<Notification />}
+            />
+            <Route
                 path="*"
                 element={<h1 style={{ marginTop: "100px" }}>Sorry Not Found!</h1>}
+            />
+             <Route
+                path="/succes"
+                element={<SuccesModal />}
+            />
+            <Route
+                path="/ready"
+                element={<ReadyModal />}
             />
         </Routes>
     );

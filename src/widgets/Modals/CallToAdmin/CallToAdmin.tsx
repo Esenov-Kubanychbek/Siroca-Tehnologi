@@ -1,7 +1,10 @@
 import { Call, CloseSquare, Sms, Whatsapp } from "iconsax-react";
 import styles from "./CallToAdmin.module.scss";
 import Contact from "./ui/Contact";
+<<<<<<< HEAD:src/widgets/Modals/CallToAdmin/CallToAdmin.tsx
 import callModal from "../../../pages/Authorization/model/CallModal";
+=======
+>>>>>>> 8b5efcec7e4a0c7eb51fed0f1cb9cea83a95902e:src/widgets/CallToAdmin/CallToAdmin.tsx
 
 export const CallToAdmin = () => {
     const items = {
@@ -39,27 +42,25 @@ export const CallToAdmin = () => {
             cnt: "9965556667777",
         },
     };
-    const modal = callModal();
     return (
-        <div className={styles.CallToAdmin}>
-            <div className={styles.header}>
-                <div className={styles.tpg}>
-                    <p className={styles.prgTp}>Возникли проблемы со входом?</p>
-                    <p className={styles.prgBt}>Обратитесь к Администратору!</p>
-                </div>
-                <div
-                    onClick={modal.close}
-                    style={{ cursor: "pointer" }}
-                >
+        <div className={styles.bg}>
+            <div className={styles.CallToAdmin}>
+                <div className={styles.header}>
+                    <div className={styles.tpg}>
+                        <p className={styles.prgTp}>Возникли проблемы со входом?</p>
+                        <p className={styles.prgBt}>Обратитесь к Администратору!</p>
+                    </div>
                     <CloseSquare size={34} />
                 </div>
-            </div>
-            <div className={styles.Contacts}>
-                <p className={styles.contPrg}>Контакты:</p>
-                <Contact items={items.whatsapp} />
-                <Contact items={items.gmail} />
-                <Contact items={items.phone} />
+                <div className={styles.Contacts}>
+                    <p className={styles.contPrg}>Контакты:</p>
+                    <Contact items={items.whatsapp} />
+                    <Contact items={items.gmail} />
+                    <Contact items={items.phone} />
+                </div>
             </div>
         </div>
     );
 };
+
+export default CallToAdmin;

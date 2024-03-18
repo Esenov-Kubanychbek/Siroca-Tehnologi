@@ -1,7 +1,6 @@
 import React from "react";
 import RolesList from "./RolesList";
 import styles from "./RolesMenu.module.scss";
-import Button from "../../../../Profiles/ClientProfile/shared/Button/Button";
 
 interface IRolesMenu {
     openSettings: () => void;
