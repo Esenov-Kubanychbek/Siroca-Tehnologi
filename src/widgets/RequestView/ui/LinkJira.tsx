@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import styles from './LinkJira.module.scss';
-import { DropDown } from '../../CreateRequest/ui/DropDown';
+import { DropDown } from '../../Modals/CreateRequest/ui/DropDown';
 import { Link1 } from 'iconsax-react';
 
 export const LinkJira:FC = () => {

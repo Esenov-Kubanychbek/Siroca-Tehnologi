@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './DatesContainer.module.scss';
 import { DropDown } from './DropDown';
-import { Date } from '../../../shared/ui';
+import { Date } from '../../../../shared/ui';
 
 export const DatesContainer:FC = () => {
     return (

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import styles from './DatesContainer.module.scss'
-import { DropDown } from '../../CreateRequest/ui/DropDown'
+import { DropDown } from '../../Modals/CreateRequest/ui/DropDown'
 export const DatesContainer:FC = () => {
     return (
         <div className={styles.DatesContainer}>

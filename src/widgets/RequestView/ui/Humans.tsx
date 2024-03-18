@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { DropDown } from '../../CreateRequest/ui/DropDown'
+import { DropDown } from '../../Modals/CreateRequest/ui/DropDown'
 import styles from './Humans.module.scss';
 export const Humans:FC = () => {
     return (

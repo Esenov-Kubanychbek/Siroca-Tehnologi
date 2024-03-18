@@ -2,7 +2,7 @@ import { FC } from "react";
 import styles from "./CreateRequest.module.scss";
 import { CloseSquare } from "iconsax-react";
 import RequestModal from "./model/RequestModal";
-import { CustomButton} from "../../shared/ui";
+import { CustomButton} from "../../../shared/ui";
 import { Details } from "./ui/Details";
 import { LinkJira } from "./ui/LinkJira";
 import { Humans } from "./ui/Humans";

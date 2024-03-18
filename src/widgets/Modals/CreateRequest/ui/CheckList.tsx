@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import styles from './CheckList.module.scss';
 import { DropDown } from './DropDown';
-import { CustomInput } from './../../../shared/ui/CustomInput/CustomInput';
-import { CustomButton } from './../../../shared/ui/CustomButton/CustomButton';
+import { CustomInput } from '../../../../shared/ui/CustomInput/CustomInput';
+import { CustomButton } from '../../../../shared/ui/CustomButton/CustomButton';
 
 export const CheckList:FC = () => {
     return (

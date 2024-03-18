@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { DropDown } from './DropDown'
-import { CustomTextArea } from '../../../shared/ui'
+import { CustomTextArea } from '../../../../shared/ui'
 import styles from './Comments.module.scss';
 export const Comments:FC = () => {
     return (

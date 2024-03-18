@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import styles from './CheckBoxContainer.module.scss';
 import { DropDown } from './DropDown';
-import { CheckBox, CustomButton, CustomInput, CustomTextArea, Date } from '../../../shared/ui';
+import { CheckBox, CustomButton, CustomInput, CustomTextArea, Date } from '../../../../shared/ui';
 import { CustomSelect } from '../../CreateCompamy/ui/CustomSelect';
-import { ButtonCreate } from '../../../shared/ui/ButtonCreate/ButtonCreate';
+import { ButtonCreate } from '../../../../shared/ui/ButtonCreate/ButtonCreate';
 
 export const CheckBoxContainer:FC = () => {
     const data: string[] = ["Выбрать"];
