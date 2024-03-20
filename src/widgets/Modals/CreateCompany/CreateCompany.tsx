@@ -3,10 +3,20 @@ import styles from "./CreateCompany.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CustomSelect } from "./ui/CustomSelect";
 import companiesModal from "./CompaniesModal";
+import axios from "axios";
 
 export const CreateCompany = () => {
     const data: string[] = ["Abu", "Aman", "Kuba", "Daler"];
     const modal = companiesModal();
+
+    const createCompany = async() => {
+        try {
+            const response = await axios.post("http://16.171.68.251/api/v1/company/create/", )
+        } catch (error) {
+            
+        }
+    }
+    
     return (
         <div className={styles.CreateCompany}>
             <div>

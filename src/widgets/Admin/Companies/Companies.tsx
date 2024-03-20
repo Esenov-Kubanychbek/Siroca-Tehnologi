@@ -30,7 +30,7 @@ export const Companies = () => {
                 <div className={styles.scrol}>
                     <div>
                         {massiv.map((mass, i) => (
-                            <li key={i}>
+                            <li key={i} >
                                 <div>{mass.compani}</div>
                                 <div>{mass.strcompani}</div>
                                 <div>{mass.kolUser}</div>

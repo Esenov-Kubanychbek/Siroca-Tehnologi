@@ -3,6 +3,7 @@ import { Authorization, ClientPage, ManagerPage, AdminPage, WorkPage } from "../
 import { Notification } from "../widgets";
 import SuccesModal from "../widgets/Modals/SuccessModal/SuccessModal";
 import ReadyModal from "../widgets/Modals/ReadyModal/ReadyModal";
+import RolesSettings from "../widgets/Admin/Roles/components/settings/RolesSettings";
 
 const App = () => {
     return (
@@ -31,6 +32,7 @@ const App = () => {
                 path="/notific"
                 element={<Notification />}
             />
+            <Route path="/rolesettings" element={<RolesSettings/>}/>
             <Route
                 path="*"
                 element={<h1 style={{ marginTop: "100px" }}>Sorry Not Found!</h1>}

@@ -1,6 +1,6 @@
 .HeaderSettings {
     display: flex;
-
+    max-width: 2000px;
     /* Добавляем горизонтальный скролл при нехватке места */
     .HeaderItem {
         min-width: 226px;
