@@ -1,6 +1,6 @@
-@import '../../../../app/styles/index.scss';
+@import "../../../../app/styles/index.scss";
 
-.CommentsCtnr{
+.CommentsCtnr {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -9,7 +9,7 @@
         font-size: 18px;
         font-weight: 700;
     }
-    .Comments{
+    .Comments {
         display: flex;
         justify-content: center;
         flex-direction: column;

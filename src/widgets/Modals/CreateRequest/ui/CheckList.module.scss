@@ -1,11 +1,11 @@
-@import '../../../../app/styles/index.scss';
+@import "../../../../app/styles/index.scss";
 
-.CheckList{
+.CheckList {
     display: flex;
     justify-content: center;
     flex-direction: column;
     gap: 16px;
-    .InputEnter{
+    .InputEnter {
         display: flex;
         justify-content: center;
         flex-direction: column;

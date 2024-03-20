@@ -16,6 +16,7 @@ export const SearchInput = () => {
                 size={24}
             />
             <input
+                className={styles.Input}
                 value={inputState}
                 onChange={change}
             />

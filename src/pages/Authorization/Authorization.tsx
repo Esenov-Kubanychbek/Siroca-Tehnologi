@@ -5,6 +5,7 @@ import { EyeSlash, InfoCircle } from "iconsax-react";
 import { Modal } from "antd";
 import { CallToAdmin } from "../../widgets";
 import callModal from "./model/CallModal";
+import { axiosApi } from "../../axiosApi";
 
 export const Authorization = () => {
     const [login, setLogin] = useState<string>("");
@@ -17,9 +18,8 @@ export const Authorization = () => {
             password: password,
         };
         try {
-            const response = await axios.post("http://18.237.99.45/api/v1/users/login/", loginInfo);
+            const response = await axios.post(`${axiosApi}/users/login/`, loginInfo);
             console.log(response);
-            
             if (response.status) {
                 setErr(true);
             } else {

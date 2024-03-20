@@ -1,6 +1,6 @@
-@import '../../../app/styles/index.scss';
+@import "../../../app/styles/index.scss";
 
-.DatesContainer{
+.DatesContainer {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -10,7 +10,7 @@
         font-size: 18px;
         font-weight: 700;
     }
-    .Dates{
+    .Dates {
         display: flex;
         justify-content: space-between;
         flex-direction: column;

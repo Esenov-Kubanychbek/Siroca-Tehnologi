@@ -1,33 +1,33 @@
-@import '../../../../app/styles/index.scss';
+@import "../../../../app/styles/index.scss";
 
-.CheckList{
+.CheckList {
     display: flex;
     justify-content: center;
     flex-direction: column;
     gap: 16px;
 }
 
-.Container{
+.Container {
     display: flex;
     justify-content: center;
     flex-direction: column;
     gap: 16px;
 }
 
-.CheckContainer{
+.CheckContainer {
     display: flex;
     justify-content: space-between;
-    .NameCheck{
+    .NameCheck {
         width: 580px;
         display: flex;
         justify-content: space-between;
     }
 }
 
-.DesContainer{
+.DesContainer {
     display: flex;
     justify-content: space-between;
-    .Description{
+    .Description {
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -36,16 +36,16 @@
         padding: 16px;
         background-color: $blackf4;
         border-radius: 8px;
-        .Choose{
+        .Choose {
             width: 515px;
             display: flex;
             justify-content: space-between;
         }
-        .BtnGroup{
+        .BtnGroup {
             display: flex;
             justify-content: space-between;
             gap: auto;
-            .Btn{
+            .Btn {
                 display: flex;
                 justify-content: center;
                 gap: 16px;

@@ -1,20 +1,13 @@
 import { FC } from "react";
 import { IRequestInner } from "./model/types";
+import styles from "./RequestInner.module.scss";
 
 export const RequestInner: FC<IRequestInner> = (props) => {
-    
     const { content, width } = props;
     return (
         <div
-            style={{
-                width: `${width}px`,
-                height: "56px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "16px",
-                fontWeight: "700",
-            }}
+            className={styles.RequestInner}
+            style={{ width: `${width}px` }}
         >
             {content}
         </div>

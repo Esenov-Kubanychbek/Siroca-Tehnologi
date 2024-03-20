@@ -51,7 +51,8 @@
 }
 
 .BottomRight {
-    width: 1455px;
+    min-width: 1375px;
+    max-width: 1455px;
     height: 56px;
     display: flex;
     justify-content: space-between;
