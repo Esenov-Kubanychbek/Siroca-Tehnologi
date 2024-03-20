@@ -1,6 +1,6 @@
-@import '../../../app/styles/index.scss';
+@import "../../../app/styles/index.scss";
 
-.Container{
+.Container {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -11,16 +11,16 @@
     font-size: 18px;
     font-weight: 700;
 }
-.Comments{
+.Comments {
     display: flex;
     justify-content: center;
     flex-direction: column;
     gap: 16px;
 }
 
-.CommentCtnr{
+.CommentCtnr {
     align-items: center;
-    text-align:start;
+    text-align: start;
     font-size: 18px;
     font-weight: 500;
     border-radius: 8px;
@@ -28,36 +28,36 @@
     padding-left: 24px;
     padding-top: 16px;
     padding-right: 24px;
-    padding-bottom:16px;
+    padding-bottom: 16px;
 }
 
-.ContainerComments{
-        padding: 16px;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-        border-radius: 8px;
-        background-color: $blackf4;
+.ContainerComments {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    border-radius: 8px;
+    background-color: $blackf4;
 }
-.CommentsCont{
+.CommentsCont {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 130px;
-    .Profile{
+    .Profile {
         display: flex;
         justify-content: center;
         gap: 16px;
-        .Avatar{
+        .Avatar {
             width: 34px;
             height: 34px;
             border-radius: 50px;
             background-color: aquamarine;
         }
     }
-    .AddMore{
+    .AddMore {
         cursor: pointer;
         display: flex;
         justify-content: center;
@@ -65,13 +65,13 @@
     }
 }
 
-.Comments2{
+.Comments2 {
     display: flex;
     justify-content: center;
     flex-direction: column;
     gap: 16px;
 }
-.Comments3{
+.Comments3 {
     display: flex;
     justify-content: center;
     flex-direction: column;

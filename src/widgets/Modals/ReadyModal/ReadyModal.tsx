@@ -1,11 +1,15 @@
-import { Danger } from 'iconsax-react'
-import styles from './ReadyModal.module.scss'
+import { Danger } from "iconsax-react";
+import styles from "./ReadyModal.module.scss";
 
 const ReadyModal = () => {
     return (
         <div className={styles.ReadyModal}>
             <div className={styles.Container}>
-                <Danger variant='Bold' size={70} color='#E51616' />
+                <Danger
+                    variant="Bold"
+                    size={70}
+                    color="#E51616"
+                />
                 <p>Вы уверены?</p>
             </div>
 
@@ -14,7 +18,7 @@ const ReadyModal = () => {
                 <button className={styles.BtnNo}>Нет</button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ReadyModal
+export default ReadyModal;

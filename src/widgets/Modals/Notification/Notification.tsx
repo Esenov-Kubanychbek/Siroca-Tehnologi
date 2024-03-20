@@ -12,8 +12,8 @@ export const Notification = () => {
                 </div>
                 <div className={styles.ContentBlock}>
                     <div className={styles.InerCont}>
-                       <NewNotification active={true} />
-                        <NewNotification active={false} /> 
+                        <NewNotification active={true} />
+                        <NewNotification active={false} />
                     </div>
                 </div>
             </div>

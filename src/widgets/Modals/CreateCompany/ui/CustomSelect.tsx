@@ -4,7 +4,6 @@ import { ISelect } from "./types";
 
 export const CustomSelect: FC<ISelect> = (props) => {
     const { dataOption, name, placeholder } = props;
-    console.log(dataOption);
     return (
         <select
             defaultValue={placeholder}

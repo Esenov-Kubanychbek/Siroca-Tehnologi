@@ -1,10 +1,10 @@
-import { FC } from 'react';
-import styles from './Humans.module.scss';
-import { DropDown } from './DropDown';
-import { CustomSelect } from '../../CreateCompany/ui/CustomSelect';
+import { FC } from "react";
+import styles from "./Humans.module.scss";
+import { DropDown } from "./DropDown";
+import { CustomSelect } from "../../CreateCompany/ui/CustomSelect";
 
-export const Humans:FC = () => {
-    const data: string[] = ["Менеджер","заявитель",];
+export const Humans: FC = () => {
+    const data: string[] = ["Менеджер", "заявитель"];
     return (
         <div className={styles.Humans}>
             <DropDown text="Люди:" />
@@ -21,5 +21,5 @@ export const Humans:FC = () => {
                 />
             </div>
         </div>
-    )
-}
+    );
+};

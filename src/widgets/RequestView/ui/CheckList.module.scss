@@ -1,20 +1,20 @@
-@import '../../../app/styles/index.scss';
+@import "../../../app/styles/index.scss";
 
-.Text1{
+.Text1 {
     width: 264px;
     font-size: 14px;
     font-weight: 700;
     text-align: start;
     align-items: center;
 }
-.Text2{
+.Text2 {
     font-size: 14px;
     font-weight: 700;
     text-align: start;
     align-items: center;
     color: $blue;
 }
-.CheckList{
+.CheckList {
     width: 590px;
     height: 64px;
     display: flex;
@@ -22,18 +22,18 @@
     align-items: center;
     background-color: $blackf4;
     border-radius: 8px;
-    .CheckContainer{
+    .CheckContainer {
         width: 560px;
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 16px;
-        .CheckTime{
+        .CheckTime {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 14px;
-            .Timer{
+            .Timer {
                 width: 105px;
                 height: 32px;
                 background-color: white;

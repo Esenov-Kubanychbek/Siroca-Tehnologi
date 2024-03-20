@@ -48,7 +48,7 @@ export const TimeFilter: FC<{ role: string }> = ({ role }) => {
                         itemColor: "#252525",
                         itemHoverColor: "#1C6AD2",
                         itemSelectedColor: "#1C6AB1",
-                        fontFamily: "Geometria",
+                        fontFamily: "Geologica",
                         fontSize: 20,
                     },
                 },

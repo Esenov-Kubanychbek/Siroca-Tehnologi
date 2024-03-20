@@ -4,13 +4,12 @@ import styles from "./Request.module.scss";
 import { IRequestProps } from "./model/types";
 import ViewModal from "../../widgets/RequestView/model/ViewModal";
 
-
 export const Request: FC<IRequestProps> = (props) => {
     const modal = ViewModal();
     const { number, company, request, description, client, manager, begin, end, prioritet, status, role } = props;
     return (
         <div
-        onClick={modal.open}
+            onClick={modal.open}
             className={styles.Request}
             style={role === "admin" ? { width: "1740px" } : { width: "1820px" }}
         >
@@ -58,7 +57,6 @@ export const Request: FC<IRequestProps> = (props) => {
             >
                 {status}
             </div>
-            
         </div>
     );
 };

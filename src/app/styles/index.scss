@@ -20,14 +20,14 @@ $background: #f4f4f4;
 body {
     display: flex;
     justify-content: center;
-    font-family: "Geometria", sans-serif;
+    font-family: "Geologica";
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
 
 button {
-    font-family: "Geometria", sans-serif;
+    font-family: "Geologica", sans-serif;
     cursor: pointer;
 }
 p {
@@ -44,7 +44,14 @@ p {
     background-color: $blue;
     border-radius: 30px;
 }
-input{
+
+input {
     padding: 0;
+    margin: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
     margin: 0;
 }

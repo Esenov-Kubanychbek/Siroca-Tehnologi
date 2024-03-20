@@ -37,7 +37,7 @@ const App = () => {
                 path="*"
                 element={<h1 style={{ marginTop: "100px" }}>Sorry Not Found!</h1>}
             />
-             <Route
+            <Route
                 path="/succes"
                 element={<SuccesModal />}
             />

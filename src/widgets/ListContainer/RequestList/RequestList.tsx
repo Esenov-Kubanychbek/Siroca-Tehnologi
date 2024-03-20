@@ -8,10 +8,13 @@ import { RequestView } from "../../RequestView/RequestView";
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
     const modal = ViewModal();
+    const apiLength = api.length;
+    const apiLengthDivide = Math.ceil(apiLength / 12);
+    const apiLast = api.slice((apiLengthDivide - 1) * 12, apiLengthDivide * 12);
     return (
         <div>
             <RequestTop role={role} />
-            {api.map((card, i) => (
+            {apiLast.map((card, i) => (
                 <Request
                     role={role}
                     key={i}
@@ -26,14 +29,13 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     prioritet={card.prioritet}
                     status={card.status}
                 />
-                
             ))}
             <Modal
                 bodyStyle={{
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    padding:"30px",
+                    padding: "30px",
                 }}
                 footer={null}
                 width={700}
@@ -42,42 +44,44 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 open={modal.isOpen}
                 onCancel={modal.close}
             >
-                <RequestView/>
+                <RequestView />
             </Modal>
-            <div
-                style={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "70px",
-                }}
-            >
-                <ConfigProvider
-                    theme={{
-                        token: {
-                            colorBorder: "black",
-                        },
-                        components: {
-                            Pagination: {
-                                itemSize: 56,
-                                itemActiveBg: "#1C6AB1",
-                                colorPrimary: "white",
-                                colorPrimaryHover: "white",
-                                fontFamily: "Geometria",
-                                fontSize: 20,
-                                borderRadius: 8,
-                            },
-                        },
+            {apiLength >= 12 ? (
+                <div
+                    style={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "70px",
                     }}
                 >
-                    <Pagination
-                        defaultCurrent={1}
-                        total={50}
-                        style={{ fontWeight: 700 }}
-                    />
-                </ConfigProvider>
-            </div>
+                    <ConfigProvider
+                        theme={{
+                            token: {
+                                colorBorder: "black",
+                            },
+                            components: {
+                                Pagination: {
+                                    itemSize: 56,
+                                    itemActiveBg: "#1C6AB1",
+                                    colorPrimary: "white",
+                                    colorPrimaryHover: "white",
+                                    fontFamily: "Geometria",
+                                    fontSize: 20,
+                                    borderRadius: 8,
+                                },
+                            },
+                        }}
+                    >
+                        <Pagination
+                            defaultCurrent={1}
+                            total={apiLengthDivide * 10}
+                            style={{ fontWeight: 700, display: "flex", alignItems: "center" }}
+                        />
+                    </ConfigProvider>
+                </div>
+            ) : null}
         </div>
     );
 };

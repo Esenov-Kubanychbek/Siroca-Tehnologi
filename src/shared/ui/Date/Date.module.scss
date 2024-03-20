@@ -1,31 +1,31 @@
 @import "../../../app/styles/index.scss";
 
-.DateContainer{
+.DateContainer {
     width: 307px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     gap: 6px;
-    .Text{
+    .Text {
         font-size: 18px;
         font-weight: 700;
     }
-    input{
+    input {
         height: 44px;
         background-color: $blackf4;
         padding-left: 16px;
     }
-    input[type=date]::-webkit-calendar-picker-indicator {
+    input[type="date"]::-webkit-calendar-picker-indicator {
         opacity: 0;
     }
 }
 
-.DateApplication{
+.DateApplication {
     width: 168px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    input{
+    input {
         width: 168px;
         height: 44px;
         background-color: $blackf4;
@@ -33,9 +33,7 @@
         font-size: 16px;
         font-weight: 500;
     }
-    input[type=date]::-webkit-calendar-picker-indicator {
+    input[type="date"]::-webkit-calendar-picker-indicator {
         opacity: 0;
     }
 }
-
-

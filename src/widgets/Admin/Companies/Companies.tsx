@@ -49,7 +49,6 @@ export const Companies = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    margin: "30px 0",
                 }}
                 footer={null}
                 centered

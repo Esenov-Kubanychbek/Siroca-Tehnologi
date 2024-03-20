@@ -3,9 +3,9 @@ import { StatusNumber, ProfileButton, NotifButton, TimeFilter, SearchInput, Filt
 import { FC } from "react";
 import { Login } from "iconsax-react";
 import { NavLink } from "react-router-dom";
-import { ButtonRequest } from './../../features/Header/ButtonRequest/ButtonRequest';
+import { ButtonRequest } from "./../../features/Header/ButtonRequest/ButtonRequest";
 import RequestModal from "../Modals/CreateRequest/model/RequestModal";
-import { Modal } from 'antd';
+import { Modal } from "antd";
 import { CreateRequest } from "..";
 
 export const Header: FC<{ role: string }> = ({ role }) => {
@@ -43,7 +43,14 @@ export const Header: FC<{ role: string }> = ({ role }) => {
                     <SearchInput />
                     <div className={styles.SecondRight}>
                         <FilterButton />
-                        {role === "client" ? null : <div onClick={modal.open} style={{ width: "208px" }}><ButtonRequest/></div>}
+                        {role === "client" ? null : (
+                            <div
+                                onClick={modal.open}
+                                style={{ width: "208px" }}
+                            >
+                                <ButtonRequest />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -52,7 +59,7 @@ export const Header: FC<{ role: string }> = ({ role }) => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    padding:"30px",
+                    padding: "30px",
                 }}
                 footer={null}
                 width={700}
@@ -61,7 +68,7 @@ export const Header: FC<{ role: string }> = ({ role }) => {
                 open={modal.isOpen}
                 onCancel={modal.close}
             >
-                <CreateRequest/>
+                <CreateRequest />
             </Modal>
         </div>
     );

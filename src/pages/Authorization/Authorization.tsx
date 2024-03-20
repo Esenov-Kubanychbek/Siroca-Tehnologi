@@ -6,6 +6,7 @@ import { Modal } from "antd";
 import { CallToAdmin } from "../../widgets";
 import callModal from "./model/CallModal";
 import { useNavigate } from "react-router-dom";
+import { axiosApi } from "../../axiosApi";
 
 export const Authorization = () => {
     const navigate = useNavigate()
@@ -19,11 +20,11 @@ export const Authorization = () => {
             password: password,
         };
         try {
-            const response = await axios.post("http://16.171.68.251/api/v1/users/login/", loginInfo);
+            const response = await axios.post(`http://16.171.68.251/api/v1/users/login/`, loginInfo);
             console.log(response);
             
             if (response.status === 200) {
-                if(login === "admin"){
+                if(login === "KUBA"){
                     navigate("/adminpage")
                 }else{
                 navigate("/clientpage")
