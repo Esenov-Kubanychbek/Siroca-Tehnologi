@@ -1,25 +1,41 @@
+import { useState } from "react";
 import styles from "./ItemRoles.module.scss";
 
 interface IItemSettingRoles {
-    el: object;
+    user: object;
     index: number;
-    name: string;
+    checkBoxList: object;
 }
 
-const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ el, index, name }) => {
+
+
+const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxList }) => {
+    const Boxes = {
+        "Добавление/удаление комментария к заявке": false,
+        "Добавление/удаление файла к заявке": false,
+        "Просмотр истории изменений по заявке “Logs”": false,
+        "Добавление/удаление чек-листов": false,
+        "Просмотр профиля других пользователей": false,
+        "Скачивание отчета по заявкам": false,
+        "Создание/редактирование заявки": false,
+    }
+    const getCheckBoxVal = (ev) => {
+        const name = ev.target.name
+        Boxes[name] = !Boxes[name]
+        console.log([user.username,Boxes]);
+    }
     return (
         <div className={styles.Item}>
             <div className={styles.num}>
                 <p>{index + 1}</p>
             </div>
             <div className={styles.name}>
-                <p>{name}</p>
+                <p>{user ? user.username : []}</p>
             </div>
-            {el.map(() => {
+            {checkBoxList[0].map((el) => {
                 return (
                     <div className={styles.el}>
-                        <input type="checkbox" />
-                        {/* <CheckBox/> */}
+                        <input type="checkbox" onChange={getCheckBoxVal} name={el} />
                     </div>
                 );
             })}

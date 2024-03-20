@@ -5,9 +5,11 @@ import { EyeSlash, InfoCircle } from "iconsax-react";
 import { Modal } from "antd";
 import { CallToAdmin } from "../../widgets";
 import callModal from "./model/CallModal";
+import { useNavigate } from "react-router-dom";
 import { axiosApi } from "../../axiosApi";
 
 export const Authorization = () => {
+    const navigate = useNavigate()
     const [login, setLogin] = useState<string>("");
     const [password, setPasswod] = useState<string>("");
     const [err, setErr] = useState(false);
@@ -18,15 +20,23 @@ export const Authorization = () => {
             password: password,
         };
         try {
-            const response = await axios.post(`${axiosApi}/users/login/`, loginInfo);
+            const response = await axios.post(`http://16.171.68.251/api/v1/users/login/`, loginInfo);
             console.log(response);
-            if (response.status) {
-                setErr(true);
+            
+            if (response.status === 200) {
+                if(login === "KUBA"){
+                    navigate("/adminpage")
+                }else{
+                navigate("/clientpage")
+                localStorage.setItem("token", response.data)  
+                }
+                
             } else {
                 setErr(true);
             }
         } catch (error) {
-            setErr(true);
+            console.log(error, "error");
+            // setErr(true);
         }
     };
     const modal = callModal();
