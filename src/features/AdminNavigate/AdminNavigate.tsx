@@ -34,14 +34,14 @@ export const AdminNavigate: FC = () => {
                         itemColor: "#252525",
                         itemHoverColor: "#1C6AD2",
                         itemSelectedColor: "#1C6AB1",
-                        fontFamily: "Geometria",
+                        fontFamily: "Geologica",
                         fontSize: 24,
                     },
                 },
             }}
         >
             <Tabs
-                defaultActiveKey="1"
+                defaultActiveKey="2"
                 items={items}
                 tabBarStyle={{
                     fontWeight: 700,

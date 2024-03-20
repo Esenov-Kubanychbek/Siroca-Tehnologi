@@ -23,7 +23,7 @@ export const CreatePosition = () => {
             <div>
                 <CustomInput
                     placeholder="Напишите..."
-                    width={535}
+                    width={560}
                 />
             </div>
             <div className={styles.Buttons}>

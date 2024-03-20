@@ -24,7 +24,7 @@
 }
 
 .Request,
-.Application{
+.Application {
     cursor: pointer;
     height: 44px;
     display: flex;
@@ -35,13 +35,13 @@
     border-radius: 8px;
 }
 
-.Application{
+.Application {
     background-color: $blackde;
     color: $blue;
     border: none;
 }
 
-.Request{
+.Request {
     background-color: $blue;
     color: white;
 }

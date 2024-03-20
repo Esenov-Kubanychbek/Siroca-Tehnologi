@@ -1,4 +1,4 @@
 export interface IRequestInner {
-    content: string;
+    content: string | null;
     width?: number;
 }

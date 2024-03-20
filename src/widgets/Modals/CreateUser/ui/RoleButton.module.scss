@@ -14,14 +14,18 @@
 }
 .Role {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    margin-left: 34px;
-    margin-top: 16px;
-    margin-right: 34px;
-    margin-bottom: 16px;
+    margin: 16px 34px;
 }
 
 .Text {
+    cursor: pointer;
+    gap: 5px;
+    display: flex;
     font-size: 16px;
     font-weight: 500;
+    input {
+        cursor: pointer;
+    }
 }

@@ -1,23 +1,27 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import styles from "./UserList.module.scss";
 import { ListTop } from "./ListTop";
-import UsersApi from "../UsersApi.json";
 import { UsersMap } from "./UsersMap";
+import usersApi from "../api/UsersApi";
 
 export const UsersList: FC = () => {
+    const fetchData = usersApi();
+    useEffect(() => {
+        fetchData.getting();
+    }, []);
     return (
         <div className={styles.UsersList}>
             <ListTop />
             <div className={styles.Users}>
-                {UsersApi.map((card, i) => (
+                {fetchData.inState.map((card, i) => (
                     <UsersMap
                         key={i}
-                        name={card.name}
-                        login={card.login}
+                        role={card.role_type}
+                        name={card.first_name}
+                        login={card.username}
                         password={card.password}
-                        position={card.position}
-                        role={card.role}
-                        companies={card.companies}
+                        companies={card.main_company}
+                        position={card.job_title}
                     />
                 ))}
             </div>

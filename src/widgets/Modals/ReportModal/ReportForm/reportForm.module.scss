@@ -15,7 +15,7 @@
         justify-content: space-around;
         .InputCont {
             width: 100%;
-            .DrdownIcn{
+            .DrdownIcn {
                 cursor: pointer;
                 margin-top: -35px;
                 margin-left: 80%;
@@ -23,7 +23,7 @@
                 height: 24px;
                 transform: rotate(-90deg);
             }
-            .DrdownIcnOpen{
+            .DrdownIcnOpen {
                 cursor: pointer;
                 margin-top: -35px;
                 margin-left: 80%;
@@ -48,7 +48,7 @@
                 padding: 6px 16px;
                 align-items: center;
                 border-radius: 8px;
-                background: var(---100, #F4F4F4);
+                background: var(---100, #f4f4f4);
                 margin-top: 10px;
             }
         }

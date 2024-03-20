@@ -1,32 +1,32 @@
-@import '../../../../app/styles/index.scss';
+@import "../../../../app/styles/index.scss";
 
 .Text {
     font-size: 18px;
     font-weight: 700;
 }
 
-.DatesContainer{
+.DatesContainer {
     display: flex;
     justify-content: center;
     flex-direction: column;
     gap: 16px;
-    .Dates{
+    .Dates {
         display: flex;
         justify-content: space-between;
         .Dates1,
-        .Dates2{
+        .Dates2 {
             display: flex;
             justify-content: center;
             flex-direction: column;
             gap: 16px;
         }
     }
-    .PayContainer{
+    .PayContainer {
         display: flex;
         justify-content: center;
         flex-direction: column;
         gap: 16px;
-        .Pay{
+        .Pay {
             width: 300px;
             height: 60px;
             display: flex;
@@ -39,12 +39,9 @@
                     height: 28px;
                 }
             }
-            
         }
-    }   
-    
-    
-    
+    }
+
     .Text2 {
         font-size: 20px;
         font-weight: 500;

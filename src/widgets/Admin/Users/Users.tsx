@@ -28,7 +28,7 @@ export const Users: FC = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    padding:"30px",
+                    padding: "30px",
                 }}
                 footer={null}
                 width={700}
@@ -36,6 +36,7 @@ export const Users: FC = () => {
                 closeIcon={false}
                 open={modal.isOpen}
                 onCancel={modal.close}
+                zIndex={5}
             >
                 <CreateUser />
             </Modal>

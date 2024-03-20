@@ -16,7 +16,6 @@ const ReportForm: FC = ({ onSub }) => {
     const [openBegin, setOpenBegin] = useState<string>();
     const [openEnd, setOpenEnd] = useState<string>();
 
-
     const CleanFilters = () => {
         setOpenCompany("");
         setOpenManeger("");
@@ -80,7 +79,7 @@ const ReportForm: FC = ({ onSub }) => {
         <form className={styles.Form}>
             <ul>
                 <div className={styles.InputCont}>
-                <p>Компания</p>
+                    <p>Компания</p>
                     <input
                         type="text"
                         placeholder="Выбрать"
@@ -89,8 +88,11 @@ const ReportForm: FC = ({ onSub }) => {
                             setOpenCompany(e.target.value);
                         }}
                     />
-                    <div onClick={() => setCompany(!company)} className={company ? styles.DrdownIcnOpen : styles.DrdownIcn}>
-                    <ArrowLeft2/>
+                    <div
+                        onClick={() => setCompany(!company)}
+                        className={company ? styles.DrdownIcnOpen : styles.DrdownIcn}
+                    >
+                        <ArrowLeft2 />
                     </div>
                     {company ? (
                         <ChooseMenu
@@ -99,7 +101,6 @@ const ReportForm: FC = ({ onSub }) => {
                             inputId="company"
                         />
                     ) : null}
-
                 </div>
                 <div className={styles.InputCont}>
                     <p>Менеджер</p>
@@ -111,8 +112,11 @@ const ReportForm: FC = ({ onSub }) => {
                             setOpenManeger(e.target.value);
                         }}
                     />
-                    <div onClick={() => setManeger(!maneger)} className={maneger ? styles.DrdownIcnOpen : styles.DrdownIcn}>
-                    <ArrowLeft2/>
+                    <div
+                        onClick={() => setManeger(!maneger)}
+                        className={maneger ? styles.DrdownIcnOpen : styles.DrdownIcn}
+                    >
+                        <ArrowLeft2 />
                     </div>
                     {maneger ? (
                         <ChooseMenu
@@ -123,8 +127,8 @@ const ReportForm: FC = ({ onSub }) => {
                     ) : null}
                 </div>
                 <div className={styles.InputCont}>
-                <p>Дата начало</p>
-                <input
+                    <p>Дата начало</p>
+                    <input
                         type="date"
                         placeholder="Выбрать"
                         value={openBegin}
@@ -132,18 +136,16 @@ const ReportForm: FC = ({ onSub }) => {
                             setOpenBegin(ev.target.value);
                         }}
                     />
-                    
                 </div>
                 <div className={styles.InputCont}>
-                <p>Дата конец</p>
-                <input
+                    <p>Дата конец</p>
+                    <input
                         type="date"
                         placeholder=""
                         value={openEnd}
                         onChange={(ev) => {
                             setOpenEnd(ev.target.value);
                         }}
-                        
                     />
                 </div>
             </ul>
