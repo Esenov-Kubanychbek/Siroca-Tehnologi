@@ -6,11 +6,11 @@ import { ListTop } from "../../../shared/ui/ListTop/ListTop";
 import { ListTopName } from "../../../shared/ui/ListTop/ListTopName";
 import styles from "./Positions.module.scss";
 import { CreatePosition } from "../../Modals/CreatePosition/CreatePosition";
-import positionModal from "../../Modals/CreatePosition/model/PositionModal";
 import PositionsApi from "./api/PositionsApi.json";
+import { usePosition } from "../../../shared/hooks";
 
 export const Positions = () => {
-    const modal = positionModal();
+    const modal = usePosition();
     return (
         <div className={styles.Positions}>
             <div className={styles.Name}>Поиск по должностям</div>
@@ -38,16 +38,8 @@ export const Positions = () => {
                 </div>
             </div>
             <Modal
-                bodyStyle={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "30px 0",
-                }}
-                footer={null}
-                width={700}
                 centered
-                closeIcon={false}
+                width={700}
                 open={modal.isOpen}
                 onCancel={modal.close}
                 zIndex={10}

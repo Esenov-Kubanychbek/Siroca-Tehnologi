@@ -7,7 +7,7 @@ interface IRolesMenu {
 }
 
 const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
-    const [num, setNum] = useState()
+    const [num, setNum] = useState();
 
     const ClientList = [
         "Добавление/удаление комментария к заявке",
@@ -22,24 +22,24 @@ const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
     ];
 
     const Boxes = {
-        "Клиент":{
+        Клиент: {
             "Добавление/удаление комментария к заявке": false,
             "Добавление чек листа к заявке": false,
             "Добавление файла к заявке": false,
             "Просмотр профиль другого пользователя": false,
         },
-        "Менеджер":{
+        Менеджер: {
             "Просмотр профиля других пользователей": false,
             "Удаление заявки": false,
             "Удаление комментариев пользователей": false,
-        }
-    }
+        },
+    };
     const getCheckBoxVal = (ev) => {
-        const type = Boxes[ev[0]]
-        type[ev[1].target.name] = !type[ev[1].target.name]
+        const type = Boxes[ev[0]];
+        type[ev[1].target.name] = !type[ev[1].target.name];
         console.log(type);
-    }
-   
+    };
+
     return (
         <div className={styles.MenuCont}>
             <div className={styles.ListBlock}>

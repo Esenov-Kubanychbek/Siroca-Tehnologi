@@ -1,11 +1,11 @@
 import styles from "./ProfileButton.module.scss";
 import profileImage from "../../../shared/assets/profileImage.svg";
 import { Modal } from "antd";
-import useModal from "./ProfileZustand";
-import { ModalProfile } from "../../../widgets";
+import { useProfile } from "../../../shared/hooks";
+import { ProfileModal } from "../../../widgets";
 
 export const ProfileButton = () => {
-    const modal = useModal();
+    const modal = useProfile();
     return (
         <>
             <button
@@ -17,23 +17,14 @@ export const ProfileButton = () => {
                     alt="profile"
                     src={profileImage}
                 />
-                <div aria-label="profile-second">Мой профиль</div>
+                <div>Мой профиль</div>
             </button>
             <Modal
-                bodyStyle={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "30px 0",
-                }}
-                footer={null}
                 width={574}
-                centered
-                closeIcon={false}
                 open={modal.isOpen}
                 onCancel={modal.close}
             >
-                <ModalProfile />
+                <ProfileModal />
             </Modal>
         </>
     );

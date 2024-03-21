@@ -41,7 +41,7 @@ export const AdminNavigate: FC = () => {
             }}
         >
             <Tabs
-                defaultActiveKey="2"
+                defaultActiveKey="1"
                 items={items}
                 tabBarStyle={{
                     fontWeight: 700,

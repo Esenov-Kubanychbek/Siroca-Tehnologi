@@ -2,18 +2,20 @@ import { CloseSquare } from "iconsax-react";
 import styles from "./CreateCompany.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CustomSelect } from "./ui/CustomSelect";
-import companiesModal from "./CompaniesModal";
+import { useCompany } from "../../../shared/hooks";
 
 export const CreateCompany = () => {
     const data: string[] = ["Abu", "Aman", "Kuba", "Daler"];
-    const modal = companiesModal();
+    const modal = useCompany();
     return (
         <div className={styles.CreateCompany}>
             <div className={styles.blockOne}>
                 <div>Создание компании</div>
-                <div onClick={modal.close}>
-                    <CloseSquare size={32} />
-                </div>
+                <CloseSquare
+                    cursor={"pointer"}
+                    size={32}
+                    onClick={modal.close}
+                />
             </div>
             <div className={styles.blockTwo}>
                 <div>
@@ -61,7 +63,7 @@ export const CreateCompany = () => {
             <div className={styles.buttons}>
                 <div onClick={modal.close}>
                     <CustomButton
-                        variant="Secondary"
+                        variant="Without"
                         width={150}
                         text="Отменить"
                     />

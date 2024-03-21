@@ -2,7 +2,6 @@ import { FC } from "react";
 import { CustomSelect } from "../../shared/ui";
 import { CloseSquare, MoreSquare } from "iconsax-react";
 import styles from "./RequestView.module.scss";
-import ViewModal from "./model/ViewModal";
 import { MenuRequest } from "./ui/MenuRequest";
 import { CheckList } from "./ui/CheckList";
 import { Details } from "./ui/Details";
@@ -11,9 +10,10 @@ import { Humans } from "./ui/Humans";
 import { DatesContainer } from "./ui/DatesContainer";
 import { Comments } from "./ui/Comments";
 import { Collapse } from "antd";
+import { useView } from "../../shared/hooks";
 
 export const RequestView: FC = () => {
-    const modal = ViewModal();
+    const modal = useView();
 
     return (
         <div className={styles.ViewContainer}>

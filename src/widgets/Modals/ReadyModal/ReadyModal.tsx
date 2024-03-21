@@ -1,7 +1,10 @@
 import { Danger } from "iconsax-react";
 import styles from "./ReadyModal.module.scss";
+import { useReady } from "../../../shared/hooks";
+import { NavLink } from "react-router-dom";
 
-const ReadyModal = () => {
+export const ReadyModal = () => {
+    const modal = useReady();
     return (
         <div className={styles.ReadyModal}>
             <div className={styles.Container}>
@@ -12,13 +15,21 @@ const ReadyModal = () => {
                 />
                 <p>Вы уверены?</p>
             </div>
-
             <div className={styles.BtnCont}>
-                <button className={styles.BtnYes}>Да</button>
-                <button className={styles.BtnNo}>Нет</button>
+                <NavLink
+                    to="/"
+                    onClick={modal.close}
+                    className={styles.BtnYes}
+                >
+                    Да
+                </NavLink>
+                <button
+                    onClick={modal.close}
+                    className={styles.BtnNo}
+                >
+                    Нет
+                </button>
             </div>
         </div>
     );
 };
-
-export default ReadyModal;

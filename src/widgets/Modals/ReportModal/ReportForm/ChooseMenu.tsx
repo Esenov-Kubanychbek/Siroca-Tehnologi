@@ -1,5 +1,5 @@
 import { FC } from "react";
-import styles from "./reportForm.module.scss";
+import styles from "./report.module.scss";
 
 interface Props {
     itemsData: object;

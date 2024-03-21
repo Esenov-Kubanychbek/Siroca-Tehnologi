@@ -1,8 +1,8 @@
 import { CloseSquare } from "iconsax-react";
 import ReportForm from "./ReportForm/ReportForm";
-import styles from "./report.module.scss";
+import styles from "./ReportModal.module.scss";
 import { FC, useState } from "react";
-import reportModalWindow from "../../../features/Header/ReportButton/model/ReportModalWindow";
+import { useReport } from "../../../shared/hooks";
 
 export const ReportModal: FC = () => {
     const [results, setResults] = useState();
@@ -10,20 +10,17 @@ export const ReportModal: FC = () => {
         setResults(e);
         console.log(e);
     };
-    const modal = reportModalWindow();
+    const modal = useReport();
     return (
         <div className={styles.RepModalWindow}>
             <div className={styles.Header1}>
-                <p>Скачивания отчета</p>
-                <button
+                <p>Скачать отчёт</p>
+                <CloseSquare
+                    cursor={"pointer"}
                     onClick={modal.close}
-                    className={styles.CloseBtn}
-                >
-                    <CloseSquare
-                        color="black"
-                        size={34}
-                    />
-                </button>
+                    color="black"
+                    size={34}
+                />
             </div>
             <div className={styles.Header2}>
                 <p>Ведение данных для поиска</p>

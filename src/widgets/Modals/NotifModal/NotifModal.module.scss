@@ -1,0 +1,48 @@
+@import "../../../app/styles/index.scss";
+
+.NotifModal {
+    width: 640px;
+    height: 490px;
+    display: flex;
+    justify-content: center;
+    background-color: $blackde;
+    .Container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 50px;
+        width: 540px;
+        height: 470px;
+        background-color: white;
+        overflow: hidden;
+        .NotifHeader {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 530px;
+            height: 40px;
+            .NotifH3 {
+                display: flex;
+                align-items: center;
+                color: #252525e5;
+                font-weight: 700;
+                font-size: 32px;
+                height: 80px;
+                background-color: white;
+                text-align: left;
+            }
+        }
+        .ContentBlock {
+            position: relative;
+            width: 114%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            overflow-x: hidden;
+            .InnerCont {
+                width: 512px;
+            }
+        }
+    }
+}

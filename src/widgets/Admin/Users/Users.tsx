@@ -5,10 +5,10 @@ import { ButtonCreate } from "../../../shared/ui/ButtonCreate/ButtonCreate";
 import { UsersList } from "./ui/UsersList";
 import { Modal } from "antd";
 import { CreateUser } from "../../Modals/CreateUser/CreateUser";
-import userModal from "../../Modals/CreateUser/model/UserModal";
+import { useUser } from "../../../shared/hooks";
 
 export const Users: FC = () => {
-    const modal = userModal();
+    const modal = useUser();
     return (
         <div className={styles.UsersComponent}>
             <div className={styles.UsersSearch}>
@@ -24,16 +24,8 @@ export const Users: FC = () => {
                 <UsersList />
             </div>
             <Modal
-                bodyStyle={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: "30px",
-                }}
-                footer={null}
-                width={700}
                 centered
-                closeIcon={false}
+                width={700}
                 open={modal.isOpen}
                 onCancel={modal.close}
                 zIndex={5}

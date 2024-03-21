@@ -2,10 +2,10 @@ import { FC } from "react";
 import { RequestInner } from "../../entities";
 import styles from "./Request.module.scss";
 import { IRequestProps } from "./model/types";
-import ViewModal from "../../widgets/RequestView/model/ViewModal";
+import { useView } from "../../shared/hooks";
 
 export const Request: FC<IRequestProps> = (props) => {
-    const modal = ViewModal();
+    const modal = useView();
     const { number, company, request, description, client, manager, begin, end, prioritet, status, role } = props;
     return (
         <div

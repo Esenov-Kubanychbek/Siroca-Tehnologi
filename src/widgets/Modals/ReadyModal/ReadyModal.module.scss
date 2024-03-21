@@ -1,24 +1,19 @@
+@import "../../../app/styles/index.scss";
+
 .ReadyModal {
     display: flex;
     width: 550px;
-    height: 450px;
+    height: 410px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 32px;
-    flex-shrink: 0;
-    border-radius: 20px;
-    background: var(---White, #fff);
-    box-shadow: 0px 1px 20px 0px rgba(22, 22, 22, 0.15);
+    background-color: white;
     p {
-        color: var(---800, #252525);
-        font-family: Geometria;
+        color: #252525;
         font-size: 24px;
-        font-style: normal;
         font-weight: 700;
-        line-height: normal;
     }
-
     .Container {
         display: flex;
         justify-content: center;
@@ -26,7 +21,6 @@
         flex-direction: column;
         gap: 16px;
     }
-
     .BtnCont {
         display: flex;
         gap: 16px;
@@ -34,44 +28,24 @@
         button {
             border: none;
         }
-
-        .BtnYes {
+        .BtnYes,
+        .BtnNo {
             display: flex;
             width: 100px;
             padding: 10px 16px;
             justify-content: center;
             align-items: center;
             border-radius: 8px;
-            background: var(---700, rgba(28, 106, 177, 0.9));
-            color: var(---White, #fff);
+            color: white;
             text-align: center;
-
-            /* 1920/Body L/700 */
-            font-family: Geometria;
             font-size: 18px;
-            font-style: normal;
             font-weight: 700;
-            line-height: normal;
         }
-
+        .BtnYes {
+            background-color: $blue;
+        }
         .BtnNo {
-            display: flex;
-            width: 100px;
-            padding: 10px 24px;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-            border-radius: 8px;
-            background: var(---Error, #e51616);
-            color: var(---White, #fff);
-            text-align: center;
-
-            /* 1920/Body L/700 */
-            font-family: Geometria;
-            font-size: 18px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: normal;
+            background-color: #e51616;
         }
     }
 }

@@ -1,15 +1,24 @@
 import styles from "./Header.module.scss";
-import { StatusNumber, ProfileButton, NotifButton, TimeFilter, SearchInput, FilterButton } from "../../features";
-import { FC } from "react";
-import { Login } from "iconsax-react";
-import { NavLink } from "react-router-dom";
+import {
+    StatusNumber,
+    ProfileButton,
+    NotifButton,
+    TimeFilter,
+    SearchInput,
+    FilterButton,
+    ReportButton,
+} from "../../features";
+import { FC, useState } from "react";
+import { Login, MoreSquare } from "iconsax-react";
 import { ButtonRequest } from "./../../features/Header/ButtonRequest/ButtonRequest";
-import RequestModal from "../Modals/CreateRequest/model/RequestModal";
 import { Modal } from "antd";
-import { CreateRequest } from "..";
+import { CreateRequest, ReadyModal } from "..";
+import { useReady, useRequest } from "../../shared/hooks";
 
 export const Header: FC<{ role: string }> = ({ role }) => {
-    const modal = RequestModal();
+    const [report, setReport] = useState<boolean>(false);
+    const modalReady = useReady();
+    const modal = useRequest();
     return (
         <div style={role === "admin" ? { width: "1764px" } : { width: "1820px" }}>
             <div className={styles.HeaderTop}>
@@ -25,50 +34,73 @@ export const Header: FC<{ role: string }> = ({ role }) => {
                         <NotifButton />
                         <ProfileButton />
                         {role === "admin" ? null : (
-                            <div className={styles.Login}>
-                                <NavLink to="/">
-                                    <Login
-                                        size={24}
-                                        color="white"
-                                    />
-                                </NavLink>
-                            </div>
+                            <button
+                                onClick={modalReady.open}
+                                className={styles.Login}
+                            >
+                                <Login
+                                    size={24}
+                                    color="white"
+                                />
+                            </button>
                         )}
                     </div>
                 </div>
             </div>
             <div className={styles.HeaderBottom}>
                 <TimeFilter role={role} />
-                <div className={styles.BottomRight}>
+                <div
+                    className={styles.BottomRight}
+                    style={{ width: role === "admin" ? "1375px" : "1455px" }}
+                >
                     <SearchInput />
                     <div className={styles.SecondRight}>
                         <FilterButton />
                         {role === "client" ? null : (
-                            <div
-                                onClick={modal.open}
-                                style={{ width: "208px" }}
-                            >
-                                <ButtonRequest />
+                            <div style={{ display: "flex", gap: "16px" }}>
+                                <div onClick={modal.open}>
+                                    <ButtonRequest />
+                                </div>
+                                <div style={{ position: "relative" }}>
+                                    <MoreSquare
+                                        cursor={"pointer"}
+                                        size={56}
+                                        variant="Linear"
+                                        color="#1C6AB1"
+                                        onClick={() => setReport(!report)}
+                                    />
+                                    {report && (
+                                        <div
+                                            style={{
+                                                position: "absolute",
+                                                zIndex: "10",
+                                                top: "70px",
+                                                right: "0",
+                                            }}
+                                        >
+                                            <ReportButton />
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         )}
                     </div>
                 </div>
             </div>
             <Modal
-                bodyStyle={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: "30px",
-                }}
-                footer={null}
                 width={700}
-                centered
-                closeIcon={false}
                 open={modal.isOpen}
                 onCancel={modal.close}
             >
                 <CreateRequest />
+            </Modal>
+            <Modal
+                width={550}
+                centered
+                open={modalReady.isOpen}
+                onCancel={modalReady.close}
+            >
+                <ReadyModal />
             </Modal>
         </div>
     );

@@ -3,14 +3,14 @@ import { Request } from "../../../features";
 import { RequestTop } from "../..";
 import { ConfigProvider, Modal, Pagination } from "antd";
 import { IRequest } from "./model/types";
-import ViewModal from "../../RequestView/model/ViewModal";
 import { RequestView } from "../../RequestView/RequestView";
+import { useView } from "../../../shared/hooks";
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
-    const modal = ViewModal();
+    const modal = useView();
     const apiLength = api.length;
     const apiLengthDivide = Math.ceil(apiLength / 12);
-    const apiLast = api.slice((apiLengthDivide - 1) * 12, apiLengthDivide * 12);
+    const apiLast = api.slice(0, 12);
     return (
         <div>
             <RequestTop role={role} />
@@ -31,16 +31,8 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 />
             ))}
             <Modal
-                bodyStyle={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: "30px",
-                }}
-                footer={null}
+                zIndex={6}
                 width={700}
-                centered
-                closeIcon={false}
                 open={modal.isOpen}
                 onCancel={modal.close}
             >
@@ -67,7 +59,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                                     itemActiveBg: "#1C6AB1",
                                     colorPrimary: "white",
                                     colorPrimaryHover: "white",
-                                    fontFamily: "Geometria",
+                                    fontFamily: "Geologica",
                                     fontSize: 20,
                                     borderRadius: 8,
                                 },

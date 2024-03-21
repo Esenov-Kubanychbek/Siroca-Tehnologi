@@ -2,10 +2,11 @@ import { Modal } from "antd";
 import styles from "./ReportButton.module.scss";
 import { FC } from "react";
 import { ReportModal } from "../../../widgets";
-import reportModalWindow from "./model/ReportModalWindow";
+import { useReport } from "../../../shared/hooks";
+import { Import } from "iconsax-react";
 
 export const ReportButton: FC = () => {
-    const modal = reportModalWindow();
+    const modal = useReport();
     return (
         <>
             <div
@@ -13,18 +14,14 @@ export const ReportButton: FC = () => {
                 className={styles.Report}
             >
                 Cкачать отчет
+                <Import
+                    size={24}
+                    color="#1C6AB1"
+                />
             </div>
             <Modal
-                bodyStyle={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "0px",
-                }}
-                footer={null}
-                width={861}
                 centered
-                closeIcon={false}
+                width={861}
                 open={modal.isOpen}
                 onCancel={modal.close}
             >

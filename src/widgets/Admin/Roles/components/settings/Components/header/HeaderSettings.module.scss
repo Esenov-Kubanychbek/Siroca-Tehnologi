@@ -1,7 +1,6 @@
 .HeaderSettings {
     display: flex;
     max-width: 2000px;
-    /* Добавляем горизонтальный скролл при нехватке места */
     .HeaderItem {
         min-width: 226px;
         height: 60px;
@@ -13,13 +12,9 @@
         border-right: 1px solid var(--White, #fff);
         border-left: 1px solid var(--White, #fff);
         background: var(--800, #1c6ab1);
-
         p {
             color: var(---White, #fff);
             text-align: center;
-
-            /* 1920/Body M/700 */
-            font-family: Geometria;
             font-size: 16px;
             font-style: normal;
             font-weight: 700;
@@ -38,12 +33,8 @@
         border-right: 1px solid var(---White, #fff);
         border-left: 1px solid var(---White, #fff);
         background: var(---800, #1c6ab1);
-
         .name {
             color: var(---White, #fff);
-
-            /* 1920/Body L/700 */
-            font-family: Geometria;
             font-size: 18px;
             font-style: normal;
             font-weight: 700;
@@ -51,7 +42,6 @@
             margin: 0;
         }
     }
-
     .HeaderNum {
         display: flex;
         min-width: 48px;
@@ -64,13 +54,9 @@
         border-right: 1px solid var(---White, #fff);
         border-left: 1px solid var(---White, #fff);
         background: var(---800, #1c6ab1);
-
         .num {
             color: var(---White, #fff);
             text-align: center;
-
-            /* 1920/Body L/700 */
-            font-family: Geometria;
             font-size: 18px;
             font-style: normal;
             font-weight: 700;

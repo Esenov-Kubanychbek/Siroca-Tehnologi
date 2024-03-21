@@ -1,6 +1,7 @@
 import { Call, CloseSquare, Sms, Whatsapp } from "iconsax-react";
 import styles from "./CallToAdmin.module.scss";
 import Contact from "./ui/Contact";
+import { useCallToAdmin } from "../../../shared/hooks";
 
 export const CallToAdmin = () => {
     const items = {
@@ -38,22 +39,25 @@ export const CallToAdmin = () => {
             cnt: "9965556667777",
         },
     };
+    const modal = useCallToAdmin();
     return (
-        <div className={styles.bg}>
-            <div className={styles.CallToAdmin}>
-                <div className={styles.header}>
-                    <div className={styles.tpg}>
-                        <p className={styles.prgTp}>Возникли проблемы со входом?</p>
-                        <p className={styles.prgBt}>Обратитесь к Администратору!</p>
-                    </div>
-                    <CloseSquare size={34} />
+        <div className={styles.CallToAdmin}>
+            <div className={styles.header}>
+                <div className={styles.tpg}>
+                    <p className={styles.prgTp}>Возникли проблемы со входом?</p>
+                    <p className={styles.prgBt}>Обратитесь к Администратору!</p>
                 </div>
-                <div className={styles.Contacts}>
-                    <p className={styles.contPrg}>Контакты:</p>
-                    <Contact items={items.whatsapp} />
-                    <Contact items={items.gmail} />
-                    <Contact items={items.phone} />
-                </div>
+                <CloseSquare
+                    cursor={"pointer"}
+                    size={34}
+                    onClick={modal.close}
+                />
+            </div>
+            <div className={styles.Contacts}>
+                <p className={styles.contPrg}>Контакты:</p>
+                <Contact items={items.whatsapp} />
+                <Contact items={items.gmail} />
+                <Contact items={items.phone} />
             </div>
         </div>
     );
