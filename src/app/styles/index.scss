@@ -55,3 +55,14 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+.ant-modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ant-modal-footer,
+.ant-modal-close {
+    display: none;
+}

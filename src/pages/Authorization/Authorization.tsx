@@ -1,15 +1,16 @@
-import styles from "./Auth.module.scss";
+import styles from "./Authorization.module.scss";
 import { useState, FormEvent } from "react";
 import axios from "axios";
 import { EyeSlash, InfoCircle } from "iconsax-react";
 import { Modal } from "antd";
 import { CallToAdmin } from "../../widgets";
-import callModal from "./model/CallModal";
 import { useNavigate } from "react-router-dom";
 import { axiosApi } from "../../axiosApi";
+import { useCallToAdmin } from "../../shared/hooks";
 
 export const Authorization = () => {
-    const navigate = useNavigate()
+    const modal = useCallToAdmin();
+    const navigate = useNavigate();
     const [login, setLogin] = useState<string>("");
     const [password, setPasswod] = useState<string>("");
     const [err, setErr] = useState(false);
@@ -20,26 +21,23 @@ export const Authorization = () => {
             password: password,
         };
         try {
-            const response = await axios.post(`http://16.171.68.251/api/v1/users/login/`, loginInfo);
+            const response = await axios.post(`${axiosApi}/users/login/`, loginInfo);
             console.log(response);
-            
+
             if (response.status === 200) {
-                if(login === "KUBA"){
-                    navigate("/adminpage")
-                }else{
-                navigate("/clientpage")
-                localStorage.setItem("token", response.data)  
+                if (login === "KUBA") {
+                    navigate("/adminpage");
+                } else {
+                    navigate("/clientpage");
+                    localStorage.setItem("token", response.data);
                 }
-                
             } else {
                 setErr(true);
             }
         } catch (error) {
             console.log(error, "error");
-            // setErr(true);
         }
     };
-    const modal = callModal();
     return (
         <form
             onSubmit={handleLogin}
@@ -95,17 +93,8 @@ export const Authorization = () => {
                 Войти
             </button>
             <Modal
-                bodyStyle={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "0px",
-                    padding: "0px",
-                }}
-                footer={null}
-                width={678}
                 centered
-                closeIcon={false}
+                width={678}
                 open={modal.isOpen}
                 onCancel={modal.close}
             >

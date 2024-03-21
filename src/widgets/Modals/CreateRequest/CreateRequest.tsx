@@ -1,7 +1,6 @@
 import { FC } from "react";
 import styles from "./CreateRequest.module.scss";
 import { CloseSquare } from "iconsax-react";
-import RequestModal from "./model/RequestModal";
 import { CustomButton } from "../../../shared/ui";
 import { Details } from "./ui/Details";
 import { LinkJira } from "./ui/LinkJira";
@@ -10,10 +9,10 @@ import { DatesContainer } from "./ui/DatesContainer";
 import { Comments } from "./ui/Comments";
 import { CheckList } from "./ui/CheckList";
 import { Collapse } from "antd";
+import { useRequest } from "../../../shared/hooks";
 
 export const CreateRequest: FC = () => {
-    const modal = RequestModal();
-
+    const modal = useRequest();
     return (
         <div className={styles.CreateRequest}>
             <div className={styles.Container}>

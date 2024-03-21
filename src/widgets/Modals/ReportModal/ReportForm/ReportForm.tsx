@@ -1,13 +1,13 @@
-import { ArrowLeft, ArrowLeft2 } from "iconsax-react";
+import { ArrowLeft2 } from "iconsax-react";
 import ChooseMenu from "./ChooseMenu";
-import styles from "./reportForm.module.scss";
+import styles from "./report.module.scss";
 import { useState, FC } from "react";
 
 interface ReportFormProps {
     onSub: () => void;
 }
 
-const ReportForm: FC = ({ onSub }) => {
+const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
     const [company, setCompany] = useState<boolean>(false);
     const [maneger, setManeger] = useState<boolean>(false);
 

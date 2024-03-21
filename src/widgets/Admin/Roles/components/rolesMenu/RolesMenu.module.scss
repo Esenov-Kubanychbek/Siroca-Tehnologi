@@ -1,12 +1,10 @@
 .MenuCont {
     display: flex;
     gap: 30px;
-
     .SettingsBtn {
         position: absolute;
         top: 20px;
         right: 24px;
-
         button {
             display: inline-flex;
             height: 56px;
@@ -20,8 +18,6 @@
             color: var(---White, #fff);
             text-align: center;
             border: none;
-            /* 1920/Body L/700 */
-            font-family: Geometria;
             font-size: 18px;
             font-style: normal;
             font-weight: 700;

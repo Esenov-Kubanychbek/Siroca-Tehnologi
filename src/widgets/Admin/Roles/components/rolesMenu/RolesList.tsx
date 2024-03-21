@@ -7,11 +7,10 @@ interface IRolesList {
     handleChangeBox: () => void;
 }
 
-
 const RolesList: React.FC<IRolesList> = ({ list, listType, handleChangeBox }) => {
     const onChange = (ev) => {
-        handleChangeBox([listType, ev])
-    }
+        handleChangeBox([listType, ev]);
+    };
     return (
         <div className={styles.MenuCont}>
             <div className={styles.HeaderPrg}>
@@ -20,7 +19,12 @@ const RolesList: React.FC<IRolesList> = ({ list, listType, handleChangeBox }) =>
             {list.map((el) => {
                 return (
                     <div className={styles.ListItem}>
-                        <input type="checkbox" name={el} onChange={onChange} /> <p>{el}</p>
+                        <input
+                            type="checkbox"
+                            name={el}
+                            onChange={onChange}
+                        />{" "}
+                        <p>{el}</p>
                     </div>
                 );
             })}

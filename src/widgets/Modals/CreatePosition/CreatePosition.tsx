@@ -1,13 +1,12 @@
 import { CloseSquare } from "iconsax-react";
 import styles from "./CreatePosition.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
-import positionModal from "./model/PositionModal";
-import useLoading from "../LoadingModal/useLoading";
 import { ConfigProvider, Modal } from "antd";
 import { LoadingModal } from "../..";
+import { useLoading, usePosition } from "../../../shared/hooks";
 
 export const CreatePosition = () => {
-    const modal = positionModal();
+    const modal = usePosition();
     const modalLoading = useLoading();
     return (
         <div className={styles.CreatePosition}>
@@ -66,19 +65,11 @@ export const CreatePosition = () => {
                 }}
             >
                 <Modal
-                    bodyStyle={{
-                        height: "140px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                    footer={null}
                     width={180}
                     centered
-                    closeIcon={false}
                     open={modalLoading.isOpen}
                     onCancel={modalLoading.close}
-                    zIndex={1000}
+                    zIndex={100}
                 >
                     <LoadingModal />
                 </Modal>

@@ -1,14 +1,20 @@
 import { CloseSquare } from "iconsax-react";
-import styles from "./ModalProfile.module.scss";
+import styles from "./ProfileModal.module.scss";
 import profileImage from "../../../shared/assets/profileImage.svg";
 import { CustomButton } from "../../../shared/ui";
+import { useProfile } from "../../../shared/hooks";
 
-export const ModalProfile = () => {
+export const ProfileModal = () => {
+    const modal = useProfile();
     return (
-        <div className={styles.ModalProfile}>
+        <div className={styles.ProfileModal}>
             <div className={styles.block1}>
                 <div className={styles.h1}>Профиль</div>
-                <CloseSquare size={34} />
+                <CloseSquare
+                    cursor={"pointer"}
+                    size={34}
+                    onClick={modal.close}
+                />
             </div>
             <div className={styles.datas}>
                 <ul>

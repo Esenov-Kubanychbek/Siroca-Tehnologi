@@ -2,19 +2,18 @@ import { ChangeEvent, FC, useState } from "react";
 import styles from "./CreateUser.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CloseSquare, GalleryAdd } from "iconsax-react";
-import userModal from "./model/UserModal";
 import { RoleButton } from "./ui/RoleButton";
 import { AddButton } from "./ui/AddButton";
 import usersApi from "../../Admin/Users/api/UsersApi";
-import positionModal from "../CreatePosition/model/PositionModal";
 import { Modal } from "antd";
-import { CreatePosition } from "../..";
+import { CreatePosition, SuccessModal } from "../..";
+import { usePosition, useSuccess, useUser } from "../../../shared/hooks";
 
 export const CreateUser: FC = () => {
-    const positionFunc = positionModal();
+    const positionFunc = usePosition();
     const fetchData = usersApi();
-    const modal = userModal();
-
+    const modal = useUser();
+    const success = useSuccess();
     const [userState, setUserState] = useState<Record<string, unknown>>({
         first_name: "",
         image: null,
@@ -33,8 +32,12 @@ export const CreateUser: FC = () => {
     const postTrim = () => {
         if (Object.values(userState).every((value) => value !== "")) {
             fetchData.posting(userState);
+            modal.close();
+            success.open();
             console.log("success");
         } else {
+            modal.close();
+            success.open();
             console.log(userState, "error");
         }
     };
@@ -43,12 +46,11 @@ export const CreateUser: FC = () => {
         <form className={styles.CreateUser}>
             <div className={styles.Top}>
                 <div className={styles.TextTop}>Создание пользователя</div>
-                <div
+                <CloseSquare
+                    cursor={"pointer"}
+                    size={34}
                     onClick={modal.close}
-                    className={styles.Close}
-                >
-                    <CloseSquare size={34} />
-                </div>
+                />
             </div>
             <div className={styles.Description}>
                 <div className={styles.AddPhoto}>
@@ -60,10 +62,10 @@ export const CreateUser: FC = () => {
                 </div>
                 <div className={styles.UserRole}>
                     <div>
-                        <div className={styles.Text}>Фамилия имя</div>
+                        <div className={styles.Text}>Имя/Фамилия</div>
                         <CustomInput
                             name="first_name"
-                            width={290}
+                            width={340}
                             placeholder="Напишите..."
                             change={formCreateValue}
                         />
@@ -79,7 +81,7 @@ export const CreateUser: FC = () => {
                     <div className={styles.Text}>Логин</div>
                     <CustomInput
                         name="username"
-                        width={222}
+                        width={272}
                         placeholder="@siroca.com"
                         change={formCreateValue}
                     />
@@ -88,7 +90,7 @@ export const CreateUser: FC = () => {
                     <div className={styles.Text}>Пароль</div>
                     <CustomInput
                         name="password"
-                        width={222}
+                        width={272}
                         placeholder="Напишите..."
                         change={formCreateValue}
                     />
@@ -100,7 +102,7 @@ export const CreateUser: FC = () => {
                     <CustomInput
                         type="number"
                         name="main_company"
-                        width={222}
+                        width={272}
                         placeholder="Напишите..."
                         change={formCreateValue}
                     />
@@ -111,9 +113,8 @@ export const CreateUser: FC = () => {
                         <CustomInput
                             name="job_title"
                             type="number"
-                            width={160}
+                            width={210}
                             placeholder="Напишите..."
-                            // change={formCreateValue}
                         />
                         <AddButton onClick={positionFunc.open} />
                     </div>
@@ -122,7 +123,7 @@ export const CreateUser: FC = () => {
             <div className={styles.Buttons}>
                 <div onClick={modal.close}>
                     <CustomButton
-                        variant="Secondary"
+                        variant="Without"
                         width={160}
                         text="Отменить"
                     />
@@ -136,21 +137,22 @@ export const CreateUser: FC = () => {
                 </div>
             </div>
             <Modal
-                bodyStyle={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "30px 0",
-                }}
-                footer={null}
                 width={700}
                 centered
-                closeIcon={false}
                 open={positionFunc.isOpen}
                 onCancel={positionFunc.close}
                 zIndex={10}
             >
                 <CreatePosition />
+            </Modal>
+            <Modal
+                width={350}
+                centered
+                zIndex={11}
+                open={success.isOpen}
+                onCancel={success.close}
+            >
+                <SuccessModal />
             </Modal>
         </form>
     );

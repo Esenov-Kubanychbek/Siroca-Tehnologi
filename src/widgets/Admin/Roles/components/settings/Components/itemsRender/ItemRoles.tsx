@@ -7,8 +7,6 @@ interface IItemSettingRoles {
     checkBoxList: object;
 }
 
-
-
 const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxList }) => {
     const Boxes = {
         "Добавление/удаление комментария к заявке": false,
@@ -18,12 +16,12 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxLi
         "Просмотр профиля других пользователей": false,
         "Скачивание отчета по заявкам": false,
         "Создание/редактирование заявки": false,
-    }
+    };
     const getCheckBoxVal = (ev) => {
-        const name = ev.target.name
-        Boxes[name] = !Boxes[name]
-        console.log([user.username,Boxes]);
-    }
+        const name = ev.target.name;
+        Boxes[name] = !Boxes[name];
+        console.log([user.username, Boxes]);
+    };
     return (
         <div className={styles.Item}>
             <div className={styles.num}>
@@ -35,7 +33,11 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxLi
             {checkBoxList[0].map((el) => {
                 return (
                     <div className={styles.el}>
-                        <input type="checkbox" onChange={getCheckBoxVal} name={el} />
+                        <input
+                            type="checkbox"
+                            onChange={getCheckBoxVal}
+                            name={el}
+                        />
                     </div>
                 );
             })}

@@ -1,18 +1,14 @@
 import { TickCircle } from "iconsax-react";
 import styles from "./SuccesModal.module.scss";
 
-const SuccesModal = () => {
+export const SuccessModal = () => {
     return (
-        <div className={styles.bg}>
-            <div className={styles.ModalSucces}>
-                <TickCircle
-                    size={70}
-                    color="#00A91B"
-                />
-                <p>Изменения успешно сохранены!</p>
-            </div>
+        <div className={styles.SuccessModal}>
+            <TickCircle
+                size={70}
+                color="#00A91B"
+            />
+            <p>Изменения успешно сохранены!</p>
         </div>
     );
 };
-
-export default SuccesModal;
