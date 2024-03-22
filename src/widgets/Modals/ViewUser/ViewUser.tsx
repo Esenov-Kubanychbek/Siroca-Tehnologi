@@ -1,29 +1,29 @@
-import { ChangeEvent, FC, useState } from "react";
-import styles from "./CreateUser.module.scss";
-import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CloseSquare, GalleryAdd } from "iconsax-react";
-import { RoleButton } from "./ui/RoleButton";
-import { AddButton } from "./ui/AddButton";
+import styles from "./ViewUser.module.scss";
+import { usePosition, useSuccess, useViewUser } from "../../../shared/hooks";
+import { ChangeEvent, FC, useState } from "react";
+import { CustomButton, CustomInput } from "../../../shared/ui";
+import { RoleButton } from "../CreateUser/ui/RoleButton";
+import { AddButton } from "../CreateUser/ui/AddButton";
 import { Modal } from "antd";
 import { CreatePosition, SuccessModal } from "../..";
-import { usePosition, useSuccess, useUser } from "../../../shared/hooks";
 import { IUser } from "../../../shared/types/userTypes";
 import { usersApi } from "../../../shared/api";
 
-export const CreateUser: FC = () => {
+export const ViewUser: FC = () => {
     const positionFunc = usePosition();
     const fetchData = usersApi();
-    const modal = useUser();
+    const modal = useViewUser();
     const success = useSuccess();
     const [userState, setUserState] = useState<IUser>({
-        first_name: "",
-        image: null,
-        job_title: null,
-        main_company: 0,
-        password: "",
-        role_type: "",
-        surname: "surname",
-        username: "",
+        first_name: fetchData.oneUser.first_name,
+        image: fetchData.oneUser.image,
+        job_title: fetchData.oneUser.job_title,
+        main_company: fetchData.oneUser.main_company,
+        password: fetchData.oneUser.password,
+        role_type: fetchData.oneUser.role_type,
+        surname: fetchData.oneUser.surname,
+        username: fetchData.oneUser.username,
     });
 
     const formCreateValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,12 +31,11 @@ export const CreateUser: FC = () => {
     };
 
     const postTrim = () => {
-        if (Object.values(userState).every((value) => value !== "")) {
-            fetchData.posting(userState);
-
+        if (Object.values(userState).every((value) => value !== value)) {
+            fetchData.putting(userState, 1);
             modal.close();
             success.open();
-            console.log("success");
+            console.log(userState);
         } else {
             modal.close();
             success.open();
@@ -45,9 +44,9 @@ export const CreateUser: FC = () => {
     };
 
     return (
-        <form className={styles.CreateUser}>
+        <form className={styles.ViewUser}>
             <div className={styles.Top}>
-                <div className={styles.TextTop}>Создание пользователя</div>
+                <div className={styles.TextTop}>Пользователь</div>
                 <CloseSquare
                     cursor={"pointer"}
                     size={34}
@@ -66,6 +65,7 @@ export const CreateUser: FC = () => {
                     <div>
                         <div className={styles.Text}>Имя/Фамилия</div>
                         <CustomInput
+                            value={userState.first_name}
                             name="first_name"
                             width={340}
                             placeholder="Напишите..."
@@ -74,7 +74,10 @@ export const CreateUser: FC = () => {
                     </div>
                     <div>
                         <div className={styles.Text}>Тип роли</div>
-                        <RoleButton change={formCreateValue} />
+                        <RoleButton
+                            role={userState.role_type}
+                            change={formCreateValue}
+                        />
                     </div>
                 </div>
             </div>
@@ -83,6 +86,7 @@ export const CreateUser: FC = () => {
                     <div className={styles.Text}>Логин</div>
                     <CustomInput
                         name="username"
+                        value={userState.username}
                         width={272}
                         placeholder="@siroca.com"
                         change={formCreateValue}
@@ -91,6 +95,7 @@ export const CreateUser: FC = () => {
                 <div>
                     <div className={styles.Text}>Пароль</div>
                     <CustomInput
+                        value={userState.password}
                         name="password"
                         width={272}
                         placeholder="Напишите..."
@@ -102,6 +107,7 @@ export const CreateUser: FC = () => {
                 <div>
                     <div className={styles.Text}>Компания</div>
                     <CustomInput
+                        value={userState.main_company}
                         type="number"
                         name="main_company"
                         width={272}
@@ -113,6 +119,7 @@ export const CreateUser: FC = () => {
                     <div className={styles.Text}>Должность в компании</div>
                     <div className={styles.AddRole}>
                         <CustomInput
+                            value={userState.job_title}
                             name="job_title"
                             type="number"
                             width={210}
@@ -123,7 +130,7 @@ export const CreateUser: FC = () => {
                 </div>
             </div>
             <div className={styles.Buttons}>
-                <div onClick={modal.close}>
+                <div onClick={() => console.log(userState, fetchData.oneUser)}>
                     <CustomButton
                         variant="Without"
                         width={160}

@@ -1,5 +1,5 @@
 import { TickCircle } from "iconsax-react";
-import styles from "./SuccesModal.module.scss";
+import styles from "./SuccessModal.module.scss";
 
 export const SuccessModal = () => {
     return (
