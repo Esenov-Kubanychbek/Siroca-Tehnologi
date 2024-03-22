@@ -21,3 +21,4 @@ export { NotificationSingle } from "./Modals/NotifModal/CauntingNotification/Not
 export { ReportModal } from "./Modals/ReportModal/ReportModal";
 export { SuccessModal } from "./Modals/SuccessModal/SuccessModal";
 export { ReadyModal } from "./Modals/ReadyModal/ReadyModal";
+export { ViewCompany } from "./Modals/ViewCompany/ViewCompany"

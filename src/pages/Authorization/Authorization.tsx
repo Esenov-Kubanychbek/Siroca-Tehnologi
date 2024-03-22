@@ -1,20 +1,28 @@
 import styles from "./Authorization.module.scss";
 import { useState, FormEvent } from "react";
 import axios from "axios";
-import { EyeSlash, InfoCircle } from "iconsax-react";
+import { Eye, EyeSlash, InfoCircle } from "iconsax-react";
 import { Modal } from "antd";
 import { CallToAdmin } from "../../widgets";
+
 import { useNavigate } from "react-router-dom";
-import { axiosApi } from "../../axiosApi";
 import { useCallToAdmin } from "../../shared/hooks";
+import { axiosApi } from "../../axiosApi";
 
 export const Authorization = () => {
-    const modal = useCallToAdmin();
-    const navigate = useNavigate();
     const [login, setLogin] = useState<string>("");
     const [password, setPasswod] = useState<string>("");
-    const [err, setErr] = useState(false);
+    const [err, setErr] = useState<boolean>(false);
+    const [handleEye, setHandleEye] = useState<boolean>(false)
+
+    const openPass = () => {
+        setHandleEye(!handleEye)
+    }
+    
+    const navigate = useNavigate()
+
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+
         e.preventDefault();
         const loginInfo = {
             username: login,
@@ -22,22 +30,25 @@ export const Authorization = () => {
         };
         try {
             const response = await axios.post(`${axiosApi}/users/login/`, loginInfo);
-            console.log(response);
+            console.log(response.status);
 
             if (response.status === 200) {
-                if (login === "KUBA") {
-                    navigate("/adminpage");
-                } else {
-                    navigate("/clientpage");
-                    localStorage.setItem("token", response.data);
+                const access = response.data.access
+                localStorage.setItem("access", access)
+                if(login === "KUBA"){
+                  navigate("/clientpage")  
+                }else{
+                    navigate("/clientpage")
                 }
             } else {
                 setErr(true);
             }
         } catch (error) {
-            console.log(error, "error");
+            setErr(true);
         }
     };
+
+    const modal = useCallToAdmin()
     return (
         <form
             onSubmit={handleLogin}
@@ -74,9 +85,11 @@ export const Authorization = () => {
                         <input
                             onChange={(e) => setPasswod(e.target.value)}
                             placeholder="Введите пароль"
-                            type="password"
+                            type={handleEye ? "text" : "password"}
                         />
-                        <EyeSlash color={err ? "#E51616" : "#3B3B3B"} />
+                        <div className={styles.Eye} onClick={openPass}>
+                            {handleEye ? <Eye color={err ? "#E51616" : "#3B3B3B"} /> : <EyeSlash color={err ? "#E51616" : "#3B3B3B"} />}
+                        </div>
                     </div>
                 </div>
                 <button
@@ -93,8 +106,8 @@ export const Authorization = () => {
                 Войти
             </button>
             <Modal
-                centered
                 width={678}
+                centered
                 open={modal.isOpen}
                 onCancel={modal.close}
             >
