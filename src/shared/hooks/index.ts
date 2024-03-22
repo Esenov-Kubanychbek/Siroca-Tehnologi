@@ -10,3 +10,4 @@ export { useUser } from "./useUser";
 export { useView } from "./useView";
 export { useSuccess } from "./useSuccess";
 export { useReady } from "./useReady";
+export { useViewUser } from "./useViewUser";

@@ -13,7 +13,7 @@ export const Roles = () => {
     const navigate = useNavigate();
     return (
         <div className={styles.Roles}>
-            {settings ? navigate("/rolesettings") : <RolesMenu openSettings={openSetting} />}
+            {settings ? navigate("/rolessettings") : <RolesMenu openSettings={openSetting} />}
         </div>
     );
 };

@@ -4,10 +4,14 @@ import { CustomButton, CustomInput } from "../../../shared/ui";
 import { ConfigProvider, Modal } from "antd";
 import { LoadingModal } from "../..";
 import { useLoading, usePosition } from "../../../shared/hooks";
+import { jobTitleApi } from "../../../shared/api";
+import { ChangeEvent, useState } from "react";
 
 export const CreatePosition = () => {
+    const fetchData = jobTitleApi()
     const modal = usePosition();
     const modalLoading = useLoading();
+    const [position, setPosition] = useState<{title: string}>({title: ""})
     return (
         <div className={styles.CreatePosition}>
             <div className={styles.Header}>
@@ -21,15 +25,18 @@ export const CreatePosition = () => {
             </div>
             <div>
                 <CustomInput
+                    name="title"
                     placeholder="Напишите..."
                     width={560}
+                    value={position.title}
+                    change={(e: ChangeEvent<HTMLInputElement>)=> setPosition((prevState) => ({ ...prevState, [e.target.name]: e.target.value }))}
                 />
             </div>
             <div className={styles.Buttons}>
                 <div
-                    onClick={modal.close}
+                    onClick={modalLoading.open}
                     style={{ cursor: "pointer" }}
-                >
+                    >
                     <CustomButton
                         variant="Secondary"
                         width={150}
@@ -37,7 +44,11 @@ export const CreatePosition = () => {
                     />
                 </div>
                 <div
-                    onClick={modalLoading.open}
+                    onClick={()=> {
+                        fetchData.posting(position)
+                        console.log(position);
+                        modal.close
+                    }}
                     style={{ cursor: "pointer" }}
                 >
                     <CustomButton
