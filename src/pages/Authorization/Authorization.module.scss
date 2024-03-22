@@ -8,6 +8,7 @@
     flex-direction: column;
     align-items: center;
     margin-top: 120px;
+
     .Err {
         margin-top: 80px;
         display: flex;
@@ -17,24 +18,31 @@
         gap: 10px;
         border-radius: 8px;
         background: var(---100, #f4f4f4);
+
         p {
             color: var(---Error, #e51616);
+
+            /* 1920/Body L/500 */
+            font-family: Geometria;
             font-size: 18px;
             font-style: normal;
             font-weight: 500;
             line-height: normal;
         }
     }
+
     .Logo {
         width: 316px;
         height: 100px;
     }
+
     .H1 {
         font-size: 32px;
         font-weight: 700;
         color: black;
         margin: 20px 0 0 0;
     }
+
     .InputsBlock {
         padding: 0;
         margin-top: 60px;
@@ -44,6 +52,7 @@
         flex-direction: column;
         justify-content: space-between;
     }
+
     .InputsBlockErr {
         padding: 0;
         margin-top: 12px;
@@ -53,59 +62,71 @@
         flex-direction: column;
         justify-content: space-between;
     }
+
     .ErrInputCont {
         height: 83px;
+
         p {
             font-size: 18px;
             font-weight: 700;
             margin: 0 0 4px 0;
             color: red;
         }
+
         div {
             position: relative;
+
             svg {
                 top: 16px;
                 right: 16px;
                 position: absolute;
             }
         }
+
         input {
             color: #e51616;
             padding-left: 16px;
-            padding-right: 14px;
             border: 1px solid var(---Error, #e51616);
-            width: 530px;
-            height: 56px;
+            width: 540px;
+            height: 48px;
             border-radius: 8px;
             font-size: 18px;
         }
     }
+
+
+
     .InputCont {
         height: 83px;
+
         p {
             font-size: 18px;
             font-weight: 700;
             margin: 0 0 4px 0;
         }
+
+        .Eye {
+            cursor: pointer;
+            position: absolute;
+            right: 12px;
+            top: 13px;
+        }
+
         div {
             position: relative;
-            svg {
-                top: 16px;
-                right: 16px;
-                position: absolute;
-            }
         }
+
         input {
             padding-left: 16px;
-            padding-right: 14px;
             border: 1px solid #25252526;
-            width: 530px;
-            height: 56px;
+            width: 540px;
+            height: 48px;
             border-radius: 8px;
             color: $black;
             font-size: 18px;
         }
     }
+
     .Link {
         background: none;
         border: none;
@@ -115,6 +136,7 @@
         font-size: 18px;
         color: $blue;
     }
+
     .EnterButton {
         margin-top: 47px;
         text-decoration: none;
@@ -130,6 +152,7 @@
         justify-content: center;
         align-items: center;
     }
+
     .ErrEnterButton {
         margin-top: 47px;
         text-decoration: none;
@@ -145,6 +168,7 @@
         align-items: center;
         background: var(---300, #a8a8a8);
     }
+
     .EnterButton:active {
         border: none;
     }
