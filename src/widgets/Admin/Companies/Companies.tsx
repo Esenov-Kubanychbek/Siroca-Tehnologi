@@ -3,11 +3,13 @@ import { SearchInput } from "../../../features";
 import { ButtonCreate } from "../../../shared/ui/ButtonCreate/ButtonCreate";
 import styles from "./Companies.module.scss";
 import { massiv } from "./Massiv";
-import { CreateCompany } from "../..";
+import { CreateCompany, ViewCompany } from "../..";
 import { useCompany } from "../../../shared/hooks";
+import { useViewCompany } from "../../../shared/hooks/useViewCompany";3
 
 export const Companies = () => {
     const modal = useCompany();
+    const modalView = useViewCompany()
     return (
         <div className={styles.Companies}>
             <h3>Поиск по компаниям</h3>
@@ -30,7 +32,7 @@ export const Companies = () => {
                 <div className={styles.scrol}>
                     <div>
                         {massiv.map((mass, i) => (
-                            <li key={i}>
+                            <li onClick={modalView.open} key={i}>
                                 <div>{mass.compani}</div>
                                 <div>{mass.strcompani}</div>
                                 <div>{mass.kolUser}</div>
@@ -50,6 +52,14 @@ export const Companies = () => {
                 onCancel={modal.close}
             >
                 <CreateCompany />
+            </Modal>
+            <Modal
+                centered
+                width={700}
+                open={modalView.isOpen}
+                onCancel={modalView.close}
+            >
+                <ViewCompany />
             </Modal>
         </div>
     );
