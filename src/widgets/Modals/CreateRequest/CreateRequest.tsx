@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import styles from "./CreateRequest.module.scss";
 import { CloseSquare } from "iconsax-react";
 import { CustomButton } from "../../../shared/ui";
@@ -6,15 +6,60 @@ import { Details } from "./ui/Details";
 import { LinkJira } from "./ui/LinkJira";
 import { Humans } from "./ui/Humans";
 import { DatesContainer } from "./ui/DatesContainer";
-import { Comments } from "./ui/Comments";
+import { Description } from "./ui/Description";
 import { CheckList } from "./ui/CheckList";
-import { Collapse } from "antd";
-import { useRequest } from "../../../shared/hooks";
+import { useRequest, useSuccess } from "../../../shared/hooks";
+import {requestApi, IRequest } from "../../../shared/requestApi";
+import { SuccessModal } from "../..";
+import { Collapse, Modal } from "antd";
+import { Comments } from "./ui/Comments";
+import { BriefDescription } from "./ui/BriefDescription";
+import './style.scss';
+import CollapsePanel from "antd/es/collapse/CollapsePanel";
 
 export const CreateRequest: FC = () => {
     const modal = useRequest();
+    const fetchData = requestApi();
+    const success = useSuccess();
+    const [requestState, setRequestState] = useState<IRequest>({
+        task_number: "",
+        title:"",
+        description: "",
+        files: "",
+        jira: "",
+        status: "",
+        payment_state:"", 
+        priority: "",
+        application_date: "",
+        confirm_date:"", 
+        offer_date: "",
+        start_date: "",
+        finish_date: "",
+        company:0,
+        main_client:0,
+        main_manager:0,
+    });
+
+
+    const RequestCreateValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        setRequestState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+        console.log(requestState)
+    };      
+    const postTrim = () => {
+        if (Object.values(requestState).every((value) => value !== "")) {
+            fetchData.posting(requestState);
+            modal.close();
+            success.open();
+            console.log("success");
+        } else {
+            modal.close();
+            success.open();
+            console.log(requestState, "error");
+        }
+    };
+
     return (
-        <div className={styles.CreateRequest}>
+        <form className={styles.CreateRequest}>
             <div className={styles.Container}>
                 <div className={styles.Top}>
                     <div className={styles.TextTop}>Создание заявки</div>
@@ -31,33 +76,49 @@ export const CreateRequest: FC = () => {
                 </div>
                 <div className={styles.NumberRequest}>
                     <div>
-                        Номер заявки: <span>YMF021256</span>
+                        Номер заявки: <span>565646465</span>
                     </div>
                 </div>
-                <Collapse
-                    size="small"
-                    items={[{ key: "1", label: "Детали заявки:", children: <p>{<Details />}</p> }]}
-                />
-                <Collapse
-                    size="small"
-                    items={[{ key: "1", label: "Ссылка на Jira:", children: <p>{<LinkJira />}</p> }]}
-                />
-                <Collapse
-                    size="small"
-                    items={[{ key: "1", label: "Люди:", children: <p>{<Humans />}</p> }]}
-                />
-                <Collapse
-                    size="small"
-                    items={[{ key: "1", label: "Даты:", children: <p>{<DatesContainer />}</p> }]}
-                />
-                <Collapse
-                    size="small"
-                    items={[{ key: "1", label: "Комментарии:", children: <p>{<Comments />}</p> }]}
-                />
-                <Collapse
-                    size="small"
-                    items={[{ key: "1", label: "Чек листы:", children: <p>{<CheckList />}</p> }]}
-                />
+                <Collapse accordion>
+                    <CollapsePanel header="Детали заявки" key={1}>
+                        <Details onChange={RequestCreateValue}/>
+                    </CollapsePanel>
+                </Collapse>
+                <Collapse accordion>
+                    <CollapsePanel header="Ссылка на Jira" key={1}>
+                        <LinkJira onChange={RequestCreateValue}/>
+                    </CollapsePanel>
+                </Collapse>
+                <Collapse accordion>
+                    <CollapsePanel header="Люди" key={1}>
+                        <Humans onChange={RequestCreateValue}/>
+                    </CollapsePanel>
+                </Collapse>
+                <Collapse accordion>
+                    <CollapsePanel header="Даты" key={1}>
+                        <DatesContainer onChange={RequestCreateValue}/>
+                    </CollapsePanel>
+                </Collapse>
+                <Collapse accordion>
+                    <CollapsePanel header="Комментарии" key={1}>
+                        <Comments/>
+                    </CollapsePanel>
+                </Collapse>
+                <Collapse accordion>
+                    <CollapsePanel header="Описание" key={1}>
+                        <Description onChange={RequestCreateValue}/>
+                    </CollapsePanel>
+                </Collapse>
+                <Collapse accordion>
+                    <CollapsePanel header="Краткое описание" key={1}>
+                        <BriefDescription/>
+                    </CollapsePanel>
+                </Collapse>
+                <Collapse accordion>
+                    <CollapsePanel header="Чек-листы" key={1}>
+                    <CheckList/> 
+                    </CollapsePanel>
+                </Collapse>
                 <div className={styles.Buttons}>
                     <div onClick={modal.close}>
                         <CustomButton
@@ -66,7 +127,7 @@ export const CreateRequest: FC = () => {
                             text="Отменить"
                         />
                     </div>
-                    <div onClick={modal.close}>
+                    <div onClick={postTrim}>
                         <CustomButton
                             variant="Primary"
                             width={150}
@@ -74,7 +135,16 @@ export const CreateRequest: FC = () => {
                         />
                     </div>
                 </div>
+                <Modal
+                width={350}
+                centered
+                zIndex={11}
+                open={success.isOpen}
+                onCancel={success.close}
+            >
+                <SuccessModal />
+            </Modal>
             </div>
-        </div>
+        </form>
     );
 };

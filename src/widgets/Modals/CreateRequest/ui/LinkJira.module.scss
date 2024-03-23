@@ -9,3 +9,12 @@
     flex-direction: column;
     gap: 6px;
 }
+.LinkInput{
+    position: relative;
+    .LinkIcon{
+        position: absolute;
+        left: 16px;
+        top: 55%;
+        transform: translateY(-50%);
+    }
+}
