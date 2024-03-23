@@ -1,18 +1,28 @@
 import { FC } from "react";
-import { IUsersProps } from "../models/types";
 import { RequestInner } from "../../../../entities";
 import styles from "./UsersMap.module.scss";
+import { useViewUser } from "../../../../shared/hooks";
+import { IUserId } from "../../../../shared/types/userTypes";
+import { usersApi } from "../../../../shared/api";
 
-export const UsersMap: FC<IUsersProps> = (props) => {
-    const { name, login, password, position, role, companies } = props;
+export const UsersMap: FC<IUserId> = (props) => {
+    const { id, first_name, username, password, job_title, role_type, main_company } = props;
+    const modal = useViewUser();
+    const fetchData = usersApi();
     return (
-        <div className={styles.UsersMap}>
+        <div
+            onClick={() => {
+                modal.open();
+                fetchData.getOneUser(id);
+            }}
+            className={styles.UsersMap}
+        >
             <RequestInner
-                content={name}
+                content={first_name}
                 width={250}
             />
             <RequestInner
-                content={login}
+                content={username}
                 width={250}
             />
             <RequestInner
@@ -20,15 +30,15 @@ export const UsersMap: FC<IUsersProps> = (props) => {
                 width={250}
             />
             <RequestInner
-                content={position}
+                content={job_title}
                 width={340}
             />
             <RequestInner
-                content={role}
+                content={role_type}
                 width={314}
             />
             <RequestInner
-                content={companies}
+                content={main_company}
                 width={314}
             />
         </div>

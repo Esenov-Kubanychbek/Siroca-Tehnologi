@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import { Authorization, ClientPage, ManagerPage, AdminPage, WorkPage } from "../pages";
-import { ReadyModal, SuccessModal } from "../widgets";
 import RolesSettings from "../widgets/Admin/Roles/components/settings/RolesSettings";
 
 const App = () => {
@@ -27,20 +26,12 @@ const App = () => {
                 element={<WorkPage />}
             />
             <Route
-                path="/rolesettings"
+                path="/rolessettings"
                 element={<RolesSettings />}
             />
             <Route
                 path="*"
                 element={<h1 style={{ marginTop: "100px" }}>Sorry Not Found!</h1>}
-            />
-            <Route
-                path="/success"
-                element={<SuccessModal />}
-            />
-            <Route
-                path="/ready"
-                element={<ReadyModal />}
             />
         </Routes>
     );

@@ -8,9 +8,15 @@ import styles from "./Positions.module.scss";
 import { CreatePosition } from "../../Modals/CreatePosition/CreatePosition";
 import PositionsApi from "./api/PositionsApi.json";
 import { usePosition } from "../../../shared/hooks";
+import { useEffect } from "react";
+import { jobTitleApi } from "../../../shared/api";
 
 export const Positions = () => {
     const modal = usePosition();
+    const fetchData = jobTitleApi()
+    useEffect(()=> {
+        fetchData.getting()
+    }, [])
     return (
         <div className={styles.Positions}>
             <div className={styles.Name}>Поиск по должностям</div>
