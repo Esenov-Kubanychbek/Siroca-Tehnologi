@@ -1,13 +1,11 @@
 import { FC } from "react";
 import { Request } from "../../../features";
 import { RequestTop } from "../..";
-import { ConfigProvider, Modal, Pagination } from "antd";
+import { ConfigProvider,Pagination } from "antd";
 import { IRequest } from "./model/types";
-import { RequestView } from "../../RequestView/RequestView";
-import { useView } from "../../../shared/hooks";
+
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
-    const modal = useView();
     const apiLength = api.length;
     const apiLengthDivide = Math.ceil(apiLength / 12);
     const apiLast = api.slice(0, 12);
@@ -30,14 +28,6 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     status={card.status}
                 />
             ))}
-            <Modal
-                zIndex={6}
-                width={700}
-                open={modal.isOpen}
-                onCancel={modal.close}
-            >
-                <RequestView />
-            </Modal>
             {apiLength >= 12 ? (
                 <div
                     style={{
