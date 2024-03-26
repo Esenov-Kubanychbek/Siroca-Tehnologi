@@ -36,6 +36,12 @@
     gap: 16px;
 }
 
+.Name {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
 .AddPhoto {
     display: flex;
     justify-content: center;

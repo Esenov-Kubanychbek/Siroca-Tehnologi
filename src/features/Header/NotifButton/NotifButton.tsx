@@ -7,17 +7,19 @@ import { useNotif } from "../../../shared/hooks";
 export const NotifButton = () => {
     const modal = useNotif();
     return (
-        <button
-            onClick={modal.open}
-            aria-label="notif"
-            className={styles.NotifButton}
-        >
-            <Notification
-                size={34}
-                variant={"Bold"}
-                color="#717171"
-            />
-            <div className={styles.NotifNumber}>5</div>
+        <>
+            <button
+                onClick={modal.open}
+                aria-label="notif"
+                className={styles.NotifButton}
+            >
+                <Notification
+                    size={34}
+                    variant={"Bold"}
+                    color="#717171"
+                />
+                <div className={styles.NotifNumber}>5</div>
+            </button>
             <Modal
                 width={640}
                 open={modal.isOpen}
@@ -25,6 +27,6 @@ export const NotifButton = () => {
             >
                 <NotifModal />
             </Modal>
-        </button>
+        </>
     );
 };

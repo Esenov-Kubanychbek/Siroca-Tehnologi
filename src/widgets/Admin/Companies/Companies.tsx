@@ -5,11 +5,12 @@ import styles from "./Companies.module.scss";
 import { massiv } from "./Massiv";
 import { CreateCompany, ViewCompany } from "../..";
 import { useCompany } from "../../../shared/hooks";
-import { useViewCompany } from "../../../shared/hooks/useViewCompany";3
+import { useViewCompany } from "../../../shared/hooks/useViewCompany";
+3;
 
 export const Companies = () => {
     const modal = useCompany();
-    const modalView = useViewCompany()
+    const modalView = useViewCompany();
     return (
         <div className={styles.Companies}>
             <h3>Поиск по компаниям</h3>
@@ -32,7 +33,10 @@ export const Companies = () => {
                 <div className={styles.scrol}>
                     <div>
                         {massiv.map((mass, i) => (
-                            <li onClick={modalView.open} key={i}>
+                            <li
+                                onClick={modalView.open}
+                                key={i}
+                            >
                                 <div>{mass.compani}</div>
                                 <div>{mass.strcompani}</div>
                                 <div>{mass.kolUser}</div>

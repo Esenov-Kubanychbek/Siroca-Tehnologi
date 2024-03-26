@@ -1,5 +1,5 @@
 import { AddSquare, CloseSquare } from "iconsax-react";
-import styles from "./ViewCompany.module.scss"
+import styles from "./ViewCompany.module.scss";
 import { CustomButton, CustomInput, CustomSelect } from "../../../shared/ui";
 import { useViewCompany } from "../../../shared/hooks/useViewCompany";
 import { axiosApi } from "../../../axiosApi";
@@ -10,7 +10,6 @@ import { useToken } from "../../../shared/hooks/tokenHook/useToken";
 export const ViewCompany = () => {
     const data: string[] = ["Abu", "Aman", "Kuba", "Daler"];
     const modal = useViewCompany();
-    
 
     return (
         <div className={styles.CreateCompany}>
@@ -72,7 +71,12 @@ export const ViewCompany = () => {
             </div>
             <div className={styles.blockTwo}>
                 <div>
-                    <p className={styles.Label}  style={{marginTop: "23px"}}>Количество пользавателей</p>
+                    <p
+                        className={styles.Label}
+                        style={{ marginTop: "23px" }}
+                    >
+                        Количество пользавателей
+                    </p>
                     <CustomInput
                         placeholder=""
                         value="Оптима банк"
@@ -80,8 +84,15 @@ export const ViewCompany = () => {
                     />
                 </div>
                 <div>
-                    <p className={styles.Label} style={{width: "200px", marginLeft: "40px"}}>Создать/Привязать пользавателя</p>
-                    <button className={styles.AddUser}>Добавить польз. <AddSquare/></button>
+                    <p
+                        className={styles.Label}
+                        style={{ width: "200px", marginLeft: "40px" }}
+                    >
+                        Создать/Привязать пользавателя
+                    </p>
+                    <button className={styles.AddUser}>
+                        Добавить польз. <AddSquare />
+                    </button>
                 </div>
             </div>
             <div className={styles.buttons}>
@@ -102,4 +113,4 @@ export const ViewCompany = () => {
             </div>
         </div>
     );
-}
+};

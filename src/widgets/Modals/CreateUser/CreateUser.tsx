@@ -1,49 +1,28 @@
-import { ChangeEvent, FC, useState } from "react";
+import { FC } from "react";
 import styles from "./CreateUser.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
-import { CloseSquare, GalleryAdd } from "iconsax-react";
+import { CloseSquare } from "iconsax-react";
 import { RoleButton } from "./ui/RoleButton";
 import { AddButton } from "./ui/AddButton";
-import { Modal } from "antd";
+import { ConfigProvider, Modal } from "antd";
 import { CreatePosition, SuccessModal } from "../..";
 import { usePosition, useSuccess, useUser } from "../../../shared/hooks";
-import { IUser } from "../../../shared/types/userTypes";
 import { usersApi } from "../../../shared/api";
+import { AddPhoto } from "./ui/AddPhoto";
 
 export const CreateUser: FC = () => {
     const positionFunc = usePosition();
     const fetchData = usersApi();
     const modal = useUser();
     const success = useSuccess();
-    const [userState, setUserState] = useState<IUser>({
-        first_name: "",
-        image: null,
-        job_title: null,
-        main_company: 0,
-        password: "",
-        role_type: "",
-        surname: "surname",
-        username: "",
-    });
-
-    const formCreateValue = (e: ChangeEvent<HTMLInputElement>) => {
-        setUserState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
-    };
-
     const postTrim = () => {
-        if (Object.values(userState).every((value) => value !== "")) {
-            fetchData.posting(userState);
-
-            modal.close();
-            success.open();
-            console.log("success");
+        if (Object.values(fetchData.oneUser).every((value) => value !== "")) {
+            fetchData.posting(fetchData.oneUser);
+            console.log(fetchData.oneUser, "success");
         } else {
-            modal.close();
-            success.open();
-            console.log(userState, "error");
+            console.log(fetchData.oneUser, "error");
         }
     };
-
     return (
         <form className={styles.CreateUser}>
             <div className={styles.Top}>
@@ -55,26 +34,29 @@ export const CreateUser: FC = () => {
                 />
             </div>
             <div className={styles.Description}>
-                <div className={styles.AddPhoto}>
-                    <GalleryAdd
-                        size={50}
-                        color="#252525"
-                    />
-                    <div className={styles.Text2}>Добавьте фотографию пользователя</div>
-                </div>
+                <AddPhoto />
                 <div className={styles.UserRole}>
-                    <div>
-                        <div className={styles.Text}>Имя/Фамилия</div>
+                    <div className={styles.Name}>
+                        <div className={styles.Text}>Имя</div>
                         <CustomInput
                             name="first_name"
                             width={340}
                             placeholder="Напишите..."
-                            change={formCreateValue}
+                            change={fetchData.setOneUser}
                         />
+                        <div>
+                            <div className={styles.Text}>Фамилия</div>
+                            <CustomInput
+                                name="surname"
+                                width={340}
+                                placeholder="Напишите..."
+                                change={fetchData.setOneUser}
+                            />
+                        </div>
                     </div>
                     <div>
                         <div className={styles.Text}>Тип роли</div>
-                        <RoleButton change={formCreateValue} />
+                        <RoleButton change={fetchData.setOneUser} />
                     </div>
                 </div>
             </div>
@@ -85,7 +67,7 @@ export const CreateUser: FC = () => {
                         name="username"
                         width={272}
                         placeholder="@siroca.com"
-                        change={formCreateValue}
+                        change={fetchData.setOneUser}
                     />
                 </div>
                 <div>
@@ -94,7 +76,7 @@ export const CreateUser: FC = () => {
                         name="password"
                         width={272}
                         placeholder="Напишите..."
-                        change={formCreateValue}
+                        change={fetchData.setOneUser}
                     />
                 </div>
             </div>
@@ -106,7 +88,7 @@ export const CreateUser: FC = () => {
                         name="main_company"
                         width={272}
                         placeholder="Напишите..."
-                        change={formCreateValue}
+                        change={fetchData.setOneUser}
                     />
                 </div>
                 <div>
@@ -117,6 +99,7 @@ export const CreateUser: FC = () => {
                             type="number"
                             width={210}
                             placeholder="Напишите..."
+                            change={fetchData.setOneUser}
                         />
                         <AddButton onClick={positionFunc.open} />
                     </div>
@@ -147,15 +130,23 @@ export const CreateUser: FC = () => {
             >
                 <CreatePosition />
             </Modal>
-            <Modal
-                width={350}
-                centered
-                zIndex={11}
-                open={success.isOpen}
-                onCancel={success.close}
+            <ConfigProvider
+                theme={{
+                    token: {
+                        borderRadiusLG: 50,
+                    },
+                }}
             >
-                <SuccessModal />
-            </Modal>
+                <Modal
+                    width={350}
+                    centered
+                    zIndex={11}
+                    open={success.isOpen}
+                    onCancel={success.close}
+                >
+                    <SuccessModal />
+                </Modal>
+            </ConfigProvider>
         </form>
     );
 };
