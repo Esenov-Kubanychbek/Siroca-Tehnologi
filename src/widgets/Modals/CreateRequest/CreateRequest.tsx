@@ -25,7 +25,7 @@ export const CreateRequest: FC = () => {
         task_number: "",
         title:"",
         description: "",
-        files: "",
+        files:null,
         jira: "",
         status: "",
         payment_state:"", 
@@ -36,26 +36,20 @@ export const CreateRequest: FC = () => {
         start_date: "",
         finish_date: "",
         company:0,
-        main_client:0,
-        main_manager:0,
+        main_client:null,
+        main_manager:null,
     });
 
 
     const RequestCreateValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setRequestState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
-        console.log(requestState)
+        // console.log(requestState)
     };      
     const postTrim = () => {
-        if (Object.values(requestState).every((value) => value !== "")) {
             fetchData.posting(requestState);
             modal.close();
             success.open();
             console.log("success");
-        } else {
-            modal.close();
-            success.open();
-            console.log(requestState, "error");
-        }
     };
 
     return (

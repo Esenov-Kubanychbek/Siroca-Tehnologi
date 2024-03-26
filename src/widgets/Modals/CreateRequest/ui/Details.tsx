@@ -26,6 +26,7 @@ export const Details: FC <{ onChange: (e: ChangeEvent<HTMLInputElement | HTMLSel
                         <div className={styles.Text}>Название компании:</div>
                         <CustomInput
                             name="company"
+                            type="number"
                             width={350}
                             height={44}
                             placeholder="Введите текст..."

@@ -21,7 +21,7 @@ export const checkListApi = create<IFetch>(() => ({
             const postResponse = await axios.post("http://16.171.68.251:80/api/v1/applications/checklist/", postState);
             console.log(postResponse);
         } catch (error) {
-            console.log(error, "postRequestError");
+            console.log(error, "postCheckListError");
         }
     },
 })); 
