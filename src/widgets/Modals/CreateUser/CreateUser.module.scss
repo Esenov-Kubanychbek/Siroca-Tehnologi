@@ -36,17 +36,10 @@
     gap: 16px;
 }
 
-.AddPhoto {
+.Name {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    width: 204px;
-    height: 186px;
-    border-radius: 8px;
-    background-color: $blackf4;
-    text-align: center;
-    cursor: pointer;
+    gap: 6px;
 }
 
 .Description {

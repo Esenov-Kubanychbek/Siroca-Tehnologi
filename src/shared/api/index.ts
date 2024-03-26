@@ -1,2 +1,2 @@
-export {jobTitleApi} from "./jobTitleApi"
-export {usersApi} from "./usersListApi"
+export { jobTitleApi } from "./jobTitleApi";
+export { usersApi } from "./usersListApi";

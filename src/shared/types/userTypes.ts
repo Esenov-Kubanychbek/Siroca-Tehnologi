@@ -1,20 +1,21 @@
 export interface IUser {
+    id?: number;
     first_name: string;
-    image: null;
-    job_title: string | null;
-    main_company: string | null | number;
+    image?: File | FileList | string;
+    job_title: number | null;
+    main_company: number;
     password: string;
     role_type: string;
-    surname: string;
+    surname?: string;
     username: string;
 }
 
-export interface IUserId {
-    id: number;
+export interface IUserGet {
+    id?: number;
     first_name: string;
-    image?: null;
-    job_title: string | null;
-    main_company: string | null | number;
+    image?: string;
+    job_title: number;
+    main_company: number;
     password: string;
     role_type: string;
     surname?: string;
