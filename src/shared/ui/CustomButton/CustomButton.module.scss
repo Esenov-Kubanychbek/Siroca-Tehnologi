@@ -16,6 +16,7 @@
 .Primary {
     background-color: $blue;
     color: white;
+    border: none;
 }
 
 .Secondary {
@@ -27,6 +28,7 @@
 .Without {
     background-color: white;
     color: $blue;
+    border: none;
 }
 
 .Request,
@@ -50,4 +52,5 @@
 .Request {
     background-color: $blue;
     color: white;
+    border: none;
 }

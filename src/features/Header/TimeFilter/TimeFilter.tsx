@@ -1,12 +1,16 @@
 import { TabsProps } from "antd";
 import { RequestList } from "../../../widgets";
 import { ConfigProvider, Tabs } from "antd";
-import { FC } from "react";
-import AllTime from "./api/AllTime.json";
-import Week from "./api/Week.json";
-import Month from "./api/Month.json";
+import { FC, useEffect} from "react";
+import { getRequestApi } from "../../../shared/getRequestApi";
 
-export const TimeFilter: FC<{ role: string }> = ({ role }) => {
+
+export const TimeFilter: FC<{ role: string }> = ({ role}) => {
+    const fetchRequest = getRequestApi();
+    useEffect(()=>{
+        fetchRequest.getting()
+        console.log(fetchRequest.getState, "asdf");
+    },[])
     const items: TabsProps["items"] = [
         {
             key: "1",
@@ -14,7 +18,7 @@ export const TimeFilter: FC<{ role: string }> = ({ role }) => {
             children: (
                 <RequestList
                     role={role}
-                    api={AllTime}
+                    api={fetchRequest.getState}
                 />
             ),
         },
@@ -24,7 +28,7 @@ export const TimeFilter: FC<{ role: string }> = ({ role }) => {
             children: (
                 <RequestList
                     role={role}
-                    api={Week}
+                    api={fetchRequest.getState}
                 />
             ),
         },
@@ -34,7 +38,7 @@ export const TimeFilter: FC<{ role: string }> = ({ role }) => {
             children: (
                 <RequestList
                     role={role}
-                    api={Month}
+                    api={fetchRequest.getState}
                 />
             ),
         },

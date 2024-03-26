@@ -1,4 +1,6 @@
-interface IObject {
+import { IGetRequest } from "../../../../shared/getRequestApi";
+
+export interface IObject {
     number: string;
     company: string;
     request: string;
@@ -13,5 +15,5 @@ interface IObject {
 
 export interface IRequest {
     role: string;
-    api: IObject[];
+    api: IGetRequest[];
 }

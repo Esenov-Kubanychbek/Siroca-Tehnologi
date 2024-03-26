@@ -1,23 +1,25 @@
-import { FC } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import styles from "./Comments.module.scss";
 import { CustomTextArea } from '../../../../shared/ui';
-// import { IComments, commentsApi } from "../../../../shared/commentsApi";
+import { IComments, commentsApi } from "../../../../shared/commentsApi";
+import { Send2 } from "iconsax-react";
+
 
 
 export const Comments: FC  = () => {
-    // const fetchComments = commentsApi()
+    const fetchComments = commentsApi()
 
-    // const [commentsState , setCommentsState] = useState<IComments>({
-    //     text:"" ,
-    //     user: 0,
-    //     application: 0,
-    // });
+    const [commentsState , setCommentsState] = useState<IComments>({
+        text:"" ,
+        user: null,
+        application: null,
+    });
 
-    // const CommentsValue = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement >) => {
-    //     setCommentsState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
-    //     console.log(commentsState)
-    // }; 
-    // fetchComments.posting(commentsState);
+    const CommentsValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setCommentsState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+        console.log(commentsState)
+    }; 
+    fetchComments.posting(commentsState);
     return (
         <div className={styles.CommentsCtnr}>
             <div className={styles.Comments}>
@@ -27,8 +29,11 @@ export const Comments: FC  = () => {
                     height={100}
                     width={590}
                     variant="TextArea"
-                    // change={CommentsValue}
+                    change={CommentsValue}
                 />
+                <div>
+                    <Send2 size={24} color="#5C5C5C"/>
+                </div>
             </div>
         </div>
     );

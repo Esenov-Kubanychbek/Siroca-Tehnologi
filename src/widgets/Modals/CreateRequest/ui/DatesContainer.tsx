@@ -19,7 +19,7 @@ export const DatesContainer: FC <{ onChange: (e: ChangeEvent<HTMLInputElement>) 
                         text="Срок выполнения:"
                     />
                     <Date
-                        name=""
+                        name="offer_date"
                         variant="DateContainer"
                         text="Дата отправки:"
                     />
@@ -32,7 +32,7 @@ export const DatesContainer: FC <{ onChange: (e: ChangeEvent<HTMLInputElement>) 
                         change={onChange}
                     />
                     <Date
-                        name="offer_date"
+                        name=""
                         variant="DateContainer"
                         text="Дата подачи:"
                         change={onChange}

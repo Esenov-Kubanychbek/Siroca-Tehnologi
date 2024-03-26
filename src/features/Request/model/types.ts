@@ -1,10 +1,10 @@
 export interface IRequestProps {
     number: string;
-    company: string;
+    company: number;
     request: string;
     description: string;
-    client: string;
-    manager: string;
+    client: number;
+    manager: number;
     begin: string;
     end: string;
     prioritet: string;
