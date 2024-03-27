@@ -32,12 +32,21 @@ export const Authorization = () => {
             console.log(response.status);
 
             if (response.status === 200) {
+<<<<<<< HEAD
+                const access = response.data.access
+                localStorage.setItem("access", access)
+                if(login === "admin"){
+                  navigate("/adminpage")  
+                }else{
+                    navigate("/clientpage")
+=======
                 const access = response.data.access;
                 localStorage.setItem("access", access);
                 if (login === "KUBA") {
                     navigate("/clientpage");
                 } else {
                     navigate("/clientpage");
+>>>>>>> 1bb9c9439b9e1ce151a9f8ed1924acfd777d2a5f
                 }
             } else {
                 setErr(true);

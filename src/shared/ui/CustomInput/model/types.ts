@@ -5,7 +5,7 @@ export interface IInput {
     placeholder: string;
     height?: number;
     background?: string;
-    value?: string | number | null;
+    value?: string ;
     name?: string;
     type?: string;
     paddingLeft?:number;

@@ -4,46 +4,17 @@
     .searchCompanies {
         display: flex;
         justify-content: space-between;
-        margin-right: 50px;
+        margin-right: 20px;
     }
-
-    ul {
-        margin-left: -40px;
-
-        .scrol {
-            height: 648px;
-            overflow-y: auto;
-
-            &::-webkit-scrollbar {
-                width: 10px;
+    .table{
+        margin: 16px 0 ;
+        ul {
+            padding: 0;
+    
+            .datas{
+                display: flex;
             }
-
-            div {
-                margin-right: 40px;
-                border-radius: 0 0 8px 8px;
-
-                box-shadow: 10px 10px 10px rgba(206, 191, 191, 0.16);
-            }
-        }
-
-        li {
-            list-style-type: none;
-            display: flex;
-            justify-content: space-between;
-            padding: 16px 26px;
-
-            div {
-                font-size: 18px;
-                font-weight: 700;
-            }
-        }
-
-        .h {
-            background-color: $blue;
-            color: $blackf4;
-            border-radius: 8px 8px 0 0;
-
-            margin-right: 50px;
         }
     }
+    
 }

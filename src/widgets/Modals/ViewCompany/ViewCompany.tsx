@@ -1,16 +1,22 @@
 import { AddSquare, CloseSquare } from "iconsax-react";
-import styles from "./ViewCompany.module.scss";
-import { CustomButton, CustomInput, CustomSelect } from "../../../shared/ui";
+import styles from "./ViewCompany.module.scss"
+import { CustomButton, CustomInput } from "../../../shared/ui";
 import { useViewCompany } from "../../../shared/hooks/useViewCompany";
-import { axiosApi } from "../../../axiosApi";
-import axios from "axios";
-import { useEffect } from "react";
-import { useToken } from "../../../shared/hooks/tokenHook/useToken";
+import { useDataStoreComponies } from "../../../shared/componiesApi";
+import { CustomSelect } from "../../Modals/CreateCompany/ui/CustomSelect";
+
+
+
 
 export const ViewCompany = () => {
-    const data: string[] = ["Abu", "Aman", "Kuba", "Daler"];
     const modal = useViewCompany();
-
+    const {selectedCompanyData, deleteCompany, idCompany} = useDataStoreComponies();
+    const deleteComp = () => {
+        deleteCompany(idCompany);
+        modal.close();
+        console.log(idCompany);
+        
+    }
     return (
         <div className={styles.CreateCompany}>
             <div className={styles.blockOne}>
@@ -26,7 +32,7 @@ export const ViewCompany = () => {
                     <label htmlFor="">Название компании</label>
                     <CustomInput
                         placeholder=""
-                        value="Оптима банк"
+                        value={selectedCompanyData?.name}
                         width={272}
                     />
                 </div>
@@ -34,7 +40,7 @@ export const ViewCompany = () => {
                     <label htmlFor="">Страна</label>
                     <CustomInput
                         placeholder=""
-                        value="Кыргызстан"
+                        value={selectedCompanyData?.country}
                         width={272}
                     />
                 </div>
@@ -44,7 +50,7 @@ export const ViewCompany = () => {
                     <label htmlFor="">Краткий код</label>
                     <CustomInput
                         placeholder=""
-                        value="АBC138030"
+                        value={selectedCompanyData?.company_code}
                         width={272}
                     />
                 </div>
@@ -52,7 +58,7 @@ export const ViewCompany = () => {
                     <label htmlFor="">Домен</label>
                     <CustomInput
                         placeholder=""
-                        value="@optima"
+                        value={selectedCompanyData?.domain}
                         width={272}
                     />
                 </div>
@@ -63,9 +69,8 @@ export const ViewCompany = () => {
                     <br />
                     <CustomSelect
                         name="users"
-                        placeholder="Выбрать"
-                        dataOption={data}
-                        width={600}
+                        dataOption={selectedCompanyData?.users}
+                        text="Пользователи"
                     />
                 </div>
             </div>
@@ -79,7 +84,7 @@ export const ViewCompany = () => {
                     </p>
                     <CustomInput
                         placeholder=""
-                        value="Оптима банк"
+                        value={selectedCompanyData?.count_users}
                         width={272}
                     />
                 </div>
@@ -110,6 +115,7 @@ export const ViewCompany = () => {
                         text="Сохранить"
                     />
                 </div>
+                <button onClick={deleteComp}>Удалить</button>
             </div>
         </div>
     );
