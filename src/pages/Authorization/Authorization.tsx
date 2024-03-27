@@ -35,8 +35,8 @@ export const Authorization = () => {
             if (response.status === 200) {
                 const access = response.data.access
                 localStorage.setItem("access", access)
-                if(login === "KUBA"){
-                  navigate("/clientpage")  
+                if(login === "admin"){
+                  navigate("/adminpage")  
                 }else{
                     navigate("/clientpage")
                 }

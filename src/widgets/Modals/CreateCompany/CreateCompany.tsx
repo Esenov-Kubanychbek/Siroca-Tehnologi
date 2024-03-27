@@ -3,11 +3,35 @@ import styles from "./CreateCompany.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CustomSelect } from "./ui/CustomSelect";
 import { useCompany } from "../../../shared/hooks";
+import { ChangeEvent, useState } from "react";
+import { dataAddCompanies, useDataStoreComponies } from "../../../shared/componiesApi";
 
 export const CreateCompany = () => {
-    const data: string[] = ["Abu", "Aman", "Kuba", "Daler"];
+    const datas: string[] = ["Abu", "Aman", "Kuba", "Daler"];
     const modal = useCompany();
-    return (
+    const { addCompany } = useDataStoreComponies();
+    const [ dataInputCompanies, setDataInputCompanies ] = useState<dataAddCompanies>({
+            name: "",
+            company_code: "",
+            country: "",
+            managers: [],
+            main_manager: null,
+            domain: ""
+    });
+    const changeInput = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        setDataInputCompanies(prevState => ({
+          ...prevState,
+          [e.target.name]: e.target.value
+        }));
+        
+      };
+    const addNewCompany = () => {
+        addCompany(dataInputCompanies);
+        console.log(dataInputCompanies);
+        
+    }
+      
+       return (
         <div className={styles.CreateCompany}>
             <div className={styles.blockOne}>
                 <div>Создание компании</div>
@@ -23,6 +47,8 @@ export const CreateCompany = () => {
                     <CustomInput
                         placeholder="Напишите..."
                         width={272}
+                        change={changeInput}
+                        name="name"
                     />
                 </div>
                 <div>
@@ -30,6 +56,8 @@ export const CreateCompany = () => {
                     <CustomInput
                         placeholder="Напишите..."
                         width={272}
+                        change={changeInput}
+                        name="country"
                     />
                 </div>
             </div>
@@ -39,6 +67,8 @@ export const CreateCompany = () => {
                     <CustomInput
                         placeholder="Ввести код "
                         width={272}
+                        change={changeInput}
+                        name="company_code"
                     />
                 </div>
                 <div>
@@ -46,6 +76,8 @@ export const CreateCompany = () => {
                     <CustomInput
                         placeholder="Напишите..."
                         width={272}
+                        name="domain"
+                        change={changeInput}
                     />
                 </div>
             </div>
@@ -54,9 +86,9 @@ export const CreateCompany = () => {
                     <label htmlFor="sel">Ответственный менеджер</label>
                     <br />
                     <CustomSelect
-                        name="sel"
+                        name="manager"
                         placeholder="Выбрать"
-                        dataOption={data}
+                        dataOption={datas}
                     />
                 </div>
             </div>
@@ -73,6 +105,8 @@ export const CreateCompany = () => {
                         variant="Primary"
                         width={150}
                         text="Создать"
+                        createCompany={addNewCompany}
+
                     />
                 </div>
             </div>

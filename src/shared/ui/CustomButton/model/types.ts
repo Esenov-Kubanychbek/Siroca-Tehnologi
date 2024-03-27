@@ -3,4 +3,6 @@ export interface IButton {
     width: number;
     text: string;
     height?: number;
+    createCompany?: () => void;
+
 }

@@ -1,4 +1,4 @@
-@import "../../../app/styles/index.scss";
+@import "../../../../app/styles/index.scss";
 
 .Menu {
     width: 56px;
@@ -8,6 +8,7 @@
     flex-direction: column;
     align-items: center;
     background-color: $blackf4;
+    
 }
 
 .MenuIcon {

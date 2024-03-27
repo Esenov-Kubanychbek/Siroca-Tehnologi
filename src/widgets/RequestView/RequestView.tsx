@@ -1,80 +1,49 @@
-import { FC } from "react";
-import { CustomSelect } from "../../shared/ui";
-import { CloseSquare, MoreSquare } from "iconsax-react";
-import styles from "./RequestView.module.scss";
-import { MenuRequest } from "./ui/MenuRequest";
-import { CheckList } from "./ui/CheckList";
-import { Details } from "./ui/Details";
-import { LinkJira } from "./ui/LinkJira";
-import { Humans } from "./ui/Humans";
-import { DatesContainer } from "./ui/DatesContainer";
-import { Comments } from "./ui/Comments";
-import { Collapse } from "antd";
-import { useView } from "../../shared/hooks";
+import { FC } from 'react'
+import { CloseSquare, MoreSquare } from 'iconsax-react'
+import styles from './RequestView.module.scss';
+import ViewModal from './model/ViewModal';
+import { MenuRequest } from './ui/Menu/MenuRequest';
+import { Logs } from './ui/Logs/Logs';
+import DetailsAplication from './ui/DetailsAplication/DetailsAplication';
+import { Link } from './ui/Link/Link';
+import Peoples from './ui/Peoples/Peoples';
+import { Date } from './ui/Date/Date';
+import { Comments } from './ui/Comments/Comments';
+import { Description } from './ui/Description/Description';
+import { BriefDescription } from './ui/BriefDescription/BriefDescription';
+import { ChekcLists } from './ui/ChekcLists/ChekcLists';
 
 export const RequestView: FC = () => {
-    const modal = useView();
+
+    const modal = ViewModal();
 
     return (
-        <div className={styles.ViewContainer}>
+        <div className={styles.RequestView}>
             <MenuRequest />
             <div className={styles.Container}>
-                <div className={styles.Top}>
-                    <div className={styles.TextTop}>Заявка - Оптима Банк</div>
-                    <div className={styles.TopIcons}>
-                        <div className={styles.MoreSquare}>
-                            <MoreSquare
-                                variant="Bulk"
-                                color="#5c5c5c"
-                                size={34}
-                            />
-                        </div>
-                        <div
-                            onClick={modal.close}
-                            className={styles.Close}
-                        >
-                            <CloseSquare
-                                color="#5C5C5C"
-                                variant="Bold"
-                                size={34}
-                            />
-                        </div>
+                <div className={styles.block1}>
+                    <div className={styles.h1}>Заявка - Оптима Банк</div>
+                    <div className={styles.buttons}>
+                        <MoreSquare variant='Bulk' color='#5c5c5c' size={34} />
+                        <CloseSquare onClick={modal.close} color='#5C5C5C' variant="Bold" size={34} />
                     </div>
                 </div>
-                <div className={styles.HistoryRequest}>
-                    <div>
-                        Номер заявки: <span>YMF021256</span>
+                <div className={styles.block2}>
+                    Номер заявки:
+                    <div className={styles.number}>
+                        YMF021256
                     </div>
-                    <CustomSelect
-                        width={590}
-                        name="История изменений"
-                    />
                 </div>
-                <Collapse
-                    size="small"
-                    items={[{ key: "1", label: "Детали заявки:", children: <p>{<Details />}</p> }]}
-                />
-                <Collapse
-                    size="small"
-                    items={[{ key: "1", label: "Ссылка на Jira:", children: <p>{<LinkJira />}</p> }]}
-                />
-                <Collapse
-                    size="small"
-                    items={[{ key: "1", label: "Люди:", children: <p>{<Humans />}</p> }]}
-                />
-                <Collapse
-                    size="small"
-                    items={[{ key: "1", label: "Даты:", children: <p>{<DatesContainer />}</p> }]}
-                />
-                <Collapse
-                    size="small"
-                    items={[{ key: "1", label: "Комментарии", children: <p>{<Comments />}</p> }]}
-                />
-                <Collapse
-                    size="small"
-                    items={[{ key: "1", label: "Чек листы:", children: <p>{<CheckList />}</p> }]}
-                />
+                <Logs/>
+                <DetailsAplication/>
+                <Link/>
+                <Peoples/>
+                <Date/>
+                <Comments/>
+                <Description/>
+                <BriefDescription/> 
+                <ChekcLists/> 
             </div>
         </div>
-    );
-};
+    )
+}
