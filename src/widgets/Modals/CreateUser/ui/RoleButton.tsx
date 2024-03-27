@@ -1,10 +1,9 @@
-import { ChangeEvent, FC } from "react";
+import { FC } from "react";
 import styles from "./RoleButton.module.scss";
+import { IRole } from "../model/types";
 
-export const RoleButton: FC<{
-    change: (e: ChangeEvent<HTMLInputElement>) => void;
-    role?: string | null | number | unknown;
-}> = ({ change, role }) => {
+export const RoleButton: FC<IRole> = (props) => {
+    const { change } = props;
     return (
         <div className={styles.RoleContainer}>
             <div className={styles.Role}>
@@ -15,7 +14,6 @@ export const RoleButton: FC<{
                         onChange={change}
                         name="role_type"
                         value="client"
-                        checked={role === "client" ? true : false}
                     />
                 </label>
             </div>
@@ -27,7 +25,6 @@ export const RoleButton: FC<{
                         onChange={change}
                         name="role_type"
                         value="manager"
-                        checked={role === "manager" ? true : false}
                     />
                 </label>
             </div>

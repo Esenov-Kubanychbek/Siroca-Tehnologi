@@ -82,6 +82,7 @@ export const Companies = () => {
                 </li>
                 <div className={styles.scrol}>
                     <div>
+<<<<<<< HEAD
                         {data.map((dataCompany) => (
                             <li className={styles.datas} onClick={() => {
                                 modalView.open();
@@ -94,6 +95,20 @@ export const Companies = () => {
                                 <div>{dataCompany.main_manager}</div>
                                 <div >{dataCompany.created_at}</div>
                                 <div>120302</div>
+=======
+                        {massiv.map((mass, i) => (
+                            <li
+                                onClick={modalView.open}
+                                key={i}
+                            >
+                                <div>{mass.compani}</div>
+                                <div>{mass.strcompani}</div>
+                                <div>{mass.kolUser}</div>
+                                <div>{mass.kolZayavok}</div>
+                                <div>{mass.menedjer}</div>
+                                <div>{mass.daraCreate}</div>
+                                <div>{mass.redact}</div>
+>>>>>>> 1bb9c9439b9e1ce151a9f8ed1924acfd777d2a5f
                             </li>
                             
                         ))}

@@ -6,17 +6,16 @@ import { ListTop } from "../../../shared/ui/ListTop/ListTop";
 import { ListTopName } from "../../../shared/ui/ListTop/ListTopName";
 import styles from "./Positions.module.scss";
 import { CreatePosition } from "../../Modals/CreatePosition/CreatePosition";
-import PositionsApi from "./api/PositionsApi.json";
 import { usePosition } from "../../../shared/hooks";
 import { useEffect } from "react";
 import { jobTitleApi } from "../../../shared/api";
 
 export const Positions = () => {
     const modal = usePosition();
-    const fetchData = jobTitleApi()
-    useEffect(()=> {
-        fetchData.getting()
-    }, [])
+    const fetchData = jobTitleApi();
+    useEffect(() => {
+        fetchData.getting();
+    }, []);
     return (
         <div className={styles.Positions}>
             <div className={styles.Name}>Поиск по должностям</div>
@@ -26,7 +25,10 @@ export const Positions = () => {
                     <ButtonCreate />
                 </div>
             </div>
-            <div className={styles.PositionsList}>
+            <div
+                className={styles.PositionsList}
+                style={fetchData.jobTitleList.length > 9 ? { overflowY: "scroll" } : { overflowY: "hidden" }}
+            >
                 <div className={styles.Inner}>
                     <ListTop>
                         <ListTopName
@@ -34,10 +36,10 @@ export const Positions = () => {
                             width={350}
                         />
                     </ListTop>
-                    {PositionsApi.map((card: string, i: number) => (
+                    {fetchData.jobTitleList.map((card, i) => (
                         <RequestInner
                             width={350}
-                            content={card}
+                            content={card.title}
                             key={i}
                         />
                     ))}

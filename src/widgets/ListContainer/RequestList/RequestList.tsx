@@ -1,44 +1,53 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Request } from "../../../features";
 import { RequestTop } from "../..";
-import { ConfigProvider, Modal, Pagination } from "antd";
+import { ConfigProvider, Pagination } from "antd";
 import { IRequest } from "./model/types";
-import { RequestView } from "../../RequestView/RequestView";
-import { useView } from "../../../shared/hooks";
+import { getRequestApi } from "../../../shared/getRequestApi";
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
-    const modal = useView();
+    const fetchRequest = getRequestApi();
+    const [offset, setOffset] = useState<number>(0);
+    const [apiLast, setApiLast] = useState<any[]>([]);
+
     const apiLength = api.length;
-    const apiLengthDivide = Math.ceil(apiLength / 12);
-    const apiLast = api.slice(0, 12);
+
+    const handleChange = (pageNumber: number) => {
+        setOffset((pageNumber - 1) * 9);
+    };
+
+    useEffect(() => {
+        fetchRequest.getting();
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await fetchRequest.getState;
+            setApiLast(data.slice(offset, offset + 9));
+        };
+        fetchData();
+    }, [fetchRequest, offset]);
+
     return (
         <div>
             <RequestTop role={role} />
             {apiLast.map((card, i) => (
                 <Request
                     role={role}
-                    key={i}
-                    number={card.number}
+                    key={i+1}
+                    number={card.task_number}
                     company={card.company}
-                    request={card.request}
+                    request={card.title}
                     description={card.description}
-                    client={card.client}
-                    manager={card.manager}
-                    begin={card.begin}
-                    end={card.end}
-                    prioritet={card.prioritet}
+                    client={card.main_client}
+                    manager={card.main_manager}
+                    begin={card.start_date}
+                    end={card.finish_date}
+                    prioritet={card.priority}
                     status={card.status}
                 />
             ))}
-            <Modal
-                zIndex={6}
-                width={700}
-                open={modal.isOpen}
-                onCancel={modal.close}
-            >
-                <RequestView />
-            </Modal>
-            {apiLength >= 12 ? (
+            {apiLength >= 9 ? (
                 <div
                     style={{
                         width: "100%",
@@ -68,7 +77,9 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     >
                         <Pagination
                             defaultCurrent={1}
-                            total={apiLengthDivide * 10}
+                            total={apiLength}
+                            pageSize={9}
+                            onChange={handleChange}
                             style={{ fontWeight: 700, display: "flex", alignItems: "center" }}
                         />
                     </ConfigProvider>

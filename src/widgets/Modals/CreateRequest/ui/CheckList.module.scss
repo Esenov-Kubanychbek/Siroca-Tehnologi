@@ -12,3 +12,34 @@
         gap: 10px;
     }
 }
+
+.InputRelative{
+    position: relative;
+    .CheckAbsolute{
+        position: absolute;
+        left: 16px;
+        top: 55%;
+        transform: translateY(-50%);
+    }
+}
+
+.CheckDesc{
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    input {
+        width: 130px;
+        height: 44px;
+        background-color: $blackf4;
+        padding-left: 16px;
+        font-size: 16px;
+        font-weight: 500;
+        border: none;
+        border-radius: 8px;
+        background-color: $blackf4;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        opacity: 0;
+    }
+}
+

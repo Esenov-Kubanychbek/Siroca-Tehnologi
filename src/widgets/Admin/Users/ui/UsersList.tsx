@@ -18,9 +18,10 @@ export const UsersList: FC = () => {
                     {fetchData.inState.map((card, i) => (
                         <UsersMap
                             key={i}
-                            id={i + 1}
+                            id={card.id}
                             role_type={card.role_type}
                             first_name={card.first_name}
+                            surname={card.surname}
                             username={card.username}
                             password={card.password}
                             main_company={card.main_company}

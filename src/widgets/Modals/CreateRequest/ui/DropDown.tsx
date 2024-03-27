@@ -7,8 +7,10 @@ interface IText {
 }
 
 export const DropDown: FC<IText> = ({ text }) => {
+
     return (
-        <div className={styles.DropDown}>
+        <div className={styles.DropDown} 
+        >
             <div className={styles.Arrow}>
                 <ArrowDown2
                     color="#1C6AB1"

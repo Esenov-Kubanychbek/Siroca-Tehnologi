@@ -13,16 +13,15 @@ export const Authorization = () => {
     const [login, setLogin] = useState<string>("");
     const [password, setPasswod] = useState<string>("");
     const [err, setErr] = useState<boolean>(false);
-    const [handleEye, setHandleEye] = useState<boolean>(false)
+    const [handleEye, setHandleEye] = useState<boolean>(false);
 
     const openPass = () => {
-        setHandleEye(!handleEye)
-    }
-    
-    const navigate = useNavigate()
+        setHandleEye(!handleEye);
+    };
+
+    const navigate = useNavigate();
 
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
-
         e.preventDefault();
         const loginInfo = {
             username: login,
@@ -33,12 +32,21 @@ export const Authorization = () => {
             console.log(response.status);
 
             if (response.status === 200) {
+<<<<<<< HEAD
                 const access = response.data.access
                 localStorage.setItem("access", access)
                 if(login === "admin"){
                   navigate("/adminpage")  
                 }else{
                     navigate("/clientpage")
+=======
+                const access = response.data.access;
+                localStorage.setItem("access", access);
+                if (login === "KUBA") {
+                    navigate("/clientpage");
+                } else {
+                    navigate("/clientpage");
+>>>>>>> 1bb9c9439b9e1ce151a9f8ed1924acfd777d2a5f
                 }
             } else {
                 setErr(true);
@@ -48,7 +56,7 @@ export const Authorization = () => {
         }
     };
 
-    const modal = useCallToAdmin()
+    const modal = useCallToAdmin();
     return (
         <form
             onSubmit={handleLogin}
@@ -87,8 +95,15 @@ export const Authorization = () => {
                             placeholder="Введите пароль"
                             type={handleEye ? "text" : "password"}
                         />
-                        <div className={styles.Eye} onClick={openPass}>
-                            {handleEye ? <Eye color={err ? "#E51616" : "#3B3B3B"} /> : <EyeSlash color={err ? "#E51616" : "#3B3B3B"} />}
+                        <div
+                            className={styles.Eye}
+                            onClick={openPass}
+                        >
+                            {handleEye ? (
+                                <Eye color={err ? "#E51616" : "#3B3B3B"} />
+                            ) : (
+                                <EyeSlash color={err ? "#E51616" : "#3B3B3B"} />
+                            )}
                         </div>
                     </div>
                 </div>

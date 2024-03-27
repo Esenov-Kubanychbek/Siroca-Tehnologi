@@ -70,13 +70,18 @@ export const ViewCompany = () => {
                     <CustomSelect
                         name="users"
                         dataOption={selectedCompanyData?.users}
-                        placeholder="Пользователи"
+                        text="Пользователи"
                     />
                 </div>
             </div>
             <div className={styles.blockTwo}>
                 <div>
-                    <p className={styles.Label}  style={{marginTop: "23px"}}>Количество пользавателей</p>
+                    <p
+                        className={styles.Label}
+                        style={{ marginTop: "23px" }}
+                    >
+                        Количество пользавателей
+                    </p>
                     <CustomInput
                         placeholder=""
                         value={selectedCompanyData?.count_users}
@@ -84,8 +89,15 @@ export const ViewCompany = () => {
                     />
                 </div>
                 <div>
-                    <p className={styles.Label} style={{width: "200px", marginLeft: "40px"}}>Создать/Привязать пользавателя</p>
-                    <button className={styles.AddUser}>Добавить польз. <AddSquare/></button>
+                    <p
+                        className={styles.Label}
+                        style={{ width: "200px", marginLeft: "40px" }}
+                    >
+                        Создать/Привязать пользавателя
+                    </p>
+                    <button className={styles.AddUser}>
+                        Добавить польз. <AddSquare />
+                    </button>
                 </div>
             </div>
             <div className={styles.buttons}>
@@ -107,4 +119,4 @@ export const ViewCompany = () => {
             </div>
         </div>
     );
-}
+};

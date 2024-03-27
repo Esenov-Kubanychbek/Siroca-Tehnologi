@@ -1,23 +1,25 @@
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import styles from "./Humans.module.scss";
-import { DropDown } from "./DropDown";
 import { CustomSelect } from "../../CreateCompany/ui/CustomSelect";
 
-export const Humans: FC = () => {
-    const data: string[] = ["Менеджер", "заявитель"];
+export const Humans: FC <{ onChange: (e: ChangeEvent<HTMLInputElement>) => void }> = ({onChange}) => {
+    const data: string[] = ["Абдурахман", "Аман", "Далер", "Кубанычбек"];
     return (
         <div className={styles.Humans}>
-            <DropDown text="Люди:" />
             <div className={styles.People}>
                 <CustomSelect
-                    name="sel"
-                    placeholder="Выбрать"
+                    name="main_manager"
+                    text="Менеджер"
                     dataOption={data}
+                    width={282}
+                    change={onChange}
                 />
                 <CustomSelect
-                    name="sel"
-                    placeholder="Выбрать"
+                    name="main_client"
+                    text="Заявитель"
                     dataOption={data}
+                    width={282}
+                    change={onChange}
                 />
             </div>
         </div>

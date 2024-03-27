@@ -1,36 +1,39 @@
-import { FC } from "react";
-import { DropDown } from "./DropDown";
-import { CustomTextArea } from "../../../../shared/ui";
+import { ChangeEvent, FC, useState } from "react";
 import styles from "./Comments.module.scss";
-export const Comments: FC = () => {
+import { CustomTextArea } from '../../../../shared/ui';
+import { IComments, commentsApi } from "../../../../shared/commentsApi";
+import { Send2 } from "iconsax-react";
+
+
+
+export const Comments: FC  = () => {
+    const fetchComments = commentsApi()
+
+    const [commentsState , setCommentsState] = useState<IComments>({
+        text:"" ,
+        user: null,
+        application: null,
+    });
+
+    const CommentsValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setCommentsState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+        console.log(commentsState)
+    }; 
+    fetchComments.posting(commentsState);
     return (
         <div className={styles.CommentsCtnr}>
             <div className={styles.Comments}>
-                <DropDown text="Комментарии:" />
                 <CustomTextArea
+                    name="text"
                     placeholder="Напишите..."
                     height={100}
                     width={590}
                     variant="TextArea"
+                    change={CommentsValue}
                 />
-            </div>
-            <div className={styles.Comments}>
-                <DropDown text="Описание:" />
-                <CustomTextArea
-                    placeholder="Напишите..."
-                    height={100}
-                    width={590}
-                    variant="TextArea"
-                />
-            </div>
-            <div className={styles.Comments}>
-                <DropDown text="Краткое описание:" />
-                <CustomTextArea
-                    placeholder="Напишите..."
-                    height={100}
-                    width={590}
-                    variant="TextArea"
-                />
+                <div>
+                    <Send2 size={24} color="#5C5C5C"/>
+                </div>
             </div>
         </div>
     );

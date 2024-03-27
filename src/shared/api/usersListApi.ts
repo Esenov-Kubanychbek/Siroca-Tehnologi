@@ -1,13 +1,16 @@
 import axios from "axios";
 import { create } from "zustand";
 import { axiosApi } from "../../axiosApi";
-import { IUser } from "../types/userTypes";
+import { IUser, IUserGet } from "../types/userTypes";
+import { ChangeEvent } from "react";
 
 interface IFetch {
     inState: IUser[];
+    oneUserGet: IUserGet;
     oneUser: IUser;
-    getOneUser: (id: number) => void;
-    putting: (postState: IUser, id: number) => void;
+    setOneUser: (e: ChangeEvent<HTMLInputElement>) => void;
+    getOneUser: (id: number | undefined) => void;
+    putting: (postState: IUser, id: number | undefined) => void;
     getting: () => void;
     posting: (postState: IUser) => void;
 }
@@ -16,18 +19,35 @@ export const usersApi = create<IFetch>((set) => ({
     inState: [],
     oneUser: {
         first_name: "",
-        image: null,
-        job_title: null,
-        main_company: null,
+        job_title: 3,
+        main_company: 3,
         password: "",
         role_type: "",
         surname: "",
         username: "",
     },
+    oneUserGet: {
+        first_name: "",
+        image: "",
+        job_title: 3,
+        main_company: 3,
+        password: "",
+        role_type: "",
+        surname: "",
+        username: "",
+    },
+    setOneUser: (e) => {
+        set((prevState) => ({
+            oneUser: {
+                ...prevState.oneUser,
+                [e.target.name]: e.target.name === "image" ? e.target.files[0] : e.target.value,
+            },
+        }));
+    },
     getOneUser: async (id) => {
         try {
             const response = await axios.get(`${axiosApi}/users/${id}/`);
-            set({ oneUser: response.data });
+            set({ oneUserGet: response.data });
         } catch (error) {
             console.log(error, "getOneUserError");
         }
@@ -37,9 +57,7 @@ export const usersApi = create<IFetch>((set) => ({
             const response = await axios.put(`${axiosApi}/users/${id}/`, postState);
             console.log(response.data);
         } catch (error) {
-            console.log(error, "getOneUserError");
-        } finally {
-            console.log("putUserFinally");
+            console.log(error, "putOneUserError");
         }
     },
     getting: async () => {

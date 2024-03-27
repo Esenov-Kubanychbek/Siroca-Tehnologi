@@ -2,11 +2,11 @@ import { FC } from "react";
 import { RequestInner } from "../../../../entities";
 import styles from "./UsersMap.module.scss";
 import { useViewUser } from "../../../../shared/hooks";
-import { IUserId } from "../../../../shared/types/userTypes";
 import { usersApi } from "../../../../shared/api";
+import { IUser } from "../../../../shared/types/userTypes";
 
-export const UsersMap: FC<IUserId> = (props) => {
-    const { id, first_name, username, password, job_title, role_type, main_company } = props;
+export const UsersMap: FC<IUser> = (props) => {
+    const { id, first_name, surname, username, password, job_title, role_type, main_company } = props;
     const modal = useViewUser();
     const fetchData = usersApi();
     return (
@@ -18,7 +18,7 @@ export const UsersMap: FC<IUserId> = (props) => {
             className={styles.UsersMap}
         >
             <RequestInner
-                content={first_name}
+                content={first_name + " " + surname}
                 width={250}
             />
             <RequestInner
