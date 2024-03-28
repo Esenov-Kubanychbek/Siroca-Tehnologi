@@ -30,7 +30,7 @@ export const usersApi = create<IFetch>((set) => ({
         first_name: "",
         image: "",
         job_title: 3,
-        main_company: 3,
+        main_company: "",
         password: "",
         role_type: "",
         surname: "",

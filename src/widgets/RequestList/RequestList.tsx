@@ -1,21 +1,22 @@
+import styles from "./RequestList.module.scss"
 import { FC, useEffect, useState } from "react";
 import { Request } from "../../entities";
 import { RequestTop } from "..";
 import { ConfigProvider, Pagination } from "antd";
-import { getRequestApi } from "./api/getRequestApi";
+import { IGetRequest, getRequestApi } from "./api/getRequestApi";
 import { IRequest } from "./types/types";
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
     const fetchRequest = getRequestApi();
     const [offset, setOffset] = useState<number>(0);
-    const [apiLast, setApiLast] = useState<any[]>([]);
+    const [apiLast, setApiLast] = useState<IGetRequest[]>([]);
     const apiLength = api.length;
     const handleChange = (pageNumber: number) => {
         setOffset((pageNumber - 1) * 9);
     };
     useEffect(() => {
         fetchRequest.getting();
-    }, []);
+    }, [fetchRequest.getState]);
     useEffect(() => {
         const fetchData = async () => {
             const data = await fetchRequest.getState;
@@ -23,11 +24,11 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
         };
         fetchData();
     }, [fetchRequest, offset]);
-
     return (
         <div>
             <RequestTop role={role} />
-            {apiLast.map((card, i) => (
+            {apiLength > 0 ?
+            apiLast.map((card, i) => (
                 <Request
                     role={role}
                     key={i}
@@ -42,16 +43,12 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     prioritet={card.priority}
                     status={card.status}
                 />
-            ))}
+            )) : <div className={styles.Nothing}>
+                 По вашему запросу ничего не найдено!
+            </div> }
             {apiLength >= 9 ? (
                 <div
-                    style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: "70px",
-                    }}
+                    className={styles.Pagination}
                 >
                     <ConfigProvider
                         theme={{

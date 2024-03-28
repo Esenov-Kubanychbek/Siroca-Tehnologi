@@ -8,7 +8,6 @@ export const TimeFilter: FC<{ role: string }> = ({ role }) => {
     const fetchRequest = getRequestApi();
     useEffect(() => {
         fetchRequest.getting();
-        console.log(fetchRequest.getState, "asdf");
     }, []);
     const items: TabsProps["items"] = [
         {

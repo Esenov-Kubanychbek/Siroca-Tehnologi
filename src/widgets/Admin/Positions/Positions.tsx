@@ -5,17 +5,19 @@ import { ListTop } from "../../../shared/ui/ListTop/ListTop";
 import { ListTopName } from "../../../shared/ui/ListTop/ListTopName";
 import styles from "./Positions.module.scss";
 import { CreatePosition } from "../../Modals/CreatePosition/CreatePosition";
-import { usePosition } from "../../../shared/hooks/modalHooks";
+import { usePosition, useSuccess } from "../../../shared/hooks/modalHooks";
 import { FC, useEffect } from "react";
 import { ItemInner } from "../../../shared/ui";
 import { jobTitleApi } from "./api/jobTitleApi";
+import { SuccessModal } from "../..";
 
 export const Positions: FC = () => {
     const modal = usePosition();
+    const modalSuccess = useSuccess();
     const fetchData = jobTitleApi();
     useEffect(() => {
         fetchData.getting();
-    }, []);
+    }, [fetchData.jobTitleList]);
     return (
         <div className={styles.Positions}>
             <div className={styles.Name}>Поиск по должностям</div>
@@ -32,7 +34,7 @@ export const Positions: FC = () => {
                 <div className={styles.Inner}>
                     <ListTop>
                         <ListTopName
-                            name="Имеющихся должности"
+                            name="Должности"
                             width={350}
                         />
                     </ListTop>
@@ -53,6 +55,15 @@ export const Positions: FC = () => {
                 zIndex={10}
             >
                 <CreatePosition />
+            </Modal>
+            <Modal
+                centered
+                width={350}
+                open={modalSuccess.isOpen}
+                onCancel={modalSuccess.close}
+                zIndex={11}
+            >
+                <SuccessModal content="Должность добавлена!" />
             </Modal>
         </div>
     );

@@ -1,5 +1,5 @@
 import styles from "./AdminPage.module.scss";
-import { Dashboard, Header } from "../../widgets";
+import { Dashboard, HeaderBottom, HeaderTop } from "../../widgets";
 import { FC } from "react";
 
 export const AdminPage: FC = () => {
@@ -7,7 +7,8 @@ export const AdminPage: FC = () => {
         <div className={styles.AdminPage}>
             <Dashboard />
             <div className={styles.Inner}>
-                <Header role="admin" />
+                <HeaderTop role="admin" />
+                <HeaderBottom role="admin" />
             </div>
         </div>
     );

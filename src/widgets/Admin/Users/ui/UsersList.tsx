@@ -10,9 +10,9 @@ import { User } from "../../../../entities";
 export const UsersList: FC = () => {
     const modal = useViewUser();
     const fetchData = usersApi();
-    useEffect(()=> {
-        fetchData.getting()
-    }, [])
+    useEffect(() => {
+        fetchData.getting();
+    }, []);
     return (
         <>
             <div className={styles.UsersList}>

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import RolesList from "./RolesList";
 import styles from "./RolesMenu.module.scss";
 
@@ -7,8 +6,6 @@ interface IRolesMenu {
 }
 
 const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
-    const [num, setNum] = useState();
-
     const ClientList = [
         "Добавление/удаление комментария к заявке",
         "Добавление чек листа к заявке",
@@ -34,9 +31,9 @@ const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
             "Удаление комментариев пользователей": false,
         },
     };
-    const getCheckBoxVal = (ev) => {
-        const type = Boxes[ev[0]];
-        type[ev[1].target.name] = !type[ev[1].target.name];
+    const getCheckBoxVal = (e) => {
+        const type = Boxes[e[0]];
+        type[e[1].target.name] = !type[e[1].target.name];
         console.log(type);
     };
 

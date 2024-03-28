@@ -1,7 +1,8 @@
+import { FC } from "react";
 import { StatusInner } from "../../entities";
 import styles from "./StatusNumber.module.scss";
 
-export const StatusNumber = () => {
+export const StatusNumber: FC = () => {
     return (
         <div className={styles.StatusNumber}>
             <div>

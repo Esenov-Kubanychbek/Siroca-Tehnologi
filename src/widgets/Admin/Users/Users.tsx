@@ -12,7 +12,7 @@ export const Users: FC = () => {
     return (
         <div className={styles.Users}>
             <div className={styles.UsersSearch}>
-                <div>Поиск по пользователям</div>
+                <div className={styles.Name}>Поиск по пользователям</div>
                 <div className={styles.Search}>
                     <SearchInput />
                     <ButtonCreate

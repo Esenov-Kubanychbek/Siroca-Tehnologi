@@ -18,17 +18,17 @@ export const Companies: FC = () => {
     }, [data]);
     return (
         <div className={styles.Companies}>
-            <h3>Поиск по компаниям</h3>
-            <div className={styles.searchCompanies}>
+            <div className={styles.Name}>Поиск по компаниям</div>
+            <div className={styles.SearchCompanies}>
                 <SearchInput />
                 <div
-                    className={styles.buttons}
+                    className={styles.Buttons}
                     onClick={modal.open}
                 >
                     <ButtonCreate name="Создать компанию" />
                 </div>
             </div>
-            <div className={styles.table}>
+            <div className={styles.Table}>
                 <ListTop>
                     <ListTopName
                         name="Компания"
@@ -62,7 +62,7 @@ export const Companies: FC = () => {
                 <ul>
                     {data.map((dataCompany) => (
                         <li
-                            className={styles.datas}
+                            className={styles.Datas}
                             onClick={() => {
                                 modalView.open();
                                 selectedIdCompany(dataCompany.id);

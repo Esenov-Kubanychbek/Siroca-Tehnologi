@@ -4,7 +4,7 @@ import { useReady } from "../../../shared/hooks/modalHooks";
 import { NavLink } from "react-router-dom";
 import { FC } from "react";
 
-export const ReadyModal: FC = () => {
+export const ReadyModal: FC<{ content: string }> = ({ content }) => {
     const modal = useReady();
     return (
         <div className={styles.ReadyModal}>
@@ -12,19 +12,21 @@ export const ReadyModal: FC = () => {
                 <Danger
                     variant="Bold"
                     size={70}
-                    color="#E51616"
+                    color="#1C6AB1"
                 />
-                <p>Вы уверены?</p>
+                <p>{content}</p>
             </div>
             <div className={styles.BtnCont}>
                 <NavLink
                     to="/"
+                    aria-label="login"
                     onClick={modal.close}
                     className={styles.BtnYes}
                 >
                     Да
                 </NavLink>
                 <button
+                    aria-label="stay"
                     onClick={modal.close}
                     className={styles.BtnNo}
                 >

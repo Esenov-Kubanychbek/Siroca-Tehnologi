@@ -15,7 +15,7 @@ export interface IUserGet {
     first_name: string;
     image?: string;
     job_title: number;
-    main_company: number;
+    main_company: string;
     password: string;
     role_type: string;
     surname?: string;

@@ -5,16 +5,16 @@ import { ReadyModal } from "../../widgets";
 import { useReady } from "../../shared/hooks/modalHooks";
 import { FC } from "react";
 
-export const LoginButton: FC = () => {
+export const LoginButton: FC<{ variant: "Primary" | "Secondary" }> = ({ variant }) => {
     const modal = useReady();
     return (
         <>
             <button
                 onClick={modal.open}
-                className={styles.LoginButton}
-                aria-label="link"
+                className={styles[variant]}
+                aria-label="login"
             >
-                <Login color="#1C6AB1" />
+                <Login />
             </button>
             <Modal
                 width={550}
@@ -22,7 +22,7 @@ export const LoginButton: FC = () => {
                 open={modal.isOpen}
                 onCancel={modal.close}
             >
-                <ReadyModal />
+                <ReadyModal content="Вы уверены?" />
             </Modal>
         </>
     );

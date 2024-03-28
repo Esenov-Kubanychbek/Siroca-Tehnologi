@@ -18,7 +18,7 @@ export const ProfileButton: FC = () => {
                     alt="profile"
                     src={profileImage}
                 />
-                <div>Мой профиль</div>
+                <p>Мой профиль</p>
             </button>
             <Modal
                 width={574}

@@ -21,7 +21,7 @@ export const Dashboard: FC = () => {
                     <TagUser />
                 </DashboardButton>
             </div>
-            <LoginButton />
+            <LoginButton variant="Secondary" />
         </div>
     );
 };

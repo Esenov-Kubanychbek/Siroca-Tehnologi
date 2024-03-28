@@ -1,17 +1,21 @@
 @import "../../../app/styles/index.scss";
 
 .Companies {
-    .searchCompanies {
+    margin-top: 20px;
+    .Name {
+        font-size: 24px;
+        font-weight: 700;
+    }
+    .SearchCompanies {
         display: flex;
         justify-content: space-between;
         margin-right: 20px;
     }
-    .table {
+    .Table {
         margin: 16px 0;
         ul {
             padding: 0;
-
-            .datas {
+            .Datas {
                 display: flex;
             }
         }

@@ -6,7 +6,6 @@ export { LoginButton } from "./LoginButton/LoginButton";
 export { NotifButton } from "./NotifButton/NotifButton";
 export { ProfileButton } from "./ProfileButton/ProfileButton";
 export { ReportButton } from "./ReportButton/ReportButton";
-export { SearchArray } from "./SearchArray/SearchArray";
 export { SearchInput } from "./SearchInput/SearchInput";
 export { StatusNumber } from "./StatusNumber/StatusNumber";
 export { TimeFilter } from "./TimeFilter/TimeFilter";

@@ -24,8 +24,8 @@ export const getRequestApi = create<IFetchGet>((set) => ({
     getState: [],
     getting: async () => {
         try {
-            const getResponse = await axios.get(`${BASE_URL}/applications/form/`);
-            set({ getState: getResponse.data });
+            const getResponse = await axios.get(`${BASE_URL}/applications/form/?page=1`);
+            set({ getState: getResponse.data.results.results });
         } catch (error) {
             console.log(error, "GetRequestError");
         }

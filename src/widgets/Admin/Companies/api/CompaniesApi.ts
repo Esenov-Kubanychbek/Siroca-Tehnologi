@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 import { Data } from "iconsax-react";
+import { BASE_URL } from "../../../../shared/variables/variables";
 
 export interface dataAddCompanies {
     name: string;
@@ -38,7 +39,7 @@ interface DataStore extends Data {
 
 const fetchData = async () => {
     try {
-        const response = await axios.get("http://16.171.68.251:80/api/v1/company/list/?limit=12&offset=0", {
+        const response = await axios.get(`${BASE_URL}/company/list/?limit=12&offset=0`, {
             headers: {
                 Authorization: `JWT ${localStorage.getItem("access")}`,
             },
@@ -54,7 +55,7 @@ const addCompanies = async (datas: dataAddCompanies) => {
     console.log(datas);
 
     try {
-        const response = await axios.post("http://16.171.68.251/api/v1/company/create/", datas, {
+        const response = await axios.post(`${BASE_URL}/company/create/`, datas, {
             headers: {
                 Authorization: `JWT ${localStorage.getItem("access")}`,
             },
@@ -70,7 +71,7 @@ const addCompanies = async (datas: dataAddCompanies) => {
 };
 const deleteCompanies = async (id: number) => {
     try {
-        const response = await axios.delete(`http://16.171.68.251:80/api/v1/company/${id}/`);
+        const response = await axios.delete(`${BASE_URL}/company/${id}/`);
         console.log(response.data);
         return response.data;
     } catch (error) {
@@ -85,7 +86,7 @@ const useDataStoreComponies = create<DataStore>((set) => ({
     idCompany: 0,
     fetchDatas: async () => {
         const datas = await fetchData();
-        set({data: datas})
+        set({ data: datas });
     },
     addCompany: async (company) => {
         await addCompanies(company);

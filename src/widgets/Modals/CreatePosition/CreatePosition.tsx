@@ -1,17 +1,25 @@
 import { CloseSquare } from "iconsax-react";
 import styles from "./CreatePosition.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
-import { ConfigProvider, Modal } from "antd";
-import { LoadingModal } from "../..";
-import { useLoading, usePosition } from "../../../shared/hooks/modalHooks";
-import { ChangeEvent, FC, useState } from "react";
+import { usePosition, useSuccess } from "../../../shared/hooks/modalHooks";
+import { FC } from "react";
 import { jobTitleApi } from "../../Admin/Positions/api/jobTitleApi";
 
 export const CreatePosition: FC = () => {
     const fetchData = jobTitleApi();
     const modal = usePosition();
-    const modalLoading = useLoading();
-    const [position, setPosition] = useState<{ title: string }>({ title: "" });
+    const modalSuccess = useSuccess();
+    const postTrim = () => {
+        if (fetchData.oneJobTitle.title == "") {
+            console.log("write position");
+        } else {
+            fetchData.posting(fetchData.oneJobTitle);
+            console.log(fetchData.oneJobTitle);
+            modal.close();
+            modalSuccess.open();
+            setTimeout(modalSuccess.close, 1000);
+        }
+    };
     return (
         <div className={styles.CreatePosition}>
             <div className={styles.Header}>
@@ -28,64 +36,24 @@ export const CreatePosition: FC = () => {
                     name="title"
                     placeholder="Напишите..."
                     width={560}
-                    value={position.title}
-                    change={(e: ChangeEvent<HTMLInputElement>) =>
-                        setPosition((prevState) => ({ ...prevState, [e.target.name]: e.target.value }))
-                    }
+                    value={fetchData.oneJobTitle.title}
+                    change={fetchData.setJobTitle}
                 />
             </div>
             <div className={styles.Buttons}>
-                <div
-                    onClick={modalLoading.open}
-                    style={{ cursor: "pointer" }}
-                >
-                    <CustomButton
-                        variant="Secondary"
-                        width={150}
-                        text="Отменить"
-                    />
-                </div>
-                <div
-                    onClick={() => {
-                        fetchData.posting(position);
-                        console.log(position);
-                        modal.close;
-                    }}
-                >
-                    <CustomButton
-                        variant="Primary"
-                        width={150}
-                        text="Создать"
-                    />
-                </div>
+                <CustomButton
+                    variant="Secondary"
+                    width={150}
+                    text="Отменить"
+                    onClick={modal.close}
+                />
+                <CustomButton
+                    variant="Primary"
+                    width={150}
+                    text="Создать"
+                    onClick={postTrim}
+                />
             </div>
-            <ConfigProvider
-                theme={{
-                    components: {
-                        Modal: {
-                            borderRadius: 100,
-                        },
-                        Spin: {
-                            colorPrimary: "#1c6ab1",
-                            contentHeight: 900,
-                            dotSizeLG: 140,
-                        },
-                    },
-                    token: {
-                        borderRadiusLG: 100,
-                    },
-                }}
-            >
-                <Modal
-                    width={180}
-                    centered
-                    open={modalLoading.isOpen}
-                    onCancel={modalLoading.close}
-                    zIndex={100}
-                >
-                    <LoadingModal />
-                </Modal>
-            </ConfigProvider>
         </div>
     );
 };

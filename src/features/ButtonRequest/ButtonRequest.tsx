@@ -7,6 +7,7 @@ export const ButtonRequest: FC = () => {
     const modal = useRequest();
     return (
         <button
+            aria-label="createRequest"
             onClick={modal.open}
             className={styles.ButtonRequest}
         >

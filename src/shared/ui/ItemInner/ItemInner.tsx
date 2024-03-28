@@ -7,7 +7,7 @@ export const ItemInner: FC<IItemInner> = (props) => {
     return (
         <div
             className={styles.ItemInner}
-            style={{ width: `${width}px` }}
+            style={{ width: `${width - 20}px` }}
         >
             {content}
         </div>

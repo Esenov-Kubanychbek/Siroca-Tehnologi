@@ -1,9 +1,28 @@
-.LoginButton {
+@import "../../app/styles/index.scss";
+
+.Primary,
+.Secondary {
     cursor: pointer;
     border: none;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Primary {
+    border-radius: 8px;
+    background-color: $blue;
+    svg {
+        color: white;
+    }
+}
+
+.Secondary {
     background: none;
-    margin: 18px;
-    position: absolute;
-    left: 33px;
-    bottom: 40px;
+    margin-top: 580px;
+    svg {
+        color: $blue;
+    }
 }
