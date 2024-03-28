@@ -1,8 +1,9 @@
 import { CloseSquare, EyeSlash } from "iconsax-react";
 import styles from "./ChangePassword.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
+import { FC } from "react";
 
-export const ChangePassword = () => {
+export const ChangePassword: FC = () => {
     return (
         <div className={styles.ChangePassword}>
             <div className={styles.block}>

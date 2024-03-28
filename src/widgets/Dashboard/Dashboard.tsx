@@ -1,8 +1,9 @@
 import styles from "./Dashboard.module.scss";
 import { DashboardButton, LoginButton } from "../../features";
 import { Home, TagUser } from "iconsax-react";
+import { FC } from "react";
 
-export const Dashboard = () => {
+export const Dashboard: FC = () => {
     return (
         <div className={styles.Dashboard}>
             <div className={styles.Logo}>

@@ -1,11 +1,9 @@
 import { FC } from "react";
 import styles from "./Comments.module.scss";
-import { CustomTextArea } from '../../../../shared/ui';
+import { CustomTextArea } from "../../../../shared/ui";
 
-export const BriefDescription: FC  = () => {
-    
+export const BriefDescription: FC = () => {
     return (
-
         <div className={styles.CommentsCtnr}>
             <div className={styles.Comments}>
                 <CustomTextArea

@@ -1,8 +1,8 @@
+import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Authorization, ClientPage, ManagerPage, AdminPage, WorkPage } from "../pages";
-import RolesSettings from "../widgets/Admin/Roles/components/settings/RolesSettings";
+import { Authorization, ClientPage, ManagerPage, AdminPage, WorkPage, RolesSettingsPage } from "../pages";
 
-const App = () => {
+export const App: FC = () => {
     return (
         <Routes>
             <Route
@@ -26,8 +26,8 @@ const App = () => {
                 element={<WorkPage />}
             />
             <Route
-                path="/rolessettings"
-                element={<RolesSettings />}
+                path="/rolessettingspage"
+                element={<RolesSettingsPage />}
             />
             <Route
                 path="*"
@@ -36,5 +36,3 @@ const App = () => {
         </Routes>
     );
 };
-
-export default App;

@@ -1,6 +1,6 @@
 import { GalleryAdd } from "iconsax-react";
 import styles from "./ViewPhoto.module.scss";
-import { usersApi } from "../../../../shared/api";
+import { usersApi } from "../../../Admin/Users/api/usersApi";
 
 export const ViewPhoto = () => {
     const fetchData = usersApi();

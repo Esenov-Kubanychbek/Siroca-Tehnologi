@@ -13,9 +13,9 @@
     }
 }
 
-.InputRelative{
+.InputRelative {
     position: relative;
-    .CheckAbsolute{
+    .CheckAbsolute {
         position: absolute;
         left: 16px;
         top: 55%;
@@ -23,7 +23,7 @@
     }
 }
 
-.CheckDesc{
+.CheckDesc {
     display: flex;
     justify-content: center;
     gap: 16px;
@@ -42,4 +42,3 @@
         opacity: 0;
     }
 }
-

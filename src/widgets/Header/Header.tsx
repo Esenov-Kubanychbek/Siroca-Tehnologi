@@ -10,10 +10,10 @@ import {
 } from "../../features";
 import { FC, useState } from "react";
 import { Login, MoreSquare } from "iconsax-react";
-import { ButtonRequest } from "./../../features/Header/ButtonRequest/ButtonRequest";
+import { ButtonRequest } from "../../features/ButtonRequest/ButtonRequest";
 import { Modal } from "antd";
 import { CreateRequest, ReadyModal } from "..";
-import { useReady, useRequest } from "../../shared/hooks";
+import { useReady, useRequest } from "../../shared/hooks/modalHooks";
 
 export const Header: FC<{ role: string }> = ({ role }) => {
     const [report, setReport] = useState<boolean>(false);

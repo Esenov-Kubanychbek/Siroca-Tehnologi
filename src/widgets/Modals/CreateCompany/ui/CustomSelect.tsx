@@ -12,11 +12,15 @@ export const CustomSelect: FC<ISelect> = (props) => {
             className={styles.CustomSelect}
             style={{ width: `${width}px` }}
         >
-            <option value="" disabled selected hidden>{text}</option>
-            { dataOption !== undefined && dataOption.map((data, i) => (
-                
-                <option key={i}> {data}</option>
-            ))}
+            <option
+                value=""
+                disabled
+                selected
+                hidden
+            >
+                {text}
+            </option>
+            {dataOption !== undefined && dataOption.map((data, i) => <option key={i}> {data}</option>)}
         </select>
     );
 };

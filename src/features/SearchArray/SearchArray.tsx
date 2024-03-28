@@ -1,6 +1,6 @@
-import { FC, useState } from "react";
-import { ISearch } from "./model/types";
+import { ChangeEvent, FC, useState } from "react";
 import styles from "./SearchArray.module.scss";
+import { ISearch } from "./types/types";
 
 export const SearchArray: FC<ISearch> = (props) => {
     const { width, name } = props;
@@ -11,7 +11,7 @@ export const SearchArray: FC<ISearch> = (props) => {
                 type="text"
                 value={state}
                 name={name}
-                onChange={(e) => setState(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setState(e.target.value)}
                 style={{ width: `${width - 50}px` }}
                 placeholder="Напишите..."
                 className={styles.Input}

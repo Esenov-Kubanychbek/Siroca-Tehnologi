@@ -1,9 +1,10 @@
 import { Danger } from "iconsax-react";
 import styles from "./ReadyModal.module.scss";
-import { useReady } from "../../../shared/hooks";
+import { useReady } from "../../../shared/hooks/modalHooks";
 import { NavLink } from "react-router-dom";
+import { FC } from "react";
 
-export const ReadyModal = () => {
+export const ReadyModal: FC = () => {
     const modal = useReady();
     return (
         <div className={styles.ReadyModal}>

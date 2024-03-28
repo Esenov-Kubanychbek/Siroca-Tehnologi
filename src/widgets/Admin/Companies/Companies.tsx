@@ -3,118 +3,104 @@ import { SearchInput } from "../../../features";
 import { ButtonCreate } from "../../../shared/ui/ButtonCreate/ButtonCreate";
 import styles from "./Companies.module.scss";
 import { CreateCompany, ViewCompany } from "../..";
-import { useCompany } from "../../../shared/hooks";
-import { useViewCompany } from "../../../shared/hooks/useViewCompany";
-import { useDataStoreComponies } from "../../../shared/componiesApi";
-import { useEffect } from "react";
-import { ListTopName, ListTop } from "../../../shared/ui";
-import { RequestInner } from "../../../entities";
+import { useCompany } from "../../../shared/hooks/modalHooks";
+import { useViewCompany } from "../../../shared/hooks/modalHooks/useViewCompany";
+import { useDataStoreComponies } from "./api/companiesApi";
+import { FC, useEffect } from "react";
+import { ListTopName, ListTop, ItemInner } from "../../../shared/ui";
 
-export const Companies = () => {
+export const Companies: FC = () => {
     const modal = useCompany();
     const modalView = useViewCompany();
-
     const { fetchDatas, data, selectedIdCompany } = useDataStoreComponies();
-
     useEffect(() => {
         fetchDatas();
-
     }, [data]);
-
     return (
         <div className={styles.Companies}>
             <h3>Поиск по компаниям</h3>
             <div className={styles.searchCompanies}>
                 <SearchInput />
-                <div className={styles.buttons} onClick={modal.open}>
+                <div
+                    className={styles.buttons}
+                    onClick={modal.open}
+                >
                     <ButtonCreate name="Создать компанию" />
-
                 </div>
             </div>
             <div className={styles.table}>
-
                 <ListTop>
-                    <ListTopName name="Компания" width={206} />
-                    <ListTopName name="Страна компании" width={210} />
-                    <ListTopName name="Количество пользователей" width={306} />
-                    <ListTopName name="Количество заявок" width={286} />
-                    <ListTopName name="Менеджер" width={208} />
-                    <ListTopName name="Дата создание" width={206} />
-                    <ListTopName name="Крайний редактирование" width={296} />
-
+                    <ListTopName
+                        name="Компания"
+                        width={206}
+                    />
+                    <ListTopName
+                        name="Страна компании"
+                        width={210}
+                    />
+                    <ListTopName
+                        name="Количество пользователей"
+                        width={306}
+                    />
+                    <ListTopName
+                        name="Количество заявок"
+                        width={286}
+                    />
+                    <ListTopName
+                        name="Менеджер"
+                        width={208}
+                    />
+                    <ListTopName
+                        name="Дата создание"
+                        width={206}
+                    />
+                    <ListTopName
+                        name="Крайний редактирование"
+                        width={296}
+                    />
                 </ListTop>
                 <ul>
                     {data.map((dataCompany) => (
-                        <li className={styles.datas} onClick={() => {
-                            modalView.open();
-                            selectedIdCompany(dataCompany.id)
-                        }} key={dataCompany.id}>
-                            <RequestInner width={206} content={dataCompany.name} />
-                            <RequestInner width={210} content={dataCompany.country} />
-                            <RequestInner width={306} content={dataCompany.count_users} />
-                            <RequestInner width={286} content={5} />
-                            <RequestInner width={208} content={'kUBA'} />
-                            <RequestInner width={206} content={dataCompany.created_at} />
-                            <RequestInner width={296} content={120302} />
-                            {/* <div style={{width: '93px'}}>{dataCompany.name}</div>
-                                <div style={{width: '163px'}}>{dataCompany.country}</div>
-                                <div>{dataCompany.count_users}</div>
-                                <div>5</div>
-                                <div>{dataCompany.main_manager}</div>
-                                <div >{dataCompany.created_at}</div>
-                                <div>120302</div> */}
+                        <li
+                            className={styles.datas}
+                            onClick={() => {
+                                modalView.open();
+                                selectedIdCompany(dataCompany.id);
+                            }}
+                            key={dataCompany.id}
+                        >
+                            <ItemInner
+                                width={206}
+                                content={dataCompany.name}
+                            />
+                            <ItemInner
+                                width={210}
+                                content={dataCompany.country}
+                            />
+                            <ItemInner
+                                width={306}
+                                content={dataCompany.count_users}
+                            />
+                            <ItemInner
+                                width={286}
+                                content={5}
+                            />
+                            <ItemInner
+                                width={208}
+                                content={"kUBA"}
+                            />
+                            <ItemInner
+                                width={206}
+                                content={dataCompany.created_at}
+                            />
+                            <ItemInner
+                                width={296}
+                                content={120302}
+                            />
                         </li>
-
                     ))}
-
                 </ul>
             </div>
-
-            {/* <ul>
-                <li className={styles.h}>
-                    <div>Компания</div>
-                    <div>Страна компании</div>
-                    <div>Количество пользователей</div>
-                    <div>Количество заявок</div>
-                    <div>Менеджер</div>
-                    <div>Дата создание</div>
-                    <div>Крайний редактирование</div>
-                </li>
-                <div className={styles.scrol}>
-                    <div>
-<<<<<<< HEAD
-                        {data.map((dataCompany) => (
-                            <li className={styles.datas} onClick={() => {
-                                modalView.open();
-                                selectedIdCompany(dataCompany.id)
-                            }} key={dataCompany.id}>
-                                <div style={{width: '93px'}}>{dataCompany.name}</div>
-                                <div style={{width: '163px'}}>{dataCompany.country}</div>
-                                <div>{dataCompany.count_users}</div>
-                                <div>5</div>
-                                <div>{dataCompany.main_manager}</div>
-                                <div >{dataCompany.created_at}</div>
-                                <div>120302</div>
-=======
-                        {massiv.map((mass, i) => (
-                            <li
-                                onClick={modalView.open}
-                                key={i}
-                            >
-                                <div>{mass.compani}</div>
-                                <div>{mass.strcompani}</div>
-                                <div>{mass.kolUser}</div>
-                                <div>{mass.kolZayavok}</div>
-                                <div>{mass.menedjer}</div>
-                                <div>{mass.daraCreate}</div>
-                                <div>{mass.redact}</div>
->>>>>>> 1bb9c9439b9e1ce151a9f8ed1924acfd777d2a5f
-                            </li>
-                            
-                        ))}
-                    </div>
-                </div>
-            </ul> */}
             <Modal
                 centered
                 width={700}

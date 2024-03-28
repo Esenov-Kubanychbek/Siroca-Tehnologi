@@ -1,0 +1,11 @@
+@import "../../../app/styles/variables.scss";
+
+.LoadingModal {
+    width: 130px;
+    height: 130px;
+    border: 2px solid $blue;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

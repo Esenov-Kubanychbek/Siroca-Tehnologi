@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { FC, useState } from "react";
 import styles from "./Roles.module.scss";
 import RolesMenu from "./components/rolesMenu/RolesMenu";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { axiosApi } from "../../../axiosApi";
 
-export const Roles = () => {
+export const Roles: FC = () => {
     const [settings, setSettings] = useState<boolean>(false);
     const openSetting = () => {
         setSettings(true);

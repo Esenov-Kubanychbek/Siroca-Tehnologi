@@ -1,22 +1,25 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import styles from "./UserList.module.scss";
-import { ListTop } from "./ListTop";
-import { UsersMap } from "./UsersMap";
+import { UsersTop } from "./UsersTop";
 import { Modal } from "antd";
 import { ViewUser } from "../../../Modals/ViewUser/ViewUser";
-import { useViewUser } from "../../../../shared/hooks";
-import { usersApi } from "../../../../shared/api";
+import { useViewUser } from "../../../../shared/hooks/modalHooks";
+import { usersApi } from "../api/usersApi";
+import { User } from "../../../../entities";
 
 export const UsersList: FC = () => {
     const modal = useViewUser();
     const fetchData = usersApi();
+    useEffect(()=> {
+        fetchData.getting()
+    }, [])
     return (
         <>
             <div className={styles.UsersList}>
-                <ListTop />
+                <UsersTop />
                 <div className={styles.Users}>
                     {fetchData.inState.map((card, i) => (
-                        <UsersMap
+                        <User
                             key={i}
                             id={card.id}
                             role_type={card.role_type}

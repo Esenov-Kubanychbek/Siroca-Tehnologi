@@ -8,3 +8,4 @@ export { Date } from "./Date/Date";
 export { ListTop } from "./ListTop/ListTop";
 export { ListTopName } from "./ListTop/ListTopName";
 export { Typography } from "./Typography/Typography";
+export { ItemInner } from "./ItemInner/ItemInner";

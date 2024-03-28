@@ -1,8 +1,9 @@
 import { GalleryAdd } from "iconsax-react";
 import styles from "./AddPhoto.module.scss";
-import { usersApi } from "../../../../shared/api";
+import { FC } from "react";
+import { usersApi } from "../../../Admin/Users/api/usersApi";
 
-export const AddPhoto = () => {
+export const AddPhoto: FC = () => {
     const fetchData = usersApi();
     return (
         <div>

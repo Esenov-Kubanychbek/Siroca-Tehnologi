@@ -1,16 +1,16 @@
 import { Modal } from "antd";
-import { RequestInner } from "../../../entities";
 import { SearchInput } from "../../../features";
 import { ButtonCreate } from "../../../shared/ui/ButtonCreate/ButtonCreate";
 import { ListTop } from "../../../shared/ui/ListTop/ListTop";
 import { ListTopName } from "../../../shared/ui/ListTop/ListTopName";
 import styles from "./Positions.module.scss";
 import { CreatePosition } from "../../Modals/CreatePosition/CreatePosition";
-import { usePosition } from "../../../shared/hooks";
-import { useEffect } from "react";
-import { jobTitleApi } from "../../../shared/api";
+import { usePosition } from "../../../shared/hooks/modalHooks";
+import { FC, useEffect } from "react";
+import { ItemInner } from "../../../shared/ui";
+import { jobTitleApi } from "./api/jobTitleApi";
 
-export const Positions = () => {
+export const Positions: FC = () => {
     const modal = usePosition();
     const fetchData = jobTitleApi();
     useEffect(() => {
@@ -37,7 +37,7 @@ export const Positions = () => {
                         />
                     </ListTop>
                     {fetchData.jobTitleList.map((card, i) => (
-                        <RequestInner
+                        <ItemInner
                             width={350}
                             content={card.title}
                             key={i}

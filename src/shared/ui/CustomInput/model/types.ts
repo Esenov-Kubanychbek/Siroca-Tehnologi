@@ -5,9 +5,9 @@ export interface IInput {
     placeholder: string;
     height?: number;
     background?: string;
-    value?: string ;
+    value?: string | number;
     name?: string;
     type?: string;
-    paddingLeft?:number;
+    paddingLeft?: number;
     change?: (e: ChangeEvent<HTMLInputElement>) => void;
 }

@@ -10,7 +10,12 @@ export const CustomInput: FC<IInput> = (props) => {
             value={value}
             name={name}
             onChange={change}
-            style={{ width: `${width - 50}px`, height: `${height}px`, background: `${background}`,paddingLeft:`${paddingLeft}px` }}
+            style={{
+                width: `${width - 50}px`,
+                height: `${height}px`,
+                background: `${background}`,
+                paddingLeft: `${paddingLeft}px`,
+            }}
             placeholder={placeholder}
             className={styles.Input}
         />

@@ -2,7 +2,7 @@ import { CloseSquare } from "iconsax-react";
 import ReportForm from "./ReportForm/ReportForm";
 import styles from "./ReportModal.module.scss";
 import { FC, useState } from "react";
-import { useReport } from "../../../shared/hooks";
+import { useReport } from "../../../shared/hooks/modalHooks";
 
 export const ReportModal: FC = () => {
     const [results, setResults] = useState();

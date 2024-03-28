@@ -3,11 +3,11 @@ import styles from "./CreatePosition.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { ConfigProvider, Modal } from "antd";
 import { LoadingModal } from "../..";
-import { useLoading, usePosition } from "../../../shared/hooks";
-import { jobTitleApi } from "../../../shared/api";
-import { ChangeEvent, useState } from "react";
+import { useLoading, usePosition } from "../../../shared/hooks/modalHooks";
+import { ChangeEvent, FC, useState } from "react";
+import { jobTitleApi } from "../../Admin/Positions/api/jobTitleApi";
 
-export const CreatePosition = () => {
+export const CreatePosition: FC = () => {
     const fetchData = jobTitleApi();
     const modal = usePosition();
     const modalLoading = useLoading();
