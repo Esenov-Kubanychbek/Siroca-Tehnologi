@@ -26,7 +26,7 @@ const App = () => {
                 element={<WorkPage />}
             />
             <Route
-                path="/rolessettings"
+                path="/rolesettings"
                 element={<RolesSettings />}
             />
             <Route

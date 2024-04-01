@@ -5,41 +5,36 @@ import styles from "./RolesSettings.module.scss";
 import axios from "axios";
 import { ArrowRight } from "iconsax-react";
 import { useNavigate } from "react-router-dom";
+import { usersApi } from "../../../../../shared/api";
+import { SearchInput } from "../../../../../features";
+import { CustomButton } from "../../../../../shared/ui";
+import { axiosApi } from "../../../../../axiosApi";
 
 const RolesSettings = () => {
-    const [users, setUsers] = useState<object>([]);
+    const [boxesReg, setBoxesReq ] = useState()
     const headerSettingsList = [
         "Добавление/удаление комментария к заявке",
-        "Добавление/удаление файла к заявке",
-        "Просмотр истории изменений по заявке “Logs”",
-        "Добавление/удаление чек-листов",
-        "Просмотр профиля других пользователей",
-        "Скачивание отчета по заявкам",
-        "Создание/редактирование заявки",
+            "Скачивание отчета по заявкам",
+            "Просмотр истории изменений по заявке “Logs”",
+            "Добавление/удаление файла к заявке",
+            "Добавление/удаление чек-листов",
+            "Просмотр профиля других пользователей",
     ];
     const renderSettingsList = [
         [
             "Добавление/удаление комментария к заявке",
-            "Добавление/удаление файла к заявке",
+            "Скачивание отчета по заявкам",
             "Просмотр истории изменений по заявке “Logs”",
+            "Добавление/удаление файла к заявке",
             "Добавление/удаление чек-листов",
             "Просмотр профиля других пользователей",
-            "Скачивание отчета по заявкам",
-            "Создание/редактирование заявки",
         ],
     ];
-
-    const getUsers = async () => {
-        try {
-            const response = await axios.get("http://16.171.68.251/api/v1/users/profiles/");
-            setUsers(response.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    const fetchData = usersApi();
     useEffect(() => {
-        getUsers();
+        fetchData.getting();
     }, []);
+    
     const navigate = useNavigate();
     const nvMenu = () => {
         navigate(-1);
@@ -59,6 +54,23 @@ const RolesSettings = () => {
         scrollToBottom();
     });
 
+    const reqRoles = async(data) => {
+        try {
+            const response = await axios.put(`${axiosApi}/users/clientpermissions/detail/`, data, {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem("access")}`
+                }
+            } )
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const saveRoles = () => {
+        boxesReg.map((el) => {
+           reqRoles(el) 
+        })
+    }
     return (
         <div className={styles.Settings}>
             <div
@@ -66,28 +78,36 @@ const RolesSettings = () => {
                 ref={scrollContainerRef}
             >
                 <div className={styles.BackCont}>
-                    <div
-                        onClick={nvMenu}
-                        className={styles.Back}
-                    >
-                        <div className={styles.Icn}>
-                            <ArrowRight
-                                size={24}
-                                color="#1C6AB1"
-                            />
-                        </div>
+                    <div className={styles.NvMneu}>
+                        <div
+                            onClick={nvMenu}
+                            className={styles.Back}
+                        >
+                            <div className={styles.Icn}>
+                                <ArrowRight
+                                    size={24}
+                                    color="#1C6AB1"
+                                />
+                            </div>
 
-                        <p>Назад</p>
+                            <p>Назад</p>
+                        </div>
+                        <p className={styles.Par}>Дополнительные настройки</p>
                     </div>
-                    <p className={styles.Par}>Дополнительные настройки</p>
+
+                    <div className={styles.Search}>
+                        <SearchInput />
+                        <button onClick={saveRoles} className={styles.Save}>Сохарнить</button>
+                    </div>
                 </div>
                 <HeaderSettings
                     name="Имя пользователя"
                     list={headerSettingsList}
                 />
                 <RolesRender
-                    users={users[0] ? users : []}
+                    users={fetchData.inState.results ? fetchData.inState.results : []}
                     list={renderSettingsList}
+                    getChanges={(e: []) => setBoxesReq(e)}
                 />
             </div>
         </div>
