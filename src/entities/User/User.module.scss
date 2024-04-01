@@ -1,0 +1,16 @@
+@import "../../app/styles/variables.scss";
+
+.User {
+    width: 1718px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    div {
+        margin-inline: 16px;
+    }
+    &:hover {
+        background-color: $blackde;
+    }
+}

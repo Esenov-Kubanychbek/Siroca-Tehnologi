@@ -1,10 +1,8 @@
 .CreateCompany {
     width: 660px;
-    // height: 539px;
     box-sizing: border-box;
     border-radius: 8px;
     background-color: white;
-
     .blockOne {
         display: flex;
         justify-content: space-between;
@@ -13,7 +11,6 @@
         font-weight: 700;
         margin: 30px;
     }
-
     .AddUser {
         margin-left: 40px;
         display: flex;
@@ -33,30 +30,23 @@
         background: var(---100, #f4f4f4);
         border: none;
     }
-
     .Label {
         color: var(---600, #5c5c5c);
-
-        /* 1920/Body L/700 */
-        font-family: Geometria;
         font-size: 18px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
     }
-
     .blockTwo {
         display: flex;
         justify-content: space-between;
         margin: 30px;
-
         label {
             font-size: 18px;
             font-weight: 700;
             padding: 8px;
         }
     }
-
     .buttons {
         width: 316px;
         display: flex;

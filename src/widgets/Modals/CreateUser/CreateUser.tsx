@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, FormEvent, useState } from "react";
 import styles from "./CreateUser.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CloseSquare } from "iconsax-react";
@@ -6,16 +6,19 @@ import { RoleButton } from "./ui/RoleButton";
 import { AddButton } from "./ui/AddButton";
 import { ConfigProvider, Modal } from "antd";
 import { CreatePosition, SuccessModal } from "../..";
-import { usePosition, useSuccess, useUser } from "../../../shared/hooks";
-import { usersApi } from "../../../shared/api";
+import { usePosition, useSuccess, useUser } from "../../../shared/hooks/modalHooks";
 import { AddPhoto } from "./ui/AddPhoto";
+import { usersApi } from "../../Admin/Users/api/usersApi";
 
 export const CreateUser: FC = () => {
     const positionFunc = usePosition();
     const fetchData = usersApi();
     const modal = useUser();
     const success = useSuccess();
-    const postTrim = () => {
+
+
+    const postTrim = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         if (Object.values(fetchData.oneUser).every((value) => value !== "")) {
             fetchData.posting(fetchData.oneUser);
             console.log(fetchData.oneUser, "success");
@@ -24,7 +27,10 @@ export const CreateUser: FC = () => {
         }
     };
     return (
-        <form className={styles.CreateUser}>
+        <form
+            className={styles.CreateUser}
+            onSubmit={postTrim}
+        >
             <div className={styles.Top}>
                 <div className={styles.TextTop}>Создание пользователя</div>
                 <CloseSquare
@@ -56,7 +62,7 @@ export const CreateUser: FC = () => {
                     </div>
                     <div>
                         <div className={styles.Text}>Тип роли</div>
-                        <RoleButton change={fetchData.setOneUser} />
+                        <RoleButton onChange={fetchData.setOneUser} />
                     </div>
                 </div>
             </div>
@@ -106,20 +112,19 @@ export const CreateUser: FC = () => {
                 </div>
             </div>
             <div className={styles.Buttons}>
-                <div onClick={modal.close}>
-                    <CustomButton
-                        variant="Without"
-                        width={160}
-                        text="Отменить"
-                    />
-                </div>
-                <div onClick={postTrim}>
-                    <CustomButton
-                        variant="Primary"
-                        width={150}
-                        text="Создать"
-                    />
-                </div>
+                <CustomButton
+                    type="button"
+                    variant="Without"
+                    width={160}
+                    onClick={modal.close}
+                    text="Отменить"
+                />
+                <CustomButton
+                    type="submit"
+                    variant="Primary"
+                    width={150}
+                    text="Создать"
+                />
             </div>
             <Modal
                 width={700}
@@ -144,7 +149,7 @@ export const CreateUser: FC = () => {
                     open={success.isOpen}
                     onCancel={success.close}
                 >
-                    <SuccessModal />
+                    <SuccessModal content="Пользователь Добавлен!" />
                 </Modal>
             </ConfigProvider>
         </form>

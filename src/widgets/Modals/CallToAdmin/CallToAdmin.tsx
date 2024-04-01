@@ -1,9 +1,10 @@
 import { Call, CloseSquare, Sms, Whatsapp } from "iconsax-react";
 import styles from "./CallToAdmin.module.scss";
 import Contact from "./ui/Contact";
-import { useCallToAdmin } from "../../../shared/hooks";
+import { useCallToAdmin } from "../../../shared/hooks/modalHooks";
+import { FC } from "react";
 
-export const CallToAdmin = () => {
+export const CallToAdmin: FC = () => {
     const items = {
         whatsapp: {
             icon: (

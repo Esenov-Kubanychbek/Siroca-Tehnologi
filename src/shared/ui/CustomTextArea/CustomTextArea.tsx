@@ -6,12 +6,12 @@ interface IText {
     height?: number;
     width?: number;
     variant: string;
-    value?:string;
-    name?:string;
+    value?: string;
+    name?: string;
     change?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export const CustomTextArea: FC<IText> = ({ placeholder, height, width, variant,value,name,change }) => {
+export const CustomTextArea: FC<IText> = ({ placeholder, height, width, variant, value, name, change }) => {
     return (
         <textarea
             value={value}

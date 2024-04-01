@@ -2,10 +2,9 @@ import { CloseSquare, Import } from "iconsax-react";
 import ReportForm from "./ReportForm/ReportForm";
 import styles from "./ReportModal.module.scss";
 import { FC, useState } from "react";
-import { useReport } from "../../../shared/hooks";
 import axios from "axios";
-import { axiosApi } from "../../../axiosApi";
-import ExcelIcn from "../../../shared/assets/xlsx.svg"
+import { BASE_URL } from "../../../shared/variables/variables";
+import { useReport } from "../../../shared/hooks/modalHooks";
 
 export const ReportModal: FC = () => {
     const [results, setResults] = useState();
@@ -14,7 +13,7 @@ export const ReportModal: FC = () => {
         setResults(e);
         console.log(e);
         try {
-            const response = await axios.get(`${axiosApi}/applications/filter/?company_name=${e.company}&manager_first_name=${e.maneger}&start_date=${e.begin}&finish_date=${e.end}&week=unknown&month=unknown&all_time=unknown`, {
+            const response = await axios.get(`${BASE_URL}/applications/filter/?company_name=${e.company}&manager_first_name=${e.maneger}&start_date=${e.begin}&finish_date=${e.end}&week=unknown&month=unknown&all_time=unknown`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem("access")}`
                 }
@@ -31,7 +30,7 @@ export const ReportModal: FC = () => {
 
         }
     };
-    const modal = useReport();
+    const modal = useReport()
     return (
         <div className={styles.RepModalWindow}>
             <div className={styles.Header1}>

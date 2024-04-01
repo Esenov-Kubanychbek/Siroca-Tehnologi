@@ -3,7 +3,7 @@ import { ChangeEvent } from "react";
 export interface ISelect {
     dataOption: string[] | undefined;
     text?: string;
-    width?:number;
+    width?: number;
     value?: string | number;
     name?: string;
     type?: string;

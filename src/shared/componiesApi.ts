@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import { Data } from 'iconsax-react';
-import { axiosApi } from '../axiosApi';
+import { BASE_URL } from './variables/variables';
 
 export interface dataAddCompanies {
     name: string,
@@ -43,7 +43,7 @@ interface DataStore extends Data {
 
 const fetchData = async () => {
     try {
-        const response = await axios.get(`${axiosApi}/company/list/`, {
+        const response = await axios.get(`${BASE_URL}/company/list/`, {
             headers: {
                 Authorization: `JWT ${localStorage.getItem('access')}`
             }
@@ -60,7 +60,7 @@ const addCompanies = async (datas: dataAddCompanies) => {
     console.log(datas);
 
     try {
-        const response = await axios.post(`${axiosApi}/company/create/`, datas,
+        const response = await axios.post(`${BASE_URL}/company/create/`, datas,
         {headers: {
             Authorization: `JWT ${localStorage.getItem('access')}`
         }});

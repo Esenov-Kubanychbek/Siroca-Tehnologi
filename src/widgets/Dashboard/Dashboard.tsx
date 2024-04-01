@@ -1,8 +1,10 @@
 import styles from "./Dashboard.module.scss";
 import { DashboardButton, LoginButton } from "../../features";
 import { Home, TagUser } from "iconsax-react";
+import { FC } from "react";
+import { PATHS } from "../../shared/variables/variables";
 
-export const Dashboard = () => {
+export const Dashboard: FC = () => {
     return (
         <div className={styles.Dashboard}>
             <div className={styles.Logo}>
@@ -13,14 +15,14 @@ export const Dashboard = () => {
             </div>
             <div className={styles.Line} />
             <div className={styles.Buttons}>
-                <DashboardButton name="/adminpage">
+                <DashboardButton name={PATHS.admin}>
                     <Home />
                 </DashboardButton>
-                <DashboardButton name="/workpage">
+                <DashboardButton name={PATHS.work}>
                     <TagUser />
                 </DashboardButton>
             </div>
-            <LoginButton />
+            <LoginButton variant="Secondary" />
         </div>
     );
 };

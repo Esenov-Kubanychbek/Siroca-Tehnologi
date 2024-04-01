@@ -1,9 +1,10 @@
 @import "../../../app/styles/index.scss";
 
 .Positions {
-    width: 350px;
+    width: 530px;
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .Name {
@@ -17,12 +18,54 @@
     margin: 8px 0 20px 0;
 }
 
+.Trash {
+    height: 56px;
+    width: 56px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $blue;
+    cursor: pointer;
+    border: none;
+}
+
+.Delete {
+    width: 100px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: $blacka8;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
 .PositionsList {
-    height: 700px;
-    width: 380px;
-    .Inner {
+    width: 410px;
+    overflow: hidden;
+    .Top {
         width: 350px;
-        box-shadow: 0px 1px 20px 0px rgba(22, 22, 22, 0.15);
     }
-    overflow-x: hidden;
+    .Inner {
+        width: 390px;
+        height: 628px;
+        overflow-y: scroll;
+        .Item {
+            width: 350px;
+            background-color: white;
+            position: relative;
+            input {
+                top: 16px;
+                left: 310px;
+                width: 24px;
+                height: 24px;
+                cursor: pointer;
+                position: absolute;
+            }
+        }
+    }
 }

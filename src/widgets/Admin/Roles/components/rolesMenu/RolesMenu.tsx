@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import RolesList from "./RolesList";
 import styles from "./RolesMenu.module.scss";
 import axios from "axios";
-import { axiosApi } from "../../../../../axiosApi";
+import { BASE_URL } from "../../../../../shared/variables/variables";
 
 interface IRolesMenu {
     openSettings: () => void;
@@ -13,12 +13,12 @@ const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
 
     const get = async () => {
         try {
-            const responseClients = await axios.get(`${axiosApi}/users/clientpermissions/general`, {
+            const responseClients = await axios.get(`${BASE_URL}/users/clientpermissions/general`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem("access")}`
                 }
             })
-            const responseManeger = await axios.get(`${axiosApi}/users/managerpermissions/general/`, {
+            const responseManeger = await axios.get(`${BASE_URL}/users/managerpermissions/general/`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem("access")}`
                 }
@@ -76,12 +76,12 @@ const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
 
     const onSave = async() => {
         try {
-            const responseClient = await axios.put(`${axiosApi}/users/clientpermissions/general`, boxesClient, {
+            const responseClient = await axios.put(`${BASE_URL}/users/clientpermissions/general`, boxesClient, {
                 headers:{
                     Authorization: `JWT ${localStorage.getItem("access")}`
                 }
             })
-            const responseManeger = await axios.put(`${axiosApi}/users/managerpermissions/general/`, boxesManeger,{
+            const responseManeger = await axios.put(`${BASE_URL}/users/managerpermissions/general/`, boxesManeger,{
                 headers:{
                     Authorization: `JWT ${localStorage.getItem("access")}`
                 }

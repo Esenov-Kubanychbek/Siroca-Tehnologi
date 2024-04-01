@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { ChangeEvent } from "react";
 import styles from "./RolesList.module.scss";
 
 interface IRolesList {
     list: string[];
     listType: string;
-    handleChangeBox: (e) => void;
+    handleChangeBox: (e: object) => void;
     box: object
 }
 
 const RolesList: React.FC<IRolesList> = ({ list, listType, handleChangeBox, box }) => {
-    const onChange = (e) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         handleChangeBox([listType, e]);
     };
     return (

@@ -1,9 +1,7 @@
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import styles from "./RoleButton.module.scss";
-import { IRole } from "../model/types";
 
-export const RoleButton: FC<IRole> = (props) => {
-    const { change } = props;
+export const RoleButton: FC<{ onChange: (e: ChangeEvent<HTMLInputElement>) => void }> = ({ onChange }) => {
     return (
         <div className={styles.RoleContainer}>
             <div className={styles.Role}>
@@ -11,7 +9,7 @@ export const RoleButton: FC<IRole> = (props) => {
                     Клиент
                     <input
                         type="radio"
-                        onChange={change}
+                        onChange={onChange}
                         name="role_type"
                         value="client"
                     />
@@ -22,7 +20,7 @@ export const RoleButton: FC<IRole> = (props) => {
                     Менеджер
                     <input
                         type="radio"
-                        onChange={change}
+                        onChange={onChange}
                         name="role_type"
                         value="manager"
                     />

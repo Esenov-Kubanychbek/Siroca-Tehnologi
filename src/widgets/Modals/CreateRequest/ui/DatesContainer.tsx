@@ -2,12 +2,12 @@ import { ChangeEvent, FC } from "react";
 import styles from "./DatesContainer.module.scss";
 import { Date } from "../../../../shared/ui";
 
-export const DatesContainer: FC <{ onChange: (e: ChangeEvent<HTMLInputElement>) => void }> = ({onChange}) => {
+export const DatesContainer: FC<{ onChange: (e: ChangeEvent<HTMLInputElement>) => void }> = ({ onChange }) => {
     return (
         <div className={styles.DatesContainer}>
             <div className={styles.Dates}>
                 <div className={styles.Dates1}>
-                    <Date 
+                    <Date
                         name="start_date"
                         variant="DateContainer"
                         text="Дата начала:"
@@ -49,11 +49,21 @@ export const DatesContainer: FC <{ onChange: (e: ChangeEvent<HTMLInputElement>) 
                 <div className={styles.Text}>Статус оплаты:</div>
                 <div className={styles.Pay}>
                     <div className={styles.UniPay}>
-                        <input type="radio" name="payment_state" onChange={onChange} value={"Оплачено"}/>
+                        <input
+                            type="radio"
+                            name="payment_state"
+                            onChange={onChange}
+                            value={"Оплачено"}
+                        />
                         <div className={styles.Text2}>Оплачен</div>
                     </div>
                     <div className={styles.UniPay}>
-                        <input type="radio" name="payment_state" onChange={onChange} value={"Не оплачено"}/>
+                        <input
+                            type="radio"
+                            name="payment_state"
+                            onChange={onChange}
+                            value={"Не оплачено"}
+                        />
                         <div className={styles.Text2}>Не оплачен</div>
                     </div>
                 </div>

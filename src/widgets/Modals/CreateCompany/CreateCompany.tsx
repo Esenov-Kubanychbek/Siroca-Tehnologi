@@ -2,36 +2,34 @@ import { CloseSquare } from "iconsax-react";
 import styles from "./CreateCompany.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CustomSelect } from "./ui/CustomSelect";
-import { useCompany } from "../../../shared/hooks";
-import { ChangeEvent, useState } from "react";
-import { dataAddCompanies, useDataStoreComponies } from "../../../shared/componiesApi";
+import { useCompany } from "../../../shared/hooks/modalHooks";
+import { ChangeEvent, FC, useState } from "react";
+import { useDataStoreComponies } from "../../Admin/Companies/api/getCompaniesApi";
 
-export const CreateCompany = () => {
+export const CreateCompany: FC = () => {
     const datas: string[] = ["Abu", "Aman", "Kuba", "Daler"];
     const modal = useCompany();
-    const { addCompany } = useDataStoreComponies();
-    const [ dataInputCompanies, setDataInputCompanies ] = useState<dataAddCompanies>({
-            name: "",
-            company_code: "",
-            country: "",
-            managers: [],
-            main_manager: null,
-            domain: ""
+    const { addCompany } = useDataStoreComponies()
+    const [dataInputCompanies, setDataInputCompanies] = useState<dataAddCompanies>({
+        name: "",
+        company_code: "",
+        country: "",
+        managers: [],
+        main_manager: null,
+        domain: "",
     });
     const changeInput = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setDataInputCompanies(prevState => ({
-          ...prevState,
-          [e.target.name]: e.target.value
+        setDataInputCompanies((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
         }));
-        
-      };
+    };
     const addNewCompany = () => {
         addCompany(dataInputCompanies);
         console.log(dataInputCompanies);
-        
-    }
-      
-       return (
+    };
+
+    return (
         <div className={styles.CreateCompany}>
             <div className={styles.blockOne}>
                 <div>Создание компании</div>
@@ -106,7 +104,6 @@ export const CreateCompany = () => {
                         width={150}
                         text="Создать"
                         createCompany={addNewCompany}
-
                     />
                 </div>
             </div>
