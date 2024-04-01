@@ -2,13 +2,14 @@ import { AddSquare, CloseSquare } from "iconsax-react";
 import styles from "./ViewCompany.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { useViewCompany } from "../../../shared/hooks/modalHooks/useViewCompany";
-import { useDataStoreComponies } from "../../Admin/Companies/api/companiesApi";
+
 import { CustomSelect } from "../../Modals/CreateCompany/ui/CustomSelect";
 import { FC } from "react";
+import { useDataStoreComponies } from "../../Admin/Companies/api/getCompaniesApi";
 
 export const ViewCompany: FC = () => {
     const modal = useViewCompany();
-    const { selectedCompanyData, deleteCompany, idCompany } = useDataStoreComponies();
+    const { selectedCompanyData, deleteCompany, idCompany } = useDataStoreComponies()
     const deleteComp = () => {
         deleteCompany(idCompany);
         modal.close();

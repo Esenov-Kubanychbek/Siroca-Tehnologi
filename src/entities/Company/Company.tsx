@@ -1,12 +1,12 @@
 import { FC } from "react";
 import styles from "./Company.module.scss";
-import { dataCompanies, useDataStoreComponies } from "../../widgets/Admin/Companies/api/companiesApi";
 import { ItemInner } from "../../shared/ui";
 import { useViewCompany } from "../../shared/hooks/modalHooks/useViewCompany";
+import { dataCompanies,useDataStoreComponies } from "../../widgets/Admin/Companies/api/getCompaniesApi";
 
 export const Company: FC<{ company: dataCompanies }> = ({ company }) => {
     const modal = useViewCompany();
-    const { selectedIdCompany } = useDataStoreComponies();
+    const { selectedIdCompany } = useDataStoreComponies()
     return (
         <div
             className={styles.Company}

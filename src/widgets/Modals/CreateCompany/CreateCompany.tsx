@@ -4,12 +4,12 @@ import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CustomSelect } from "./ui/CustomSelect";
 import { useCompany } from "../../../shared/hooks/modalHooks";
 import { ChangeEvent, FC, useState } from "react";
-import { dataAddCompanies, useDataStoreComponies } from "../../Admin/Companies/api/companiesApi";
+import { useDataStoreComponies } from "../../Admin/Companies/api/getCompaniesApi";
 
 export const CreateCompany: FC = () => {
     const datas: string[] = ["Abu", "Aman", "Kuba", "Daler"];
     const modal = useCompany();
-    const { addCompany } = useDataStoreComponies();
+    const { addCompany } = useDataStoreComponies()
     const [dataInputCompanies, setDataInputCompanies] = useState<dataAddCompanies>({
         name: "",
         company_code: "",

@@ -1,10 +1,12 @@
 .Item {
     display: flex;
+    
     .name {
         display: flex;
         min-width: 280px;
         height: 46px;
         padding: 10px 16px;
+        background: white;
         align-items: center;
         gap: 10px;
         border-top: 1px solid var(---200, #dedede);
@@ -26,6 +28,10 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        background: white;
+        border-top: 1px solid var(---200, #dedede);
+        border-bottom: 1px solid var(---200, #dedede);
+        border-right: 1px solid var(---200, #dedede);
         gap: 10px;
         p {
             color: #000;
@@ -37,6 +43,7 @@
         }
     }
     .el {
+        background: white;
         display: flex;
         min-width: 226px;
         max-width: 227px;

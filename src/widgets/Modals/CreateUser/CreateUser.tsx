@@ -1,4 +1,4 @@
-import { FC, FormEvent } from "react";
+import { FC, FormEvent, useState } from "react";
 import styles from "./CreateUser.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CloseSquare } from "iconsax-react";
@@ -15,6 +15,8 @@ export const CreateUser: FC = () => {
     const fetchData = usersApi();
     const modal = useUser();
     const success = useSuccess();
+
+
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (Object.values(fetchData.oneUser).every((value) => value !== "")) {

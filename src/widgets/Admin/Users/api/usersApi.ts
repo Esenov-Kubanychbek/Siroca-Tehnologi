@@ -8,7 +8,6 @@ interface IFetch {
     inState: IUser[];
     oneUserGet: IUserGet;
     oneUser: IUser;
-    setOneUser: (e: ChangeEvent<HTMLInputElement>) => void;
     getOneUser: (id: number | undefined) => void;
     putting: (postState: IUser, id: number | undefined) => void;
     getting: () => void;
@@ -35,14 +34,6 @@ export const usersApi = create<IFetch>((set) => ({
         role_type: "",
         surname: "",
         username: "",
-    },
-    setOneUser: (e) => {
-        set((prevState) => ({
-            oneUser: {
-                ...prevState.oneUser,
-                [e.target.name]: e.target.name === "image" ? e.target.files[0] : e.target.value,
-            },
-        }));
     },
     getOneUser: async (id) => {
         try {

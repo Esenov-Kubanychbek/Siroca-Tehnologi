@@ -5,15 +5,15 @@ import styles from "./Companies.module.scss";
 import { CreateCompany, ViewCompany } from "../..";
 import { useCompany } from "../../../shared/hooks/modalHooks";
 import { useViewCompany } from "../../../shared/hooks/modalHooks/useViewCompany";
-import { useDataStoreComponies } from "./api/companiesApi";
 import { FC, useEffect } from "react";
 import { CompaniesTop } from "./ui/CompaniesTop";
 import { Company } from "../../../entities";
+import { useDataStoreComponies } from "./api/getCompaniesApi";
 
 export const Companies: FC = () => {
     const modal = useCompany();
     const modalView = useViewCompany();
-    const { fetchDatas, data } = useDataStoreComponies();
+    const { fetchDatas, data } = useDataStoreComponies()
     useEffect(() => {
         fetchDatas();
     }, []);
