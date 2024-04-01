@@ -3,6 +3,7 @@ import styles from "./ReadyModal.module.scss";
 import { useReady } from "../../../shared/hooks/modalHooks";
 import { NavLink } from "react-router-dom";
 import { FC } from "react";
+import { PATHS } from "../../../shared/variables/variables";
 
 export const ReadyModal: FC<{ content: string }> = ({ content }) => {
     const modal = useReady();
@@ -18,7 +19,7 @@ export const ReadyModal: FC<{ content: string }> = ({ content }) => {
             </div>
             <div className={styles.BtnCont}>
                 <NavLink
-                    to="/"
+                    to={PATHS.auth}
                     aria-label="login"
                     onClick={modal.close}
                     className={styles.BtnYes}

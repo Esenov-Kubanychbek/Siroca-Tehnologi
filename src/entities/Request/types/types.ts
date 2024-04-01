@@ -1,13 +1,12 @@
 export interface IRequest {
-    number: string;
-    company: number;
-    request: string;
+    task_number: string;
+    title: string;
     description: string;
-    client: number;
-    manager: number;
-    begin: string;
-    end: string;
-    prioritet: string;
     status: string;
-    role: string;
+    priority: string;
+    start_date: string;
+    finish_date: string;
+    company: number;
+    main_client: number;
+    main_manager: number;
 }

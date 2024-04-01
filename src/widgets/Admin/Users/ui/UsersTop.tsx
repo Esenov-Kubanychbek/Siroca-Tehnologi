@@ -7,27 +7,23 @@ export const UsersTop: FC = () => {
         <ListTop>
             <ListTopName
                 name="Ф.И пользователя"
-                width={250}
+                width={318}
             />
             <ListTopName
                 name="Логин"
-                width={250}
-            />
-            <ListTopName
-                name="Пароль"
-                width={250}
+                width={350}
             />
             <ListTopName
                 name="Должность в компании"
-                width={340}
+                width={350}
             />
             <ListTopName
                 name="Тип роли пользователя"
-                width={314}
+                width={350}
             />
             <ListTopName
                 name="Название компании"
-                width={314}
+                width={350}
             />
         </ListTop>
     );

@@ -6,7 +6,7 @@ export const RequestTop: FC<{ role: string }> = ({ role }) => {
         <ListTop>
             <ListTopName
                 name="Номер заявки"
-                width={role === "admin" ? 174 : 180}
+                width={role === "admin" ? 169 : 180}
             />
             <ListTopName
                 name="Компания"
@@ -14,11 +14,11 @@ export const RequestTop: FC<{ role: string }> = ({ role }) => {
             />
             <ListTopName
                 name="Наименования заявки"
-                width={role === "admin" ? 254 : 260}
+                width={role === "admin" ? 249 : 260}
             />
             <ListTopName
                 name="Краткое описания"
-                width={role === "admin" ? 236 : 220}
+                width={role === "admin" ? 230 : 220}
             />
             <ListTopName
                 name="Заявитель"

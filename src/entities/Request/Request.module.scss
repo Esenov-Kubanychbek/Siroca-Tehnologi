@@ -6,6 +6,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: white;
     cursor: pointer;
     &:hover {
         background-color: $blackde;
@@ -22,6 +23,15 @@
     align-items: center;
     font-weight: 500;
     font-size: 16px;
+    div {
+        width: 142px;
+        height: 40px;
+        border-radius: 8px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 .Status {
@@ -34,4 +44,13 @@
     align-items: center;
     font-weight: 500;
     font-size: 16px;
+    div {
+        width: 120px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
 }

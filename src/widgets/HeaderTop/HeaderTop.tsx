@@ -4,10 +4,7 @@ import { LoginButton, NotifButton, ProfileButton, StatusNumber } from "../../fea
 
 export const HeaderTop: FC<{ role: "client" | "manager" | "admin" }> = ({ role }) => {
     return (
-        <div
-            style={role === "admin" ? { width: "1764px" } : { width: "1820px" }}
-            className={styles.HeaderTop}
-        >
+        <div className={styles.HeaderTop}>
             <div
                 className={styles.HeaderTopInner}
                 style={{ width: role === "admin" ? "1716px" : "1790px" }}

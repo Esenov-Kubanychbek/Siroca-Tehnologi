@@ -5,41 +5,36 @@ import { IUser } from "../../shared/types/userTypes";
 import { useViewUser } from "../../shared/hooks/modalHooks";
 import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
 
-export const User: FC<IUser> = (props) => {
-    const { id, first_name, surname, username, password, job_title, role_type, main_company } = props;
+export const User: FC<{ user: IUser }> = ({ user }) => {
     const modal = useViewUser();
     const fetchData = usersApi();
     return (
         <div
             onClick={() => {
                 modal.open();
-                fetchData.getOneUser(id);
+                fetchData.getOneUser(user.id);
             }}
             className={styles.User}
         >
             <ItemInner
-                content={first_name + " " + surname}
-                width={250}
+                content={user.first_name + " " + user.surname}
+                width={318}
             />
             <ItemInner
-                content={username}
-                width={250}
+                content={user.username}
+                width={350}
             />
             <ItemInner
-                content={password}
-                width={250}
+                content={user.job_title}
+                width={350}
             />
             <ItemInner
-                content={job_title}
-                width={340}
+                content={user.role_type}
+                width={350}
             />
             <ItemInner
-                content={role_type}
-                width={314}
-            />
-            <ItemInner
-                content={main_company}
-                width={314}
+                content={user.main_company}
+                width={350}
             />
         </div>
     );

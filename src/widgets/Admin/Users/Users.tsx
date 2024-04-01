@@ -21,9 +21,7 @@ export const Users: FC = () => {
                     />
                 </div>
             </div>
-            <div className={styles.UserList}>
-                <UsersList />
-            </div>
+            <UsersList />
             <Modal
                 centered
                 width={700}

@@ -16,19 +16,14 @@ export const UsersList: FC = () => {
     return (
         <>
             <div className={styles.UsersList}>
-                <UsersTop />
+                <div className={styles.Top}>
+                    <UsersTop />
+                </div>
                 <div className={styles.Users}>
-                    {fetchData.inState.map((card, i) => (
+                    {fetchData.inState.map((card) => (
                         <User
-                            key={i}
-                            id={card.id}
-                            role_type={card.role_type}
-                            first_name={card.first_name}
-                            surname={card.surname}
-                            username={card.username}
-                            password={card.password}
-                            main_company={card.main_company}
-                            job_title={card.job_title}
+                            key={card.id}
+                            user={card}
                         />
                     ))}
                 </div>

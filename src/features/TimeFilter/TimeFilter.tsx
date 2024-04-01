@@ -60,10 +60,10 @@ export const TimeFilter: FC<{ role: string }> = ({ role }) => {
                 defaultActiveKey="1"
                 items={items}
                 tabBarStyle={{
-                    marginLeft: "24px",
-                    width: "350px",
+                    padding: "24px",
+                    width: "1764px",
                     fontWeight: 700,
-                    marginBottom: "40px",
+                    backgroundColor: "white",
                 }}
             />
         </ConfigProvider>

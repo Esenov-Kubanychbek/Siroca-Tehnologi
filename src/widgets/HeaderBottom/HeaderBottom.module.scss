@@ -2,7 +2,6 @@
 
 .HeaderBottom {
     width: 100%;
-    margin-top: 24px;
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -15,7 +14,7 @@
     position: absolute;
     z-index: 3;
     left: 365px;
-    top: 0;
+    top: 24px;
 }
 
 .SecondRight {

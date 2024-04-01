@@ -1,7 +1,7 @@
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import { FC } from "react";
 import styles from "./LoadingModal.module.scss";
+import { FC } from "react";
 
 export const LoadingModal: FC = () => {
     return (

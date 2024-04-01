@@ -10,10 +10,7 @@ export const HeaderBottom: FC<{ role: "client" | "manager" | "admin" }> = ({ rol
     const [report, setReport] = useState<boolean>(false);
     const modal = useRequest();
     return (
-        <div
-            style={role === "admin" ? { width: "1764px" } : { width: "1820px" }}
-            className={styles.HeaderBottom}
-        >
+        <div className={styles.HeaderBottom}>
             <TimeFilter role={role} />
             <div
                 className={styles.BottomRight}

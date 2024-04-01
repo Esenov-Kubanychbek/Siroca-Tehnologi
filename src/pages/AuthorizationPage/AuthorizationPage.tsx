@@ -6,7 +6,7 @@ import { Modal } from "antd";
 import { CallToAdmin } from "../../widgets";
 import { useNavigate } from "react-router-dom";
 import { useCallToAdmin } from "../../shared/hooks/modalHooks";
-import { BASE_URL } from "../../shared/variables/variables";
+import { BASE_URL, PATHS } from "../../shared/variables/variables";
 
 export const Authorization: FC = () => {
     const [login, setLogin] = useState<string>("");
@@ -30,9 +30,9 @@ export const Authorization: FC = () => {
                 const access = response.data.access;
                 localStorage.setItem("access", access);
                 if (login === "admin@siroca.com") {
-                    navigate("/adminpage");
+                    navigate(PATHS.admin);
                 } else {
-                    navigate("/clientpage");
+                    navigate(PATHS.client);
                 }
             } else {
                 setErr(true);

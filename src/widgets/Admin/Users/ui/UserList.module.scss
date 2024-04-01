@@ -1,12 +1,14 @@
 .UsersList {
     margin-top: 20px;
+}
+
+.Top {
     width: 1718px;
-    box-shadow: 0px 1px 20px 0px #16161626;
 }
 
 .Users {
-    width: 1738px;
-    font-style: 16px;
-    font-weight: 500;
-    overflow: hidden;
+    width: 1760px;
+    height: 648px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }

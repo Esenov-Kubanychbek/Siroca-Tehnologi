@@ -6,10 +6,10 @@ export const AdminPage: FC = () => {
     return (
         <div className={styles.AdminPage}>
             <Dashboard />
-            <div className={styles.Inner}>
+            <header className={styles.Inner}>
                 <HeaderTop role="admin" />
                 <HeaderBottom role="admin" />
-            </div>
+            </header>
         </div>
     );
 };
