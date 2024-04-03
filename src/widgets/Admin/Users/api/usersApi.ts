@@ -1,7 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
 import { IUser, IUserGet } from "../../../../shared/types/userTypes";
-import { ChangeEvent } from "react";
 import { BASE_URL } from "../../../../shared/variables/variables";
 
 interface IFetch {
