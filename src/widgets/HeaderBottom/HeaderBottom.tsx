@@ -9,16 +9,21 @@ import { CreateRequest } from "..";
 export const HeaderBottom: FC<{ role: "client" | "manager" | "admin" }> = ({ role }) => {
     const [report, setReport] = useState<boolean>(false);
     const modal = useRequest();
+    const [isFilter, setIsFilter] = useState(false)
+
+    const onFilter = () => {
+        setIsFilter(!isFilter)
+    }
     return (
         <div className={styles.HeaderBottom}>
-            <TimeFilter role={role} />
+            <TimeFilter isFilter={isFilter} role={role} />
             <div
                 className={styles.BottomRight}
                 style={{ width: role === "admin" ? "1375px" : "1455px" }}
             >
                 <SearchInput />
                 <div className={styles.SecondRight}>
-                    <FilterButton />
+                    <FilterButton onClick={onFilter}/>
                     {role === "client" ? null : (
                         <div style={{ display: "flex", gap: "16px" }}>
                             <div onClick={modal.open}>

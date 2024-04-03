@@ -1,7 +1,7 @@
 import styles from "./HeaderSettings.module.scss";
 
 interface IHeaderSettings {
-    list: object;
+    list: string[];
     name: string;
 }
 
