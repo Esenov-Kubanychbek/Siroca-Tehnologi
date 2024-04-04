@@ -12,7 +12,6 @@ export const CustomButton: FC<IButton> = (props) => {
             type={type}
             style={{ width: `${width}px` }}
             className={styles[variant]}
-            onClick={createCompany}
         >
             {text}
         </button>

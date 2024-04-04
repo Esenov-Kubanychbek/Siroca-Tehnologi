@@ -29,7 +29,7 @@ export const requestApi = create<IFetch>(() => ({
     inState: [],    
     posting: async (postState) => {
         try {
-            const postResponse = await axios.post("http://16.171.68.251:80/api/v1/applications/create/", postState);
+            const postResponse = await axios.post("http://13.60.17.217/api/v1/applications/create/", postState);
             console.log(postResponse);
         } catch (error) {
             console.log(error,"postRequestError");

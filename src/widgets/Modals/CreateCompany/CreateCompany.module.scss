@@ -4,6 +4,11 @@
     box-sizing: border-box;
     border-radius: 8px;
     background-color: white;
+    p{
+        font-size: 16px;
+        color: #E51616;
+        margin: 0 40px;
+    }
     .blockOne {
         display: flex;
         justify-content: space-between;

@@ -6,20 +6,24 @@ export interface dataAddCompanies {
     name: string,
     company_code: string,
     country: string,
-    managers: [],
-    main_manager:  number | null,
+    managers: string[],
+    main_manager:  number | null | string,
     domain: string  
 }
-
+export interface userCompany {
+    first_name: string,
+    last_name: string,
+    id: number,
+}
 export interface dataCompanies {
     id: number,
     count_users: string,
-    users: string[],
+    users: userCompany[],
     name: string,
     company_code: string,
     country: string,
-    created_at:string,
-    main_manager:[],
+    created_at:string | null| string,
+    main_manager:number,
     managers: string,
     domain: string
 }
@@ -34,6 +38,9 @@ interface DataStore extends Data {
     selectedCompanyData: dataCompanies | null;
     deleteCompany: (id: number ) => Promise<void>;
     idCompany: number;
+    modalViewCompany: boolean;
+    openModalView: () => void;
+    closeModalView: () => void;
 }
 
 
@@ -42,7 +49,7 @@ interface DataStore extends Data {
 
 const fetchData = async () => {
     try {
-        const response = await axios.get('http://16.171.68.251:80/api/v1/company/list/', {
+        const response = await axios.get('http://13.60.17.217/api/v1/company/list/', {
             headers: {
                 Authorization: `JWT ${localStorage.getItem('access')}`
             }
@@ -59,7 +66,7 @@ const addCompanies = async (datas: dataAddCompanies) => {
     console.log(datas);
 
     try {
-        const response = await axios.post('http://16.171.68.251/api/v1/company/create/', datas,
+        const response = await axios.post('http://13.60.17.217/api/v1/company/create/', datas,
         {headers: {
             Authorization: `JWT ${localStorage.getItem('access')}`
         }});
@@ -75,9 +82,8 @@ const addCompanies = async (datas: dataAddCompanies) => {
 };
 const deleteCompanies = async (id:number) => {
     try {
-        const response = await axios.delete(`http://16.171.68.251:80/api/v1/company/${id}/`)
-        console.log(response.data);
-        return response.data
+        const response = await axios.delete(`http://13.60.17.217/api/v1/company/${id}/`)
+        return response
 
     } catch (error) {
         console.error('Ошибка при удалении компании:', error);
@@ -89,12 +95,19 @@ const deleteCompanies = async (id:number) => {
 
 const useDataStoreComponies = create<DataStore>((set) => ({
     data: [],
+    modalViewCompany: false,
     selectedCompanyData: null,
     idCompany: 0,
+    openModalView: () => {
+        set({modalViewCompany: true})
+    },
+    closeModalView: () => {
+        set({modalViewCompany: false})
+    },
     fetchDatas: async () => {
         const datas = await fetchData();
         if (datas !== null) {
-            set({ data: datas });
+            set({ data: datas.results });
         }
     },
     addCompany: async (company) => {
@@ -102,7 +115,7 @@ const useDataStoreComponies = create<DataStore>((set) => ({
         await addCompanies(company);
         const newData = await fetchData();
             if (newData !== null) {
-                set({ data: newData });
+                set({ data: newData.results });
             }
     },
     selectedIdCompany: (id: number) => {
@@ -124,10 +137,11 @@ const useDataStoreComponies = create<DataStore>((set) => ({
         }
     },
     deleteCompany: async (id: number) => {
-         const deletes = await deleteCompanies(id);
-         if(deletes){
-            await fetchData();
-         }
+         await deleteCompanies(id);
+         const newData = await fetchData();
+            if (newData !== null) {
+                set({ data: newData.results });
+            }
     }
 }));
 

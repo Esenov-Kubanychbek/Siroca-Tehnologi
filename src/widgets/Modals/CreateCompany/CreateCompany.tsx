@@ -3,35 +3,31 @@ import styles from "./CreateCompany.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CustomSelect } from "./ui/CustomSelect";
 import { useCompany } from "../../../shared/hooks";
-import { ChangeEvent, useState } from "react";
-import { dataAddCompanies, useDataStoreComponies } from "../../../shared/componiesApi";
+import {  useState } from "react";
+import {  useDataStoreComponies } from "../../../shared/componiesApi";
+import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
 
 export const CreateCompany = () => {
     const datas: string[] = ["Abu", "Aman", "Kuba", "Daler"];
     const modal = useCompany();
+    const [allData, setAllData] = useState<boolean>(false);
     const { addCompany } = useDataStoreComponies();
-    const [ dataInputCompanies, setDataInputCompanies ] = useState<dataAddCompanies>({
-            name: "",
-            company_code: "",
-            country: "",
-            managers: [],
-            main_manager: null,
-            domain: ""
-    });
-    const changeInput = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setDataInputCompanies(prevState => ({
-          ...prevState,
-          [e.target.name]: e.target.value
-        }));
-        
-      };
+    const {changeInput, resetInput, dataInputCompanies} = useDataInputCompaniesStore();
     const addNewCompany = () => {
-        addCompany(dataInputCompanies);
-        console.log(dataInputCompanies);
-        
+        if (dataInputCompanies.name && dataInputCompanies.company_code && dataInputCompanies.country && dataInputCompanies.managers && dataInputCompanies.domain) {
+
+            addCompany(dataInputCompanies);
+            resetInput();
+            setAllData(false);
+            modal.close();
+        }else{
+            setAllData(true);
+            console.log('error');
+            
+        }
     }
-      
-       return (
+
+    return (
         <div className={styles.CreateCompany}>
             <div className={styles.blockOne}>
                 <div>Создание компании</div>
@@ -49,6 +45,9 @@ export const CreateCompany = () => {
                         width={272}
                         change={changeInput}
                         name="name"
+                        allData={allData}
+                        datas={dataInputCompanies.name}
+                        value={dataInputCompanies.name}
                     />
                 </div>
                 <div>
@@ -58,6 +57,9 @@ export const CreateCompany = () => {
                         width={272}
                         change={changeInput}
                         name="country"
+                        allData={allData}
+                        datas={dataInputCompanies.country}
+                        value={dataInputCompanies.country}
                     />
                 </div>
             </div>
@@ -69,6 +71,9 @@ export const CreateCompany = () => {
                         width={272}
                         change={changeInput}
                         name="company_code"
+                        allData={allData}
+                        datas={dataInputCompanies.company_code}
+                        value={dataInputCompanies.company_code}
                     />
                 </div>
                 <div>
@@ -78,6 +83,9 @@ export const CreateCompany = () => {
                         width={272}
                         name="domain"
                         change={changeInput}
+                        allData={allData}
+                        datas={dataInputCompanies.domain}
+                        value={dataInputCompanies.domain}
                     />
                 </div>
             </div>
@@ -87,25 +95,27 @@ export const CreateCompany = () => {
                     <br />
                     <CustomSelect
                         name="manager"
-                        placeholder="Выбрать"
+                        text="Выбрать"
                         dataOption={datas}
                     />
                 </div>
             </div>
+            <p style={{display: `${allData ? 'block' : 'none'}`}}>Все поля должны быть обязательно заполнены*</p>
             <div className={styles.buttons}>
                 <div onClick={modal.close}>
                     <CustomButton
                         variant="Without"
                         width={150}
                         text="Отменить"
+                        onClick={resetInput}
                     />
                 </div>
-                <div onClick={modal.close}>
+                <div>
                     <CustomButton
                         variant="Primary"
                         width={150}
                         text="Создать"
-                        createCompany={addNewCompany}
+                        onClick={addNewCompany}
 
                     />
                 </div>
