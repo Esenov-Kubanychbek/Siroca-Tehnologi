@@ -1,10 +1,11 @@
 import { FC, useState } from "react";
 import styles from "./HeaderBottom.module.scss";
-import { ButtonRequest, FilterButton, ReportButton, SearchInput, TimeFilter } from "../../features";
+import { ButtonRequest, FilterButton, ReportButton, TimeFilter } from "../../features";
 import { MoreSquare } from "iconsax-react";
 import { useRequest } from "../../shared/hooks/modalHooks";
 import { Modal } from "antd";
 import { CreateRequest } from "..";
+import { ReqSearch } from "../../features/TimeFilter/ui/ReqSearch";
 
 export const HeaderBottom: FC<{ role: "client" | "manager" | "admin" }> = ({ role }) => {
     const [report, setReport] = useState<boolean>(false);
@@ -21,7 +22,7 @@ export const HeaderBottom: FC<{ role: "client" | "manager" | "admin" }> = ({ rol
                 className={styles.BottomRight}
                 style={{ width: role === "admin" ? "1375px" : "1455px" }}
             >
-                <SearchInput />
+                <ReqSearch />
                 <div className={styles.SecondRight}>
                     <FilterButton onClick={onFilter}/>
                     {role === "client" ? null : (

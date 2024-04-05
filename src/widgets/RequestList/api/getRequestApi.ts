@@ -17,21 +17,51 @@ export interface IGetRequest {
 
 export interface IFetchGet {
     getState: IGetRequest[];
-    getting: () => void;
+    filterState: IGetRequest[];
+    now: number,
+    getting: (now: number) => void;
+    setFilterState: (data: []) => void;
+    setNow: (num: number) => void;
+    setState: (data: []) => void;
+    clearFilter: () => void
 }
 
 export const getRequestApi = create<IFetchGet>((set) => ({
     getState: [],
-    getting: async () => {
+    filterState: [],
+    now: 1,
+    getting: async (now: number) => {
         try {
-            const getResponse = await axios.get(`${BASE_URL}/applications/form/?page=1`, {
+            const getResponse = await axios.get(`${BASE_URL}/applications/form/?page=${now}`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem("access")}`
                 }
             });
-            set({ getState: getResponse.data.results.results });
+                set({ getState: getResponse.data.results.results });
         } catch (error) {
             console.log(error, "GetRequestError");
         }
     },
+    setState: (data: []) => {
+        set({getState: data})
+    },
+    setFilterState: (data: []) => {
+        set({filterState: data})
+    },
+    setNow: (num: number) => {
+        set({now: num})
+    },
+    clearFilter: async() => {
+            try {
+                const response = await axios.get(`${BASE_URL}/applications/form/?page=1`, {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem("access")}`
+                    }
+                })
+                set({getState: response.data.results.results})
+            } catch (error) {
+                console.log(error);
+            }
+    }
+
 }));
