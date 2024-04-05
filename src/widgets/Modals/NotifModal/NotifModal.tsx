@@ -20,7 +20,7 @@ export const NotifModal: FC = () => {
                 <div className={styles.ContentBlock}>
                     <div className={styles.InnerCont}>
                         <NewNotification active={true} />
-                        <NewNotification active={false} />
+                        {/* <NewNotification active={false} /> */}
                     </div>
                 </div>
             </div>

@@ -8,13 +8,12 @@ interface ISelectItem {
         type: string;
         pos: number;
     };
-    getSelect: (obj: { selects: string[]; type: string }) => void; // Указываем тип функции, ожидающей объект с определенными свойствами
+    getSelect: (obj: { selected: string[]; type: string }) => void; // Указываем тип функции, ожидающей объект с определенными свойствами
 }
-
 export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
     const [selects, setSelects] = useState<string[]>([]); // Указываем тип для состояния selects
 
-    const addSelect = (e: React.MouseEvent<HTMLInputElement>) => {
+    const addSelect = (e: {currentTarget: {id: string}}) => {
         const value = e.currentTarget.id; // Используем id элемента в качестве значения
         if (selects.includes(value)) {
             const filteredSelects = selects.filter(item => item !== value);
@@ -29,7 +28,7 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
     }, [selects]);
 
     const onUseSelects = () => {
-        const obj = { selects: selects, type: el.type };
+        const obj = { selected: selects, type: el.type };
         getSelect(obj);
     };
     

@@ -1,7 +1,9 @@
+import { ReactNode } from "react";
 import styles from "./Contact.module.scss";
 
 interface IContact {
-    items: object;
+    items: { msg: string, cnt: string, icon: ReactNode 
+};
 }
 
 const Contact: React.FC<IContact> = ({ items }) => {

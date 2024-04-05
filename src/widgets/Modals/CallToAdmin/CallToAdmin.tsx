@@ -63,5 +63,3 @@ export const CallToAdmin: FC = () => {
         </div>
     );
 };
-
-export default CallToAdmin;

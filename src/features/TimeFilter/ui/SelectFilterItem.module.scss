@@ -1,7 +1,7 @@
 .FilterItem {
     position: absolute;
-    top: 50px;
-    height: 400px;
+    top: 60px;
+    max-height: 400px;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -9,6 +9,7 @@
     border-radius: 8px;
     border: 1px solid var(---200, #DEDEDE);
     background: var(---White, #FFF);
+    padding: 0px 10px;
     // max-width: 200px;
     // min-width: 120px;
     .add {  
