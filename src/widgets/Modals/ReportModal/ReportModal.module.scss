@@ -62,7 +62,7 @@
         align-items: center;
         gap: 6px;
         border-radius: 8px;
-        background: var(---100, #F4F4F4);
+        background: var(---100, #f4f4f4);
         justify-content: space-between;
 
         .ItemXl {
@@ -90,12 +90,12 @@
         height: 56px;
         width: 130px;
         display: flex;
-        justify-content: center;    
+        justify-content: center;
         padding: 16px;
         align-items: start;
         border-radius: 8px;
-        background: var(---800, #1C6AB1);
-        color: var(---White, #FFF);
+        background: var(---800, #1c6ab1);
+        color: var(---White, #fff);
         text-align: center;
         font-size: 18px;
         font-style: normal;
@@ -103,7 +103,7 @@
         line-height: normal;
         border: none;
     }
-    .ExcelCont{
+    .ExcelCont {
         display: flex;
         flex-direction: column;
         align-items: end;

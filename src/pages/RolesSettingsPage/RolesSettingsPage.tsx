@@ -8,15 +8,15 @@ import { useNavigate } from "react-router-dom";
 import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
 import { BASE_URL } from "../../shared/variables/variables";
 import { SearchInput } from "../../features";
-export const RolesSettingsPage:FC = () => {
-    const [boxesReg, setBoxesReq ] = useState()
+export const RolesSettingsPage: FC = () => {
+    const [boxesReg, setBoxesReq] = useState();
     const headerSettingsList = [
         "Добавление/удаление комментария к заявке",
-            "Скачивание отчета по заявкам",
-            "Просмотр истории изменений по заявке “Logs”",
-            "Добавление/удаление файла к заявке",
-            "Добавление/удаление чек-листов",
-            "Просмотр профиля других пользователей",
+        "Скачивание отчета по заявкам",
+        "Просмотр истории изменений по заявке “Logs”",
+        "Добавление/удаление файла к заявке",
+        "Добавление/удаление чек-листов",
+        "Просмотр профиля других пользователей",
     ];
     const renderSettingsList = [
         [
@@ -28,11 +28,11 @@ export const RolesSettingsPage:FC = () => {
             "Просмотр профиля других пользователей",
         ],
     ];
-    const fetchData = usersApi()
+    const fetchData = usersApi();
     useEffect(() => {
         fetchData.getting();
     }, []);
-    
+
     const navigate = useNavigate();
     const nvMenu = () => {
         navigate(-1);
@@ -52,23 +52,23 @@ export const RolesSettingsPage:FC = () => {
         scrollToBottom();
     });
 
-    const reqRoles = async(data) => {
+    const reqRoles = async (data) => {
         try {
             const response = await axios.put(`${BASE_URL}/users/clientpermissions/detail/`, data, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
-            } )
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
+            });
             console.log(response);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
     const saveRoles = () => {
         boxesReg.map((el) => {
-           reqRoles(el) 
-        })
-    }
+            reqRoles(el);
+        });
+    };
     return (
         <div className={styles.Settings}>
             <div
@@ -95,7 +95,12 @@ export const RolesSettingsPage:FC = () => {
 
                     <div className={styles.Search}>
                         <SearchInput />
-                        <button onClick={saveRoles} className={styles.Save}>Сохарнить</button>
+                        <button
+                            onClick={saveRoles}
+                            className={styles.Save}
+                        >
+                            Сохарнить
+                        </button>
                     </div>
                 </div>
                 <HeaderSettings

@@ -21,7 +21,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
     };
 
     const submitForm = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        e.preventDefault();
         const formData = {
             company: openCompany,
             maneger: openManeger,
@@ -32,12 +32,15 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
     };
 
     return (
-        <form onSubmit={submitForm} className={styles.Form}>
+        <form
+            onSubmit={submitForm}
+            className={styles.Form}
+        >
             <ul>
                 <div className={styles.InputCont}>
                     <p>Компания</p>
                     <div className={styles.SearchIcn}>
-                        <SearchNormal size={16}/>
+                        <SearchNormal size={16} />
                     </div>
                     <input
                         type="text"
@@ -52,7 +55,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
                 <div className={styles.InputCont}>
                     <p>Менеджер</p>
                     <div className={styles.SearchIcn}>
-                        <SearchNormal size={16}/>
+                        <SearchNormal size={16} />
                     </div>
                     <input
                         type="text"

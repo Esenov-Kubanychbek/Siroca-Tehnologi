@@ -8,32 +8,32 @@ interface IRolesMenu {
     openSettings: () => void;
 }
 const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
-    const [boxesClient, setBoxesClient] = useState()
-    const [boxesManeger, setBoxesManeger] = useState()
+    const [boxesClient, setBoxesClient] = useState();
+    const [boxesManeger, setBoxesManeger] = useState();
 
     const get = async () => {
         try {
             const responseClients = await axios.get(`${BASE_URL}/users/clientpermissions/general`, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
-            })
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
+            });
             const responseManeger = await axios.get(`${BASE_URL}/users/managerpermissions/general/`, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
-            })
-            setBoxesClient(responseClients.data)
-            setBoxesManeger(responseManeger.data)
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
+            });
+            setBoxesClient(responseClients.data);
+            setBoxesManeger(responseManeger.data);
             console.log(responseClients.data);
             console.log(responseManeger.data);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
     useEffect(() => {
-        get()
-    }, [])
+        get();
+    }, []);
     const ClientList = [
         "Добавление чек листа к заявке",
         "Добавление файла к заявке",
@@ -50,49 +50,48 @@ const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
     ];
 
     const getCheckBoxVal = (e) => {
-        if(e[0] === "Клиент"){
+        if (e[0] === "Клиент") {
             const arr = Object.entries(boxesClient).map((el) => {
-                if(el[0] === e[1].target.name){
-                    return [el[0], !el[1]]
-                }else{
-                    return el
+                if (el[0] === e[1].target.name) {
+                    return [el[0], !el[1]];
+                } else {
+                    return el;
                 }
-            })
-            
-            setBoxesClient(Object.fromEntries(arr))
-        }else if(e[0] === "Менеджер"){
+            });
+
+            setBoxesClient(Object.fromEntries(arr));
+        } else if (e[0] === "Менеджер") {
             const arr = Object.entries(boxesManeger).map((el) => {
-                if(el[0] === e[1].target.name){
-                    return [el[0], !el[1] ]
-                }else{
-                    return el
+                if (el[0] === e[1].target.name) {
+                    return [el[0], !el[1]];
+                } else {
+                    return el;
                 }
-            })
-            setBoxesManeger(Object.fromEntries(arr))
+            });
+            setBoxesManeger(Object.fromEntries(arr));
         }
     };
     console.log(boxesClient, boxesManeger);
 
-
-    const onSave = async() => {
+    const onSave = async () => {
         try {
             const responseClient = await axios.put(`${BASE_URL}/users/clientpermissions/general`, boxesClient, {
-                headers:{
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
-            })
-            const responseManeger = await axios.put(`${BASE_URL}/users/managerpermissions/general/`, boxesManeger,{
-                headers:{
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
-            })
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
+            });
+            const responseManeger = await axios.put(`${BASE_URL}/users/managerpermissions/general/`, boxesManeger, {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
+            });
 
             console.log(responseClient, responseManeger);
         } catch (error) {
             console.log(error);
         }
-    }
-    
+    };
+
     return (
         <div className={styles.MenuCont}>
             <div className={styles.ListBlock}>

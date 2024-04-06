@@ -9,7 +9,7 @@ import { useDataStoreComponies } from "../../Admin/Companies/api/getCompaniesApi
 
 export const ViewCompany: FC = () => {
     const modal = useViewCompany();
-    const { selectedCompanyData, deleteCompany, idCompany } = useDataStoreComponies()
+    const { selectedCompanyData, deleteCompany, idCompany } = useDataStoreComponies();
     const deleteComp = () => {
         deleteCompany(idCompany);
         modal.close();

@@ -16,7 +16,6 @@ export const CreateUser: FC = () => {
     const modal = useUser();
     const success = useSuccess();
 
-
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (Object.values(fetchData.oneUser).every((value) => value !== "")) {

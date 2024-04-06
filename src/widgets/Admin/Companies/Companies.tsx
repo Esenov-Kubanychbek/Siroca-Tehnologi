@@ -13,7 +13,7 @@ import { useDataStoreComponies } from "./api/getCompaniesApi";
 export const Companies: FC = () => {
     const modal = useCompany();
     const modalView = useViewCompany();
-    const { fetchDatas, data } = useDataStoreComponies()
+    const { fetchDatas, data } = useDataStoreComponies();
     useEffect(() => {
         fetchDatas();
     }, []);

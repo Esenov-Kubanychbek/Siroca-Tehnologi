@@ -14,6 +14,7 @@ interface IJobTitle {
     setJobTitle: (e: ChangeEvent<HTMLInputElement>) => void;
     getting: () => void;
     posting: (postState: { title: string }) => void;
+    deleting: (id: number) => void;
 }
 
 export const jobTitleApi = create<IJobTitle>((set) => ({
@@ -48,6 +49,16 @@ export const jobTitleApi = create<IJobTitle>((set) => ({
             });
         } catch (error) {
             console.log(error, "postJobTitleError");
+        }
+    },
+    deleting: async (id) => {
+        try {
+            const deleteResponse = await axios.delete(`${BASE_URL}/company/destroy_job-title/${id}/`);
+            console.log(deleteResponse);
+        } catch (error) {
+            console.log(error, "deleteJobTitleError");
+        } finally {
+            console.log("deleteJObTitleFinally");
         }
     },
 }));
