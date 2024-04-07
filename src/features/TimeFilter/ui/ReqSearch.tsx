@@ -37,9 +37,8 @@ export const ReqSearch: FC = () => {
                 className={styles.Input}
                 value={inputState}
                 onChange={change}
-                // onClick={handleKeyDown}
-
             />
+            
             <button onClick={search}>Search</button>
             <CloseSquare
                 variant="Bold"
