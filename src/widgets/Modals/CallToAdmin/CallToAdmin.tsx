@@ -4,8 +4,14 @@ import Contact from "./ui/Contact";
 import { useCallToAdmin } from "../../../shared/hooks/modalHooks";
 import { FC } from "react";
 
+interface ContactItem {
+    icon: JSX.Element;
+    msg: string;
+    cnt: string;
+}
+
 export const CallToAdmin: FC = () => {
-    const items = {
+    const items: Record<string, ContactItem> = {
         whatsapp: {
             icon: (
                 <Whatsapp
@@ -56,9 +62,9 @@ export const CallToAdmin: FC = () => {
             </div>
             <div className={styles.Contacts}>
                 <p className={styles.contPrg}>Контакты:</p>
-                <Contact items={items.whatsapp} />
-                <Contact items={items.gmail} />
-                <Contact items={items.phone} />
+                {Object.values(items).map((contact, index) => (
+                    <Contact key={index} items={contact} />
+                ))}
             </div>
         </div>
     );

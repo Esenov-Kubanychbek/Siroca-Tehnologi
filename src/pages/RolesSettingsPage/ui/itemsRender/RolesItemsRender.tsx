@@ -9,9 +9,10 @@ interface IRolesRender {
     list: string[][];
     users: IUser[];
     getChanges: (e: IUser[]) => void;
+    navType: string
 }
 
-const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges }) => {
+const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType }) => {
     const [usersBoxes, setUsersBoxes] = useState<IUser[]>([]);
     const [getInBoxes, setGetInBoxes] = useState<IUser[]>([]);
 
@@ -28,8 +29,9 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges }) => {
             updatedBoxes.push(e);
         }
         setUsersBoxes(updatedBoxes);
+        
     };
-
+    
     const getRoles = async () => {
         try {
             const responseC = await axios.get(`${BASE_URL}/users/clientpermissions/detail/`);
@@ -48,19 +50,40 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges }) => {
         getChanges(usersBoxes);
     }, [usersBoxes]);
     
-    const filteredUsers = users.filter((el: IUser) => el.role_type === "client");
+    const filteredUsersClient = users.filter((el: IUser) => el.role_type === "client");
+    const filteredUsersManager = users.filter((el: IUser) => el.role_type === "manager");
     return (
         <div className={styles.Container}>
-            {filteredUsers.map((el: IUser, index: number) => (
+            {navType === 'all' ? users.map((el: IUser, index: number) => (
                 <ItemSettingRoles
                     key={el.username}
                     user={el}
                     checkBoxList={list}
                     index={index}
-                    getBoxes={getBoxes}
+                    getBoxes={(e: IUser) => getBoxes(e)}
                     inBoxList={getInBoxes ? getInBoxes : []}
                 />
-            ))}
+            )) : null}
+            {navType === "client" ?  filteredUsersClient.map((el: IUser, index: number) => (
+                <ItemSettingRoles
+                    key={el.username}
+                    user={el}
+                    checkBoxList={list}
+                    index={index}
+                    getBoxes={(e: IUser) => getBoxes(e)}
+                    inBoxList={getInBoxes ? getInBoxes : []}
+                />
+            )) : null}
+            {navType === "manager" ?  filteredUsersManager.map((el: IUser, index: number) => (
+                <ItemSettingRoles
+                    key={el.username}
+                    user={el}
+                    checkBoxList={list}
+                    index={index}
+                    getBoxes={(e: IUser) => getBoxes(e)}
+                    inBoxList={getInBoxes ? getInBoxes : []}
+                />
+            )) : null}
         </div>
     );
 };

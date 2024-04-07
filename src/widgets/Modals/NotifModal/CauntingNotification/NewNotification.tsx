@@ -5,12 +5,13 @@ import axios from "axios";
 import { BASE_URL } from "../../../../shared/variables/variables";
 
 interface INotification {
-    created_at:string,
-    form_id:null | number | string,
+    created_at: string,
+    form_id: null | number | string,
     made_change: string,
-    task_number:string,
-    text:string,
-    title:string
+    task_number: string,
+    text: string,
+    title: string,
+    is_read: boolean
 }
 
 export const NewNotification: FC<{ active: boolean }> = ({ active }) => {
@@ -22,8 +23,22 @@ export const NewNotification: FC<{ active: boolean }> = ({ active }) => {
                     Authorization: `JWT ${localStorage.getItem("access")}`
                 }
             })
-            console.log(response.data);
-            setNotifications(response.data)
+            if (active === true) {
+                const res = response.data.filter((el: INotification) => {
+                    if (el.is_read === false) {
+                        return el
+                    }
+                })
+                setNotifications(res)
+            }
+            if(active === false){
+                const res = response.data.filter((el: INotification) => {
+                    if (el.is_read === true) {
+                        return el
+                    }
+                })
+                setNotifications(res)
+            }
         } catch (error) {
             console.log(error);
         }
@@ -35,12 +50,12 @@ export const NewNotification: FC<{ active: boolean }> = ({ active }) => {
         <div className={styles.newNotificationCont}>
             <div className={styles.newNotificationContH4}>
                 <h4 className={active ? styles.headerH4NewNotification : styles.headerH4NewNotification2}>
-                    {active ? "Новые" : "Не прочитанные"}
+                    {active ? "Новые" : "Прочитанные"}
                 </h4>
             </div>
             {notifications ? notifications.map((el: INotification) => {
-                return(
-                   <NotificationSingle active={active} notif={el} /> 
+                return (
+                    <NotificationSingle active={active} notif={el} />
                 )
             }) : null}
         </div>
