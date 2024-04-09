@@ -1,18 +1,21 @@
-import { CloseSquare } from "iconsax-react";
+import { AddSquare, CloseSquare } from "iconsax-react";
 import styles from "./CreateCompany.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
-import { CustomSelect } from "./ui/CustomSelect";
-import { useCompany } from "../../../shared/hooks";
-import {  useState } from "react";
-import {  useDataStoreComponies } from "../../../shared/componiesApi";
+import { FC, useState } from "react";
+import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
+import { useAddManager, useCompany } from "../../../shared/hooks/modalHooks";
+import { Modal } from "antd";
+import { AddManager } from "../AddManager/AddManager";
 
-export const CreateCompany = () => {
-    const datas: string[] = ["Abu", "Aman", "Kuba", "Daler"];
+export const CreateCompany: FC = () => {
     const modal = useCompany();
     const [allData, setAllData] = useState<boolean>(false);
-    const { addCompany } = useDataStoreComponies();
-    const {changeInput, resetInput, dataInputCompanies} = useDataInputCompaniesStore();
+    const [hovered, setHovered] = useState<boolean>(false)
+    const { addCompany, users } = useDataStoreComponies();
+    const { changeInput, resetInput, dataInputCompanies } = useDataInputCompaniesStore();
+    const addManager =  useAddManager();
+
     const addNewCompany = () => {
         if (dataInputCompanies.name && dataInputCompanies.company_code && dataInputCompanies.country && dataInputCompanies.managers && dataInputCompanies.domain) {
 
@@ -20,12 +23,16 @@ export const CreateCompany = () => {
             resetInput();
             setAllData(false);
             modal.close();
-        }else{
+            console.log(dataInputCompanies.main_manager);
+
+        } else {
             setAllData(true);
             console.log('error');
-            
+
         }
     }
+    const managers = users.filter(item => item.role_type === 'manager');
+
 
     return (
         <div className={styles.CreateCompany}>
@@ -93,21 +100,52 @@ export const CreateCompany = () => {
                 <div>
                     <label htmlFor="sel">Ответственный менеджер</label>
                     <br />
-                    <CustomSelect
-                        name="manager"
-                        text="Выбрать"
-                        dataOption={datas}
-                    />
+
+                    <div className={styles.managers}>
+                        <select className={styles.select} onChange={changeInput} name="main_manager" id="3">
+                            {managers.map((manager) => (
+                                <option key={manager.id} value={manager.id}>{manager.first_name}</option>
+                            ))}
+                        </select>
+                        <div
+                            className={styles.hintAdd}
+                            style={{ display: `${hovered ? 'block' : 'none'}` }}
+
+                        >
+                            <p className={styles.hint}>
+                                Нажмите что бы добавить менеджера
+                            </p>
+                            <div className={styles.tre}> </div>
+                        </div>
+
+                        <div
+                            className={styles.addManagers}
+                        >
+
+                            <AddSquare
+                                color="white"
+                                onMouseEnter={() => setHovered(true)}
+                                onMouseLeave={() => setHovered(false)}
+                                onClick={addManager.open    }
+                            />
+                        </div>
+                    </div>
+
+
                 </div>
+
             </div>
-            <p style={{display: `${allData ? 'block' : 'none'}`}}>Все поля должны быть обязательно заполнены*</p>
+            <p style={{ display: `${allData ? 'block' : 'none'}` }}>Все поля должны быть обязательно заполнены*</p>
             <div className={styles.buttons}>
                 <div onClick={modal.close}>
                     <CustomButton
                         variant="Without"
                         width={150}
                         text="Отменить"
-                        onClick={resetInput}
+                        onClick={() => {
+                            resetInput();
+                            setAllData(false)
+                        }}
                     />
                 </div>
                 <div>
@@ -120,6 +158,16 @@ export const CreateCompany = () => {
                     />
                 </div>
             </div>
+
+            <Modal
+                open={addManager.isOpen}
+                onCancel={addManager.close}
+                width={500}
+                centered
+            >
+                <AddManager/>
+            </Modal>
+
         </div>
     );
 };

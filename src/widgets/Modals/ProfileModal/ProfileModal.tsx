@@ -1,11 +1,23 @@
 import { CloseSquare } from "iconsax-react";
 import styles from "./ProfileModal.module.scss";
-import profileImage from "../../../shared/assets/profileImage.svg";
+// import profileImage from "../../../shared/assets/profileImage.svg";
 import { CustomButton } from "../../../shared/ui";
-import { useProfile } from "../../../shared/hooks";
+import { useProfile } from "../../../shared/hooks/modalHooks";
+import { FC, useEffect } from "react";
+import { usersApi } from "../../Admin/Users/api/usersApi";
+import { Modal } from "antd";
+import { ChangePassword } from "../ChangePassword/ChangePassword";
+import { useChangePassword } from "../../../shared/hooks/modalHooks/useChangePassword";
 
-export const ProfileModal = () => {
+export const ProfileModal: FC = () => {
     const modal = useProfile();
+    const {userProfile, userProfileAdded} = usersApi();
+    console.log(userProfile);
+    const changePasswordModal = useChangePassword()
+
+    useEffect(() => {
+        userProfileAdded();
+    })
     return (
         <div className={styles.ProfileModal}>
             <div className={styles.block1}>
@@ -46,31 +58,32 @@ export const ProfileModal = () => {
                 <ul>
                     <li>
                         <img
-                            src={profileImage}
+                        className={styles.imgs}
+                            src={userProfile.image}
                             alt="avatar"
                         />
                     </li>
                     <li>
                         <input
-                            value="Иван"
+                            value={userProfile.first_name}
                             type="text"
                         />
                     </li>
                     <li>
                         <input
-                            value="Иванов"
+                            value={userProfile.surname}
                             type="text"
                         />
                     </li>
                     <li>
                         <input
-                            value="Заместитель директора"
+                            value={userProfile.job_title}
                             type="text"
                         />
                     </li>
                     <li>
                         <input
-                            value="Оптима банк"
+                            value={userProfile.main_company}
                             type="text"
                         />
                     </li>
@@ -82,12 +95,12 @@ export const ProfileModal = () => {
                     </li>
                     <li>
                         <input
-                            value="oliva@gmail.com"
+                            value={userProfile.username}
                             type="email"
                         />
                     </li>
                     <li>
-                        <button className={styles.btn}>Сменить пароль</button>
+                        <button onClick={changePasswordModal.open} className={styles.btn}>Сменить пароль</button>
                     </li>
                 </ul>
             </div>
@@ -98,6 +111,14 @@ export const ProfileModal = () => {
                     variant="Primary"
                 />
             </div>
+            <Modal
+                width={265}
+                centered
+                open={changePasswordModal.isOpen}
+                onCancel={changePasswordModal.close}
+            >
+                <ChangePassword/>
+            </Modal>
         </div>
     );
 };

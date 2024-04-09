@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, FormEvent, useState } from "react";
 import styles from "./CreateUser.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CloseSquare } from "iconsax-react";
@@ -6,25 +6,79 @@ import { RoleButton } from "./ui/RoleButton";
 import { AddButton } from "./ui/AddButton";
 import { ConfigProvider, Modal } from "antd";
 import { CreatePosition, SuccessModal } from "../..";
-import { usePosition, useSuccess, useUser } from "../../../shared/hooks";
-import { usersApi } from "../../../shared/api";
+import { usePosition, useSuccess, useUser } from "../../../shared/hooks/modalHooks";
 import { AddPhoto } from "./ui/AddPhoto";
+import axios from "axios";
+import { BASE_URL } from "../../../shared/variables/variables";
 
 export const CreateUser: FC = () => {
+    const [formValues, setFormValue] = useState([
+        { name: "role_type", value: null },
+        { name: "first_name", value: null },
+        { name: "surname", value: null },
+        { name: "username", value: null },
+        { name: "password", value: null },
+        { name: "main_company", value: null },
+        { name: "job_title", value: null },
+        { name: "image", value: null },
+    ])
     const positionFunc = usePosition();
-    const fetchData = usersApi();
     const modal = useUser();
     const success = useSuccess();
-    const postTrim = () => {
-        if (Object.values(fetchData.oneUser).every((value) => value !== "")) {
-            fetchData.posting(fetchData.oneUser);
-            console.log(fetchData.oneUser, "success");
-        } else {
-            console.log(fetchData.oneUser, "error");
+
+
+    const postTrim = async (e: FormEvent<HTMLFormElement>) => {
+        try {
+            e.preventDefault();
+            const fl = await formValues.filter((el) => {
+                if (el.value === null) {
+                    return el
+                } else {
+                    return
+                }
+
+            })
+            const formData = new FormData()
+            if (fl[0]) {
+                console.log("postrim err");
+            } else if (!fl[0]) {
+                formValues.forEach((el) => {
+                    if (el.value !== null) {
+                        if (el.name === "image") {
+                            formData.append(el.name, el.value);
+                        } else {
+                            formData.append(el.name, el.value);
+                        }
+                    }
+                });
+                const response = await axios.post(`${BASE_URL}/users/create/`,formData)
+                console.log(response);
+            }
+        } catch (error) {
+            console.log(formValues);
+            
         }
     };
+    const addValues = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const state = [...formValues];
+        state.map((el: {name: string, value: null | string | File}) => {
+            if (el.name === e.target.name) {
+                if (el.name === "image") {
+                    el.value = e.target.files ? e.target.files[0] : null;
+                } else {
+                    el.value = e.target.value;
+                }
+            }
+            return el;
+        });
+        setFormValue(state);
+    }
+
     return (
-        <form className={styles.CreateUser}>
+        <form
+            className={styles.CreateUser}
+            onSubmit={postTrim}
+        >
             <div className={styles.Top}>
                 <div className={styles.TextTop}>Создание пользователя</div>
                 <CloseSquare
@@ -34,7 +88,7 @@ export const CreateUser: FC = () => {
                 />
             </div>
             <div className={styles.Description}>
-                <AddPhoto />
+                <AddPhoto downLoad={addValues} />
                 <div className={styles.UserRole}>
                     <div className={styles.Name}>
                         <div className={styles.Text}>Имя</div>
@@ -42,7 +96,7 @@ export const CreateUser: FC = () => {
                             name="first_name"
                             width={340}
                             placeholder="Напишите..."
-                            change={fetchData.setOneUser}
+                            change={addValues}
                         />
                         <div>
                             <div className={styles.Text}>Фамилия</div>
@@ -50,13 +104,13 @@ export const CreateUser: FC = () => {
                                 name="surname"
                                 width={340}
                                 placeholder="Напишите..."
-                                change={fetchData.setOneUser}
+                                change={addValues}
                             />
                         </div>
                     </div>
                     <div>
                         <div className={styles.Text}>Тип роли</div>
-                        <RoleButton change={fetchData.setOneUser} />
+                        <RoleButton onChange={addValues} />
                     </div>
                 </div>
             </div>
@@ -67,7 +121,7 @@ export const CreateUser: FC = () => {
                         name="username"
                         width={272}
                         placeholder="@siroca.com"
-                        change={fetchData.setOneUser}
+                        change={addValues}
                     />
                 </div>
                 <div>
@@ -76,7 +130,7 @@ export const CreateUser: FC = () => {
                         name="password"
                         width={272}
                         placeholder="Напишите..."
-                        change={fetchData.setOneUser}
+                        change={addValues}
                     />
                 </div>
             </div>
@@ -88,7 +142,7 @@ export const CreateUser: FC = () => {
                         name="main_company"
                         width={272}
                         placeholder="Напишите..."
-                        change={fetchData.setOneUser}
+                        change={addValues}
                     />
                 </div>
                 <div>
@@ -99,27 +153,26 @@ export const CreateUser: FC = () => {
                             type="number"
                             width={210}
                             placeholder="Напишите..."
-                            change={fetchData.setOneUser}
+                            change={addValues}
                         />
                         <AddButton onClick={positionFunc.open} />
                     </div>
                 </div>
             </div>
             <div className={styles.Buttons}>
-                <div onClick={modal.close}>
-                    <CustomButton
-                        variant="Without"
-                        width={160}
-                        text="Отменить"
-                    />
-                </div>
-                <div onClick={postTrim}>
-                    <CustomButton
-                        variant="Primary"
-                        width={150}
-                        text="Создать"
-                    />
-                </div>
+                <CustomButton
+                    type="button"
+                    variant="Without"
+                    width={160}
+                    onClick={modal.close}
+                    text="Отменить"
+                />
+                <CustomButton
+                    type="submit"
+                    variant="Primary"
+                    width={150}
+                    text="Создать"
+                />
             </div>
             <Modal
                 width={700}
@@ -144,7 +197,7 @@ export const CreateUser: FC = () => {
                     open={success.isOpen}
                     onCancel={success.close}
                 >
-                    <SuccessModal />
+                    <SuccessModal content="Пользователь Добавлен!" />
                 </Modal>
             </ConfigProvider>
         </form>

@@ -1,38 +1,25 @@
-$blue: #1c6ab1;
-$black: #252525;
-$black3b: #3b3b3b;
-$black5c: #5c5c5c;
-$black71: #717171;
-$black92: #929292;
-$blacka8: #a8a8a8;
-$blackde: #dedede;
-$blackf4: #f4f4f4;
-$success: #008a15;
-$error: #e51616;
-$background: #f4f4f4;
+@import "./variables.scss";
 
-@mixin lg {
-    @media screen and (max-width: 1820px) {
-        @content;
-    }
+body,
+div,
+input,
+form,
+button,
+p {
+    padding: 0;
+    margin: 0;
 }
 
 body {
+    background-color: $blackf4;
     display: flex;
     justify-content: center;
     font-family: "Geologica";
-    margin: 0;
-    padding: 0;
     overflow: hidden;
 }
 
 button {
-    font-family: "Geologica", sans-serif;
     cursor: pointer;
-}
-p {
-    margin: 0;
-    padding: 0;
 }
 
 *::-webkit-scrollbar {
@@ -43,11 +30,6 @@ p {
 ::-webkit-scrollbar-thumb {
     background-color: $blue;
     border-radius: 30px;
-}
-
-input {
-    padding: 0;
-    margin: 0;
 }
 
 input[type="number"]::-webkit-inner-spin-button,

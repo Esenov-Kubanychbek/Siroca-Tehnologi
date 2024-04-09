@@ -1,4 +1,4 @@
-@import "../../../app/styles/index.scss";
+@import "../../../app/styles/variables.scss";
 
 .medium {
     font-weight: 500;
@@ -17,7 +17,7 @@
 }
 
 .error {
-    color: $error;
+    color: $highest;
 }
 
 .h1,

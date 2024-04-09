@@ -1,9 +1,10 @@
 import styles from "./NotifModal.module.scss";
 import { NewNotification } from "../..";
 import { CloseSquare } from "iconsax-react";
-import { useNotif } from "../../../shared/hooks";
+import { useNotif } from "../../../shared/hooks/modalHooks";
+import { FC } from "react";
 
-export const NotifModal = () => {
+export const NotifModal: FC = () => {
     const modal = useNotif();
     return (
         <div className={styles.NotifModal}>

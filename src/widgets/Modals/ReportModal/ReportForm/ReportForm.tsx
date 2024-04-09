@@ -1,16 +1,13 @@
-import { ArrowLeft2 } from "iconsax-react";
+import { ArrowLeft2, SearchNormal } from "iconsax-react";
 import ChooseMenu from "./ChooseMenu";
 import styles from "./report.module.scss";
-import { useState, FC } from "react";
+import { useState, FC, FormEvent } from "react";
 
 interface ReportFormProps {
     onSub: () => void;
 }
 
 const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
-    const [company, setCompany] = useState<boolean>(false);
-    const [maneger, setManeger] = useState<boolean>(false);
-
     const [openCompany, setOpenCompany] = useState<string>("");
     const [openManeger, setOpenManeger] = useState<string>("");
     const [openBegin, setOpenBegin] = useState<string>();
@@ -19,35 +16,12 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
     const CleanFilters = () => {
         setOpenCompany("");
         setOpenManeger("");
-        setOpenBegin("Дата началы");
-        setOpenEnd("Дата конца");
-    };
-    const openMenu = (e: any) => {
-        const id = e.target.id;
-        if (id === "company") {
-            setCompany(!company);
-            setManeger(false);
-            setBegin(false);
-            setEnd(false);
-        } else if (id === "maneger") {
-            setManeger(!maneger);
-            setCompany(false);
-            setBegin(false);
-            setEnd(false);
-        } else if (id === "begin") {
-            setBegin(!begin);
-            setCompany(false);
-            setManeger(false);
-            setEnd(false);
-        } else if (id === "end") {
-            setEnd(!end);
-            setCompany(false);
-            setManeger(false);
-            setBegin(false);
-        }
+        setOpenBegin("");
+        setOpenEnd("");
     };
 
-    const submitForm = () => {
+    const submitForm = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         const formData = {
             company: openCompany,
             maneger: openManeger,
@@ -56,30 +30,15 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
         };
         onSub(formData);
     };
-    const menuCompanys = ["Optima", "Ail bank", "Mbank"];
-    const menuManeger = ["Abu", "Aman", "Daler", "Kubanych"];
-
-    const getChoose = (e: object) => {
-        if (e.input === "company") {
-            setOpenCompany(e.choosedItem);
-            setCompany(!company);
-        } else if (e.input === "maneger") {
-            setOpenManeger(e.choosedItem);
-            setManeger(!maneger);
-        } else if (e.input === "begin") {
-            setOpenBegin(e.choosedItem);
-            setBegin(!begin);
-        } else if (e.input === "end") {
-            setOpenEnd(e.choosedItem);
-            setEnd(!end);
-        }
-    };
 
     return (
-        <form className={styles.Form}>
+        <form onSubmit={submitForm} className={styles.Form}>
             <ul>
                 <div className={styles.InputCont}>
                     <p>Компания</p>
+                    <div className={styles.SearchIcn}>
+                        <SearchNormal size={16}/>
+                    </div>
                     <input
                         type="text"
                         placeholder="Выбрать"
@@ -87,23 +46,14 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
                         onChange={(e) => {
                             setOpenCompany(e.target.value);
                         }}
+                        className={styles.inpWithIcn}
                     />
-                    <div
-                        onClick={() => setCompany(!company)}
-                        className={company ? styles.DrdownIcnOpen : styles.DrdownIcn}
-                    >
-                        <ArrowLeft2 />
-                    </div>
-                    {company ? (
-                        <ChooseMenu
-                            upChoose={getChoose}
-                            itemsData={menuCompanys}
-                            inputId="company"
-                        />
-                    ) : null}
                 </div>
                 <div className={styles.InputCont}>
                     <p>Менеджер</p>
+                    <div className={styles.SearchIcn}>
+                        <SearchNormal size={16}/>
+                    </div>
                     <input
                         type="text"
                         placeholder="Выбрать"
@@ -111,20 +61,8 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
                         onChange={(e) => {
                             setOpenManeger(e.target.value);
                         }}
+                        className={styles.inpWithIcn}
                     />
-                    <div
-                        onClick={() => setManeger(!maneger)}
-                        className={maneger ? styles.DrdownIcnOpen : styles.DrdownIcn}
-                    >
-                        <ArrowLeft2 />
-                    </div>
-                    {maneger ? (
-                        <ChooseMenu
-                            upChoose={getChoose}
-                            itemsData={menuManeger}
-                            inputId="maneger"
-                        />
-                    ) : null}
                 </div>
                 <div className={styles.InputCont}>
                     <p>Дата начало</p>
@@ -156,7 +94,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
                 >
                     Очистить фильтр
                 </a>
-                <button onClick={submitForm}>Показать</button>
+                <button type="submit">Показать</button>
             </div>
         </form>
     );

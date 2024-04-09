@@ -1,0 +1,138 @@
+@import "../../app//styles/index.scss";
+
+.Filter {
+    width: 414px;
+    height: 56px;
+    display: flex;
+    position: relative;
+}
+
+.open {
+    display: block;
+    position: absolute;
+    background: blue;
+    color: white;
+}
+
+.close {
+    display: none;
+}
+
+.Time {
+    width: 138px;
+    height: 54px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.Border {
+    position: absolute;
+    width: 138px;
+    height: 2px;
+    background-color: $blue;
+    left: 0;
+    bottom: 0;
+}
+
+.DetailFilters {
+    position: absolute;
+    top: 106px;
+    padding: 0;
+    z-index: 2;
+    display: flex;
+    left: -40px;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s;
+
+    ul {
+        margin: 0;
+        display: flex;
+        width: 1724px;
+        justify-content: space-between;
+        align-items: center;
+
+        .Item {
+            cursor: pointer;
+            display: flex;
+            padding: 6px 8px;
+            align-items: center;
+            gap: 16px;
+            border-radius: 4px 4px 0px 0px;
+            .SelInput {
+                display: flex;
+                width: 132px;
+                padding: 6px 16px;
+                align-items: center;
+                gap: 16px;
+                color: var(---700, #3B3B3B);
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                background: white;
+                border: none;
+            }
+
+            .Icn {
+                transform: rotate(-90deg);
+            }
+
+            p {
+                color: var(---800, #252525);
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+        }
+        .ItemOpen {
+            cursor: pointer;
+            display: flex;
+            padding: 6px 8px;
+            align-items: center;
+            gap: 16px;
+            border-radius: 4px 4px 0px 0px;
+            background: white;
+            .SelInput {
+                display: flex;
+                width: 132px;
+                padding: 6px 16px;
+                align-items: center;
+                gap: 16px;
+                color: var(---700, #3B3B3B);
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                background: white;
+                border: none;
+            }
+
+            .Icn {
+                transform: rotate(-90deg);
+            }
+
+            p {
+                color: var(---800, #252525);
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+        }
+    }
+    .selectedItem{
+        padding: 2px 5px;
+        border-radius: 10px;
+        border: 1px solid $blue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+    }
+}

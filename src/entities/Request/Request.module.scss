@@ -1,0 +1,56 @@
+@import "../../app/styles/variables.scss";
+
+.Request {
+    width: 1820px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    cursor: pointer;
+    &:hover {
+        background-color: $blackde;
+    }
+}
+
+.Prioritet {
+    width: 150px;
+    height: 46px;
+    color: $highest;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 16px;
+    div {
+        width: 142px;
+        height: 40px;
+        border-radius: 8px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.Status {
+    width: 140px;
+    height: 46px;
+    color: $ready;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 16px;
+    div {
+        width: 120px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+}

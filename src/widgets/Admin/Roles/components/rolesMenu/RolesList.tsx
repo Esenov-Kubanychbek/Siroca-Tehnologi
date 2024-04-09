@@ -1,29 +1,35 @@
-import React from "react";
+import { ChangeEvent } from "react";
 import styles from "./RolesList.module.scss";
 
 interface IRolesList {
-    list: object;
+    list: string[];
     listType: string;
-    handleChangeBox: () => void;
+    handleChangeBox: (e: [string, React.ChangeEvent<HTMLInputElement>]) => void;
+    box: {[key: string]: boolean} | null
 }
 
-const RolesList: React.FC<IRolesList> = ({ list, listType, handleChangeBox }) => {
-    const onChange = (ev) => {
-        handleChangeBox([listType, ev]);
+const RolesList: React.FC<IRolesList> = ({ list, listType, handleChangeBox, box }) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        handleChangeBox([listType, e]);
     };
     return (
         <div className={styles.MenuCont}>
             <div className={styles.HeaderPrg}>
                 <p>{listType}</p>
             </div>
-            {list.map((el) => {
+
+            {list.map((el, index) => {
+                const check = box ? Object.entries(box)[index][1] : undefined
+                const name = box ? Object.entries(box)[index][0] : undefined
                 return (
                     <div className={styles.ListItem}>
                         <input
                             type="checkbox"
-                            name={el}
                             onChange={onChange}
-                        />{" "}
+                            name={name}
+                            checked={check}
+                            id={`${index}`}
+                        />
                         <p>{el}</p>
                     </div>
                 );

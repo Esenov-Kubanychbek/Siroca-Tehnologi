@@ -6,49 +6,84 @@
     align-items: start;
     gap: 34px;
     margin-top: 12px;
+
     ul {
         width: 721px;
         height: 129px;
         display: flex;
         padding: 0;
-        justify-content: space-between;
+        justify-content: start;
+        gap: 44px;
+
         .InputCont {
             width: 142px;
+
             .DrdownIcn {
                 cursor: pointer;
-                margin-top: -35px;
+                margin-top: -30px;
                 margin-left: 80%;
                 width: 24px;
                 height: 24px;
                 transform: rotate(-90deg);
             }
+
             .DrdownIcnOpen {
                 cursor: pointer;
-                margin-top: -35px;
+                margin-top: -30px;
                 margin-left: 80%;
                 width: 24px;
                 height: 24px;
                 transform: rotate(90deg);
             }
+
             p {
                 color: var(---800, #252525);
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 700;
             }
+
             input {
-                width: 110px;
+                width: 130px;
                 height: 36px;
                 display: flex;
-                padding: 0px 16px;
+                padding: 0px 16px 0px 16px;
                 align-items: center;
                 border-radius: 8px;
                 background-color: #f4f4f4;
                 margin-top: 10px;
                 border: none;
+                color: var(---500, #717171);
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+            .inpWithIcn{
+                width: 130px;
+                height: 36px;
+                display: flex;
+                padding: 0px 16px 0px 30px;
+                align-items: center;
+                border-radius: 8px;
+                background-color: #f4f4f4;
+                margin-top: 10px;
+                border: none;
+                color: var(---500, #717171);
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+
+            .SearchIcn {
+                position: absolute;
+                margin-top: 19px;
+                margin-left: 7px;
             }
         }
     }
+
     .EnterCont {
         width: 100%;
         height: 44px;
@@ -56,6 +91,7 @@
         justify-content: end;
         align-items: center;
         gap: 10px;
+
         a {
             color: var(---700, rgba(28, 106, 177, 0.9));
             text-align: center;
@@ -65,6 +101,7 @@
             line-height: normal;
             text-decoration-line: underline;
         }
+
         button {
             width: 159px;
             height: 56px;
@@ -85,18 +122,22 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 37%;
-    width: 140px;
-    padding: 20px 10px;
+    top: 44%;
+    width: 120px;
+    padding: 10px 10px;
     border-radius: 8px;
     box-shadow: 0px 20px 10px 10px rgba(0, 0, 0, 0.123);
     border-radius: 8px;
+    background: #ffffff;
     z-index: 4;
+
     p {
-        margin: 20px 0;
-        height: 20px;
+        padding: 0px 10px;
+        height: 40px;
+        display: flex;
         cursor: pointer;
     }
+
     p:hover {
         background: #00000010;
     }

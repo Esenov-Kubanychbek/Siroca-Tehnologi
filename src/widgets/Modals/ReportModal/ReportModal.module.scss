@@ -3,15 +3,17 @@
     flex-direction: column;
     align-items: flex-start;
     width: 721px;
-    height: 456px;
+    // height: 406px;
     padding: 30px 70px;
     background-color: white;
+
     .CloseBtn {
         border: none;
         background: none;
         display: flex;
         justify-content: end;
     }
+
     .Header1 {
         display: flex;
         justify-content: space-between;
@@ -24,6 +26,7 @@
         font-weight: 700;
         line-height: normal;
     }
+
     .Header2 {
         color: var(---800, #252525);
         font-size: 18px;
@@ -32,6 +35,7 @@
         line-height: normal;
         margin-top: 32px;
     }
+
     .Results {
         color: var(---800, #252525);
         font-size: 20px;
@@ -39,12 +43,70 @@
         font-weight: 500;
         line-height: normal;
         margin-top: 82px;
-        z-index: 0;
         position: relative;
+        z-index: 0;
     }
+
     .Form {
         width: 100%;
         height: 109px;
         margin-bottom: 20px;
+    }
+
+    .ExelUpload {
+        margin-top: 16px;
+        display: flex;
+        width: 689px;
+        padding: 10px 16px;
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
+        border-radius: 8px;
+        background: var(---100, #F4F4F4);
+        justify-content: space-between;
+
+        .ItemXl {
+            display: flex;
+        }
+
+        .Name {
+            color: var(---800, #252525);
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        .kb {
+            color: var(---800, #252525);
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+    }
+
+    .DonwloadBtn {
+        height: 56px;
+        width: 130px;
+        display: flex;
+        justify-content: center;    
+        padding: 16px;
+        align-items: start;
+        border-radius: 8px;
+        background: var(---800, #1C6AB1);
+        color: var(---White, #FFF);
+        text-align: center;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        border: none;
+    }
+    .ExcelCont{
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        gap: 16px;
     }
 }

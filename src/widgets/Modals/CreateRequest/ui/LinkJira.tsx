@@ -3,7 +3,7 @@ import styles from "./LinkJira.module.scss";
 import { CustomInput } from "../../../../shared/ui";
 import { Link1 } from "iconsax-react";
 
-export const LinkJira: FC <{ onChange: (e: ChangeEvent<HTMLInputElement>) => void }> = ({onChange}) => {
+export const LinkJira: FC<{ onChange: (e: ChangeEvent<HTMLInputElement>) => void }> = ({ onChange }) => {
     return (
         <div className={styles.LinkJira}>
             <div className={styles.LinkInput}>
@@ -16,10 +16,12 @@ export const LinkJira: FC <{ onChange: (e: ChangeEvent<HTMLInputElement>) => voi
                     change={onChange}
                 />
                 <div className={styles.LinkIcon}>
-                    <Link1 size={24} color="#5C5C5C"/>
+                    <Link1
+                        size={24}
+                        color="#5C5C5C"
+                    />
                 </div>
             </div>
-            
         </div>
     );
 };

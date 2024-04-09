@@ -1,0 +1,28 @@
+@import "../../app/styles/index.scss";
+
+.Primary,
+.Secondary {
+    cursor: pointer;
+    border: none;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Primary {
+    border-radius: 8px;
+    background-color: $blue;
+    svg {
+        color: white;
+    }
+}
+
+.Secondary {
+    background: none;
+    margin-top: 580px;
+    svg {
+        color: $blue;
+    }
+}

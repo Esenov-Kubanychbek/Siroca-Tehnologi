@@ -1,13 +1,19 @@
-import styles from './DetailsAplication.module.scss'
-import '../Style.scss'
-import { Collapse } from 'antd'
-import CollapsePanel from 'antd/es/collapse/CollapsePanel'
-
+import styles from "./DetailsAplication.module.scss";
+import "../Style.scss";
+import { Collapse } from "antd";
+import CollapsePanel from "antd/es/collapse/CollapsePanel";
 
 const DetailsAplication = () => {
     return (
-        <Collapse className={styles.DetailsAplication} accordion>
-            <CollapsePanel className={styles.panel} header="Детали заявки" key="1">
+        <Collapse
+            className={styles.DetailsAplication}
+            accordion
+        >
+            <CollapsePanel
+                className={styles.panel}
+                header="Детали заявки"
+                key="1"
+            >
                 <div className={styles.pan}>
                     <div className={styles.names}>
                         <div>Название заявки:</div>
@@ -23,10 +29,8 @@ const DetailsAplication = () => {
                     </div>
                 </div>
             </CollapsePanel>
-
         </Collapse>
+    );
+};
 
-    )
-}
-
-export default DetailsAplication
+export default DetailsAplication;

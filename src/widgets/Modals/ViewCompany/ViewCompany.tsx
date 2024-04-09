@@ -1,18 +1,22 @@
 import {  CloseSquare } from "iconsax-react";
 import styles from "./ViewCompany.module.scss"
 import { CustomButton, CustomInput } from "../../../shared/ui";
-import { useViewCompany } from "../../../shared/hooks/useViewCompany";
-import { useDataStoreComponies } from "../../../shared/componiesApi";
+import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { Collapse } from "antd";
 import CollapsePanel from "antd/es/collapse/CollapsePanel";
+import { FC, } from "react";
+import { useViewCompany } from "../../../shared/hooks/modalHooks/useViewCompany";
+import { useDataInputCompaniesStore } from "./api/dataInputCompanies";
 
-
-
-
-export const ViewCompany = () => {
+export const ViewCompany: FC = () => {
     const modal = useViewCompany();
-    const {selectedCompanyData} = useDataStoreComponies();
-    
+    const {selectedCompanyData, fetchDatas} = useDataStoreComponies();
+    const {changeInput, changeInputOne, dataInputCompanies} = useDataInputCompaniesStore();
+    const change = async () => {
+        await changeInputOne(dataInputCompanies, selectedCompanyData, selectedCompanyData?.id);
+            fetchDatas();
+    }
+
     return (
         <div className={styles.CreateCompany}>
             <div className={styles.blockOne}>
@@ -28,16 +32,20 @@ export const ViewCompany = () => {
                     <label htmlFor="">Название компании</label>
                     <CustomInput
                         placeholder=""
-                        value={selectedCompanyData?.name}
+                        defaultValue={selectedCompanyData?.name}
                         width={272}
+                        change={changeInput}
+                        name="name"
                     />
                 </div>
                 <div>
                     <label htmlFor="">Страна</label>
                     <CustomInput
                         placeholder=""
-                        value={selectedCompanyData?.country}
+                        defaultValue={selectedCompanyData?.country}
                         width={272}
+                        change={changeInput}
+                        name="country"
                     />
                 </div>
             </div>
@@ -46,16 +54,20 @@ export const ViewCompany = () => {
                     <label htmlFor="">Краткий код</label>
                     <CustomInput
                         placeholder=""
-                        value={selectedCompanyData?.company_code}
+                        defaultValue={selectedCompanyData?.company_code}
                         width={272}
+                        change={changeInput}
+                        name="company_code"
                     />
                 </div>
                 <div>
                     <label htmlFor="">Домен</label>
                     <CustomInput
                         placeholder=""
-                        value={selectedCompanyData?.domain}
+                        defaultValue={selectedCompanyData?.domain}
                         width={272}
+                        change={changeInput}
+                        name="domain"
                     />
                 </div>
             </div>
@@ -84,6 +96,8 @@ export const ViewCompany = () => {
                         variant="Primary"
                         width={150}
                         text="Сохранить"
+                        onClick={change}
+                        
                     />
                 </div>
             </div>

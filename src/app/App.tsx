@@ -1,33 +1,34 @@
+import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Authorization, ClientPage, ManagerPage, AdminPage, WorkPage } from "../pages";
-import RolesSettings from "../widgets/Admin/Roles/components/settings/RolesSettings";
+import { Authorization, ClientPage, ManagerPage, AdminPage, WorkPage, RolesSettingsPage } from "../pages";
+import { PATHS } from "../shared/variables/variables";
 
-const App = () => {
+export const App: FC = () => {
     return (
         <Routes>
             <Route
-                path="/"
+                path={PATHS.auth}
                 element={<Authorization />}
             />
             <Route
-                path="/clientpage"
+                path={PATHS.client}
                 element={<ClientPage />}
             />
             <Route
-                path="/managerpage"
+                path={PATHS.manager}
                 element={<ManagerPage />}
             />
             <Route
-                path="/adminpage"
+                path={PATHS.admin}
                 element={<AdminPage />}
             />
             <Route
-                path="/workpage"
+                path={PATHS.work}
                 element={<WorkPage />}
             />
             <Route
-                path="/rolessettings"
-                element={<RolesSettings />}
+                path={PATHS.rolessettings}
+                element={<RolesSettingsPage />}
             />
             <Route
                 path="*"
@@ -36,5 +37,3 @@ const App = () => {
         </Routes>
     );
 };
-
-export default App;

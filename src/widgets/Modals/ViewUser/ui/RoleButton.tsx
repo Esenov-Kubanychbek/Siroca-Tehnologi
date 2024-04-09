@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styles from "./RoleButton.module.scss";
-import { IRole } from "../model/types";
+import { IRole } from "../types/types";
 
 export const RoleButton: FC<IRole> = (props) => {
     const { change, role } = props;

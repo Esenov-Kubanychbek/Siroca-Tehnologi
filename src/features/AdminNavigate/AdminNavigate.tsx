@@ -45,6 +45,7 @@ export const AdminNavigate: FC = () => {
                 items={items}
                 tabBarStyle={{
                     fontWeight: 700,
+                    marginLeft: "34px",
                 }}
             />
         </ConfigProvider>

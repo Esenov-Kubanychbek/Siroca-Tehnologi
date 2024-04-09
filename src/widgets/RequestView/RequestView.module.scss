@@ -1,34 +1,33 @@
-.RequestView{
+.RequestView {
     display: flex;
     width: 810px;
     font-size: 18px;
     overflow-y: auto;
     height: 834px;
-    
-    .Container{
+
+    .Container {
         width: 592px;
         padding: 54px 70px;
-        .block1{
+        .block1 {
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 592px;
             margin: 16px 0;
-            .h1{
-            font-size: 32px;
-            font-weight: 700;
+            .h1 {
+                font-size: 32px;
+                font-weight: 700;
             }
         }
-        .block2{
+        .block2 {
             font-size: 20px;
             font-weight: 500;
             display: flex;
             margin: 16px 0;
 
-            .number{
+            .number {
                 padding-left: 10px;
-                color: #1C6AB1;
-
+                color: #1c6ab1;
             }
         }
     }

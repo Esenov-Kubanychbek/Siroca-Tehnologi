@@ -3,39 +3,40 @@ import { SearchInput } from "../../../features";
 import { ButtonCreate } from "../../../shared/ui/ButtonCreate/ButtonCreate";
 import styles from "./Companies.module.scss";
 import { CreateCompany } from "../..";
-import { useCompany } from "../../../shared/hooks";
-import { useDataStoreComponies } from "../../../shared/componiesApi";
-import { useEffect } from "react";
-import { ListTopName, ListTop } from "../../../shared/ui";
-import { RequestInner } from "../../../entities";
+import {  useDataStoreComponies } from "./api/componiesApi";
+import { FC, useEffect } from "react";
+import { ListTopName, ListTop, ItemInner } from "../../../shared/ui";
 import { ChangeCompany } from "../../Modals/ChangeCompany/ChangeCompany";
+import { useCompany } from "../../../shared/hooks/modalHooks";
 
-export const Companies = () => {
+export const Companies: FC = () => {
     const modal = useCompany();
+    const { users, fetchDatas, getUsers, data, selectedIdCompany, openModalView, closeModalView, modalViewCompany } = useDataStoreComponies();
 
-    const { fetchDatas, data, selectedIdCompany, openModalView, closeModalView, modalViewCompany } = useDataStoreComponies();
     
 
     useEffect(() => {
+        getUsers();
         fetchDatas();
+    }, [getUsers, fetchDatas]);
 
-    }, [fetchDatas]);
-
+    const managerName = (id: number) => {
+        const manager = users.find((user) => user.id === id);
+        return manager ? manager.first_name : '';
+    }
 
     return (
         <div className={styles.Companies}>
-            <h3 onClick={() => closeModalView()}>Поиск по компаниям</h3>
+            <h3 onClick={closeModalView}>Поиск по компаниям</h3>
             <div className={styles.searchCompanies}>
                 <SearchInput />
-                <div className={styles.buttons} onClick={modal.open}>
+                <div className={styles.Buttons} onClick={modal.open}>
                     <ButtonCreate name="Создать компанию" />
-
                 </div>
             </div>
             <div className={styles.container}>
                 <div style={{ width: modalViewCompany ? '1092px' : "100%" }} className={styles.table}>
-
-                    <ListTop>
+                <ListTop>
                         <ListTopName name="Компания" width={modalViewCompany ? 160 : 206} />
                         <ListTopName name={modalViewCompany ? 'Страна ком...' : 'Страна компании'} width={modalViewCompany ? 160 : 210} />
                         <ListTopName name={modalViewCompany ? 'Количес...' : 'Количество пользователей'} width={modalViewCompany ? 160 : 306} />
@@ -48,34 +49,23 @@ export const Companies = () => {
                     <ul>
                         {data.map((dataCompany) => (
                             <li className={styles.datas} onClick={() => {
-                                // modalView.open();
                                 selectedIdCompany(dataCompany.id);
                                 openModalView();
-                                console.log(modalViewCompany);
-
                             }} key={dataCompany.id}>
-                                <RequestInner width={modalViewCompany ? 160 : 206} content={dataCompany.name} />
-                                <RequestInner width={modalViewCompany ? 160 : 210} content={dataCompany.country} />
-                                <RequestInner width={modalViewCompany ? 160 : 306} content={dataCompany.count_users} />
-                                <RequestInner width={modalViewCompany ? 160 : 286} content={5} />
-                                <RequestInner width={modalViewCompany ? 160 : 208} content={dataCompany.main_manager} />
-                                <RequestInner width={modalViewCompany ? 160 : 206} content={dataCompany.created_at} />
-                                <RequestInner width={modalViewCompany ? 160 : 296} content={120302} />
-                                {/* <div style={{width: '93px'}}>{dataCompany.name}</div>
-                <div style={{width: '163px'}}>{dataCompany.country}</div>
-                <div>{dataCompany.count_users}</div>
-                <div>5</div>
-                <div>{dataCompany.main_manager}</div>
-                <div >{dataCompany.created_at}</div>
-                <div>120302</div> */}
+                                <ItemInner width={modalViewCompany ? 160 : 206} content={dataCompany.name} />
+                                <ItemInner width={modalViewCompany ? 160 : 210} content={dataCompany.country} />
+                                <ItemInner width={modalViewCompany ? 160 : 306} content={dataCompany.count_users} />
+                                <ItemInner width={modalViewCompany ? 160 : 286} content={dataCompany.count_applications} />
+                                <div className={styles.managerName} style={{ width: `${modalViewCompany ? '160px' : '208px'}`}}>
+                                    {managerName(dataCompany.main_manager)}
+                                </div>
+                                <ItemInner width={modalViewCompany ? 160 : 206} content={dataCompany.created_at} />
+                                <ItemInner width={modalViewCompany ? 160 : 296} content={dataCompany.last_updated_at} />
                             </li>
-
                         ))}
-
                     </ul>
                 </div>
-
-                <ChangeCompany />
+                <ChangeCompany />               
             </div>
             <Modal
                 centered
@@ -85,7 +75,7 @@ export const Companies = () => {
             >
                 <CreateCompany />
             </Modal>
-            
         </div>
     );
 };
+

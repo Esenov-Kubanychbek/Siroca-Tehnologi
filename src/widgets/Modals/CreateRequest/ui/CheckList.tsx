@@ -4,32 +4,29 @@ import { CustomInput } from "../../../../shared/ui";
 import { CustomButton } from "../../../../shared/ui";
 import { Checkbox } from "antd";
 import useDisplayStore from "../model/collapse";
-import { CustomSelect } from './../../CreateCompany/ui/CustomSelect';
-import { ICheckList, checkListApi } from "../../../../shared/checkListApi";
-
+import { CustomSelect } from "./../../CreateCompany/ui/CustomSelect";
+import { ICheckList, checkListApi } from "../api/checkListApi";
 
 export const CheckList: FC = () => {
-    const data: string[] = ["Абдурахман", "Аман","Кубанычбек","Далер"];
+    const data: string[] = ["Абдурахман", "Аман", "Кубанычбек", "Далер"];
     const { display, toggleDisplay } = useDisplayStore();
     const fetchCheckList = checkListApi();
 
-    const [checkValue , setCheckValue] = useState<ICheckList>({
-        text:"",
+    const [checkValue, setCheckValue] = useState<ICheckList>({
+        text: "",
         completed: false,
-        deadline:"",
-        application:null,
-        manager:null,
+        deadline: "",
+        application: null,
+        manager: null,
     });
 
-
-
     const checkListValue = (e: ChangeEvent<HTMLButtonElement | HTMLInputElement | HTMLSelectElement>) => {
-        setCheckValue((prevState)=> ({ ...prevState, [e.target.name]: e.target.value }))
-        e.preventDefault()
-        console.log(checkValue)
+        setCheckValue((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+        e.preventDefault();
+        console.log(checkValue);
     };
 
-    fetchCheckList.posting(checkValue)
+    fetchCheckList.posting(checkValue);
 
     return (
         <div className={styles.CheckList}>
@@ -43,33 +40,41 @@ export const CheckList: FC = () => {
                         paddingLeft={45}
                         change={checkListValue}
                     />
-                    <div className={styles.CheckAbsolute}
+                    <div
+                        className={styles.CheckAbsolute}
                         onClick={toggleDisplay}
                     >
-                        <Checkbox/>
+                        <Checkbox />
                     </div>
                 </div>
-                <div style={{
+                <div
+                    style={{
                         display,
-                        transition: 'opacity 1s ease-in-out',
-                        opacity: display === 'none' ? 0 : 1,
-                        }}>
+                        transition: "opacity 1s ease-in-out",
+                        opacity: display === "none" ? 0 : 1,
+                    }}
+                >
                     <div className={styles.CheckDesc}>
-                        <CustomButton 
+                        <CustomButton
                             name="completed"
                             type="submit"
                             onClick={checkListValue}
-                            variant="Request" 
-                            width={130} 
-                            text="Сохранить"/>
-                            <CustomSelect 
-                                change={checkListValue}
-                                name="manager"
-                                text="Назначить..."
-                                dataOption={data}
-                                width={300}
-                            />
-                            <input type="date" name="deadline" onChange={checkListValue}/>
+                            variant="Request"
+                            width={130}
+                            text="Сохранить"
+                        />
+                        <CustomSelect
+                            change={checkListValue}
+                            name="manager"
+                            text="Назначить..."
+                            dataOption={data}
+                            width={300}
+                        />
+                        <input
+                            type="date"
+                            name="deadline"
+                            onChange={checkListValue}
+                        />
                     </div>
                 </div>
                 <CustomButton

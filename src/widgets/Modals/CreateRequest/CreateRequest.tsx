@@ -8,13 +8,13 @@ import { Humans } from "./ui/Humans";
 import { DatesContainer } from "./ui/DatesContainer";
 import { Description } from "./ui/Description";
 import { CheckList } from "./ui/CheckList";
-import { useRequest, useSuccess } from "../../../shared/hooks";
-import {requestApi, IRequest } from "../../../shared/requestApi";
+import { useRequest, useSuccess } from "../../../shared/hooks/modalHooks";
+import { requestApi, IRequest } from "./api/requestApi";
 import { SuccessModal } from "../..";
 import { Collapse, Modal } from "antd";
 import { Comments } from "./ui/Comments";
 import { BriefDescription } from "./ui/BriefDescription";
-import './style.scss';
+import "./style.scss";
 import CollapsePanel from "antd/es/collapse/CollapsePanel";
 
 export const CreateRequest: FC = () => {
@@ -23,33 +23,32 @@ export const CreateRequest: FC = () => {
     const success = useSuccess();
     const [requestState, setRequestState] = useState<IRequest>({
         task_number: "",
-        title:"",
+        title: "",
         description: "",
-        files:null,
+        files: null,
         jira: "",
         status: "",
-        payment_state:"", 
+        payment_state: "",
         priority: "",
         application_date: "",
-        confirm_date:"", 
+        confirm_date: "",
         offer_date: "",
         start_date: "",
         finish_date: "",
-        company:0,
-        main_client:null,
-        main_manager:null,
+        company: 0,
+        main_client: null,
+        main_manager: null,
     });
-
 
     const RequestCreateValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setRequestState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
         // console.log(requestState)
-    };      
+    };
     const postTrim = () => {
-            fetchData.posting(requestState);
-            modal.close();
-            success.open();
-            console.log("success");
+        fetchData.posting(requestState);
+        modal.close();
+        success.open();
+        console.log("success");
     };
 
     return (
@@ -74,43 +73,67 @@ export const CreateRequest: FC = () => {
                     </div>
                 </div>
                 <Collapse accordion>
-                    <CollapsePanel header="Детали заявки" key={1}>
-                        <Details onChange={RequestCreateValue}/>
+                    <CollapsePanel
+                        header="Детали заявки"
+                        key={1}
+                    >
+                        <Details onChange={RequestCreateValue} />
                     </CollapsePanel>
                 </Collapse>
                 <Collapse accordion>
-                    <CollapsePanel header="Ссылка на Jira" key={1}>
-                        <LinkJira onChange={RequestCreateValue}/>
+                    <CollapsePanel
+                        header="Ссылка на Jira"
+                        key={1}
+                    >
+                        <LinkJira onChange={RequestCreateValue} />
                     </CollapsePanel>
                 </Collapse>
                 <Collapse accordion>
-                    <CollapsePanel header="Люди" key={1}>
-                        <Humans onChange={RequestCreateValue}/>
+                    <CollapsePanel
+                        header="Люди"
+                        key={1}
+                    >
+                        <Humans onChange={RequestCreateValue} />
                     </CollapsePanel>
                 </Collapse>
                 <Collapse accordion>
-                    <CollapsePanel header="Даты" key={1}>
-                        <DatesContainer onChange={RequestCreateValue}/>
+                    <CollapsePanel
+                        header="Даты"
+                        key={1}
+                    >
+                        <DatesContainer onChange={RequestCreateValue} />
                     </CollapsePanel>
                 </Collapse>
                 <Collapse accordion>
-                    <CollapsePanel header="Комментарии" key={1}>
-                        <Comments/>
+                    <CollapsePanel
+                        header="Комментарии"
+                        key={1}
+                    >
+                        <Comments />
                     </CollapsePanel>
                 </Collapse>
                 <Collapse accordion>
-                    <CollapsePanel header="Описание" key={1}>
-                        <Description onChange={RequestCreateValue}/>
+                    <CollapsePanel
+                        header="Описание"
+                        key={1}
+                    >
+                        <Description onChange={RequestCreateValue} />
                     </CollapsePanel>
                 </Collapse>
                 <Collapse accordion>
-                    <CollapsePanel header="Краткое описание" key={1}>
-                        <BriefDescription/>
+                    <CollapsePanel
+                        header="Краткое описание"
+                        key={1}
+                    >
+                        <BriefDescription />
                     </CollapsePanel>
                 </Collapse>
                 <Collapse accordion>
-                    <CollapsePanel header="Чек-листы" key={1}>
-                    <CheckList/> 
+                    <CollapsePanel
+                        header="Чек-листы"
+                        key={1}
+                    >
+                        <CheckList />
                     </CollapsePanel>
                 </Collapse>
                 <div className={styles.Buttons}>
@@ -130,14 +153,14 @@ export const CreateRequest: FC = () => {
                     </div>
                 </div>
                 <Modal
-                width={350}
-                centered
-                zIndex={11}
-                open={success.isOpen}
-                onCancel={success.close}
-            >
-                <SuccessModal />
-            </Modal>
+                    width={350}
+                    centered
+                    zIndex={11}
+                    open={success.isOpen}
+                    onCancel={success.close}
+                >
+                    <SuccessModal />
+                </Modal>
             </div>
         </form>
     );

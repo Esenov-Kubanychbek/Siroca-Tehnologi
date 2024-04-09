@@ -1,0 +1,34 @@
+@import "../../app/styles/index.scss";
+
+.HeaderTop {
+    width: 100%;
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-bottom: 1px solid $blackde;
+}
+
+.HeaderTopInner {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.HeaderLogo {
+    width: 745px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.DataProfile {
+    width: auto;
+    height: 56px;
+    gap: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,24 +1,26 @@
 import { CloseSquare, MoreSquare } from 'iconsax-react';
 import styles from './ChangeCompany.module.scss';
-import { useViewCompany } from '../../../shared/hooks/useViewCompany';
 import { useState } from 'react';
-import { useDataStoreComponies } from '../../../shared/componiesApi';
+import { useDataStoreComponies } from '../../Admin/Companies/api/componiesApi';
 import { Modal } from 'antd';
 import { ViewCompany } from '../ViewCompany/ViewCompany';
+import { useViewCompany } from '../../../shared/hooks/modalHooks/useViewCompany';
 
 export const ChangeCompany = () => {
     const { open, isOpen, close } = useViewCompany();
     const [modalButtons, setModalButtons] = useState<boolean>(false);
     const { selectedCompanyData } = useDataStoreComponies();
-    const { deleteCompany, idCompany, closeModalView, modalViewCompany} = useDataStoreComponies();
+    const { deleteCompany,data, idCompany, closeModalView, modalViewCompany} = useDataStoreComponies();
 
     const modal = useViewCompany();
 
     const deleteComp = () => {
         deleteCompany(idCompany);
+        console.log(data);
         modal.close();
-        console.log();
         closeModalView();
+    
+
     }
 
     return (

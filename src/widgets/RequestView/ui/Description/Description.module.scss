@@ -1,16 +1,16 @@
-.Description{
-    .container{
-    background-color: #F4F4F4;
-    padding: 12px;
-    border-radius: 10px;
-        .description{
+.Description {
+    .container {
+        background-color: #f4f4f4;
+        padding: 12px;
+        border-radius: 10px;
+        .description {
             font-size: 16px;
             font-weight: 500;
         }
-        .folderAdd{
+        .folderAdd {
             margin: 10px 0 10px 500px;
         }
-        .xlsx{
+        .xlsx {
             display: flex;
             align-items: center;
             background-color: white;
@@ -18,16 +18,16 @@
             border-radius: 10px;
             margin: 10px 0;
 
-            p{
+            p {
                 padding-left: 10px;
                 font-size: 16px;
                 font-weight: 500;
             }
         }
-        .images{
+        .images {
             display: flex;
             flex-wrap: wrap;
-            div{
+            div {
                 width: 160px;
                 height: 160px;
                 background-color: white;
@@ -36,5 +36,4 @@
             }
         }
     }
-    
 }

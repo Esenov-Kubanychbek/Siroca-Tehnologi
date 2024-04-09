@@ -1,10 +1,17 @@
 @import "../../../app/styles/index.scss";
 
 .Companies {
-    .searchCompanies {
-        display: flex;
-        justify-content: space-between;
-        margin-right: 20px;
+    margin-top: 20px;
+    .managerName{
+        font-size: 16px;
+        display: flex   ;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700;
+    }
+    .Name {
+        font-size: 24px;
+        font-weight: 700;
     }
     .container{
         display: flex;
@@ -24,5 +31,4 @@
             }
         }
     }
-    
 }

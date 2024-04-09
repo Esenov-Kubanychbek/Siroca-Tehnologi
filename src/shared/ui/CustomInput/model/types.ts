@@ -5,11 +5,13 @@ export interface IInput {
     placeholder: string;
     height?: number;
     background?: string;
-    value?: string ;
+    value?: string | number;
+    defaultValue?: string | number;
     name?: string;
     type?: string;
     paddingLeft?:number;
     allData?: string | boolean;
     datas?: string; 
     change?: (e: ChangeEvent<HTMLInputElement>) => void;
+    onClick?:() => void;
 }

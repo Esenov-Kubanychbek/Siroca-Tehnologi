@@ -1,13 +1,15 @@
 import styles from "./AdminPage.module.scss";
-import { Dashboard, Header } from "../../widgets";
+import { Dashboard, HeaderBottom, HeaderTop } from "../../widgets";
+import { FC } from "react";
 
-export const AdminPage = () => {
+export const AdminPage: FC = () => {
     return (
         <div className={styles.AdminPage}>
             <Dashboard />
-            <div className={styles.Inner}>
-                <Header role="admin" />
-            </div>
+            <header className={styles.Inner}>
+                <HeaderTop role="admin" />
+                <HeaderBottom role="admin" />
+            </header>
         </div>
     );
 };

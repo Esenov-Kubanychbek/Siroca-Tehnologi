@@ -1,35 +1,40 @@
 import { CloseSquare } from "iconsax-react";
 import styles from "./ViewUser.module.scss";
-import { usePosition, useSuccess, useViewUser } from "../../../shared/hooks";
-import { FC } from "react";
+import { usePosition, useSuccess, useViewUser } from "../../../shared/hooks/modalHooks";
+import { FC, FormEvent } from "react";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { AddButton } from "../CreateUser/ui/AddButton";
 import { Modal } from "antd";
 import { CreatePosition, SuccessModal } from "../..";
-import { usersApi } from "../../../shared/api";
 import { RoleButton } from "./ui/RoleButton";
 import { ViewPhoto } from "./ui/ViewPhoto";
+import { usersApi } from "../../Admin/Users/api/usersApi";
 
 export const ViewUser: FC = () => {
     const positionFunc = usePosition();
     const fetchData = usersApi();
     const modal = useViewUser();
     const success = useSuccess();
-    const postTrim = () => {
+    const postTrim = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         if (Object.values(fetchData.oneUserGet).every((value) => value === value)) {
             modal.close();
             success.open();
             console.log(fetchData.oneUserGet, "error");
+            setTimeout(success.close, 1000);
         } else {
             fetchData.putting(fetchData.oneUserGet, fetchData.oneUserGet.id);
             modal.close();
             success.open();
             console.log(fetchData.oneUserGet, "something changed");
+            setTimeout(success.close, 1000);
         }
     };
-
     return (
-        <form className={styles.ViewUser}>
+        <form
+            className={styles.ViewUser}
+            onSubmit={postTrim}
+        >
             <div className={styles.Top}>
                 <div className={styles.TextTop}>Пользователь</div>
                 <CloseSquare
@@ -120,20 +125,18 @@ export const ViewUser: FC = () => {
                 </div>
             </div>
             <div className={styles.Buttons}>
-                <div onClick={() => console.log(fetchData.oneUserGet)}>
-                    <CustomButton
-                        variant="Without"
-                        width={160}
-                        text="Отменить"
-                    />
-                </div>
-                <div onClick={postTrim}>
-                    <CustomButton
-                        variant="Primary"
-                        width={150}
-                        text="Сохранить"
-                    />
-                </div>
+                <CustomButton
+                    type="button"
+                    variant="Without"
+                    width={160}
+                    text="Отменить"
+                />
+                <CustomButton
+                    variant="Primary"
+                    width={150}
+                    text="Сохранить"
+                    type="submit"
+                />
             </div>
             <Modal
                 width={700}
@@ -151,7 +154,7 @@ export const ViewUser: FC = () => {
                 open={success.isOpen}
                 onCancel={success.close}
             >
-                <SuccessModal />
+                <SuccessModal content="Изменения успешно сохранены!" />
             </Modal>
         </form>
     );

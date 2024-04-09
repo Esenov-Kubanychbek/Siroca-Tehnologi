@@ -1,19 +1,11 @@
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import styles from "./LoadingModal.module.scss";
+import { FC } from "react";
 
-export const LoadingModal = () => {
+export const LoadingModal: FC = () => {
     return (
-        <div
-            style={{
-                width: "130px",
-                height: "130px",
-                border: "2px solid #1c6ab1",
-                borderRadius: "50%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-            }}
-        >
+        <div className={styles.LoadingModal}>
             <Spin
                 size="large"
                 indicator={
