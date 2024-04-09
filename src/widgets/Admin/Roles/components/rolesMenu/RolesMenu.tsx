@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import RolesList from "./RolesList";
 import styles from "./RolesMenu.module.scss";
 import axios from "axios";
-import { BASE_URL } from "../../../../../shared/variables/variables";
+import { BASE_URL, PATHS } from "../../../../../shared/variables/variables";
+import { useNavigate } from "react-router-dom";
 
-interface IRolesMenu {
-    openSettings: () => void;
+interface PermissionData {
+    [key: string]: boolean;
 }
-const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
-    const [boxesClient, setBoxesClient] = useState();
-    const [boxesManeger, setBoxesManeger] = useState();
+
+interface IRolesMenu {}
+
+const RolesMenu: React.FC<IRolesMenu> = () => {
+    const [boxesClient, setBoxesClient] = useState<PermissionData | undefined>();
+    const [boxesManeger, setBoxesManeger] = useState<PermissionData | undefined>();
 
     const get = async () => {
         try {
@@ -31,10 +35,12 @@ const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
             console.log(error);
         }
     };
+
     useEffect(() => {
         get();
     }, []);
-    const ClientList = [
+
+    const ClientList: string[] = [
         "Добавление чек листа к заявке",
         "Добавление файла к заявке",
         "Добавление/удаление комментария к заявке",
@@ -42,26 +48,26 @@ const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
         "Просмотр изменений истории по заявке 'Logs'",
         "Просмотр профиль другого пользователя",
     ];
-    const ManegerList = [
+
+    const ManegerList: string[] = [
         "Удаление комментариев пользователей",
         "Скачивание отчёта",
         "Просмотр профиля других пользователей",
         "Удаление заявки",
     ];
 
-    const getCheckBoxVal = (e) => {
+    const getCheckBoxVal = (e: [string, React.ChangeEvent<HTMLInputElement>]) => {
         if (e[0] === "Клиент") {
-            const arr = Object.entries(boxesClient).map((el) => {
+            const arr = Object.entries(boxesClient || {}).map((el) => {
                 if (el[0] === e[1].target.name) {
                     return [el[0], !el[1]];
                 } else {
                     return el;
                 }
             });
-
             setBoxesClient(Object.fromEntries(arr));
         } else if (e[0] === "Менеджер") {
-            const arr = Object.entries(boxesManeger).map((el) => {
+            const arr = Object.entries(boxesManeger || {}).map((el) => {
                 if (el[0] === e[1].target.name) {
                     return [el[0], !el[1]];
                 } else {
@@ -71,6 +77,7 @@ const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
             setBoxesManeger(Object.fromEntries(arr));
         }
     };
+
     console.log(boxesClient, boxesManeger);
 
     const onSave = async () => {
@@ -92,13 +99,15 @@ const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
         }
     };
 
+    const navigate = useNavigate();
+
     return (
         <div className={styles.MenuCont}>
             <div className={styles.ListBlock}>
                 <RolesList
                     listType="Клиент"
                     list={ClientList}
-                    box={boxesClient}
+                    box={boxesClient || null}
                     handleChangeBox={getCheckBoxVal}
                 />
             </div>
@@ -106,15 +115,15 @@ const RolesMenu: React.FC<IRolesMenu> = ({ openSettings }) => {
                 <RolesList
                     listType="Менеджер"
                     list={ManegerList}
-                    box={boxesManeger}
+                    box={boxesManeger || null}
                     handleChangeBox={getCheckBoxVal}
                 />
             </div>
             <div className={styles.SettingsBtn}>
-                <button onClick={openSettings}>Дополнительные настройки</button>
+                <button onClick={() => navigate(PATHS.rolessettings)}>Дополнительные настройки</button>
             </div>
             <div className={styles.SettingsSave}>
-                <button onClick={onSave}>Сохарнить</button>
+                <button onClick={onSave}>Сохранить</button>
             </div>
         </div>
     );

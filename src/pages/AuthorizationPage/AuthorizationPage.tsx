@@ -41,6 +41,7 @@ export const Authorization: FC = () => {
             setErr(true);
         }
     };
+
     const modal = useCallToAdmin();
     return (
         <form
@@ -67,7 +68,10 @@ export const Authorization: FC = () => {
                 <div className={err ? styles.ErrInputCont : styles.InputCont}>
                     <p>Логин</p>
                     <input
-                        onChange={(e) => setLogin(e.target.value)}
+                        onChange={(e) => {
+                            setLogin(e.target.value);
+                        }}
+                        onClick={() => setErr(false)}
                         placeholder="Введите логин"
                         type="text"
                     />
@@ -81,7 +85,7 @@ export const Authorization: FC = () => {
                             type={handleEye ? "text" : "password"}
                         />
                         <div
-                            className={styles.Eye}
+                            className={err ? styles.EyeErr : styles.Eye}
                             onClick={openPass}
                         >
                             {handleEye ? (

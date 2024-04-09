@@ -1,0 +1,20 @@
+@import "index.scss";
+
+.DropDown {
+    width: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .Arrow {
+        width: 25px;
+        height: 25px;
+        background-color: $blackf4;
+        border-radius: 5px;
+    }
+}
+
+.Text {
+    margin-left: 16px;
+    font-size: 18px;
+    font-weight: 700;
+}

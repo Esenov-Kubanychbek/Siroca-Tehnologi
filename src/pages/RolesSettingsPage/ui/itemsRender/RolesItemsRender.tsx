@@ -3,37 +3,39 @@ import ItemSettingRoles from "./ItemRoles";
 import styles from "./RolesItemsRender.module.scss";
 import axios from "axios";
 import { BASE_URL } from "../../../../shared/variables/variables";
+import { IUser } from "../../../../shared/types/userTypes";
+
 interface IRolesRender {
-    list: object;
-    users: [];
-    getChanges: (e: []) => void;
+    list: string[][];
+    users: IUser[];
+    getChanges: (e: IUser[]) => void;
 }
 
 const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges }) => {
-    const [usersBoxes, setUsersBoxes] = useState([]);
-    const [getInBoxes, setGetInBoxes] = useState([]);
+    const [usersBoxes, setUsersBoxes] = useState<IUser[]>([]);
+    const [getInBoxes, setGetInBoxes] = useState<IUser[]>([]);
 
-    const getBoxes = (e: object) => {
+    const getBoxes = (e: IUser) => {
         let found = false;
-        usersBoxes.forEach((item, index) => {
+        const updatedBoxes = usersBoxes.map((item) => {
             if (item.username === e.username) {
-                const arr = usersBoxes;
-                arr[index] = e;
-                setUsersBoxes(arr);
                 found = true;
+                return e;
             }
+            return item;
         });
         if (!found) {
-            const arr = usersBoxes;
-            arr.push(e);
-            setUsersBoxes(arr);
+            updatedBoxes.push(e);
         }
+        setUsersBoxes(updatedBoxes);
     };
 
     const getRoles = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/users/clientpermissions/detail/`);
-            setGetInBoxes(response.data.results);
+            const responseC = await axios.get(`${BASE_URL}/users/clientpermissions/detail/`);
+            const responseM = await axios.get(`${BASE_URL}/users/managerpermissions/detail/`);
+            const update = [...responseC.data.results, ...responseM.data.results];
+            setGetInBoxes(update);
         } catch (error) {
             console.log(error);
         }
@@ -41,24 +43,24 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges }) => {
     useEffect(() => {
         getRoles();
     }, []);
+
     useEffect(() => {
         getChanges(usersBoxes);
     }, [usersBoxes]);
 
-    const filteredUsers = users.filter((el: object) => el.role_type === "client");
+    const filteredUsers = users.filter((el: IUser) => el.role_type === "client");
     return (
         <div className={styles.Container}>
-            {filteredUsers.map((el, index) => {
-                return (
-                    <ItemSettingRoles
-                        user={el}
-                        checkBoxList={list}
-                        index={index}
-                        getBoxes={getBoxes}
-                        inBoxList={getInBoxes ? getInBoxes : false}
-                    />
-                );
-            })}
+            {filteredUsers.map((el: IUser, index: number) => (
+                <ItemSettingRoles
+                    key={el.username}
+                    user={el}
+                    checkBoxList={list}
+                    index={index}
+                    getBoxes={getBoxes}
+                    inBoxList={getInBoxes ? getInBoxes : []}
+                />
+            ))}
         </div>
     );
 };

@@ -1,10 +1,12 @@
 import { GalleryAdd } from "iconsax-react";
 import styles from "./AddPhoto.module.scss";
-import { FC } from "react";
-import { usersApi } from "../../../Admin/Users/api/usersApi";
+import { ChangeEvent, FC } from "react";
 
-export const AddPhoto: FC = () => {
-    const fetchData = usersApi();
+interface IAddPhoto {
+    downLoad: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export const AddPhoto: FC<IAddPhoto> = ({ downLoad }) => {
     return (
         <div>
             <div className={styles.AddPhoto}>
@@ -15,7 +17,7 @@ export const AddPhoto: FC = () => {
                 <div className={styles.Text2}>Добавьте фотографию пользователя</div>
                 <input
                     name="image"
-                    onChange={fetchData.setOneUser}
+                    onChange={downLoad}
                     className={styles.Input}
                     type="file"
                     accept="image/*"

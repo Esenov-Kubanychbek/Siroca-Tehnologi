@@ -1,0 +1,53 @@
+@import "index.scss";
+
+.Text {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.DatesContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    .Dates {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        .Dates1,
+        .Dates2 {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+    .PayContainer {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        .Pay {
+            width: 300px;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            .UniPay {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                align-items: center;
+                input {
+                    width: 28px;
+                    height: 28px;
+                }
+            }
+        }
+    }
+
+    .Text2 {
+        font-size: 20px;
+        font-weight: 500;
+        color: $black3b;
+    }
+}

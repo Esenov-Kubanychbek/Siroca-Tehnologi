@@ -8,9 +8,13 @@ import { useNavigate } from "react-router-dom";
 import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
 import { BASE_URL } from "../../shared/variables/variables";
 import { SearchInput } from "../../features";
-export const RolesSettingsPage: FC = () => {
-    const [boxesReg, setBoxesReq] = useState();
-    const headerSettingsList = [
+import { IUser } from "../../shared/types/userTypes";
+
+interface Props {}
+
+export const RolesSettingsPage: FC<Props> = () => {
+    const [boxesReg, setBoxesReg] = useState<IUser[]>([]);
+    const headerSettingsList: string[] = [
         "Добавление/удаление комментария к заявке",
         "Скачивание отчета по заявкам",
         "Просмотр истории изменений по заявке “Logs”",
@@ -18,7 +22,8 @@ export const RolesSettingsPage: FC = () => {
         "Добавление/удаление чек-листов",
         "Просмотр профиля других пользователей",
     ];
-    const renderSettingsList = [
+
+    const renderSettingsList: string[][] = [
         [
             "Добавление/удаление комментария к заявке",
             "Скачивание отчета по заявкам",
@@ -28,17 +33,21 @@ export const RolesSettingsPage: FC = () => {
             "Просмотр профиля других пользователей",
         ],
     ];
+
     const fetchData = usersApi();
+
     useEffect(() => {
         fetchData.getting();
     }, []);
 
     const navigate = useNavigate();
+
     const nvMenu = () => {
         navigate(-1);
     };
 
-    const scrollContainerRef = useRef(null);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
     const scrollToBottom = () => {
         if (scrollContainerRef.current) {
             const scrollHeight = scrollContainerRef.current.scrollHeight;
@@ -50,9 +59,9 @@ export const RolesSettingsPage: FC = () => {
 
     useEffect(() => {
         scrollToBottom();
-    });
+    }, []);
 
-    const reqRoles = async (data) => {
+    const reqRoles = async (data: IUser[]) => {
         try {
             const response = await axios.put(`${BASE_URL}/users/clientpermissions/detail/`, data, {
                 headers: {
@@ -64,11 +73,17 @@ export const RolesSettingsPage: FC = () => {
             console.log(error);
         }
     };
+
+    useEffect(() => {
+        saveRoles();
+    }, [boxesReg]);
+
     const saveRoles = () => {
-        boxesReg.map((el) => {
+        boxesReg.forEach((el: IUser) => {
             reqRoles(el);
         });
     };
+
     return (
         <div className={styles.Settings}>
             <div
@@ -87,7 +102,6 @@ export const RolesSettingsPage: FC = () => {
                                     color="#1C6AB1"
                                 />
                             </div>
-
                             <p>Назад</p>
                         </div>
                         <p className={styles.Par}>Дополнительные настройки</p>
@@ -99,7 +113,7 @@ export const RolesSettingsPage: FC = () => {
                             onClick={saveRoles}
                             className={styles.Save}
                         >
-                            Сохарнить
+                            Сохранить
                         </button>
                     </div>
                 </div>
@@ -110,7 +124,7 @@ export const RolesSettingsPage: FC = () => {
                 <RolesRender
                     users={fetchData.inState ? fetchData.inState : []}
                     list={renderSettingsList}
-                    getChanges={(e: []) => setBoxesReq(e)}
+                    getChanges={(e: IUser[]) => setBoxesReg(e)}
                 />
             </div>
         </div>

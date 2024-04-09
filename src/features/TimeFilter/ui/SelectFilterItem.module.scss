@@ -1,0 +1,53 @@
+.FilterItem {
+    position: absolute;
+    top: 60px;
+    max-height: 400px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    border-radius: 8px;
+    border: 1px solid var(---200, #dedede);
+    background: var(---White, #fff);
+    padding: 0px 10px;
+    // max-width: 200px;
+    // min-width: 120px;
+    .add {
+        color: var(---800, #1c6ab1);
+        text-align: center;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        border: none;
+        margin: 9px 0;
+        background: #00000000;
+    }
+
+    .Cont {
+        display: flex;
+        height: 36px;
+        padding: 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        background: var(---White, #fff);
+
+        p {
+            cursor: pointer;
+            flex: 1 0 0;
+            overflow: hidden;
+            color: var(---800, #252525);
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            text-align: center;
+        }
+
+        input {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}

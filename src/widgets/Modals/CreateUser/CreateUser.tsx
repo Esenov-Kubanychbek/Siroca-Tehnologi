@@ -8,23 +8,69 @@ import { ConfigProvider, Modal } from "antd";
 import { CreatePosition, SuccessModal } from "../..";
 import { usePosition, useSuccess, useUser } from "../../../shared/hooks/modalHooks";
 import { AddPhoto } from "./ui/AddPhoto";
-import { usersApi } from "../../Admin/Users/api/usersApi";
+import axios from "axios";
+import { BASE_URL } from "../../../shared/variables/variables";
 
 export const CreateUser: FC = () => {
+    const [formValues, setFormValue] = useState([
+        { name: "role_type", value: null },
+        { name: "first_name", value: null },
+        { name: "surname", value: null },
+        { name: "username", value: null },
+        { name: "password", value: null },
+        { name: "main_company", value: null },
+        { name: "job_title", value: null },
+        { name: "image", value: null },
+    ]);
     const positionFunc = usePosition();
-    const fetchData = usersApi();
     const modal = useUser();
     const success = useSuccess();
 
-    const postTrim = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (Object.values(fetchData.oneUser).every((value) => value !== "")) {
-            fetchData.posting(fetchData.oneUser);
-            console.log(fetchData.oneUser, "success");
-        } else {
-            console.log(fetchData.oneUser, "error");
+    const postTrim = async (e: FormEvent<HTMLFormElement>) => {
+        try {
+            e.preventDefault();
+            const fl = await formValues.filter((el) => {
+                if (el.value === null) {
+                    return el;
+                } else {
+                    return;
+                }
+            });
+            const formData = new FormData();
+            if (fl[0]) {
+                console.log("postrim err");
+            } else if (!fl[0]) {
+                formValues.forEach((el) => {
+                    if (el.value !== null) {
+                        if (el.name === "image") {
+                            formData.append(el.name, el.value);
+                        } else {
+                            formData.append(el.name, el.value);
+                        }
+                    }
+                });
+                const response = await axios.post(`${BASE_URL}/users/create/`, formData);
+                console.log(response);
+            }
+        } catch (error) {
+            console.log(formValues);
         }
     };
+    const addValues = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const state = [...formValues];
+        state.map((el: { name: string; value: null | string | File }) => {
+            if (el.name === e.target.name) {
+                if (el.name === "image") {
+                    el.value = e.target.files ? e.target.files[0] : null;
+                } else {
+                    el.value = e.target.value;
+                }
+            }
+            return el;
+        });
+        setFormValue(state);
+    };
+
     return (
         <form
             className={styles.CreateUser}
@@ -39,7 +85,7 @@ export const CreateUser: FC = () => {
                 />
             </div>
             <div className={styles.Description}>
-                <AddPhoto />
+                <AddPhoto downLoad={addValues} />
                 <div className={styles.UserRole}>
                     <div className={styles.Name}>
                         <div className={styles.Text}>Имя</div>
@@ -47,7 +93,7 @@ export const CreateUser: FC = () => {
                             name="first_name"
                             width={340}
                             placeholder="Напишите..."
-                            change={fetchData.setOneUser}
+                            change={addValues}
                         />
                         <div>
                             <div className={styles.Text}>Фамилия</div>
@@ -55,13 +101,13 @@ export const CreateUser: FC = () => {
                                 name="surname"
                                 width={340}
                                 placeholder="Напишите..."
-                                change={fetchData.setOneUser}
+                                change={addValues}
                             />
                         </div>
                     </div>
                     <div>
                         <div className={styles.Text}>Тип роли</div>
-                        <RoleButton onChange={fetchData.setOneUser} />
+                        <RoleButton onChange={addValues} />
                     </div>
                 </div>
             </div>
@@ -72,7 +118,7 @@ export const CreateUser: FC = () => {
                         name="username"
                         width={272}
                         placeholder="@siroca.com"
-                        change={fetchData.setOneUser}
+                        change={addValues}
                     />
                 </div>
                 <div>
@@ -81,7 +127,7 @@ export const CreateUser: FC = () => {
                         name="password"
                         width={272}
                         placeholder="Напишите..."
-                        change={fetchData.setOneUser}
+                        change={addValues}
                     />
                 </div>
             </div>
@@ -93,7 +139,7 @@ export const CreateUser: FC = () => {
                         name="main_company"
                         width={272}
                         placeholder="Напишите..."
-                        change={fetchData.setOneUser}
+                        change={addValues}
                     />
                 </div>
                 <div>
@@ -104,7 +150,7 @@ export const CreateUser: FC = () => {
                             type="number"
                             width={210}
                             placeholder="Напишите..."
-                            change={fetchData.setOneUser}
+                            change={addValues}
                         />
                         <AddButton onClick={positionFunc.open} />
                     </div>
