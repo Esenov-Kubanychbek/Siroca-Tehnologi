@@ -1,4 +1,3 @@
-<<<<<<< HEAD:src/widgets/Admin/Companies/api/componiesApi.ts
 import { create } from 'zustand';
 import axios from 'axios';
 import { Data } from 'iconsax-react';
@@ -11,20 +10,6 @@ export interface dataAddCompanies {
     managers: (number | undefined)[],
     main_manager:  number | null,
     domain: string  
-=======
-import { create } from "zustand";
-import axios from "axios";
-import { Data } from "iconsax-react";
-import { BASE_URL } from "./variables/variables";
-
-export interface dataAddCompanies {
-    name: string;
-    company_code: string;
-    country: string;
-    managers: [];
-    main_manager: number | null;
-    domain: string;
->>>>>>> 4371d691dd77e201cbd8264a285db11e36dca43a:src/shared/componiesApi.ts
 }
 export interface userCompany {
     first_name: string,
@@ -32,7 +17,6 @@ export interface userCompany {
     id: number,
 }
 export interface dataCompanies {
-<<<<<<< HEAD:src/widgets/Admin/Companies/api/componiesApi.ts
     id: number,
     count_users: string,
     users: userCompany[],
@@ -45,18 +29,6 @@ export interface dataCompanies {
     domain: string,
     last_updated_at: string,
     count_applications: string
-=======
-    id: number;
-    count_users: string;
-    users: string[];
-    name: string;
-    company_code: string;
-    country: string;
-    created_at: string;
-    main_manager: [];
-    managers: string;
-    domain: string;
->>>>>>> 4371d691dd77e201cbd8264a285db11e36dca43a:src/shared/componiesApi.ts
 }
 interface Data {
     data: dataCompanies[];
@@ -83,14 +55,10 @@ const fetchData = async () => {
                 Authorization: `JWT ${localStorage.getItem("access")}`,
             },
         });
-<<<<<<< HEAD:src/widgets/Admin/Companies/api/componiesApi.ts
         console.log(response);
         
         return response.data.results    
 
-=======
-        return response.data.results;
->>>>>>> 4371d691dd77e201cbd8264a285db11e36dca43a:src/shared/componiesApi.ts
     } catch (error) {
         console.error("Ошибка при получении данных:", error);
         return null;
@@ -101,18 +69,10 @@ const addCompanies = async (datas: dataAddCompanies) => {
     console.log(datas);
 
     try {
-<<<<<<< HEAD:src/widgets/Admin/Companies/api/componiesApi.ts
         const response = await axios.post('http://13.60.17.217:80/api/v1/company/create/', datas,
         {headers: {
             Authorization: `JWT ${localStorage.getItem('access')}`
         }});
-=======
-        const response = await axios.post(`${BASE_URL}/company/create/`, datas, {
-            headers: {
-                Authorization: `JWT ${localStorage.getItem("access")}`,
-            },
-        });
->>>>>>> 4371d691dd77e201cbd8264a285db11e36dca43a:src/shared/componiesApi.ts
         console.log(response);
 
         return response.data;
@@ -124,21 +84,14 @@ const addCompanies = async (datas: dataAddCompanies) => {
 };
 const deleteCompanies = async (id: number) => {
     try {
-<<<<<<< HEAD:src/widgets/Admin/Companies/api/componiesApi.ts
         const response = await axios.delete(`http://13.60.17.217:80/api/v1/company/${id}/`)
         return response
-=======
-        const response = await axios.delete(`http://16.171.68.251:80/api/v1/company/${id}/`);
-        console.log(response.data);
-        return response.data;
->>>>>>> 4371d691dd77e201cbd8264a285db11e36dca43a:src/shared/componiesApi.ts
     } catch (error) {
         console.error("Ошибка при удалении компании:", error);
         return null;
     }
 };
 
-<<<<<<< HEAD:src/widgets/Admin/Companies/api/componiesApi.ts
 const getUser = async () => {
     try {
         const response = await axios.get('http://13.60.17.217:80/api/v1/users/profiles/');
@@ -151,8 +104,6 @@ const getUser = async () => {
 
 
 
-=======
->>>>>>> 4371d691dd77e201cbd8264a285db11e36dca43a:src/shared/componiesApi.ts
 const useDataStoreComponies = create<DataStore>((set) => ({
     data: [],
     modalViewCompany: false,
@@ -196,7 +147,6 @@ const useDataStoreComponies = create<DataStore>((set) => ({
         }
     },
     deleteCompany: async (id: number) => {
-<<<<<<< HEAD:src/widgets/Admin/Companies/api/componiesApi.ts
          await deleteCompanies(id);
          const newData = await fetchData();
             if (newData !== null) {
@@ -209,13 +159,6 @@ const useDataStoreComponies = create<DataStore>((set) => ({
         const users = await getUser();
         set({users: users})
     }
-=======
-        const deletes = await deleteCompanies(id);
-        if (deletes) {
-            await fetchData();
-        }
-    },
->>>>>>> 4371d691dd77e201cbd8264a285db11e36dca43a:src/shared/componiesApi.ts
 }));
 
 export { useDataStoreComponies };
