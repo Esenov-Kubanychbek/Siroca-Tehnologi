@@ -30,9 +30,40 @@
     align-items: center;
 }
 
-.pagination{
-    button{
+.pagination {
+    display: inline-flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    .pagToggle {
+        display: flex;
+        padding: 16px;
+        align-items: flex-start;
+        gap: 10px;
+        border-radius: 8px;
+        background: var(---White, #fff);
+        border: none;
+    }
+
+    .paginBtn {
+        display: flex;
+        width: 56px;
+        height: 56px;
         padding: 10px;
-        font-size: 30px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        color: var(---White, #fff);
+        text-align: center;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        border-radius: 8px;
+        background: var(---800, #1c6ab1);
+        border: none;
     }
 }

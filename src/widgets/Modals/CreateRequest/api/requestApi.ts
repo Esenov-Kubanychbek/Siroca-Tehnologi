@@ -2,35 +2,30 @@ import axios from "axios";
 import { create } from "zustand";
 import { BASE_URL } from "../../../../shared/variables/variables";
 
-export interface IRequest {
-    task_number?: string;
-    title?: string;
-    description?: string;
-    files?: string | null;
-    jira?: string;
-    status?: string;
-    payment_state?: string;
-    priority?: string;
-    application_date?: string;
-    confirm_date?: string;
-    offer_date?: string;
-    start_date?: string;
-    finish_date?: string;
-    company?: number;
-    main_client?: number | null;
-    main_manager?: number | null;
+export interface ICreateRequest {
+    id?: number;
+    title: string;
+    company: number;
 }
 
 interface IFetch {
-    inState: IRequest[];
-    posting: (postState: IRequest) => void;
+    oneRequest: ICreateRequest;
+    posting: (postState: ICreateRequest) => void;
 }
 
-export const requestApi = create<IFetch>(() => ({
-    inState: [],
+export const requestApi = create<IFetch>((set) => ({
+    oneRequest: {
+        title: "",
+        company: 1,
+    },
     posting: async (postState) => {
         try {
-            const postResponse = await axios.post(`${BASE_URL}/applications/create/`, postState);
+            const postResponse = await axios.post(`${BASE_URL}/applications/create/`, postState, {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
+            });
+            set({ oneRequest: postState });
             console.log(postResponse);
         } catch (error) {
             console.log(error, "postRequestError");

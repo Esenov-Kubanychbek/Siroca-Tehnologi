@@ -1,26 +1,33 @@
 .FilterItem {
     position: absolute;
-    top: 50px;
-    height: 400px;
+    top: 60px;
+    max-height: 400px;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
     justify-content: start;
+    align-items: center;
     border-radius: 8px;
-    border: 1px solid var(---200, #DEDEDE);
-    background: var(---White, #FFF);
-    // max-width: 200px;
-    // min-width: 120px;
-    .add {  
-        color: var(---800, #1C6AB1);
+    border: 1px solid var(---200, #dedede);
+    background: var(---White, #fff);
+    padding: 0px 10px;
+    min-width: 120px;
+    padding-top: 30px;
+    .add {
+        color: var(---800, #1c6ab1);
+        position: fixed;
+        background: white;
         text-align: center;
         font-size: 20px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
         border: none;
-        margin: 9px 0;
-        background: #00000000;
+        margin-top: -20px;
+        transition: all 0.3s;
+    }
+    .add:hover {
+        color: black;
     }
 
     .Cont {
@@ -30,7 +37,7 @@
         justify-content: center;
         align-items: center;
         gap: 10px;
-        background: var(---White, #FFF);
+        background: var(---White, #fff);
 
         p {
             cursor: pointer;

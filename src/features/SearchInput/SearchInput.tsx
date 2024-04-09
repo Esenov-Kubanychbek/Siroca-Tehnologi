@@ -1,8 +1,6 @@
 import styles from "./SearchInput.module.scss";
 import { ChangeEvent, FC, useState } from "react";
 import { CloseSquare, SearchNormal1 } from "iconsax-react";
-import axios from "axios";
-import { BASE_URL } from "../../shared/variables/variables";
 
 export const SearchInput: FC = () => {
     const [state, setState] = useState<boolean>(false);
@@ -11,18 +9,6 @@ export const SearchInput: FC = () => {
         setState(true);
         setInputState(e.target.value);
     };
-    const search = async() => {
-        try {
-            const response = await axios.get(`${BASE_URL}/applications/form/?search=${inputState}`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
-            })
-            console.log(response);
-        } catch (error) {
-            console.log(error);
-        }
-    }
     return (
         <div className={styles.Search}>
             <SearchNormal1
@@ -34,7 +20,6 @@ export const SearchInput: FC = () => {
                 value={inputState}
                 onChange={change}
             />
-            <button onClick={search}>Search</button>
             <CloseSquare
                 variant="Bold"
                 color="#3B3B3B"

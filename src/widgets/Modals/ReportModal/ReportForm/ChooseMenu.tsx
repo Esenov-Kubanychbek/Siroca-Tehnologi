@@ -1,31 +1,32 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import styles from "./report.module.scss";
 
 interface Props {
-    itemsData: object;
-    upChoose: () => void;
+    itemsData: string[]; // типизируем itemsData как массив строк
+    upChoose: (choosed: { choosedItem: string; input: string }) => void; // функция upChoose принимает объект с определенными свойствами
     inputId: string;
 }
 
 const ChooseMenu: FC<Props> = ({ itemsData, upChoose, inputId }) => {
-    const onChoos = (ev: any) => {
+    const onChoos = (ev: React.MouseEvent<HTMLParagraphElement>) => {
         const choosed = {
-            choosedItem: ev.target.id,
+            choosedItem: ev.currentTarget.id,
             input: inputId,
         };
 
         upChoose(choosed);
     };
-    const maping = itemsData.map((el) => {
-        return (
-            <p
-                id={el}
-                onClick={onChoos}
-            >
-                {el}
-            </p>
-        );
-    });
+
+    const maping = itemsData.map((el) => (
+        <p
+            key={el} // добавляем ключ для каждого элемента списка
+            id={el}
+            onClick={onChoos}
+        >
+            {el}
+        </p>
+    ));
+
     return <div className={styles.ChooseMenu}>{maping}</div>;
 };
 

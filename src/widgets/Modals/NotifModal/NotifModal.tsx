@@ -6,6 +6,7 @@ import { FC } from "react";
 
 export const NotifModal: FC = () => {
     const modal = useNotif();
+    console.log(modal);
     return (
         <div className={styles.NotifModal}>
             <div className={styles.Container}>
@@ -20,7 +21,7 @@ export const NotifModal: FC = () => {
                 <div className={styles.ContentBlock}>
                     <div className={styles.InnerCont}>
                         <NewNotification active={true} />
-                        <NewNotification active={false} />
+                        {/* <NewNotification active={false} /> */}
                     </div>
                 </div>
             </div>

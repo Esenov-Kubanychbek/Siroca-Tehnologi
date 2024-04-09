@@ -9,10 +9,12 @@
     justify-content: center;
     align-items: center;
     background-color: white;
+    text-align: center;
     p {
         color: #252525;
         font-size: 24px;
         font-weight: 700;
+        width: 440px;
     }
     .Container {
         display: flex;
@@ -25,8 +27,8 @@
         display: flex;
         gap: 16px;
         margin-top: 10px;
-        .BtnYes,
-        .BtnNo {
+        .Yes,
+        .No {
             border: none;
             width: 100px;
             height: 43px;
@@ -37,12 +39,12 @@
             font-size: 18px;
             font-weight: 700;
         }
-        .BtnYes {
+        .Yes {
             background: none;
             color: $blue;
             border: 1px solid $blue;
         }
-        .BtnNo {
+        .No {
             background-color: $blue;
             color: white;
         }

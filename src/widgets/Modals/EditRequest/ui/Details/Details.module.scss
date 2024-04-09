@@ -1,0 +1,38 @@
+@import "index.scss";
+
+.Details {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    .Container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        .Text {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .Name {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .StatusRequest {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+}
+
+.visible {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}

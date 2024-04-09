@@ -21,24 +21,22 @@ export const CreateUser: FC = () => {
         { name: "main_company", value: null },
         { name: "job_title", value: null },
         { name: "image", value: null },
-    ])
+    ]);
     const positionFunc = usePosition();
     const modal = useUser();
     const success = useSuccess();
-
 
     const postTrim = async (e: FormEvent<HTMLFormElement>) => {
         try {
             e.preventDefault();
             const fl = await formValues.filter((el) => {
                 if (el.value === null) {
-                    return el
+                    return el;
                 } else {
-                    return
+                    return;
                 }
-
-            })
-            const formData = new FormData()
+            });
+            const formData = new FormData();
             if (fl[0]) {
                 console.log("postrim err");
             } else if (!fl[0]) {
@@ -51,17 +49,16 @@ export const CreateUser: FC = () => {
                         }
                     }
                 });
-                const response = await axios.post(`${BASE_URL}/users/create/`,formData)
+                const response = await axios.post(`${BASE_URL}/users/create/`, formData);
                 console.log(response);
             }
         } catch (error) {
             console.log(formValues);
-            
         }
     };
     const addValues = (e: React.ChangeEvent<HTMLInputElement>) => {
         const state = [...formValues];
-        state.map((el: {name: string, value: null | string | File}) => {
+        state.map((el: { name: string; value: null | string | File }) => {
             if (el.name === e.target.name) {
                 if (el.name === "image") {
                     el.value = e.target.files ? e.target.files[0] : null;
@@ -72,7 +69,7 @@ export const CreateUser: FC = () => {
             return el;
         });
         setFormValue(state);
-    }
+    };
 
     return (
         <form

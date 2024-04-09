@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./ItemRoles.module.scss";
+import { IUser } from "../../../../shared/types/userTypes";
 
-interface IUser {
-    username: string;
-    role_type: string;
-}
+// interface IUser {
+//     username: string;
+//     role_type: string;
+// }
 
 interface IItemSettingRoles {
     user: IUser;
@@ -16,22 +17,24 @@ interface IItemSettingRoles {
 
 const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxList, getBoxes, inBoxList }) => {
     const [boxes, setBoxes] = useState<{ [key: string]: boolean }>({
-        "client_can_edit_comments": false,
-        "client_can_get_reports": false,
-        "client_can_view_logs": false,
-        "client_can_add_files": false,
-        "client_can_add_checklist": false,
-        "client_can_view_profiles": false
+        client_can_edit_comments: false,
+        client_can_get_reports: false,
+        client_can_view_logs: false,
+        client_can_add_files: false,
+        client_can_add_checklist: false,
+        client_can_view_profiles: false,
     });
 
     const getCheckBoxVal = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        const name = ev.target.name;
-        setBoxes(prevBoxes => ({
-            ...prevBoxes,
-            [name]: !prevBoxes[name]
-        }));
+        const name = Number(ev.target.name);
+        const time = Object.entries(boxes);
+        time[name][1] = !time[name][1];
+        const preventr = Object.fromEntries(time);
+        setBoxes(preventr);
     };
-
+    // useEffect(() => {
+    //     console.log(boxes);
+    // }, [boxes])
     useEffect(() => {
         const updatedUser: IUser = { ...user, ...boxes };
         getBoxes(updatedUser);
@@ -40,7 +43,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxLi
     useEffect(() => {
         const filteredInBoxList = inBoxList.filter((el: IUser) => el.username === user.username);
         const entrTheGets = filteredInBoxList.length > 0 ? filteredInBoxList[0] : null;
-        const fmTheGets = entrTheGets ? Object.entries(entrTheGets).slice(2) : null;
+        const fmTheGets = entrTheGets ? Object.entries(entrTheGets).slice(3) : null;
         const finishGets = fmTheGets ? Object.fromEntries(fmTheGets) : boxes;
         setBoxes(finishGets);
     }, [inBoxList]);
@@ -54,7 +57,8 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxLi
                 <p>{user.username}</p>
             </div>
             {checkBoxList[0].map((el, index: number) => {
-                const isChecked = boxes ? Object.entries(boxes)[index][1] : false
+                const isChecked = boxes ? Object.entries(boxes)[index][1] : false;
+                console.log(el);
                 return (
                     <div className={styles.el}>
                         <input

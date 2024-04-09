@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { dataCompanies, useDataStoreComponies } from '../../../Admin/Companies/api/componiesApi';
+import { dataCompanies } from '../../../Admin/Companies/api/componiesApi';
 import axios from 'axios';
 
 // Добавляем объявление Symbol.iterator для типа number | undefined[]

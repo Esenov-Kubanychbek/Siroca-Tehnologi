@@ -30,8 +30,11 @@ export const Authorization: FC = () => {
             if (response.status === 200) {
                 const access = response.data.access;
                 localStorage.setItem("access", access);
-                if (login === "admin@siroca.com") {
+                localStorage.setItem("role_type", response.data.role_type);
+                if (response.data.role_type === "") {
                     navigate(PATHS.admin);
+                } else if (response.data.role_type === "manager") {
+                    navigate(PATHS.manager);
                 } else {
                     navigate(PATHS.client); 
                 }
@@ -42,6 +45,7 @@ export const Authorization: FC = () => {
             setErr(true);
         }
     };
+
     const modal = useCallToAdmin();
     return (
         <form
@@ -68,7 +72,10 @@ export const Authorization: FC = () => {
                 <div className={err ? styles.ErrInputCont : styles.InputCont}>
                     <p>Логин</p>
                     <input
-                        onChange={(e) => setLogin(e.target.value)}
+                        onChange={(e) => {
+                            setLogin(e.target.value);
+                        }}
+                        onClick={() => setErr(false)}
                         placeholder="Введите логин"
                         type="text"
                     />
@@ -82,7 +89,7 @@ export const Authorization: FC = () => {
                             type={handleEye ? "text" : "password"}
                         />
                         <div
-                            className={styles.Eye}
+                            className={err ? styles.EyeErr : styles.Eye}
                             onClick={openPass}
                         >
                             {handleEye ? (

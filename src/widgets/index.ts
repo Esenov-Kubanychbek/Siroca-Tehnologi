@@ -23,3 +23,4 @@ export { ReadyModal } from "./Modals/ReadyModal/ReadyModal";
 export { ViewCompany } from "./Modals/ViewCompany/ViewCompany";
 export { HeaderTop } from "./HeaderTop/HeaderTop";
 export { HeaderBottom } from "./HeaderBottom/HeaderBottom";
+export { EditRequest } from "./Modals/EditRequest/EditRequest";
