@@ -14,7 +14,7 @@ import { deleteUserApi } from "./api/deleteUserApi";
 export const ViewUser: FC = () => {
     const positionFunc = usePosition();
     const fetchData = usersApi();
-    const deleting = deleteUserApi()
+    const deleting = deleteUserApi();
     const modal = useViewUser();
     const success = useSuccess();
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
@@ -32,11 +32,11 @@ export const ViewUser: FC = () => {
         }
     };
     const deleteUser = () => {
-        deleting.deleteUser(fetchData.oneUserGet.id)
-        modal.close()
-        success.open()
+        deleting.deleteUser(fetchData.oneUserGet.id);
+        modal.close();
+        success.open();
         setTimeout(success.close, 1000);
-    }
+    };
     return (
         <form
             className={styles.ViewUser}
@@ -73,9 +73,7 @@ export const ViewUser: FC = () => {
                     </div>
                     <div>
                         <div className={styles.Text}>Тип роли</div>
-                        <RoleButton
-                            role={fetchData.oneUserGet.role_type}
-                        />
+                        <RoleButton role={fetchData.oneUserGet.role_type} />
                     </div>
                 </div>
             </div>
@@ -126,7 +124,11 @@ export const ViewUser: FC = () => {
                 </div>
             </div>
             <div className={styles.Buttons}>
-                <button type="button" className={styles.Delete} onClick={deleteUser}>
+                <button
+                    type="button"
+                    className={styles.Delete}
+                    onClick={deleteUser}
+                >
                     Удалить
                 </button>
                 <CustomButton

@@ -5,10 +5,10 @@ import { CustomSelect } from "../../../CreateCompany/ui/CustomSelect";
 
 interface IDetails {
     title: string;
-    onChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
+    onChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }
 
-export const Details: FC<IDetails> = ({onChange, title}) => {
+export const Details: FC<IDetails> = ({ onChange, title }) => {
     const data: string[] = ["Высокий", "Средний", "Низкий"];
     const data2: string[] = ["К выполнению", "В работе", "Тестируется", "Перекрыто", "На обновлении", "В работе"];
     return (

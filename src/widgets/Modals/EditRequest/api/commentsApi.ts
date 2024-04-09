@@ -17,7 +17,7 @@ export const commentsApi = create<IFetch>(() => ({
         try {
             const postResponse = await axios.post(`${BASE_URL}/applications/comments/`, postState, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
             console.log(postResponse);

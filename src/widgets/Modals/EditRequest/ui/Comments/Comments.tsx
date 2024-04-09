@@ -1,7 +1,7 @@
 import { ChangeEvent, FC } from "react";
 import { CustomTextArea } from "../../../../../shared/ui";
 
-export const Comments: FC<{onChange: (e: ChangeEvent<HTMLTextAreaElement>)=> void}> = ({onChange}) => {
+export const Comments: FC<{ onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void }> = ({ onChange }) => {
     return (
         <CustomTextArea
             name="text"

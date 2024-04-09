@@ -1,20 +1,22 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./SelectFilterItem.module.scss";
 
 interface ISelectItem {
     el: {
         text: string;
-        values: string[]; // Указываем тип элементов в массиве
+        values: string[];
         type: string;
         pos: number;
     };
-    getSelect: (obj: { selected: string[]; type: string }) => void; // Указываем тип функции, ожидающей объект с определенными свойствами
+    getSelect: (obj: { selected: string[]; type: string }) => void;
 }
 export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
-    const [selects, setSelects] = useState<string[]>([]); // Указываем тип для состояния selects
+    console.log(el);
+
+    const [selects, setSelects] = useState<string[]>([]);
 
     const addSelect = (e: { currentTarget: { id: string } }) => {
-        const value = e.currentTarget.id; // Используем id элемента в качестве значения
+        const value = e.currentTarget.id;
         if (selects.includes(value)) {
             const filteredSelects = selects.filter((item) => item !== value);
             setSelects(filteredSelects);
@@ -37,10 +39,15 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
             className={styles.FilterItem}
             style={{ left: `${el.pos}px` }}
         >
+            <button
+                className={styles.add}
+                onClick={onUseSelects}
+            >
+                Применить
+            </button>
             {el.values &&
-                el.values.map((elem: string | number, index) => {
-                    // Проверяем, есть ли значения, прежде чем мапить
-                    const displayedText = String(elem).length > 10 ? String(elem).substring(0, 10) + "..." : elem; // Преобразуем в строку перед проверкой длины
+                el.values.map((elem: string | number | boolean, index) => {
+                    const displayedText = String(elem).length > 10 ? String(elem).substring(0, 10) + "..." : elem;
                     return (
                         <div
                             className={styles.Cont}
@@ -62,12 +69,6 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
                         </div>
                     );
                 })}
-            <button
-                className={styles.add}
-                onClick={onUseSelects}
-            >
-                Применить
-            </button>
         </div>
     );
 };

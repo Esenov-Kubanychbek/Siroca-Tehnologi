@@ -1,5 +1,5 @@
 export interface IReady {
     content: string;
-    no: () => void;
-    yes: () => void;
+    no?: () => void;
+    yes?: () => void;
 }

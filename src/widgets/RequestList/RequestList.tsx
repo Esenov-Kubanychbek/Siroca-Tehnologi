@@ -1,5 +1,5 @@
 import styles from "./RequestList.module.scss";
-import { FC, useEffect, useState } from "react";
+import { FC, MouseEvent, useEffect, useState } from "react";
 import { Request } from "../../entities";
 import { RequestTop } from "..";
 import { ConfigProvider } from "antd";
@@ -13,11 +13,12 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     const [page, setPage] = useState<{ now: number }>({ now: 1 });
     const [reqCount, setReqCount] = useState<number>(0);
     const [prevNext, setPrevNext] = useState<{ prev: boolean; next: boolean }>({ prev: false, next: false });
-    const apiLength = api.length;
+
     const fetchRequest = getRequestApi();
+    const apiLength = fetchRequest.getState;
     const reqPage = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/applications/form/?page=${page.now}`, {
+            const response = await axios.get(`${BASE_URL}/applications/form/?page=${page.now}&${api}`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
@@ -26,13 +27,17 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
             fetchRequest.setState(response.data.results.results);
             fetchRequest.setFilterState(response.data.results.results);
             const results = response.data.results;
-            if (results.next) {
-                const nxt = { prev: prevNext.prev, next: true };
-                setPrevNext(nxt);
+            console.log(response);
+
+            if (response.data) {
+                setPrevNext((prev: { prev: boolean; next: boolean }) => {
+                    return { ...prev, next: true };
+                });
             }
-            if (results.preview) {
-                const nxt = { prev: true, next: prevNext.next };
-                setPrevNext(nxt);
+            if (response.data) {
+                setPrevNext((prev: { prev: boolean; next: boolean }) => {
+                    return { ...prev, prev: true };
+                });
             }
             console.log(results);
 
@@ -47,10 +52,33 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     }, [page.now]);
 
     const renderPagButtons = () => {
-        const pageCount = reqCount / 50;
-        for (let index = 2; index <= pageCount; index++) {
+        if (Math.ceil(reqCount / 50) > 1) {
+            for (let index = 2; index <= 5; index++) {
+                return (
+                    <button
+                        onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                            const targetId = (e.target as HTMLDivElement)?.id; // Проверяем, что e.target является HTMLDivElement и имеет свойство id
+                            setPage({ now: Number(targetId) });
+                        }}
+                        id={`${index}`}
+                        className={styles.paginBtn}
+                    >
+                        {index}
+                    </button>
+                );
+            }
+        } else {
+            return;
+        }
+    };
+    const renderMoreBtns = () => {
+        for (let index = 6; index <= Math.ceil(reqCount / 50); index++) {
             return (
                 <button
+                    onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                        const targetId = (e.target as HTMLDivElement)?.id; // Проверяем, что e.target является HTMLDivElement и имеет свойство id
+                        setPage({ now: Number(targetId) });
+                    }}
                     id={`${index}`}
                     className={styles.paginBtn}
                 >
@@ -60,9 +88,15 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
         }
     };
     const nextPage = () => {
-        // if(prevNext.next){
-        setPage({ now: page.now + 1 });
-        // }
+        if (prevNext.next) {
+            setPage({ now: page.now + 1 });
+        }
+    };
+
+    const prevPage = () => {
+        if (prevNext.prev) {
+            setPage({ now: page.now - 1 });
+        }
     };
     return (
         <div>
@@ -82,7 +116,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     <div className={styles.Nothing}>По вашему запросу ничего не найдено!</div>
                 )}
             </div>
-            {apiLength > 1 ? (
+            {apiLength.length > 1 ? (
                 <div className={styles.Pagination}>
                     <ConfigProvider
                         theme={{
@@ -103,14 +137,25 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                         }}
                     >
                         <div className={styles.pagination}>
-                            <button className={styles.pagToggle}>
+                            <button
+                                onClick={prevPage}
+                                className={styles.pagToggle}
+                            >
                                 <ArrowLeft2
                                     size={24}
-                                    style={prevNext.prev ? { color: "#DEDEDE" } : { color: "black" }}
+                                    style={prevNext.prev ? { color: "black" } : { color: "#DEDEDE" }}
                                 />
                             </button>
-                            <button className={styles.paginBtn}>{page.now}</button>
+                            <button
+                                onClick={() => {
+                                    setPage({ now: 1 });
+                                }}
+                                className={styles.paginBtn}
+                            >
+                                1
+                            </button>
                             {renderPagButtons()}
+                            {Math.ceil(reqCount / 50) > 5 ? "..." + renderMoreBtns() : null}
                             <button
                                 onClick={nextPage}
                                 className={styles.pagToggle}
@@ -119,8 +164,8 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                                     size={24}
                                     style={
                                         prevNext.prev
-                                            ? { color: "#DEDEDE", transform: "rotate(-180deg)" }
-                                            : { color: "black", transform: "rotate(-180deg)" }
+                                            ? { color: "black", transform: "rotate(-180deg)" }
+                                            : { color: "#DEDEDE", transform: "rotate(-180deg)" }
                                     }
                                 />
                             </button>

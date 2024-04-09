@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { BASE_URL } from "../../../shared/variables/variables";
 
 export interface IGetRequest {
+    [key: string]: string | number;
     task_number: string;
     title: string;
     description: string;

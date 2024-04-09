@@ -4,7 +4,7 @@ import { BriefDescription, CheckList, Comments, DatesContainer, Description, Det
 import { IRequest } from "../../../CreateRequest/api/requestApi";
 
 interface ICollapses {
-    request: IRequest
+    request: IRequest;
     onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
 }
 
@@ -13,7 +13,12 @@ export const Collapses: FC<ICollapses> = ({ onChange, request }) => {
         {
             key: "1",
             label: "Детали заявки",
-            children: <Details onChange={onChange} title={request.title}/>,
+            children: (
+                <Details
+                    onChange={onChange}
+                    title={request.title}
+                />
+            ),
         },
         {
             key: "2",
@@ -33,7 +38,7 @@ export const Collapses: FC<ICollapses> = ({ onChange, request }) => {
         {
             key: "5",
             label: "Комментарии",
-            children: <Comments onChange={onChange}/>,
+            children: <Comments onChange={onChange} />,
         },
         {
             key: "6",
@@ -43,7 +48,7 @@ export const Collapses: FC<ICollapses> = ({ onChange, request }) => {
         {
             key: "7",
             label: "Краткое описание",
-            children: <BriefDescription onChange={onChange}/>,
+            children: <BriefDescription onChange={onChange} />,
         },
         {
             key: "8",
@@ -53,7 +58,7 @@ export const Collapses: FC<ICollapses> = ({ onChange, request }) => {
     ];
     return (
         <Collapse
-            defaultActiveKey={[1,2,3,4,5,6,7,8]}
+            defaultActiveKey={[1, 2, 3, 4, 5, 6, 7, 8]}
             items={items}
         />
     );

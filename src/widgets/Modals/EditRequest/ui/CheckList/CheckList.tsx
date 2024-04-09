@@ -9,7 +9,7 @@ import { ICheckList, checkListApi } from "../../api/checkListApi";
 export const CheckList: FC = () => {
     const data: string[] = ["Абдурахман", "Аман", "Кубанычбек", "Далер"];
     const { display, toggleDisplay } = useDisplayStore();
-    const fetchData = checkListApi()
+    const fetchData = checkListApi();
 
     const [checkValue, setCheckValue] = useState<ICheckList>({
         text: "",
@@ -26,9 +26,9 @@ export const CheckList: FC = () => {
     };
 
     const postCheck = () => {
-        fetchData.posting(checkValue)
+        fetchData.posting(checkValue);
         console.log(checkValue, "postCheck");
-    }
+    };
 
     return (
         <div className={styles.CheckList}>

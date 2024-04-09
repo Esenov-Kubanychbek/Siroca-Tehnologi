@@ -9,14 +9,14 @@ export interface ICreateRequest {
 }
 
 interface IFetch {
-    oneRequest: ICreateRequest
+    oneRequest: ICreateRequest;
     posting: (postState: ICreateRequest) => void;
 }
 
 export const requestApi = create<IFetch>((set) => ({
     oneRequest: {
         title: "",
-        company: 1
+        company: 1,
     },
     posting: async (postState) => {
         try {
@@ -25,7 +25,7 @@ export const requestApi = create<IFetch>((set) => ({
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            set({oneRequest: postState})
+            set({ oneRequest: postState });
             console.log(postResponse);
         } catch (error) {
             console.log(error, "postRequestError");

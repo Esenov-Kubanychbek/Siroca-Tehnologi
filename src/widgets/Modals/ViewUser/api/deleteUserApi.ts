@@ -14,5 +14,5 @@ export const deleteUserApi = create<IFetch>(() => ({
         } catch (error) {
             console.log(error, "deleteUserError");
         }
-    }
+    },
 }));

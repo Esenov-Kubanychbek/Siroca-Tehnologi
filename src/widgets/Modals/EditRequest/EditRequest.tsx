@@ -39,7 +39,7 @@ export const EditRequest: FC<{ request: ICreateRequest }> = ({ request }) => {
     };
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        fetchData.editRequest(requestState, 1)
+        fetchData.editRequest(requestState, 1);
         modal.close();
         console.log("success");
     };
@@ -64,7 +64,10 @@ export const EditRequest: FC<{ request: ICreateRequest }> = ({ request }) => {
                         Номер заявки: <span>565646465</span>
                     </div>
                 </div>
-                <Collapses onChange={RequestCreateValue} request={request}/>
+                <Collapses
+                    onChange={RequestCreateValue}
+                    request={request}
+                />
                 <div className={styles.Buttons}>
                     <CustomButton
                         type="button"

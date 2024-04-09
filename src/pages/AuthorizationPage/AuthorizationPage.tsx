@@ -29,8 +29,11 @@ export const Authorization: FC = () => {
             if (response.status === 200) {
                 const access = response.data.access;
                 localStorage.setItem("access", access);
-                if (login === "admin@siroca.com") {
+                localStorage.setItem("role_type", response.data.role_type);
+                if (response.data.role_type === "") {
                     navigate(PATHS.admin);
+                } else if (response.data.role_type === "manager") {
+                    navigate(PATHS.manager);
                 } else {
                     navigate(PATHS.client);
                 }

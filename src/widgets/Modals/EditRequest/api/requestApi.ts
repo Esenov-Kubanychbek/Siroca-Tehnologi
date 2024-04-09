@@ -17,14 +17,14 @@ export interface IRequest {
     offer_date?: string;
     start_date?: string;
     finish_date?: string;
-    deadline_date?: string
+    deadline_date?: string;
     company?: number;
     main_client?: number | null;
     main_manager?: number | null;
 }
 
 interface IFetch {
-    editRequest: (request: IRequest, id: number) => void
+    editRequest: (request: IRequest, id: number) => void;
 }
 
 export const requestApi = create<IFetch>(() => ({
@@ -34,10 +34,10 @@ export const requestApi = create<IFetch>(() => ({
                 headers: {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
-            })
+            });
             console.log(editResponse, "editRequestSuccess");
         } catch (error) {
             console.log(error, "editRequestError");
         }
-    }
+    },
 }));

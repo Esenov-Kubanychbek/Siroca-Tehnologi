@@ -6,7 +6,7 @@ export interface IInput {
     height?: number;
     background?: string;
     value?: string | number;
-    defaultValue?: string | number; 
+    defaultValue?: string | number;
     name?: string;
     type?: string;
     paddingLeft?: number;

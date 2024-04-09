@@ -14,6 +14,7 @@ interface Props {}
 
 export const RolesSettingsPage: FC<Props> = () => {
     const [boxesReg, setBoxesReg] = useState<IUser[]>([]);
+    const [navtype, setNavtype] = useState<string>("all");
     const headerSettingsList: string[] = [
         "Добавление/удаление комментария к заявке",
         "Скачивание отчета по заявкам",
@@ -59,9 +60,12 @@ export const RolesSettingsPage: FC<Props> = () => {
 
     useEffect(() => {
         scrollToBottom();
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = 0;
+        }
     }, []);
 
-    const reqRoles = async (data: IUser[]) => {
+    const reqRoles = async (data: IUser) => {
         try {
             const response = await axios.put(`${BASE_URL}/users/clientpermissions/detail/`, data, {
                 headers: {
@@ -74,14 +78,15 @@ export const RolesSettingsPage: FC<Props> = () => {
         }
     };
 
-    useEffect(() => {
-        saveRoles();
-    }, [boxesReg]);
-
     const saveRoles = () => {
         boxesReg.forEach((el: IUser) => {
             reqRoles(el);
         });
+    };
+
+    const changeNav = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const id = (e.target as HTMLButtonElement).id;
+        setNavtype(id);
     };
 
     return (
@@ -98,7 +103,7 @@ export const RolesSettingsPage: FC<Props> = () => {
                         >
                             <div className={styles.Icn}>
                                 <ArrowRight
-                                    size={24}
+                                    size={34}
                                     color="#1C6AB1"
                                 />
                             </div>
@@ -117,6 +122,34 @@ export const RolesSettingsPage: FC<Props> = () => {
                         </button>
                     </div>
                 </div>
+                <div className={styles.topnav}>
+                    <button
+                        onClick={changeNav}
+                        id="client"
+                    >
+                        Клиент
+                    </button>
+                    <button
+                        onClick={changeNav}
+                        id="manager"
+                    >
+                        Менеджер
+                    </button>
+                </div>
+                <div className={styles.Navigation}>
+                    <button
+                        onClick={changeNav}
+                        id="all"
+                    >
+                        Все права
+                    </button>
+                    <button
+                        onClick={changeNav}
+                        id="manager"
+                    >
+                        Права админа
+                    </button>
+                </div>
                 <HeaderSettings
                     name="Имя пользователя"
                     list={headerSettingsList}
@@ -125,6 +158,7 @@ export const RolesSettingsPage: FC<Props> = () => {
                     users={fetchData.inState ? fetchData.inState : []}
                     list={renderSettingsList}
                     getChanges={(e: IUser[]) => setBoxesReg(e)}
+                    navType={navtype}
                 />
             </div>
         </div>
