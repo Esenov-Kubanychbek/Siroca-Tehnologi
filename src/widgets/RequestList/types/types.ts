@@ -1,5 +1,3 @@
-import { IGetRequest } from "../api/getRequestApi";
-
 export interface IObject {
     number: string;
     company: string;
@@ -15,5 +13,5 @@ export interface IObject {
 
 export interface IRequest {
     role: string;
-    api: IGetRequest[];
+    api: string;
 }

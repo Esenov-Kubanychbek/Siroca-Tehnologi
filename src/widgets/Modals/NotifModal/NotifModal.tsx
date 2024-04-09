@@ -6,6 +6,7 @@ import { FC } from "react";
 
 export const NotifModal: FC = () => {
     const modal = useNotif();
+    console.log(modal);
     return (
         <div className={styles.NotifModal}>
             <div className={styles.Container}>

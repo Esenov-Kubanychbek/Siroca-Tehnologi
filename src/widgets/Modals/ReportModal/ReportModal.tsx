@@ -5,6 +5,7 @@ import { FC, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../shared/variables/variables";
 import { useReport } from "../../../shared/hooks/modalHooks";
+import { FileExcelFilled } from "@ant-design/icons";
 
 interface ResultsData {
     company: string;
@@ -15,6 +16,7 @@ interface ResultsData {
 
 interface ExcelData {
     filtered_data_size: number;
+    results: {company: string}[]
     // Добавьте другие свойства из ответа API, если это необходимо
 }
 
@@ -80,7 +82,7 @@ export const ReportModal: FC = () => {
 
 
     const modal = useReport();
-
+    
     return (
         <div className={styles.RepModalWindow}>
             <div className={styles.Header1}>
@@ -105,10 +107,10 @@ export const ReportModal: FC = () => {
                 <div className={styles.ExcelCont}>
                     <div className={styles.ExelUpload}>
                         <div className={styles.ItemXl}>
-                            <div className={styles.Icn}></div>
-                            <p className={styles.Name}>Интеграция Лис Мбанк</p>
+                            <div className={styles.Icn} style={{margin: "0px 10px"}}><FileExcelFilled size={30}/></div>
+                            <p className={styles.Name}>{excel.results[0].company}</p>
                         </div>
-                        <p className={styles.kb}>{excel.filtered_data_size / 100} kb</p>
+                        <p className={styles.kb}>{excel.filtered_data_size / 1000} kb</p>
                     </div>
                     <button onClick={downLoad} className={styles.DonwloadBtn}>Скачать <Import /></button>
                 </div>

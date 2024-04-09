@@ -45,7 +45,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             children: (
                 <RequestList
                     role={role}
-                    api={fetchRequest.getState}
+                    api={'all_time=1'}
                 />
             ),
         },
@@ -55,7 +55,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             children: (
                 <RequestList
                     role={role}
-                    api={fetchRequest.getState}
+                    api={'week=0'}
                 />
             ),
         },
@@ -65,7 +65,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             children: (
                 <RequestList
                     role={role}
-                    api={fetchRequest.getState}
+                    api={'month=1'}
                 />
             ),
         },

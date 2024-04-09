@@ -40,7 +40,7 @@ export const RolesSettingsPage: FC<Props> = () => {
     useEffect(() => {
         fetchData.getting();
     }, []);
-
+    
     const navigate = useNavigate();
 
     const nvMenu = () => {
@@ -60,6 +60,10 @@ export const RolesSettingsPage: FC<Props> = () => {
 
     useEffect(() => {
         scrollToBottom();
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = 0;
+        }
+    
     }, []);
 
     const reqRoles = async (data: IUser) => {
@@ -120,11 +124,8 @@ export const RolesSettingsPage: FC<Props> = () => {
                         Все права
                     </button>
                     <button onClick={changeNav} id="manager">
-                        Права менеджера
+                        Права админа
                     </button>
-                    {/* <button onClick={changeNav} id="client">
-                        Клиент
-                    </button> */}
                 </div>
                 <HeaderSettings name="Имя пользователя" list={headerSettingsList} />
                 <RolesRender

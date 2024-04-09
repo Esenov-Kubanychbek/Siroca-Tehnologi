@@ -13,17 +13,16 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     const [page, setPage] = useState<{ now: number }>({ now: 1 })
     const [reqCount, setReqCount] = useState<number>(0)
     const [prevNext, setPrevNext] = useState<{ prev: boolean, next: boolean }>({ prev: false, next: false })
-    const apiLength = api.length;
+   
     const fetchRequest = getRequestApi()
+     const apiLength = fetchRequest.getState;
     const reqPage = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/applications/form/?page=${page.now}`, {
+            const response = await axios.get(`${BASE_URL}/applications/form/?page=${page.now}&${api}`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem("access")}`
                 }
             })
-            console.log(response);
-
             setReqCount(response.data.results.created_count)
             fetchRequest.setState(response.data.results.results)
             fetchRequest.setFilterState(response.data.results.results)
@@ -54,17 +53,21 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     }, [page.now])
 
     const renderPagButtons = () => {
-        for (let index = 2; index <= 5; index++) {
-            return (
-                <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
-                    const targetId = (e.target as HTMLDivElement)?.id; // Проверяем, что e.target является HTMLDivElement и имеет свойство id
-                    setPage({ now: Number(targetId) })
-                }} id={`${index}`} className={styles.paginBtn}>{index}</button>
-            )
+        if (Math.ceil(reqCount / 50) > 1) {
+            for (let index = 2; index <= 5; index++) {
+                return (
+                    <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                        const targetId = (e.target as HTMLDivElement)?.id; // Проверяем, что e.target является HTMLDivElement и имеет свойство id
+                        setPage({ now: Number(targetId) })
+                    }} id={`${index}`} className={styles.paginBtn}>{index}</button>
+                )
+            }
+        }else{
+            return
         }
+
     }
     const renderMoreBtns = () => {
-        
         for (let index = 6; index <= Math.ceil(reqCount / 50); index++) {
             return (
                 <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
@@ -103,7 +106,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     <div className={styles.Nothing}>По вашему запросу ничего не найдено!</div>
                 )}
             </div>
-            {apiLength > 1 ? (
+            {apiLength.length > 1 ? (
                 <div className={styles.Pagination}>
                     <ConfigProvider
                         theme={{

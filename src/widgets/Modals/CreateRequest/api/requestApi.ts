@@ -19,6 +19,7 @@ export interface IRequest {
     company?: number;
     main_client?: number | null;
     main_manager?: number | null;
+    api: string
 }
 
 interface IFetch {

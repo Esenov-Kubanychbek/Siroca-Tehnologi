@@ -32,9 +32,9 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxLi
         const preventr = Object.fromEntries(time)
         setBoxes(preventr)
     };
-    useEffect(() => {
-        console.log(boxes);
-    }, [boxes])
+    // useEffect(() => {
+    //     console.log(boxes);
+    // }, [boxes])
     useEffect(() => {
         const updatedUser: IUser = { ...user, ...boxes };
         getBoxes(updatedUser);
@@ -58,6 +58,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxLi
             </div>
             {checkBoxList[0].map((el, index: number) => {
                 const isChecked = boxes ? Object.entries(boxes)[index][1] : false
+                console.log(el);
                 return (
                     <div className={styles.el}>
                         <input
