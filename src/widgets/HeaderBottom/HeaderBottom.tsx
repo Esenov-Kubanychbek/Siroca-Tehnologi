@@ -10,21 +10,24 @@ import { ReqSearch } from "../../features/TimeFilter/ui/ReqSearch";
 export const HeaderBottom: FC<{ role: "client" | "manager" | "admin" }> = ({ role }) => {
     const [report, setReport] = useState<boolean>(false);
     const modal = useRequest();
-    const [isFilter, setIsFilter] = useState(false)
+    const [isFilter, setIsFilter] = useState(false);
 
     const onFilter = () => {
-        setIsFilter(!isFilter)
-    }
+        setIsFilter(!isFilter);
+    };
     return (
         <div className={styles.HeaderBottom}>
-            <TimeFilter isFilter={isFilter} role={role} />
+            <TimeFilter
+                isFilter={isFilter}
+                role={role}
+            />
             <div
                 className={styles.BottomRight}
                 style={{ width: role === "admin" ? "1375px" : "1455px" }}
             >
                 <ReqSearch />
                 <div className={styles.SecondRight}>
-                    <FilterButton onClick={onFilter}/>
+                    <FilterButton onClick={onFilter} />
                     {role === "client" ? null : (
                         <div style={{ display: "flex", gap: "16px" }}>
                             <div onClick={modal.open}>
@@ -56,7 +59,8 @@ export const HeaderBottom: FC<{ role: "client" | "manager" | "admin" }> = ({ rol
                 </div>
             </div>
             <Modal
-                width={700}
+                centered
+                width={500}
                 open={modal.isOpen}
                 onCancel={modal.close}
             >

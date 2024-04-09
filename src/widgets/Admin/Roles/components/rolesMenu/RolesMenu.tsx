@@ -19,13 +19,13 @@ const RolesMenu: React.FC<IRolesMenu> = () => {
         try {
             const responseClients = await axios.get(`${BASE_URL}/users/clientpermissions/general`, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
             });
             const responseManeger = await axios.get(`${BASE_URL}/users/managerpermissions/general/`, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
             });
             setBoxesClient(responseClients.data);
             setBoxesManeger(responseManeger.data);
@@ -46,14 +46,14 @@ const RolesMenu: React.FC<IRolesMenu> = () => {
         "Добавление/удаление комментария к заявке",
         "Скачивание отчёта",
         "Просмотр изменений истории по заявке 'Logs'",
-        "Просмотр профиль другого пользователя"
+        "Просмотр профиль другого пользователя",
     ];
 
     const ManegerList: string[] = [
         "Удаление комментариев пользователей",
         "Скачивание отчёта",
         "Просмотр профиля других пользователей",
-        "Удаление заявки"
+        "Удаление заявки",
     ];
 
     const getCheckBoxVal = (e: [string, React.ChangeEvent<HTMLInputElement>]) => {
@@ -84,13 +84,13 @@ const RolesMenu: React.FC<IRolesMenu> = () => {
         try {
             const responseClient = await axios.put(`${BASE_URL}/users/clientpermissions/general`, boxesClient, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
             });
             const responseManeger = await axios.put(`${BASE_URL}/users/managerpermissions/general/`, boxesManeger, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
             });
 
             console.log(responseClient, responseManeger);

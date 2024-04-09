@@ -16,7 +16,7 @@ interface ResultsData {
 
 interface ExcelData {
     filtered_data_size: number;
-    results: {company: string}[]
+    results: { company: string }[];
     // Добавьте другие свойства из ответа API, если это необходимо
 }
 
@@ -24,17 +24,17 @@ export const ReportModal: FC = () => {
     const [results, setResults] = useState<ResultsData | null>(null);
     const [excel, setExcel] = useState<ExcelData | false | null>(null);
 
-
-
-
     const subResults = async (e: ResultsData) => {
         setResults(e);
         try {
-            const response = await axios.get(`${BASE_URL}/applications/filter/?company_name=${e.company}&manager_first_name=${e.maneger}&start_date=${e.begin}&finish_date=${e.end}&week=unknown&month=unknown&all_time=unknown`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
-            });
+            const response = await axios.get(
+                `${BASE_URL}/applications/filter/?company_name=${e.company}&manager_first_name=${e.maneger}&start_date=${e.begin}&finish_date=${e.end}&week=unknown&month=unknown&all_time=unknown`,
+                {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem("access")}`,
+                    },
+                },
+            );
             console.log(response.data);
 
             if (response.status === 200) {
@@ -47,28 +47,30 @@ export const ReportModal: FC = () => {
         }
     };
 
-
     const downLoad = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/applications/filter/export-to-excel/?company_name=${results?.company}&manager_first_name=${results?.maneger}&start_date=${results?.begin}&finish_date=${results?.end}&week=unknown&month=unknown&all_time=unknown`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
+            const response = await axios.get(
+                `${BASE_URL}/applications/filter/export-to-excel/?company_name=${results?.company}&manager_first_name=${results?.maneger}&start_date=${results?.begin}&finish_date=${results?.end}&week=unknown&month=unknown&all_time=unknown`,
+                {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem("access")}`,
+                    },
+                    responseType: "arraybuffer", // Указываем тип ответа как массив байтов
                 },
-                responseType: 'arraybuffer' // Указываем тип ответа как массив байтов
-            });
-    
+            );
+
             // Создаем объект Blob из полученных данных
             const blob = new Blob([response.data], {
-                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             });
-    
+
             // Создаем ссылку для скачивания файла
             const url = window.URL.createObjectURL(blob);
-    
+
             // Создаем ссылку для загрузки
-            const a = document.createElement('a');
+            const a = document.createElement("a");
             a.href = url;
-            a.download = 'Report.xlsx'; // Укажите имя файла
+            a.download = "Report.xlsx"; // Укажите имя файла
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(url);
@@ -77,12 +79,9 @@ export const ReportModal: FC = () => {
             console.log(error);
         }
     };
-    
-
-
 
     const modal = useReport();
-    
+
     return (
         <div className={styles.RepModalWindow}>
             <div className={styles.Header1}>
@@ -107,12 +106,22 @@ export const ReportModal: FC = () => {
                 <div className={styles.ExcelCont}>
                     <div className={styles.ExelUpload}>
                         <div className={styles.ItemXl}>
-                            <div className={styles.Icn} style={{margin: "0px 10px"}}><FileExcelFilled size={30}/></div>
+                            <div
+                                className={styles.Icn}
+                                style={{ margin: "0px 10px" }}
+                            >
+                                <FileExcelFilled size={30} />
+                            </div>
                             <p className={styles.Name}>{excel.results[0].company}</p>
                         </div>
                         <p className={styles.kb}>{excel.filtered_data_size / 1000} kb</p>
                     </div>
-                    <button onClick={downLoad} className={styles.DonwloadBtn}>Скачать <Import /></button>
+                    <button
+                        onClick={downLoad}
+                        className={styles.DonwloadBtn}
+                    >
+                        Скачать <Import />
+                    </button>
                 </div>
             ) : null}
         </div>

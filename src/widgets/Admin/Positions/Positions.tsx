@@ -5,18 +5,20 @@ import { ListTop } from "../../../shared/ui/ListTop/ListTop";
 import { ListTopName } from "../../../shared/ui/ListTop/ListTopName";
 import styles from "./Positions.module.scss";
 import { CreatePosition } from "../../Modals/CreatePosition/CreatePosition";
-import { usePosition, useSuccess } from "../../../shared/hooks/modalHooks";
-import { FC, useEffect, useState } from "react";
+import { usePosition, usePositionReady, useSuccess } from "../../../shared/hooks/modalHooks";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { ItemInner } from "../../../shared/ui";
 import { jobTitleApi } from "./api/jobTitleApi";
-import { SuccessModal } from "../..";
+import { ReadyModal, SuccessModal } from "../..";
 import { Trash } from "iconsax-react";
 
 export const Positions: FC = () => {
     const [state, setState] = useState<boolean>(false);
+    const [position, setPosition] = useState<number>(0);
     const modal = usePosition();
     const modalSuccess = useSuccess();
     const fetchData = jobTitleApi();
+    const modalReady = usePositionReady();
     useEffect(() => {
         fetchData.getting();
     }, []);
@@ -28,7 +30,10 @@ export const Positions: FC = () => {
                 <ButtonCreate onClick={modal.open} />
                 <button
                     className={styles.Trash}
-                    onClick={() => setState(!state)}
+                    onClick={() => {
+                        setState(!state);
+                        setPosition(0);
+                    }}
                 >
                     <Trash
                         size={24}
@@ -37,7 +42,16 @@ export const Positions: FC = () => {
                 </button>
                 <button
                     className={styles.Delete}
-                    onClick={() => setState(false)}
+                    onClick={() => {
+                        position > 0 && modalReady.open();
+                    }}
+                    style={
+                        position > 0
+                            ? { color: "#e51616" }
+                            : { color: "#a8a8a8" } && state
+                              ? { display: "block" }
+                              : { display: "none" }
+                    }
                 >
                     Удалить
                 </button>
@@ -68,6 +82,8 @@ export const Positions: FC = () => {
                                 style={state ? { display: "block" } : { display: "none" }}
                                 type="radio"
                                 name="delete"
+                                value={card.id}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setPosition(Number(e.target.value))}
                             />
                         </div>
                     ))}
@@ -90,6 +106,22 @@ export const Positions: FC = () => {
                 zIndex={11}
             >
                 <SuccessModal content="Должность добавлена!" />
+            </Modal>
+            <Modal
+                centered
+                width={550}
+                open={modalReady.isOpen}
+                onCancel={modalReady.close}
+                zIndex={12}
+            >
+                <ReadyModal
+                    no={modalReady.close}
+                    yes={() => {
+                        modalReady.close();
+                        fetchData.deleting(position);
+                    }}
+                    content="Вы уверены? Данная должность удалится безвозвратно"
+                />
             </Modal>
         </div>
     );

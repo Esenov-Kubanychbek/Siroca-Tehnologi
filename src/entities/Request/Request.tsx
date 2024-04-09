@@ -44,14 +44,16 @@ export const Request: FC<{ request: IRequest; role: string }> = ({ request, role
                 content={request.finish_date}
                 width={role === "admin" ? 194 : 180}
             />
-            {request.priority ? <div
-                className={styles.Prioritet}
-                style={role === "admin" ? { width: "136px" } : { width: "150px" }}
-            >
-                <div style={{ border: `1px solid ${request.priority === "Низкий" ? "red" : "green"}` }}>
-                    {request.priority}
+            {request.priority ? (
+                <div
+                    className={styles.Prioritet}
+                    style={role === "admin" ? { width: "136px" } : { width: "150px" }}
+                >
+                    <div style={{ border: `1px solid ${request.priority === "Низкий" ? "red" : "green"}` }}>
+                        {request.priority}
+                    </div>
                 </div>
-            </div> : null}
+            ) : null}
 
             <div
                 className={styles.Status}

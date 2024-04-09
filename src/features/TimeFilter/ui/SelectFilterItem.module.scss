@@ -8,14 +8,13 @@
     justify-content: start;
     align-items: center;
     border-radius: 8px;
-    border: 1px solid var(---200, #DEDEDE);
-    background: var(---White, #FFF);
+    border: 1px solid var(---200, #dedede);
+    background: var(---White, #fff);
     padding: 0px 10px;
-    // max-width: 200px;
     min-width: 120px;
     padding-top: 30px;
-    .add {  
-        color: var(---800, #1C6AB1);
+    .add {
+        color: var(---800, #1c6ab1);
         position: fixed;
         background: white;
         text-align: center;
@@ -24,11 +23,10 @@
         font-weight: 700;
         line-height: normal;
         border: none;
-        // margin: 9px 0;
         margin-top: -20px;
         transition: all 0.3s;
     }
-    .add:hover{
+    .add:hover {
         color: black;
     }
 
@@ -39,7 +37,7 @@
         justify-content: center;
         align-items: center;
         gap: 10px;
-        background: var(---White, #FFF);
+        background: var(---White, #fff);
 
         p {
             cursor: pointer;

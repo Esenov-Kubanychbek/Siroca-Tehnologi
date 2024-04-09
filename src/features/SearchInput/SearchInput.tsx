@@ -18,7 +18,7 @@ export const SearchInput: FC = () => {
             <input
                 className={styles.Input}
                 value={inputState}
-                    onChange={change}
+                onChange={change}
             />
             <CloseSquare
                 variant="Bold"

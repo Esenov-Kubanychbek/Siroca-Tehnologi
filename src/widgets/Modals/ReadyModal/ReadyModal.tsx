@@ -1,12 +1,10 @@
 import { Danger } from "iconsax-react";
 import styles from "./ReadyModal.module.scss";
-import { useReady } from "../../../shared/hooks/modalHooks";
-import { NavLink } from "react-router-dom";
 import { FC } from "react";
-import { PATHS } from "../../../shared/variables/variables";
+import { IReady } from "./types/types";
 
-export const ReadyModal: FC<{ content: string }> = ({ content }) => {
-    const modal = useReady();
+export const ReadyModal: FC<IReady> = (props) => {
+    const { content, no, yes } = props;
     return (
         <div className={styles.ReadyModal}>
             <div className={styles.Container}>
@@ -18,18 +16,16 @@ export const ReadyModal: FC<{ content: string }> = ({ content }) => {
                 <p>{content}</p>
             </div>
             <div className={styles.BtnCont}>
-                <NavLink
-                    to={PATHS.auth}
-                    aria-label="login"
-                    onClick={modal.close}
-                    className={styles.BtnYes}
+                <button
+                    onClick={yes}
+                    className={styles.Yes}
                 >
                     Да
-                </NavLink>
+                </button>
                 <button
                     aria-label="stay"
-                    onClick={modal.close}
-                    className={styles.BtnNo}
+                    onClick={no}
+                    className={styles.No}
                 >
                     Нет
                 </button>

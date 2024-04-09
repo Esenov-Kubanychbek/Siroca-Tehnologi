@@ -29,12 +29,12 @@ export const Authorization: FC = () => {
             if (response.status === 200) {
                 const access = response.data.access;
                 localStorage.setItem("access", access);
-                localStorage.setItem("role_type", response.data.role_type)
+                localStorage.setItem("role_type", response.data.role_type);
                 if (response.data.role_type === "") {
                     navigate(PATHS.admin);
-                } else if(response.data.role_type === "manager"){
+                } else if (response.data.role_type === "manager") {
                     navigate(PATHS.manager);
-                }else{
+                } else {
                     navigate(PATHS.client);
                 }
             } else {
@@ -71,7 +71,9 @@ export const Authorization: FC = () => {
                 <div className={err ? styles.ErrInputCont : styles.InputCont}>
                     <p>Логин</p>
                     <input
-                        onChange={(e) => {setLogin(e.target.value)}}
+                        onChange={(e) => {
+                            setLogin(e.target.value);
+                        }}
                         onClick={() => setErr(false)}
                         placeholder="Введите логин"
                         type="text"

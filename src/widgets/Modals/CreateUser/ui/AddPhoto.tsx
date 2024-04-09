@@ -2,11 +2,11 @@ import { GalleryAdd } from "iconsax-react";
 import styles from "./AddPhoto.module.scss";
 import { ChangeEvent, FC } from "react";
 
-interface IAddPhoto{
-    downLoad: (e: ChangeEvent<HTMLInputElement>) => void
+interface IAddPhoto {
+    downLoad: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const AddPhoto: FC<IAddPhoto> = ({downLoad}) => {
+export const AddPhoto: FC<IAddPhoto> = ({ downLoad }) => {
     return (
         <div>
             <div className={styles.AddPhoto}>

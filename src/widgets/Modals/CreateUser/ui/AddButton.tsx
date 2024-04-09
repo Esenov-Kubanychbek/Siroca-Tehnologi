@@ -10,7 +10,7 @@ export const AddButton: FC<{ onClick?: () => void }> = ({ onClick }) => {
         >
             <AddSquare
                 size={24}
-                color="#1C6AB1"
+                color="white"
             />
         </div>
     );

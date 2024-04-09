@@ -5,7 +5,7 @@ interface IRolesList {
     list: string[];
     listType: string;
     handleChangeBox: (e: [string, React.ChangeEvent<HTMLInputElement>]) => void;
-    box: {[key: string]: boolean} | null
+    box: { [key: string]: boolean } | null;
 }
 
 const RolesList: React.FC<IRolesList> = ({ list, listType, handleChangeBox, box }) => {
@@ -19,8 +19,8 @@ const RolesList: React.FC<IRolesList> = ({ list, listType, handleChangeBox, box 
             </div>
 
             {list.map((el, index) => {
-                const check = box && Object.entries(box)[index] ? Object.entries(box)[index][1] : false
-                const name = box && Object.entries(box)[index] ? Object.entries(box)[index][0] : undefined
+                const check = box && Object.entries(box)[index] ? Object.entries(box)[index][1] : false;
+                const name = box && Object.entries(box)[index] ? Object.entries(box)[index][0] : undefined;
                 return (
                     <div className={styles.ListItem}>
                         <input

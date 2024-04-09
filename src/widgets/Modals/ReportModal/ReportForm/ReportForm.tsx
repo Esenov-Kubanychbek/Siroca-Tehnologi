@@ -39,13 +39,16 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
 
     const handleInputChange = (
         e: ChangeEvent<HTMLInputElement>,
-        setState: React.Dispatch<React.SetStateAction<string>>
+        setState: React.Dispatch<React.SetStateAction<string>>,
     ) => {
         setState(e.target.value);
     };
 
     return (
-        <form onSubmit={submitForm} className={styles.Form}>
+        <form
+            onSubmit={submitForm}
+            className={styles.Form}
+        >
             <ul>
                 <div className={styles.InputCont}>
                     <p>Компания</p>
@@ -93,7 +96,10 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
                 </div>
             </ul>
             <div className={styles.EnterCont}>
-                <a href="#" onClick={CleanFilters}>
+                <a
+                    href="#"
+                    onClick={CleanFilters}
+                >
                     Очистить фильтр
                 </a>
                 <button type="submit">Показать</button>

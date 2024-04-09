@@ -1,18 +1,16 @@
 import { FC } from "react";
 import styles from "./NotificationSingle.module.scss";
 
-
 interface INotificationSingle {
-    active: boolean,
+    active: boolean;
     notif: {
-        created_at: string,
-        form_id: null | number | string,
-        made_change: string,
-        task_number: string,
-        text: string,
-        title: string
-    }
-
+        created_at: string;
+        form_id: null | number | string;
+        made_change: string;
+        task_number: string;
+        text: string;
+        title: string;
+    };
 }
 
 export const NotificationSingle: FC<INotificationSingle> = ({ active, notif }) => {
@@ -27,7 +25,9 @@ export const NotificationSingle: FC<INotificationSingle> = ({ active, notif }) =
                     <span className={styles.Span}>{notif.task_number.slice(14)}</span>
                     {notif.title}
                 </p>
-                <p className={styles.NumNotification}>{notif.made_change}:{notif.text}</p>
+                <p className={styles.NumNotification}>
+                    {notif.made_change}:{notif.text}
+                </p>
             </div>
         </div>
     );

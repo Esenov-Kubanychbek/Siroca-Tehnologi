@@ -32,22 +32,22 @@ export const CallToAdmin: FC = () => {
                 </div>
                 <div className={styles.Contact}>
                     <Sms
-                    size={34}
-                    variant="Bold"
-                    color="#717171"
-                />
+                        size={34}
+                        variant="Bold"
+                        color="#717171"
+                    />
                     <p>
-                    Электронная почта: <span> siroca.@gmail.com</span>
+                        Электронная почта: <span> siroca.@gmail.com</span>
                     </p>
                 </div>
                 <div className={styles.Contact}>
-                <Call
-                    size={34}
-                    variant="Bold"
-                    color="#717171"
-                />
+                    <Call
+                        size={34}
+                        variant="Bold"
+                        color="#717171"
+                    />
                     <p>
-                    Телефон для справок:  <span> 9965556667777</span>
+                        Телефон для справок: <span> 9965556667777</span>
                     </p>
                 </div>
             </div>

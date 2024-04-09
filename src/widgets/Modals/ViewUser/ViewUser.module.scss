@@ -75,6 +75,16 @@
 
 .Buttons {
     display: flex;
-    justify-content: start;
+    justify-content: end;
     gap: 16px;
+}
+
+.Delete {
+    font-size: 18px;
+    font-weight: 700;
+    width: 150px;
+    height: 56px;
+    background: none;
+    border: none;
+    color: #e51616;
 }

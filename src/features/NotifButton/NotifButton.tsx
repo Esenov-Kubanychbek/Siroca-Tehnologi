@@ -9,27 +9,27 @@ import axios from "axios";
 
 export const NotifButton: FC = () => {
     const modal = useNotif();
-    const [count, setCount] = useState<number>(0)
-    const getCounts = async() => {
+    const [count, setCount] = useState<number>(0);
+    const getCounts = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/notifications/`, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
             });
             console.log(response);
-            response.data.map((el: {is_read: boolean}) => {
-                if(el.is_read === false){
-                    setCount((prev) => prev + 1)
+            response.data.map((el: { is_read: boolean }) => {
+                if (el.is_read === false) {
+                    setCount((prev) => prev + 1);
                 }
-            })
+            });
         } catch (error) {
             console.log(error);
         }
-    }
+    };
     useEffect(() => {
-        getCounts()
-    }, [])
+        getCounts();
+    }, []);
     return (
         <>
             <button

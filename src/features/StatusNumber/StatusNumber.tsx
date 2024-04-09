@@ -4,24 +4,27 @@ import styles from "./StatusNumber.module.scss";
 import axios from "axios";
 import { BASE_URL } from "../../shared/variables/variables";
 
-
 export const StatusNumber: FC = () => {
-    const [count, setCount] = useState<number[]>([])
-    const getCounts = async() => {
+    const [count, setCount] = useState<number[]>([]);
+    const getCounts = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/`, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
             });
-            setCount([ response.data.results.closed_count,response.data.results.created_count, response.data.results.in_progress_count, ])
+            setCount([
+                response.data.results.closed_count,
+                response.data.results.created_count,
+                response.data.results.in_progress_count,
+            ]);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
     useEffect(() => {
-        getCounts()
-    }, [])
+        getCounts();
+    }, []);
     return (
         <div className={styles.StatusNumber}>
             <div>

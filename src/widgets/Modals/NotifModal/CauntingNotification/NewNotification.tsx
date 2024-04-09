@@ -5,47 +5,47 @@ import axios from "axios";
 import { BASE_URL } from "../../../../shared/variables/variables";
 
 interface INotification {
-    created_at: string,
-    form_id: null | number | string,
-    made_change: string,
-    task_number: string,
-    text: string,
-    title: string,
-    is_read: boolean
+    created_at: string;
+    form_id: null | number | string;
+    made_change: string;
+    task_number: string;
+    text: string;
+    title: string;
+    is_read: boolean;
 }
 
 export const NewNotification: FC<{ active: boolean }> = ({ active }) => {
-    const [notifications, setNotifications] = useState([])
+    const [notifications, setNotifications] = useState([]);
     const getNotification = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/notifications/`, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
-            })
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
+            });
             if (active === true) {
                 const res = response.data.filter((el: INotification) => {
                     if (el.is_read === false) {
-                        return el
+                        return el;
                     }
-                })
-                setNotifications(res)
+                });
+                setNotifications(res);
             }
             if (active === false) {
                 const res = response.data.filter((el: INotification) => {
                     if (el.is_read === true) {
-                        return el
+                        return el;
                     }
-                })
-                setNotifications(res)
+                });
+                setNotifications(res);
             }
         } catch (error) {
             console.log(error);
         }
-    }
+    };
     useEffect(() => {
-        getNotification()
-    }, [])
+        getNotification();
+    }, []);
 
     return (
         <div className={styles.newNotificationCont}>
@@ -54,11 +54,16 @@ export const NewNotification: FC<{ active: boolean }> = ({ active }) => {
                     {active ? "Новые" : "Прочитанные"}
                 </h4>
             </div>
-            {notifications ? notifications.map((el: INotification) => {
-                return (
-                    <NotificationSingle active={active} notif={el} />
-                )
-            }) : null}
+            {notifications
+                ? notifications.map((el: INotification) => {
+                      return (
+                          <NotificationSingle
+                              active={active}
+                              notif={el}
+                          />
+                      );
+                  })
+                : null}
         </div>
     );
 };

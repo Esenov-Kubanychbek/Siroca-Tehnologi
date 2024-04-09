@@ -10,84 +10,94 @@ import { BASE_URL } from "../../shared/variables/variables";
 import { ArrowLeft2 } from "iconsax-react";
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
-    const [page, setPage] = useState<{ now: number }>({ now: 1 })
-    const [reqCount, setReqCount] = useState<number>(0)
-    const [prevNext, setPrevNext] = useState<{ prev: boolean, next: boolean }>({ prev: false, next: false })
-   
-    const fetchRequest = getRequestApi()
-     const apiLength = fetchRequest.getState;
+    const [page, setPage] = useState<{ now: number }>({ now: 1 });
+    const [reqCount, setReqCount] = useState<number>(0);
+    const [prevNext, setPrevNext] = useState<{ prev: boolean; next: boolean }>({ prev: false, next: false });
+
+    const fetchRequest = getRequestApi();
+    const apiLength = fetchRequest.getState;
     const reqPage = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/?page=${page.now}&${api}`, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
-            })
-            setReqCount(response.data.results.created_count)
-            fetchRequest.setState(response.data.results.results)
-            fetchRequest.setFilterState(response.data.results.results)
-            const results = response.data.results
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
+            });
+            setReqCount(response.data.results.created_count);
+            fetchRequest.setState(response.data.results.results);
+            fetchRequest.setFilterState(response.data.results.results);
+            const results = response.data.results;
             console.log(response);
 
             if (response.data) {
-                setPrevNext((prev: { prev: boolean, next: boolean }) => {
-                    return { ...prev, next: true }
-                })
+                setPrevNext((prev: { prev: boolean; next: boolean }) => {
+                    return { ...prev, next: true };
+                });
             }
             if (response.data) {
-                setPrevNext((prev: { prev: boolean, next: boolean }) => {
-                    return { ...prev, prev: true }
-                })
+                setPrevNext((prev: { prev: boolean; next: boolean }) => {
+                    return { ...prev, prev: true };
+                });
             }
             console.log(results);
 
-            fetchRequest.setNow(page.now)
+            fetchRequest.setNow(page.now);
         } catch (error) {
             console.log(error);
-
         }
-    }
+    };
 
     useEffect(() => {
-        reqPage()
-    }, [page.now])
+        reqPage();
+    }, [page.now]);
 
     const renderPagButtons = () => {
         if (Math.ceil(reqCount / 50) > 1) {
             for (let index = 2; index <= 5; index++) {
                 return (
-                    <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
-                        const targetId = (e.target as HTMLDivElement)?.id; // Проверяем, что e.target является HTMLDivElement и имеет свойство id
-                        setPage({ now: Number(targetId) })
-                    }} id={`${index}`} className={styles.paginBtn}>{index}</button>
-                )
+                    <button
+                        onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                            const targetId = (e.target as HTMLDivElement)?.id; // Проверяем, что e.target является HTMLDivElement и имеет свойство id
+                            setPage({ now: Number(targetId) });
+                        }}
+                        id={`${index}`}
+                        className={styles.paginBtn}
+                    >
+                        {index}
+                    </button>
+                );
             }
-        }else{
-            return
+        } else {
+            return;
         }
-
-    }
+    };
     const renderMoreBtns = () => {
         for (let index = 6; index <= Math.ceil(reqCount / 50); index++) {
             return (
-                <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
-                    const targetId = (e.target as HTMLDivElement)?.id; // Проверяем, что e.target является HTMLDivElement и имеет свойство id
-                    setPage({ now: Number(targetId) })
-                }} id={`${index}`} className={styles.paginBtn}>{index}</button>
-            )
+                <button
+                    onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                        const targetId = (e.target as HTMLDivElement)?.id; // Проверяем, что e.target является HTMLDivElement и имеет свойство id
+                        setPage({ now: Number(targetId) });
+                    }}
+                    id={`${index}`}
+                    className={styles.paginBtn}
+                >
+                    {index}
+                </button>
+            );
         }
-    }
+    };
     const nextPage = () => {
         if (prevNext.next) {
-            setPage({ now: page.now + 1 })
+            setPage({ now: page.now + 1 });
         }
-    }
+    };
 
     const prevPage = () => {
         if (prevNext.prev) {
-            setPage({ now: page.now - 1 })
+            setPage({ now: page.now - 1 });
         }
-    }
+    };
     return (
         <div>
             <div className={styles.Top}>
@@ -127,11 +137,38 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                         }}
                     >
                         <div className={styles.pagination}>
-                            <button onClick={prevPage} className={styles.pagToggle}><ArrowLeft2 size={24} style={prevNext.prev ? { color: "black" } : { color: "#DEDEDE" }} /></button>
-                            <button onClick={() => { setPage({ now: 1 }) }} className={styles.paginBtn}>1</button>
+                            <button
+                                onClick={prevPage}
+                                className={styles.pagToggle}
+                            >
+                                <ArrowLeft2
+                                    size={24}
+                                    style={prevNext.prev ? { color: "black" } : { color: "#DEDEDE" }}
+                                />
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setPage({ now: 1 });
+                                }}
+                                className={styles.paginBtn}
+                            >
+                                1
+                            </button>
                             {renderPagButtons()}
-                            {Math.ceil(reqCount / 50) > 5 ? '...' + renderMoreBtns() : null}
-                            <button onClick={nextPage} className={styles.pagToggle}><ArrowLeft2 size={24} style={prevNext.prev ? { color: "black", transform: "rotate(-180deg)" } : { color: "#DEDEDE", transform: "rotate(-180deg)" }} /></button>
+                            {Math.ceil(reqCount / 50) > 5 ? "..." + renderMoreBtns() : null}
+                            <button
+                                onClick={nextPage}
+                                className={styles.pagToggle}
+                            >
+                                <ArrowLeft2
+                                    size={24}
+                                    style={
+                                        prevNext.prev
+                                            ? { color: "black", transform: "rotate(-180deg)" }
+                                            : { color: "#DEDEDE", transform: "rotate(-180deg)" }
+                                    }
+                                />
+                            </button>
                         </div>
                     </ConfigProvider>
                 </div>

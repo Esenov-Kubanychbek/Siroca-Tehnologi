@@ -19,12 +19,12 @@ export interface IGetRequest {
 export interface IFetchGet {
     getState: IGetRequest[];
     filterState: IGetRequest[];
-    now: number,
+    now: number;
     getting: (now: number) => void;
     setFilterState: (data: []) => void;
     setNow: (num: number) => void;
     setState: (data: []) => void;
-    clearFilter: () => void
+    clearFilter: () => void;
 }
 
 export const getRequestApi = create<IFetchGet>((set) => ({
@@ -35,34 +35,33 @@ export const getRequestApi = create<IFetchGet>((set) => ({
         try {
             const getResponse = await axios.get(`${BASE_URL}/applications/form/?page=${now}`, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
             });
-                set({ getState: getResponse.data.results.results });
+            set({ getState: getResponse.data.results.results });
         } catch (error) {
             console.log(error, "GetRequestError");
         }
     },
     setState: (data: []) => {
-        set({getState: data})
+        set({ getState: data });
     },
     setFilterState: (data: []) => {
-        set({filterState: data})
+        set({ filterState: data });
     },
     setNow: (num: number) => {
-        set({now: num})
+        set({ now: num });
     },
-    clearFilter: async() => {
-            try {
-                const response = await axios.get(`${BASE_URL}/applications/form/?page=1`, {
-                    headers: {
-                        Authorization: `JWT ${localStorage.getItem("access")}`
-                    }
-                })
-                set({getState: response.data.results.results})
-            } catch (error) {
-                console.log(error);
-            }
-    }
-
+    clearFilter: async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}/applications/form/?page=1`, {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
+            });
+            set({ getState: response.data.results.results });
+        } catch (error) {
+            console.log(error);
+        }
+    },
 }));

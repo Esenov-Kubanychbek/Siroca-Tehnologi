@@ -5,7 +5,7 @@ import RolesMenu from "./components/rolesMenu/RolesMenu";
 export const Roles: FC = () => {
     return (
         <div className={styles.Roles}>
-            <RolesMenu/>
+            <RolesMenu />
         </div>
     );
 };

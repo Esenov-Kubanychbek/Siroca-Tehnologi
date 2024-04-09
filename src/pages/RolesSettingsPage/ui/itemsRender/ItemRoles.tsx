@@ -17,20 +17,20 @@ interface IItemSettingRoles {
 
 const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxList, getBoxes, inBoxList }) => {
     const [boxes, setBoxes] = useState<{ [key: string]: boolean }>({
-        "client_can_edit_comments": false,
-        "client_can_get_reports": false,
-        "client_can_view_logs": false,
-        "client_can_add_files": false,
-        "client_can_add_checklist": false,
-        "client_can_view_profiles": false
+        client_can_edit_comments: false,
+        client_can_get_reports: false,
+        client_can_view_logs: false,
+        client_can_add_files: false,
+        client_can_add_checklist: false,
+        client_can_view_profiles: false,
     });
 
     const getCheckBoxVal = (ev: React.ChangeEvent<HTMLInputElement>) => {
         const name = Number(ev.target.name);
-        const time = Object.entries(boxes)
-        time[name][1] = !time[name][1]
-        const preventr = Object.fromEntries(time)
-        setBoxes(preventr)
+        const time = Object.entries(boxes);
+        time[name][1] = !time[name][1];
+        const preventr = Object.fromEntries(time);
+        setBoxes(preventr);
     };
     // useEffect(() => {
     //     console.log(boxes);
@@ -57,7 +57,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxLi
                 <p>{user.username}</p>
             </div>
             {checkBoxList[0].map((el, index: number) => {
-                const isChecked = boxes ? Object.entries(boxes)[index][1] : false
+                const isChecked = boxes ? Object.entries(boxes)[index][1] : false;
                 console.log(el);
                 return (
                     <div className={styles.el}>
