@@ -49,7 +49,12 @@ export const Request: FC<{ request: IRequest; role: string }> = ({ request, role
                     className={styles.Prioritet}
                     style={role === "admin" ? { width: "136px" } : { width: "150px" }}
                 >
-                    <div style={{ border: `1px solid ${request.priority === "Низкий" ? "red" : "green"}` }}>
+                    <div
+                        style={{
+                            border: `1px solid ${request.priority === "Низкий" ? "blue" : ""} ${request.priority === "Средний" ? "#B4A416" : ""} ${request.priority === "Высокий" ? "red" : ""}`,
+                            color: `${request.priority === "Низкий" ? "blue" : ""} ${request.priority === "Средний" ? "#B4A416" : ""} ${request.priority === "Высокий" ? "red" : ""}`
+                        }}
+                    >
                         {request.priority}
                     </div>
                 </div>
@@ -58,8 +63,12 @@ export const Request: FC<{ request: IRequest; role: string }> = ({ request, role
             <div
                 className={styles.Status}
                 style={role === "admin" ? { width: "114px" } : { width: "140px" }}
-            >
-                <div style={{ border: `1px solid ${request.status === "Низкий" ? "red" : "green"}` }}>
+            >   
+                <div
+                    style={{
+                        border: `1px solid ${request.status === "К выполнению" ? "#0094FF" : ""} ${request.status === "В работе" ? "#25815A" : ""} ${request.status === "Тестируется" ? "#8B5D17" : ""} ${request.status === "Проверено" ? "#D20A0A" : ""} ${request.status === "Закрыто" ? "#0500FF" : ""}`, 
+                        color: `${request.status === "К выполнению" ? "#0094FF" : ""} ${request.status === "В работе" ? "#25815A" : ""} ${request.status === "Тестируется" ? "#8B5D17" : ""} ${request.status === "Проверено" ? "#D20A0A" : ""} ${request.status === "Закрыто" ? "#0500FF" : ""}`
+                    }}>
                     {request.status.slice(0, 9)}...
                 </div>
             </div>
