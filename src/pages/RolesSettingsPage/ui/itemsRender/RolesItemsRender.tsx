@@ -38,6 +38,8 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType 
             const responseM = await axios.get(`${BASE_URL}/users/managerpermissions/detail/`);
             const update = [...responseC.data.results, ...responseM.data.results]
             setGetInBoxes(update);
+            console.log(responseM);
+            
         } catch (error) {
             console.log(error);
         }

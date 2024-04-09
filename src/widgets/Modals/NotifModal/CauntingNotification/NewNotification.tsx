@@ -31,7 +31,7 @@ export const NewNotification: FC<{ active: boolean }> = ({ active }) => {
                 })
                 setNotifications(res)
             }
-            if(active === false){
+            if (active === false) {
                 const res = response.data.filter((el: INotification) => {
                     if (el.is_read === true) {
                         return el
@@ -46,6 +46,7 @@ export const NewNotification: FC<{ active: boolean }> = ({ active }) => {
     useEffect(() => {
         getNotification()
     }, [])
+
     return (
         <div className={styles.newNotificationCont}>
             <div className={styles.newNotificationContH4}>
