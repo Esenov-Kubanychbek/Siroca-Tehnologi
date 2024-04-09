@@ -1,0 +1,54 @@
+.AddManager{
+    padding: 8px;
+    .close{
+        position: absolute;
+        right: 15px;
+        top: 15px;
+    }
+    .addContainer{
+        margin: 15px 0 20px 0;
+        .head{
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .searchManager{
+            .searchManagers{
+                width: 400px;
+                height: 56px;
+                font-size: 18px;
+                font-weight: 700;
+                box-sizing: border-box;
+                padding: 8px;
+                border: 1px solid black;
+                border-radius: 8px;
+                margin: 8px;
+            }
+            .manager{
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .results{
+                position: fixed;
+                box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.084);
+                width: 400px;
+                background-color: white;
+                display: none;
+                margin: 8px;
+                padding: 8px;
+                box-sizing: border-box;
+                margin-top: -20px;
+                p{
+                    font-size: 18px;    
+                }
+            }
+        }
+    
+    }
+    .buttons{
+        display: flex ;
+        justify-content: end;
+        button{
+            margin: 8px 4px;
+        }
+    }
+}

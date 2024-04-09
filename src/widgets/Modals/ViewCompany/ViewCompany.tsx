@@ -1,24 +1,26 @@
-import { AddSquare, CloseSquare } from "iconsax-react";
-import styles from "./ViewCompany.module.scss";
+import {  CloseSquare } from "iconsax-react";
+import styles from "./ViewCompany.module.scss"
 import { CustomButton, CustomInput } from "../../../shared/ui";
+import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
+import { Collapse } from "antd";
+import CollapsePanel from "antd/es/collapse/CollapsePanel";
+import { FC, } from "react";
 import { useViewCompany } from "../../../shared/hooks/modalHooks/useViewCompany";
-
-import { CustomSelect } from "../../Modals/CreateCompany/ui/CustomSelect";
-import { FC } from "react";
-import { useDataStoreComponies } from "../../Admin/Companies/api/getCompaniesApi";
+import { useDataInputCompaniesStore } from "./api/dataInputCompanies";
 
 export const ViewCompany: FC = () => {
     const modal = useViewCompany();
-    const { selectedCompanyData, deleteCompany, idCompany } = useDataStoreComponies();
-    const deleteComp = () => {
-        deleteCompany(idCompany);
-        modal.close();
-        console.log(idCompany);
-    };
+    const {selectedCompanyData, fetchDatas} = useDataStoreComponies();
+    const {changeInput, changeInputOne, dataInputCompanies} = useDataInputCompaniesStore();
+    const change = async () => {
+        await changeInputOne(dataInputCompanies, selectedCompanyData, selectedCompanyData?.id);
+            fetchDatas();
+    }
+
     return (
         <div className={styles.CreateCompany}>
             <div className={styles.blockOne}>
-                <div>Просмотр компании</div>
+                <div>{selectedCompanyData?.name}</div>
                 <CloseSquare
                     cursor={"pointer"}
                     size={32}
@@ -30,16 +32,20 @@ export const ViewCompany: FC = () => {
                     <label htmlFor="">Название компании</label>
                     <CustomInput
                         placeholder=""
-                        value={selectedCompanyData?.name}
+                        defaultValue={selectedCompanyData?.name}
                         width={272}
+                        change={changeInput}
+                        name="name"
                     />
                 </div>
                 <div>
                     <label htmlFor="">Страна</label>
                     <CustomInput
                         placeholder=""
-                        value={selectedCompanyData?.country}
+                        defaultValue={selectedCompanyData?.country}
                         width={272}
+                        change={changeInput}
+                        name="country"
                     />
                 </div>
             </div>
@@ -48,56 +54,35 @@ export const ViewCompany: FC = () => {
                     <label htmlFor="">Краткий код</label>
                     <CustomInput
                         placeholder=""
-                        value={selectedCompanyData?.company_code}
+                        defaultValue={selectedCompanyData?.company_code}
                         width={272}
+                        change={changeInput}
+                        name="company_code"
                     />
                 </div>
                 <div>
                     <label htmlFor="">Домен</label>
                     <CustomInput
                         placeholder=""
-                        value={selectedCompanyData?.domain}
+                        defaultValue={selectedCompanyData?.domain}
                         width={272}
+                        change={changeInput}
+                        name="domain"
                     />
                 </div>
             </div>
             <div className={styles.blockTwo}>
                 <div>
-                    <label htmlFor="sel">Список пользавателей</label>
+                    <label htmlFor="sel">Ответственный менеджер</label>
                     <br />
-                    <CustomSelect
-                        name="users"
-                        dataOption={selectedCompanyData?.users}
-                        text="Пользователи"
-                    />
+                    <Collapse accordion>
+                        <CollapsePanel header='Ответственный менеджер' key={16}>
+
+                        </CollapsePanel>
+                    </Collapse>
                 </div>
             </div>
-            <div className={styles.blockTwo}>
-                <div>
-                    <p
-                        className={styles.Label}
-                        style={{ marginTop: "23px" }}
-                    >
-                        Количество пользавателей
-                    </p>
-                    <CustomInput
-                        placeholder=""
-                        value={selectedCompanyData?.count_users}
-                        width={272}
-                    />
-                </div>
-                <div>
-                    <p
-                        className={styles.Label}
-                        style={{ width: "200px", marginLeft: "40px" }}
-                    >
-                        Создать/Привязать пользавателя
-                    </p>
-                    <button className={styles.AddUser}>
-                        Добавить польз. <AddSquare />
-                    </button>
-                </div>
-            </div>
+                
             <div className={styles.buttons}>
                 <div onClick={modal.close}>
                     <CustomButton
@@ -111,10 +96,12 @@ export const ViewCompany: FC = () => {
                         variant="Primary"
                         width={150}
                         text="Сохранить"
+                        onClick={change}
+                        
                     />
                 </div>
-                <button onClick={deleteComp}>Удалить</button>
             </div>
         </div>
     );
 };
+
