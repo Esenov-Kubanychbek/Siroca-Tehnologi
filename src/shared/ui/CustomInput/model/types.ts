@@ -9,6 +9,9 @@ export interface IInput {
     defaultValue?: string | number;
     name?: string;
     type?: string;
-    paddingLeft?: number;
+    paddingLeft?:number;
+    allData?: string | boolean;
+    datas?: string; 
     change?: (e: ChangeEvent<HTMLInputElement>) => void;
+    onClick?:() => void;
 }

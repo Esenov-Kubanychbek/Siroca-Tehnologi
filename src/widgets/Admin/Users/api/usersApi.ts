@@ -1,12 +1,14 @@
 import axios from "axios";
 import { create } from "zustand";
-import { IUser, IUserGet } from "../../../../shared/types/userTypes";
+import { iGetUser, IUser, IUserGet } from "../../../../shared/types/userTypes";
 import { BASE_URL } from "../../../../shared/variables/variables";
 
 interface IFetch {
     inState: IUser[];
     oneUserGet: IUserGet;
     oneUser: IUser;
+    userProfile: iGetUser,
+    userProfileAdded: () => void;
     getOneUser: (id: number | undefined) => void;
     putting: (postState: IUser, id: number | undefined) => void;
     getting: () => void;
@@ -15,6 +17,15 @@ interface IFetch {
 
 export const usersApi = create<IFetch>((set) => ({
     inState: [],
+    userProfile: {
+        first_name: "",
+        job_title: 0,
+        main_company: 0,
+        password: "",
+        role_type: "",
+        surname: "",
+        username: "",
+    },
     oneUser: {
         first_name: "",
         job_title: 3,
@@ -33,6 +44,20 @@ export const usersApi = create<IFetch>((set) => ({
         role_type: "",
         surname: "",
         username: "",
+    },
+    userProfileAdded: async () => {
+        try{
+            const response = await axios.get(`${BASE_URL}/users/${localStorage.getItem('id')}/`);
+            console.log(response);
+            
+            set({
+                userProfile: response.data
+            })
+            
+        }catch(error){
+            console.log(error);
+            
+        }
     },
     getOneUser: async (id) => {
         try {
