@@ -11,15 +11,10 @@ import { useCompany } from "../../../shared/hooks/modalHooks";
 
 export const Companies: FC = () => {
     const modal = useCompany();
-<<<<<<< HEAD
     const { users, fetchDatas, getUsers, data, selectedIdCompany, openModalView, closeModalView, modalViewCompany } = useDataStoreComponies();
 
     
 
-=======
-    const modalView = useViewCompany();
-    const { fetchDatas, data } = useDataStoreComponies();
->>>>>>> 4371d691dd77e201cbd8264a285db11e36dca43a
     useEffect(() => {
         getUsers();
         fetchDatas();
