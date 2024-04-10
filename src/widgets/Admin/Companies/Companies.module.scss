@@ -1,7 +1,11 @@
-@import "../../../app/styles/index.scss";
+@import "index.scss";
 
 .Companies {
     margin-top: 20px;
+    .searchCompanies {
+        display: flex;
+        justify-content: space-between;
+    }
     .managerName{
         font-size: 16px;
         display: flex   ;
@@ -21,8 +25,8 @@
             border: 1px #F4F4F4 solid;
             ul {
                 padding: 0;
-        
                 .datas{
+                    cursor: pointer;
                     display: flex;
                     div{
                         transition: .1s;
