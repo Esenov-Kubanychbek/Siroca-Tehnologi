@@ -1,10 +1,10 @@
 import { FC } from "react";
 import styles from "./ButtonRequest.module.scss";
 import { Edit } from "iconsax-react";
-import { useRequest } from "../../shared/hooks/modalHooks";
+import { useCreateRequest } from "../../shared/hooks/modalHooks";
 
 export const ButtonRequest: FC = () => {
-    const modal = useRequest();
+    const modal = useCreateRequest();
     return (
         <button
             aria-label="createRequest"

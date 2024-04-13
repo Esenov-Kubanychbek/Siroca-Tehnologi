@@ -26,7 +26,7 @@ export const ChangePassword: FC = () => {
                 <div className={styles.block2}>
                     <div className={styles.labels}>
                         <label htmlFor="">Текущий пароль:</label>
-                        <label htmlFor="">Новый пароль:</label> 
+                        <label htmlFor="">Новый пароль:</label>
                         <label htmlFor="">Повторите пароль:</label>
                     </div>
                     <div className={styles.input}>

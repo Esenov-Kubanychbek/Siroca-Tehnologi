@@ -1,29 +1,32 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "./CreateRequest.module.scss";
-import { ICreateRequest, requestApi } from "./api/requestApi";
-import { useEditRequest, useRequest } from "../../../shared/hooks/modalHooks";
+import { ICreateRequest, createRequestApi } from "./api/createRequestApi";
+import { useEditRequest, useCreateRequest } from "../../../shared/hooks/modalHooks";
 import { CloseSquare } from "iconsax-react";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { Modal } from "antd";
 import { EditRequest } from "../..";
 
 export const CreateRequest: FC = () => {
-    const modal = useRequest();
+    const modal = useCreateRequest();
     const editModal = useEditRequest();
-    const fetchData = requestApi();
+    const fetchData = createRequestApi();
     const [requestState, setRequestState] = useState<ICreateRequest>({
         title: "",
-        company: 0,
+        company: "",
     });
     const RequestCreateValue = (e: ChangeEvent<HTMLInputElement>) => {
         setRequestState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
     };
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        fetchData.posting(requestState);
-        modal.close();
-        editModal.open();
-        console.log("success");
+        if (Object.values(requestState).every((value) => value !== "")) {
+            fetchData.posting(requestState);
+            modal.close();
+            editModal.open();
+        } else {
+            console.log("postTrimError");
+        }
     };
     return (
         <>
@@ -33,16 +36,11 @@ export const CreateRequest: FC = () => {
             >
                 <div className={styles.Top}>
                     <div className={styles.TextTop}>Создание заявки</div>
-                    <div
+                    <CloseSquare
+                        cursor={"pointer"}
                         onClick={modal.close}
-                        className={styles.Close}
-                    >
-                        <CloseSquare
-                            color="#5C5C5C"
-                            variant="Bold"
-                            size={34}
-                        />
-                    </div>
+                        size={34}
+                    />
                 </div>
                 <div className={styles.Input}>
                     Название заявки:
@@ -84,7 +82,10 @@ export const CreateRequest: FC = () => {
                 open={editModal.isOpen}
                 onCancel={editModal.close}
             >
-                <EditRequest request={fetchData.oneRequest} />
+                <EditRequest
+                    request={requestState}
+                    setRequest={setRequestState}
+                />
             </Modal>
         </>
     );

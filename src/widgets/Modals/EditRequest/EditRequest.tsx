@@ -1,22 +1,26 @@
-import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction, useState } from "react";
 import styles from "./EditRequest.module.scss";
 import { CloseSquare } from "iconsax-react";
 import { CustomButton } from "../../../shared/ui";
-import { useRequest, useSuccess } from "../../../shared/hooks/modalHooks";
-import { requestApi, IRequest } from "./api/requestApi";
+import { useEditRequest, useSuccess } from "../../../shared/hooks/modalHooks";
+import { editRequestApi, IRequest } from "./api/editRequestApi";
 import { SuccessModal } from "../..";
 import { Modal } from "antd";
 import "./style.scss";
 import { Collapses } from "./ui";
-import { ICreateRequest } from "../CreateRequest/api/requestApi";
+import { ICreateRequest, createRequestApi } from "../CreateRequest/api/createRequestApi";
 
-export const EditRequest: FC<{ request: ICreateRequest }> = ({ request }) => {
-    const modal = useRequest();
-    const fetchData = requestApi();
+export const EditRequest: FC<{ request: ICreateRequest; setRequest: Dispatch<SetStateAction<ICreateRequest>> }> = ({
+    request,
+    setRequest,
+}) => {
+    const modal = useEditRequest();
+    const fetchData = editRequestApi();
     const success = useSuccess();
+    const createRequest = createRequestApi();
     const [requestState, setRequestState] = useState<IRequest>({
-        task_number: "",
         title: request.title,
+        company: request.company,
         description: "",
         files: null,
         jira: "",
@@ -29,39 +33,36 @@ export const EditRequest: FC<{ request: ICreateRequest }> = ({ request }) => {
         start_date: "",
         finish_date: "",
         deadline_date: "",
-        company: 1,
         main_client: null,
         main_manager: 2,
     });
     const RequestCreateValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setRequestState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+        setRequest((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
         console.log(requestState);
     };
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        fetchData.editRequest(requestState, 1);
+        fetchData.editRequest(requestState, createRequest.id);
         modal.close();
+        success.open();
         console.log("success");
+        setTimeout(success.close, 1000);
     };
     return (
         <form onSubmit={postTrim}>
             <div className={styles.Container}>
                 <div className={styles.Top}>
                     <div className={styles.TextTop}>Создание заявки</div>
-                    <div
+                    <CloseSquare
+                        cursor={"pointer"}
                         onClick={modal.close}
-                        className={styles.Close}
-                    >
-                        <CloseSquare
-                            color="#5C5C5C"
-                            variant="Bold"
-                            size={34}
-                        />
-                    </div>
+                        size={34}
+                    />
                 </div>
                 <div className={styles.NumberRequest}>
                     <div>
-                        Номер заявки: <span>565646465</span>
+                        Номер заявки: <span>ABC-1234</span>
                     </div>
                 </div>
                 <Collapses

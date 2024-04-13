@@ -11,13 +11,13 @@ import { useChangePassword } from "../../../shared/hooks/modalHooks/useChangePas
 
 export const ProfileModal: FC = () => {
     const modal = useProfile();
-    const {userProfile, userProfileAdded} = usersApi();
+    const { userProfile, userProfileAdded } = usersApi();
     console.log(userProfile);
-    const changePasswordModal = useChangePassword()
+    const changePasswordModal = useChangePassword();
 
     useEffect(() => {
         userProfileAdded();
-    })
+    });
     return (
         <div className={styles.ProfileModal}>
             <div className={styles.block1}>
@@ -58,7 +58,7 @@ export const ProfileModal: FC = () => {
                 <ul>
                     <li>
                         <img
-                        className={styles.imgs}
+                            className={styles.imgs}
                             src={userProfile.image}
                             alt="avatar"
                         />
@@ -100,7 +100,12 @@ export const ProfileModal: FC = () => {
                         />
                     </li>
                     <li>
-                        <button onClick={changePasswordModal.open} className={styles.btn}>Сменить пароль</button>
+                        <button
+                            onClick={changePasswordModal.open}
+                            className={styles.btn}
+                        >
+                            Сменить пароль
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -117,7 +122,7 @@ export const ProfileModal: FC = () => {
                 open={changePasswordModal.isOpen}
                 onCancel={changePasswordModal.close}
             >
-                <ChangePassword/>
+                <ChangePassword />
             </Modal>
         </div>
     );

@@ -11,28 +11,30 @@ import { AddManager } from "../AddManager/AddManager";
 export const CreateCompany: FC = () => {
     const modal = useCompany();
     const [allData, setAllData] = useState<boolean>(false);
-    const [hovered, setHovered] = useState<boolean>(false)
+    const [hovered, setHovered] = useState<boolean>(false);
     const { addCompany, users } = useDataStoreComponies();
     const { changeInput, resetInput, dataInputCompanies } = useDataInputCompaniesStore();
-    const addManager =  useAddManager();
+    const addManager = useAddManager();
 
     const addNewCompany = () => {
-        if (dataInputCompanies.name && dataInputCompanies.company_code && dataInputCompanies.country && dataInputCompanies.managers && dataInputCompanies.domain) {
-
+        if (
+            dataInputCompanies.name &&
+            dataInputCompanies.company_code &&
+            dataInputCompanies.country &&
+            dataInputCompanies.managers &&
+            dataInputCompanies.domain
+        ) {
             addCompany(dataInputCompanies);
             resetInput();
             setAllData(false);
             modal.close();
             console.log(dataInputCompanies.main_manager);
-
         } else {
             setAllData(true);
-            console.log('error');
-
+            console.log("error");
         }
-    }
-    const managers = users.filter(item => item.role_type === 'manager');
-
+    };
+    const managers = users.filter((item) => item.role_type === "manager");
 
     return (
         <div className={styles.CreateCompany}>
@@ -102,40 +104,41 @@ export const CreateCompany: FC = () => {
                     <br />
 
                     <div className={styles.managers}>
-                        <select className={styles.select} onChange={changeInput} name="main_manager" id="3">
+                        <select
+                            className={styles.select}
+                            onChange={changeInput}
+                            name="main_manager"
+                            id="3"
+                        >
                             {managers.map((manager) => (
-                                <option key={manager.id} value={manager.id}>{manager.first_name}</option>
+                                <option
+                                    key={manager.id}
+                                    value={manager.id}
+                                >
+                                    {manager.first_name}
+                                </option>
                             ))}
                         </select>
                         <div
                             className={styles.hintAdd}
-                            style={{ display: `${hovered ? 'block' : 'none'}` }}
-
+                            style={{ display: `${hovered ? "block" : "none"}` }}
                         >
-                            <p className={styles.hint}>
-                                Нажмите что бы добавить менеджера
-                            </p>
+                            <p className={styles.hint}>Нажмите что бы добавить менеджера</p>
                             <div className={styles.tre}> </div>
                         </div>
 
-                        <div
-                            className={styles.addManagers}
-                        >
-
+                        <div className={styles.addManagers}>
                             <AddSquare
                                 color="white"
                                 onMouseEnter={() => setHovered(true)}
                                 onMouseLeave={() => setHovered(false)}
-                                onClick={addManager.open    }
+                                onClick={addManager.open}
                             />
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
-            <p style={{ display: `${allData ? 'block' : 'none'}` }}>Все поля должны быть обязательно заполнены*</p>
+            <p style={{ display: `${allData ? "block" : "none"}` }}>Все поля должны быть обязательно заполнены*</p>
             <div className={styles.buttons}>
                 <div onClick={modal.close}>
                     <CustomButton
@@ -144,7 +147,7 @@ export const CreateCompany: FC = () => {
                         text="Отменить"
                         onClick={() => {
                             resetInput();
-                            setAllData(false)
+                            setAllData(false);
                         }}
                     />
                 </div>
@@ -154,7 +157,6 @@ export const CreateCompany: FC = () => {
                         width={150}
                         text="Создать"
                         onClick={addNewCompany}
-
                     />
                 </div>
             </div>
@@ -165,9 +167,8 @@ export const CreateCompany: FC = () => {
                 width={500}
                 centered
             >
-                <AddManager/>
+                <AddManager />
             </Modal>
-
         </div>
     );
 };

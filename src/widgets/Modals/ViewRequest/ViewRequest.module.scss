@@ -1,0 +1,22 @@
+.ViewRequest {
+    display: flex;
+    gap: 14px;
+    width: 698px;
+    overflow-y: scroll;
+    height: 900px;
+    .Header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 592px;
+        margin: 16px 0;
+    }
+    .Name {
+        font-size: 24px;
+        font-weight: 700;
+        display: flex;
+        .Number {
+            color: #1c6ab1;
+        }
+    }
+}

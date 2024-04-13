@@ -1,15 +1,17 @@
 import styles from "./RequestList.module.scss";
 import { FC, MouseEvent, useEffect, useState } from "react";
 import { Request } from "../../entities";
-import { RequestTop } from "..";
-import { ConfigProvider } from "antd";
+import { RequestTop, ViewRequest } from "..";
+import { ConfigProvider, Modal } from "antd";
 import { getRequestApi } from "./api/getRequestApi";
 import { IRequest } from "./types/types";
 import axios from "axios";
 import { BASE_URL } from "../../shared/variables/variables";
 import { ArrowLeft2 } from "iconsax-react";
+import { useViewRequest } from "../../shared/hooks/modalHooks";
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
+    const modal = useViewRequest();
     const [page, setPage] = useState<{ now: number }>({ now: 1 });
     const [reqCount, setReqCount] = useState<number>(0);
     const [prevNext, setPrevNext] = useState<{ prev: boolean; next: boolean }>({ prev: false, next: false });
@@ -29,8 +31,6 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
             setReqCount(response.data.results.created_count);
             fetchRequest.setState(response.data.results.results);
             fetchRequest.setFilterState(response.data.results.results);
-            const results = response.data.results;
-            console.log(response);
 
             if (response.data) {
                 setPrevNext((prev: { prev: boolean; next: boolean }) => {
@@ -42,7 +42,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     return { ...prev, prev: true };
                 });
             }
-            console.log(results);
+            console.log(response);
 
             fetchRequest.setNow(page.now);
         } catch (error) {
@@ -109,11 +109,12 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     };
 
     return (
-        <div>
-            <div className={styles.Top}>
-                <RequestTop role={role} />
-            </div>
-            <div className={styles.Inner}>
+        <div style={role === "admin" ? { width: "1724px" } : { width: "1820px" }}>
+            <RequestTop role={role} />
+            <div
+                className={styles.Inner}
+                style={apiLength.length > 11 ? { overflowY: "scroll" } : { overflowY: "hidden" }}
+            >
                 {fetchRequest.getState.length > 0 ? (
                     fetchRequest.getState.map((card, i) => (
                         <Request
@@ -183,6 +184,15 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     </ConfigProvider>
                 </div>
             ) : null}
+            <Modal
+                centered
+                width={750}
+                open={modal.isOpen}
+                onCancel={modal.close}
+                zIndex={5}
+            >
+                <ViewRequest />
+            </Modal>
         </div>
     );
 };
