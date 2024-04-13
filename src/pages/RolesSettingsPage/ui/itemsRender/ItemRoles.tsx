@@ -13,9 +13,10 @@ interface IItemSettingRoles {
     checkBoxList: string[];
     getBoxes: (e: IUser) => void;
     inBoxList: IUser[];
+    genRoles: { [key: string]: boolean } | undefined
 }
 
-const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxList, getBoxes, inBoxList }) => {
+const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxList, getBoxes, inBoxList, genRoles }) => {
     const [boxes, setBoxes] = useState<{ [key: string]: boolean }>({
         client_can_edit_comments_extra: false,
         client_can_get_reports_extra: false,
@@ -24,14 +25,31 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxLi
         client_can_add_checklist_extra: false,
         client_can_view_profiles_extra: false,
     });
+    const [genBoxes, setGenBoxes] = useState<{ [key: string]: boolean } | undefined>()
+    useEffect(() => {
+        setGenBoxes(genRoles)
+    }, [genRoles])
+
+
 
     //just change select val to an or neg value
     const getCheckBoxVal = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        const name = Number(ev.target.name);
-        const time = Object.entries(boxes);
-        time[name][1] = !time[name][1];
-        const preventr = Object.fromEntries(time);
-        setBoxes(preventr);
+        //just fucked up this code place...
+        const index = Number(ev.target.name);
+        if (boxes && Object.entries(boxes)[index] && Object.entries(boxes)[index][1] == null) {
+            const name = Number(ev.target.name);
+            const time = Object.entries(boxes);
+            time[name][1] = !time[name][1];
+            time[name][1] = !time[name][1];
+            const preventr = Object.fromEntries(time);
+            setBoxes(preventr);
+        }else{
+            const name = Number(ev.target.name);
+            const time = Object.entries(boxes);
+            time[name][1] = !time[name][1];
+            const preventr = Object.fromEntries(time);
+            setBoxes(preventr);
+        }
     };
 
     //just up all selects to top if boxes is changed
@@ -39,7 +57,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxLi
         const updatedUser: IUser = { ...user, ...boxes };
         getBoxes(updatedUser);
     }, [boxes]);
-    
+
     //on change box list im seting boxes to formated thing
     useEffect(() => {
         const filteredInBoxList = inBoxList.filter((el: IUser) => el.username === user.username);
@@ -48,7 +66,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxLi
         const finishGets = fmTheGets ? Object.fromEntries(fmTheGets) : boxes;
         setBoxes(finishGets);
     }, [inBoxList]);
-    
+
 
     return (
         <div className={styles.Item}>
@@ -59,18 +77,31 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxLi
                 <p>{user.username}</p>
             </div>
             {checkBoxList.map((el, index: number) => {
-                //just check if this exist
-                const isChecked = boxes && Object.entries(boxes)[index] ? Object.entries(boxes)[index][1] : false;
-                return (
-                    <div className={styles.el}>
-                        <input
-                            type="checkbox"
-                            onChange={getCheckBoxVal}
-                            name={`${index}`}
-                            checked={isChecked}
-                        />
-                    </div>
-                );
+                if (boxes && Object.entries(boxes)[index] && Object.entries(boxes)[index][1] == null) {
+                    const isChecked = genBoxes && Object.entries(genBoxes)[index] ? Object.entries(genBoxes)[index][1] : false;
+                    return (
+                        <div className={styles.el}>
+                            <input
+                                type="checkbox"
+                                onChange={getCheckBoxVal}
+                                name={`${index}`}
+                                checked={isChecked}
+                            />
+                        </div>
+                    );
+                } else {
+                    const isChecked = boxes && Object.entries(boxes)[index] ? Object.entries(boxes)[index][1] : false;
+                    return (
+                        <div className={styles.el}>
+                            <input
+                                type="checkbox"
+                                onChange={getCheckBoxVal}
+                                name={`${index}`}
+                                checked={isChecked}
+                            />
+                        </div>
+                    );
+                }
             })}
         </div>
     );

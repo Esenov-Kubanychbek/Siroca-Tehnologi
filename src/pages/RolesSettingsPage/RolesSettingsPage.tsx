@@ -89,18 +89,9 @@ export const RolesSettingsPage: FC<Props> = () => {
     const reqRoles = async (data: IUser) => {
         try {
             if (data.role_type === 'client') {
-                const up = Object.entries(data)
-                up.map((el, index) => {
-                    if (el[1] === null) {
-                        up[index][1] = false
-                    } else {
-                        return
-                    }
-                })
-                const finishUp = Object.fromEntries(up)
                 const sendingData = {
                     "users_data": [
-                        finishUp
+                        data
                     ]
                 }
                 const response = await axios.put(`${BASE_URL}/users/clientpermissions/detail/`, sendingData, {
@@ -110,18 +101,9 @@ export const RolesSettingsPage: FC<Props> = () => {
                 });
                 console.log(response);
             } else if (data.role_type === "manager") {
-                const up = Object.entries(data)
-                up.map((el, index) => {
-                    if (el[1] === null) {
-                        up[index][1] = false
-                    } else {
-                        return
-                    }
-                })
-                const finishUp = Object.fromEntries(up)
                 const sendingData = {
                     "users_data": [
-                        finishUp
+                        data
                     ]
                 }
                 const response = await axios.put(`${BASE_URL}/users/managerpermissions/detail/`, sendingData, {

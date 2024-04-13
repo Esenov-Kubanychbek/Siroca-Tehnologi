@@ -11,11 +11,16 @@ interface IRolesRender {
     getChanges: (e: IUser[]) => void;
     navType: string;
 }
+interface IGeneralRoles {
+    [key: string]:boolean 
+}
 
 const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType }) => {
     const [usersBoxes, setUsersBoxes] = useState<IUser[]>([]);
     const [getInBoxes, setGetInBoxes] = useState<IUser[]>([]);
 
+    const [generalManager, setGeneralManager] = useState<IGeneralRoles>()
+    const [generalClient, setGeneralClient] = useState<IGeneralRoles>()
 
     //push the select if this select not exist in state if is exist just change val
     const getBoxes = (e: IUser) => {
@@ -41,16 +46,26 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType 
             const responseM = await axios.get(`${BASE_URL}/users/managerpermissions/detail/`);
             const update = [...responseC.data.results, ...responseM.data.results];
             console.log(responseC);
-            
             setGetInBoxes(update);
         } catch (error) {
             console.log(error);
         }
     };
+    const getGeneralRoles = async() => {
+        try {
+            const responseC = await axios.get(`${BASE_URL}/users/clientpermissions/general/`);
+            const responseM = await axios.get(`${BASE_URL}/users/managerpermissions/general/`);
+            setGeneralManager(responseM.data)
+            setGeneralClient(responseC.data)
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
     useEffect(() => {
         getRoles();
+        getGeneralRoles()
     }, []);
 
     useEffect(() => {
@@ -70,6 +85,7 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType 
                           index={index}
                           getBoxes={(e: IUser) => getBoxes(e)}
                           inBoxList={getInBoxes ? getInBoxes : []}
+                          genRoles={generalClient}
                       />
                   ))
                 : null}
@@ -82,6 +98,7 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType 
                           index={index}
                           getBoxes={(e: IUser) => getBoxes(e)}
                           inBoxList={getInBoxes ? getInBoxes : []}
+                          genRoles={generalManager}
                       />
                   ))
                 : null}
