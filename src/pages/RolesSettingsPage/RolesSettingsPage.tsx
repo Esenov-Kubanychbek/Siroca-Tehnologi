@@ -10,11 +10,11 @@ import { BASE_URL } from "../../shared/variables/variables";
 import { SearchInput } from "../../features";
 import { IUser } from "../../shared/types/userTypes";
 
-interface Props {}
+interface Props { }
 
 export const RolesSettingsPage: FC<Props> = () => {
     const [boxesReg, setBoxesReg] = useState<IUser[]>([]);
-    const [navtype, setNavtype] = useState<string>("all");
+    const [navtype, setNavtype] = useState<string>("client");
     const headerSettingsList: string[] = [
         "Добавление/удаление комментария к заявке",
         "Скачивание отчета по заявкам",
@@ -22,8 +22,18 @@ export const RolesSettingsPage: FC<Props> = () => {
         "Добавление/удаление файла к заявке",
         "Добавление/удаление чек-листов",
         "Просмотр профиля других пользователей",
+        "Создание заявки",
+        "Создание/редактирование заявки"
     ];
-
+    const headerSettingsListManager: string[] = [
+        "Добавление/удаление комментария к заявке",
+        "Скачивание отчета по заявкам",
+        "Просмотр профиля других пользователей",
+        "Удаление заявки",
+        "Создание/редактирование компании",
+        "Создание/редактирование пользователя",
+        "Создание/удаление должности"
+    ];
     const renderSettingsList: string[][] = [
         [
             "Добавление/удаление комментария к заявке",
@@ -32,23 +42,33 @@ export const RolesSettingsPage: FC<Props> = () => {
             "Добавление/удаление файла к заявке",
             "Добавление/удаление чек-листов",
             "Просмотр профиля других пользователей",
+            "Создание заявки",
+            "Создание/редактирование заявки"
         ],
+        [
+            "Добавление/удаление комментария к заявке",
+            "Скачивание отчета по заявкам",
+            "Просмотр профиля других пользователей",
+            "Удаление заявки",
+            "Создание/редактирование компании",
+            "Создание/редактирование пользователя",
+            "Создание/удаление должности"
+        ]
     ];
-
     const fetchData = usersApi();
-
     useEffect(() => {
         fetchData.getting();
     }, []);
 
     const navigate = useNavigate();
 
+    //navigation
     const nvMenu = () => {
         navigate(-1);
     };
 
+    //scroll-bar settings
     const scrollContainerRef = useRef<HTMLDivElement>(null);
-
     const scrollToBottom = () => {
         if (scrollContainerRef.current) {
             const scrollHeight = scrollContainerRef.current.scrollHeight;
@@ -57,7 +77,6 @@ export const RolesSettingsPage: FC<Props> = () => {
             scrollContainerRef.current.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
         }
     };
-
     useEffect(() => {
         scrollToBottom();
         if (scrollContainerRef.current) {
@@ -65,30 +84,55 @@ export const RolesSettingsPage: FC<Props> = () => {
         }
     }, []);
 
+
+    //puting changes
     const reqRoles = async (data: IUser) => {
         try {
-            const response = await axios.put(`${BASE_URL}/users/clientpermissions/detail/`, data, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
-            console.log(response);
+            if (data.role_type === 'client') {
+                const sendingData = {
+                    "users_data": [
+                        data
+                    ]
+                }
+                const response = await axios.put(`${BASE_URL}/users/clientpermissions/detail/`, sendingData, {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem("access")}`,
+                    },
+                });
+                console.log(response);
+            } else if (data.role_type === "manager") {
+                const sendingData = {
+                    "users_data": [
+                        data
+                    ]
+                }
+                const response = await axios.put(`${BASE_URL}/users/managerpermissions/detail/`, sendingData, {
+                    headers: {
+                        Authorization: `JWT ${localStorage.getItem("access")}`,
+                    },
+                });
+                console.log(response);
+            } else if (data.role_type === '') {
+                return
+            }
         } catch (error) {
             console.log(error);
         }
     };
 
+
+    //on click save im doing put to save all changes
     const saveRoles = () => {
         boxesReg.forEach((el: IUser) => {
             reqRoles(el);
         });
     };
 
+    //just nav to client ot manager
     const changeNav = (e: React.MouseEvent<HTMLButtonElement>) => {
         const id = (e.target as HTMLButtonElement).id;
         setNavtype(id);
     };
-
     return (
         <div className={styles.Settings}>
             <div
@@ -126,37 +170,25 @@ export const RolesSettingsPage: FC<Props> = () => {
                     <button
                         onClick={changeNav}
                         id="client"
+                        className={navtype === "client" ?  styles.topNavActive : styles.topNavAnActive}
                     >
                         Клиент
                     </button>
                     <button
                         onClick={changeNav}
                         id="manager"
+                        className={navtype === "manager" ?  styles.topNavActive : styles.topNavAnActive}
                     >
                         Менеджер
                     </button>
                 </div>
-                <div className={styles.Navigation}>
-                    <button
-                        onClick={changeNav}
-                        id="all"
-                    >
-                        Все права
-                    </button>
-                    <button
-                        onClick={changeNav}
-                        id="manager"
-                    >
-                        Права админа
-                    </button>
-                </div>
                 <HeaderSettings
                     name="Имя пользователя"
-                    list={headerSettingsList}
+                    list={navtype === "client" ? headerSettingsList : headerSettingsListManager}
                 />
                 <RolesRender
                     users={fetchData.inState ? fetchData.inState : []}
-                    list={renderSettingsList}
+                    list={navtype === "client" ? renderSettingsList[0] : renderSettingsList[1]}
                     getChanges={(e: IUser[]) => setBoxesReg(e)}
                     navType={navtype}
                 />

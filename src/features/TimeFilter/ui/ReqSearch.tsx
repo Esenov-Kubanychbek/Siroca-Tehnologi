@@ -8,11 +8,16 @@ import { BASE_URL } from "../../../shared/variables/variables";
 export const ReqSearch: FC = () => {
     const [state, setState] = useState<boolean>(false);
     const [inputState, setInputState] = useState<string>("");
+
+    //onChange to search input
     const change = (e: ChangeEvent<HTMLInputElement>) => {
         setState(true);
         setInputState(e.target.value);
     };
     const fetchRequest = getRequestApi();
+
+
+    //Search func
     const search = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/?search=${inputState}`, {
@@ -27,6 +32,8 @@ export const ReqSearch: FC = () => {
             console.log(error);
         }
     };
+
+    //To clear all searched things
     const updateSearch = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/`, {
@@ -41,6 +48,8 @@ export const ReqSearch: FC = () => {
             console.log(error);
         }
     };
+
+    //Search is work on click enter
     const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === "Enter") {
             search();
@@ -60,8 +69,6 @@ export const ReqSearch: FC = () => {
                 value={inputState}
                 onChange={change}
             />
-
-            {/* <button onClick={search}>Search</button> */}
             <CloseSquare
                 variant="Bold"
                 color="#3B3B3B"

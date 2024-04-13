@@ -9,9 +9,12 @@ interface IRolesList {
 }
 
 const RolesList: React.FC<IRolesList> = ({ list, listType, handleChangeBox, box }) => {
+    //on click to checkbox
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         handleChangeBox([listType, e]);
     };
+
+
     return (
         <div className={styles.MenuCont}>
             <div className={styles.HeaderPrg}>

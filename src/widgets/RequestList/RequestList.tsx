@@ -16,8 +16,11 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     const [reqCount, setReqCount] = useState<number>(0);
     const [prevNext, setPrevNext] = useState<{ prev: boolean; next: boolean }>({ prev: false, next: false });
 
+    //getting state in zustand
     const fetchRequest = getRequestApi();
     const apiLength = fetchRequest.getState;
+
+    //just get all reqs with pagination
     const reqPage = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/?page=${page.now}&${api}`, {
@@ -47,10 +50,12 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
         }
     };
 
+    //onChange now page we calling reqPage()
     useEffect(() => {
         reqPage();
     }, [page.now]);
 
+    //just rendering paginattion btns 
     const renderPagButtons = () => {
         if (Math.ceil(reqCount / 50) > 1) {
             for (let index = 2; index <= 5; index++) {
@@ -71,6 +76,8 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
             return;
         }
     };
+
+    //just if pages will be more of 5
     const renderMoreBtns = () => {
         for (let index = 6; index <= Math.ceil(reqCount / 50); index++) {
             return (
@@ -87,17 +94,20 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
             );
         }
     };
+    
+
+    //next end prev page
     const nextPage = () => {
         if (prevNext.next) {
             setPage({ now: page.now + 1 });
         }
     };
-
     const prevPage = () => {
         if (prevNext.prev) {
             setPage({ now: page.now - 1 });
         }
     };
+
     return (
         <div style={role === "admin" ? { width: "1724px" } : { width: "1820px" }}>
             <RequestTop role={role} />
@@ -137,7 +147,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                             },
                         }}
                     >
-                        <div className={styles.pagination}>
+                        <div className={styles.paginationCont}>
                             <button
                                 onClick={prevPage}
                                 className={styles.pagToggle}

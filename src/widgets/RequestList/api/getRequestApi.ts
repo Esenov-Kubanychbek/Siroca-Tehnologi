@@ -25,12 +25,15 @@ export interface IFetchGet {
     setNow: (num: number) => void;
     setState: (data: []) => void;
     clearFilter: () => void;
+    setIsOpen: () => void,
+    isFilterOpen: boolean
 }
 
-export const getRequestApi = create<IFetchGet>((set) => ({
+export const getRequestApi = create<IFetchGet>((set, get) => ({
     getState: [],
     filterState: [],
     now: 1,
+    isFilterOpen: false,
     getting: async (now: number) => {
         try {
             const getResponse = await axios.get(`${BASE_URL}/applications/form/?page=${now}`, {
@@ -45,6 +48,10 @@ export const getRequestApi = create<IFetchGet>((set) => ({
     },
     setState: (data: []) => {
         set({ getState: data });
+    },
+    setIsOpen: () => {
+        const currentIsFilterOpen = get().isFilterOpen; 
+        set({ isFilterOpen: !currentIsFilterOpen }); 
     },
     setFilterState: (data: []) => {
         set({ filterState: data });
