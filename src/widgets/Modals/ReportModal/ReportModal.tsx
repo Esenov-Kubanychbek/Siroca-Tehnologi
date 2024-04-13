@@ -54,11 +54,7 @@ export const ReportModal: FC = () => {
     const downLoad = async () => {
         try {
             const response = await axios.get(
-<<<<<<< HEAD
                 `${BASE_URL}/applications/filter/export-to-excel/?${results?.company ? `company_name=${results?.company}&` : ""}${results?.maneger ? `manager_first_name=${results?.maneger}&` : ""}${results?.begin ? `start_date=${results?.begin}&` : ""}${results?.end ? `finish_date=${results?.end}&` : ""}`,
-=======
-                `${BASE_URL}/applications/filter/export-to-excel/?${results?.company ? `company_name=${results?.company}&` : ''}${results?.maneger ? `manager_first_name=${results?.maneger}&` : ''}${results?.begin ? `start_date=${results?.begin}&` : ''}${results?.end ? `finish_date=${results?.end}&` : ''}`,
->>>>>>> 5c6cebd75a18c3ce0cfef5830ffe80923e30dc40
                 {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,
