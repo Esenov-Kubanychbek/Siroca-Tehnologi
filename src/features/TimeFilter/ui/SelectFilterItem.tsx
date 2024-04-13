@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import styles from "./SelectFilterItem.module.scss";
 
 interface ISelectItem {
@@ -10,11 +10,11 @@ interface ISelectItem {
     };
     getSelect: (obj: { selected: string[]; type: string }) => void;
 }
+//There im rendering selecter dropdawn
 export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
-    console.log(el);
+    const [selects, setSelects] = useState<string[]>([]);//All choosed selects
 
-    const [selects, setSelects] = useState<string[]>([]);
-
+    // pushing choosed selects
     const addSelect = (e: { currentTarget: { id: string } }) => {
         const value = e.currentTarget.id;
         if (selects.includes(value)) {
@@ -25,10 +25,7 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
         }
     };
 
-    useEffect(() => {
-        console.log(selects);
-    }, [selects]);
-
+    //Its click event func for confirm btn
     const onUseSelects = () => {
         const obj = { selected: selects, type: el.type };
         getSelect(obj);
@@ -45,7 +42,7 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
             >
                 Применить
             </button>
-            {el.values &&
+            {el.values &&//checking if values is already true
                 el.values.map((elem: string | number | boolean, index) => {
                     const displayedText = String(elem).length > 10 ? String(elem).substring(0, 10) + "..." : elem;
                     return (
