@@ -54,8 +54,6 @@ export const CreateCompany: FC = () => {
                         width={272}
                         change={changeInput}
                         name="name"
-                        allData={allData}
-                        datas={dataInputCompanies.name}
                         value={dataInputCompanies.name}
                     />
                 </div>
@@ -66,8 +64,6 @@ export const CreateCompany: FC = () => {
                         width={272}
                         change={changeInput}
                         name="country"
-                        allData={allData}
-                        datas={dataInputCompanies.country}
                         value={dataInputCompanies.country}
                     />
                 </div>
@@ -80,8 +76,6 @@ export const CreateCompany: FC = () => {
                         width={272}
                         change={changeInput}
                         name="company_code"
-                        allData={allData}
-                        datas={dataInputCompanies.company_code}
                         value={dataInputCompanies.company_code}
                     />
                 </div>
@@ -92,8 +86,6 @@ export const CreateCompany: FC = () => {
                         width={272}
                         name="domain"
                         change={changeInput}
-                        allData={allData}
-                        datas={dataInputCompanies.domain}
                         value={dataInputCompanies.domain}
                     />
                 </div>
