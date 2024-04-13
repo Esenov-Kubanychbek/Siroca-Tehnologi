@@ -3,7 +3,10 @@ import styles from "./CustomInput.module.scss";
 import { IInput } from "./model/types";
 
 export const CustomInput: FC<IInput> = (props) => {
-    const { width, placeholder, height, background, value, name, type, change, paddingLeft, defaultValue } = props;
+    const { width, placeholder, height, background, value, name, type, change, paddingLeft, allData, datas, defaultValue, onClick } = props;
+
+    const placeholderClass = allData ? datas ? styles.blackPlaceholder : styles.redPlaceholder : null;
+
     return (
         <input
             type={type}
@@ -16,9 +19,11 @@ export const CustomInput: FC<IInput> = (props) => {
                 height: `${height}px`,
                 background: `${background}`,
                 paddingLeft: `${paddingLeft}px`,
+                border: `1px solid ${allData ? datas ? 'black' : 'red' : 'black'}`
             }}
             placeholder={placeholder}
-            className={styles.Input}
+            className={`${styles.Input} ${placeholderClass}`}
+            onClick={onClick}
         />
     );
 };

@@ -3,7 +3,6 @@ import { CloseSquare, MoreSquare } from "iconsax-react";
 import styles from "./RequestView.module.scss";
 import ViewModal from "../../shared/hooks/modalHooks/useViewRequest";
 import { MenuRequest } from "./ui/Menu/MenuRequest";
-import { Logs } from "./ui/Logs/Logs";
 import DetailsAplication from "./ui/DetailsAplication/DetailsAplication";
 import { Link } from "./ui/Link/Link";
 import Peoples from "./ui/Peoples/Peoples";
@@ -39,7 +38,6 @@ export const RequestView: FC = () => {
                     Номер заявки:
                     <div className={styles.number}>YMF021256</div>
                 </div>
-                <Logs />
                 <DetailsAplication />
                 <Link />
                 <Peoples />

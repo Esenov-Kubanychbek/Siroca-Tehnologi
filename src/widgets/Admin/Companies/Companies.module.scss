@@ -1,26 +1,38 @@
-@import "../../../app/styles/index.scss";
+@import "index.scss";
 
 .Companies {
     margin-top: 20px;
+    .searchCompanies {
+        display: flex;
+        justify-content: space-between;
+    }
+    .managerName{
+        font-size: 16px;
+        display: flex   ;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700;
+    }
     .Name {
         font-size: 24px;
         font-weight: 700;
     }
-    .SearchCompanies {
+    .container{
         display: flex;
-        gap: 1210px;
-        margin-top: 8px;
-    }
-    .Table {
-        margin-top: 20px;
-        .Top {
-            width: 1718px;
-        }
-        .Inner {
-            height: 548px;
-            width: 1760px;
-            overflow-x: hidden;
-            overflow-y: scroll;
+        .table{
+            margin: 16px 0 ;
+            transition: .1s;
+            border: 1px #F4F4F4 solid;
+            ul {
+                padding: 0;
+                .datas{
+                    cursor: pointer;
+                    display: flex;
+                    div{
+                        transition: .1s;
+                    }
+                }
+            }
         }
     }
 }

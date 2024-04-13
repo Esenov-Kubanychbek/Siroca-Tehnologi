@@ -397,7 +397,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                     items={items}
                     tabBarStyle={{
                         padding: "24px",
-                        width: "1764px",
+                        width: role === "admin" ? "1764px" : "1790px",
                         fontWeight: 700,
                         backgroundColor: "white",
                     }}

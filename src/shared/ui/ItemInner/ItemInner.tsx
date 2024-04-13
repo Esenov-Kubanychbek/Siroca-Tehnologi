@@ -4,6 +4,7 @@ import { IItemInner } from "./types/types";
 
 export const ItemInner: FC<IItemInner> = (props) => {
     const { content, width } = props;
+    
     return (
         <div
             className={styles.ItemInner}

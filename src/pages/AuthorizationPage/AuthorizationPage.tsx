@@ -36,7 +36,7 @@ export const Authorization: FC = () => {
                 } else if (response.data.role_type === "manager") {
                     navigate(PATHS.manager);
                 } else {
-                    navigate(PATHS.client);
+                    navigate(PATHS.client); 
                 }
             } else {
                 setErr(true);

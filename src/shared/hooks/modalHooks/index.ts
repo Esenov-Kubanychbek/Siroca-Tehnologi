@@ -11,5 +11,6 @@ export { useView } from "./useView";
 export { useSuccess } from "./useSuccess";
 export { useReady } from "./useReady";
 export { useViewUser } from "./useViewUser";
+export { useAddManager} from './useAddManager';
 export { usePositionReady } from "./usePositionReady";
 export { useEditRequest } from "./useEditRequest";

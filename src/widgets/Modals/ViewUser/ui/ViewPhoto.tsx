@@ -19,7 +19,6 @@ export const ViewPhoto = () => {
                 />
                 <input
                     name="image"
-                    onChange={fetchData.setOneUser}
                     className={styles.Input}
                     type="file"
                     accept="image/*"

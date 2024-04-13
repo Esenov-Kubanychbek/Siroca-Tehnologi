@@ -1,7 +1,6 @@
 @import "../../app/styles/variables.scss";
 
 .Request {
-    width: 1820px;
     height: 56px;
     display: flex;
     align-items: center;
@@ -16,7 +15,6 @@
 .Prioritet {
     width: 150px;
     height: 46px;
-    color: $highest;
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -38,7 +36,6 @@
 .Status {
     width: 140px;
     height: 46px;
-    color: $ready;
     border-radius: 8px;
     display: flex;
     justify-content: center;

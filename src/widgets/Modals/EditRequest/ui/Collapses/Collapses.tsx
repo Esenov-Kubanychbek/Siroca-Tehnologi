@@ -1,10 +1,10 @@
 import { Collapse, CollapseProps } from "antd";
 import { ChangeEvent, FC } from "react";
 import { BriefDescription, CheckList, Comments, DatesContainer, Description, Details, Humans, LinkJira } from "..";
-import { IRequest } from "../../../CreateRequest/api/requestApi";
+import { ICreateRequest } from "../../../CreateRequest/api/requestApi";
 
 interface ICollapses {
-    request: IRequest;
+    request: ICreateRequest;
     onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
 }
 

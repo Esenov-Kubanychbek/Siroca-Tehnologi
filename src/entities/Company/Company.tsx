@@ -2,7 +2,7 @@ import { FC } from "react";
 import styles from "./Company.module.scss";
 import { ItemInner } from "../../shared/ui";
 import { useViewCompany } from "../../shared/hooks/modalHooks/useViewCompany";
-import { dataCompanies, useDataStoreComponies } from "../../widgets/Admin/Companies/api/getCompaniesApi";
+import { dataCompanies, useDataStoreComponies } from "../../widgets/Admin/Companies/api/componiesApi";
 
 export const Company: FC<{ company: dataCompanies }> = ({ company }) => {
     const modal = useViewCompany();
