@@ -21,7 +21,7 @@ export const ReportButton: FC = () => {
             </div>
             <Modal
                 centered
-                width={861}
+                width={871}
                 open={modal.isOpen}
                 onCancel={modal.close}
             >
