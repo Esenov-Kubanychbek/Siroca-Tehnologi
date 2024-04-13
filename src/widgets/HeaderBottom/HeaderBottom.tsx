@@ -2,14 +2,14 @@ import { FC, useState } from "react";
 import styles from "./HeaderBottom.module.scss";
 import { ButtonRequest, FilterButton, ReportButton, TimeFilter } from "../../features";
 import { MoreSquare } from "iconsax-react";
-import { useRequest } from "../../shared/hooks/modalHooks";
+import { useCreateRequest } from "../../shared/hooks/modalHooks";
 import { Modal } from "antd";
 import { CreateRequest } from "..";
 import { ReqSearch } from "../../features/TimeFilter/ui/ReqSearch";
 
 export const HeaderBottom: FC<{ role: "client" | "manager" | "admin" }> = ({ role }) => {
     const [report, setReport] = useState<boolean>(false);
-    const modal = useRequest();
+    const modal = useCreateRequest();
     const [isFilter, setIsFilter] = useState(false);
 
     const onFilter = () => {

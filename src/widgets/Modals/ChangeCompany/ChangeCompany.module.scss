@@ -1,9 +1,9 @@
-.ChangeCompany{
+.ChangeCompany {
     width: 608px;
     padding: 36px 20px;
     font-size: 18px;
     font-weight: 700;
-    .blackBagr{         
+    .blackBagr {
         width: 100%;
         height: 100%;
         position: fixed;
@@ -12,7 +12,7 @@
         top: 0;
         z-index: 4;
     }
-    .moreClick{
+    .moreClick {
         font-size: 14px;
         width: 180px;
         background-color: white;
@@ -20,54 +20,54 @@
         box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.084);
         margin-left: -140px;
         position: fixed;
-        color: #1C6AB1;
+        color: #1c6ab1;
         z-index: 5;
-        p{
+        p {
             height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
-            &:hover{
-                background-color: #F4F4F4;
+            &:hover {
+                background-color: #f4f4f4;
             }
         }
     }
-    span{
-        color: #5C5C5C;
+    span {
+        color: #5c5c5c;
         font-size: 18px;
     }
-    .buttons{
+    .buttons {
         display: flex;
-        justify-content: flex-end   ;
-        
+        justify-content: flex-end;
     }
-    .datasCompany{
+    .datasCompany {
         margin-top: -20px;
         width: 508;
         margin: 0 50px;
-        .headerText{
+        .headerText {
             font-size: 32px;
         }
-        .container1{
+        .container1 {
             margin-top: 16px;
             display: flex;
-            .block1, .block2{
+            .block1,
+            .block2 {
                 display: flex;
                 flex-direction: column;
-                
-                .miniContainer{
+
+                .miniContainer {
                     margin: 8px 0;
                 }
             }
-            .block2{
+            .block2 {
                 padding-left: 100px;
             }
         }
-        .main_manager{
+        .main_manager {
             margin: 16px 0;
-            div{
+            div {
                 font-size: 20px;
-                background-color: #F4F4F4;
+                background-color: #f4f4f4;
                 border-radius: 6px;
                 width: 300px;
                 padding: 8px 16px;

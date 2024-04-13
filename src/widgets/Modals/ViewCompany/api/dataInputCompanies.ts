@@ -1,6 +1,6 @@
-import create from 'zustand';
-import { dataCompanies } from '../../../Admin/Companies/api/componiesApi';
-import axios from 'axios';
+import { create } from "zustand";
+import { dataCompanies } from "../../../Admin/Companies/api/componiesApi";
+import axios from "axios";
 
 // Добавляем объявление Symbol.iterator для типа number | undefined[]
 declare global {
@@ -22,7 +22,7 @@ interface DataInputCompaniesStore {
     changeInput: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
     resetInput: () => void;
     dataInputCompanies: DataAddCompanies;
-    addManager: (manager: number | undefined)=> void;
+    addManager: (manager: number | undefined) => void;
     changeInputOne: (data: DataAddCompanies, state: dataCompanies | null, id: number | undefined) => void;
 }
 // Создаем хранилище Zustand
@@ -33,17 +33,16 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
         country: "",
         managers: [],
         main_manager: null,
-        domain: ""
+        domain: "",
     },
     // Функция изменения
     changeInput: (e) => {
         set((state) => ({
             dataInputCompanies: {
                 ...state.dataInputCompanies,
-                [e.target.name]: e.target.value
-            }
+                [e.target.name]: e.target.value,
+            },
         }));
-        
     },
     addManager: (manager) => {
         set((state) => ({
@@ -52,8 +51,8 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
                 // Добавляем проверку на undefined
                 managers: Array.isArray(state.dataInputCompanies.managers)
                     ? [...state.dataInputCompanies.managers, manager]
-                    : [manager]
-            }
+                    : [manager],
+            },
         }));
     },
     // Новая функция сброса
@@ -65,37 +64,31 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
                 country: "",
                 managers: [],
                 main_manager: null,
-                domain: ""
-            }
+                domain: "",
+            },
         });
-
     },
-    changeInputOne: async (data, state, id) =>  {
-        
-        if(state !== null){
+    changeInputOne: async (data, state, id) => {
+        if (state !== null) {
             const datas = {
-                id:id,
+                id: id,
                 name: data.name ? data.name : state.name,
                 company_code: data.company_code ? data.company_code : state.company_code,
                 country: data.country ? data.country : state.country,
                 main_manager: data.main_manager ? data.main_manager : state.main_manager,
-                domain:  data.domain ? data.domain : state.domain,
+                domain: data.domain ? data.domain : state.domain,
                 managers: [...state.managers, ...data.managers],
+            };
+            try {
+                const response = await axios.put(`http://13.60.17.217:80/api/v1/company/${id}/`, datas);
+                console.log(response);
+                return response;
+            } catch (error) {
+                console.log(error);
             }
-           try{
-            const response = await axios.put(`http://13.60.17.217:80/api/v1/company/${id}/`, datas);
-            console.log(response);
-            return response;            
-            
-           }catch(error){
-            console.log(error);
-            
-           }
-           console.log(id);
-           
-           console.log(datas);         
+            console.log(id);
+
+            console.log(datas);
         }
-        
-        
     },
 }));

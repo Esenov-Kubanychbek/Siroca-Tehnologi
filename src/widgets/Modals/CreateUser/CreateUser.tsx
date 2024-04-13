@@ -135,7 +135,7 @@ export const CreateUser: FC = () => {
                 <div>
                     <div className={styles.Text}>Компания</div>
                     <CustomInput
-                        type="number"
+                        type="text"
                         name="main_company"
                         width={272}
                         placeholder="Напишите..."
@@ -147,7 +147,6 @@ export const CreateUser: FC = () => {
                     <div className={styles.AddRole}>
                         <CustomInput
                             name="job_title"
-                            type="number"
                             width={210}
                             placeholder="Напишите..."
                             change={addValues}

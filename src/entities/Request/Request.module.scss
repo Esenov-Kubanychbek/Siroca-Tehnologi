@@ -8,12 +8,12 @@
     background-color: white;
     cursor: pointer;
     &:hover {
-        background-color: $blackde;
+        background-color: $hover;
     }
 }
 
 .Prioritet {
-    width: 150px;
+    width: 100%;
     height: 46px;
     border-radius: 8px;
     display: flex;
@@ -34,7 +34,7 @@
 }
 
 .Status {
-    width: 140px;
+    width: 100%;
     height: 46px;
     border-radius: 8px;
     display: flex;

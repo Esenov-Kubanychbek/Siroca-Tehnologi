@@ -19,6 +19,10 @@ export const Positions: FC = () => {
     const modalSuccess = useSuccess();
     const fetchData = jobTitleApi();
     const modalReady = usePositionReady();
+    const handleClick = () => {
+        setState(!state);
+        setPosition(0);
+    };
     useEffect(() => {
         fetchData.getting();
     }, []);
@@ -30,21 +34,13 @@ export const Positions: FC = () => {
                 <ButtonCreate onClick={modal.open} />
                 <button
                     className={styles.Trash}
-                    onClick={() => {
-                        setState(!state);
-                        setPosition(0);
-                    }}
+                    onClick={handleClick}
                 >
-                    <Trash
-                        size={24}
-                        color="white"
-                    />
+                    <Trash color="white" />
                 </button>
                 <button
                     className={styles.Delete}
-                    onClick={() => {
-                        position > 0 && modalReady.open();
-                    }}
+                    onClick={modalReady.open}
                     style={
                         position > 0
                             ? { color: "#e51616" }
@@ -68,7 +64,10 @@ export const Positions: FC = () => {
                         />
                     </ListTop>
                 </div>
-                <div className={styles.Inner}>
+                <div
+                    className={styles.Inner}
+                    style={fetchData.jobTitleList.length > 9 ? { overflowY: "scroll" } : { overflowY: "hidden" }}
+                >
                     {fetchData.jobTitleList.map((card) => (
                         <div
                             key={card.id}

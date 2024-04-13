@@ -1,11 +1,10 @@
 import { FC } from "react";
 import styles from "./CustomInput.module.scss";
-import { IInput } from "./model/types";
+import { IInput } from "./types/types";
 
 export const CustomInput: FC<IInput> = (props) => {
-    const { width, placeholder, height, background, value, name, type, change, paddingLeft, allData, datas, defaultValue, onClick } = props;
-
-    const placeholderClass = allData ? datas ? styles.blackPlaceholder : styles.redPlaceholder : null;
+    const { width, placeholder, height, background, value, name, type, change, paddingLeft, defaultValue, onClick } =
+        props;
 
     return (
         <input
@@ -19,10 +18,9 @@ export const CustomInput: FC<IInput> = (props) => {
                 height: `${height}px`,
                 background: `${background}`,
                 paddingLeft: `${paddingLeft}px`,
-                border: `1px solid ${allData ? datas ? 'black' : 'red' : 'black'}`
             }}
             placeholder={placeholder}
-            className={`${styles.Input} ${placeholderClass}`}
+            className={styles.Input}
             onClick={onClick}
         />
     );

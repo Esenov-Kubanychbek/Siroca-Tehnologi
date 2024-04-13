@@ -5,12 +5,13 @@ import { CustomSelect } from "../../../CreateCompany/ui/CustomSelect";
 
 interface IDetails {
     title: string;
+    company: string;
     onChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }
 
-export const Details: FC<IDetails> = ({ onChange, title }) => {
-    const data: string[] = ["Высокий", "Средний", "Низкий"];
-    const data2: string[] = ["К выполнению", "В работе", "Тестируется", "Перекрыто", "На обновлении", "В работе"];
+export const Details: FC<IDetails> = ({ onChange, title, company }) => {
+    const prioritetData: string[] = ["Высокий", "Средний", "Низкий"];
+    const statusData: string[] = ["К выполнению", "В работе", "Тестируется", "Перекрыто", "На обновлении", "В работе"];
     return (
         <div className={styles.Details}>
             <div>
@@ -18,7 +19,7 @@ export const Details: FC<IDetails> = ({ onChange, title }) => {
                     <div className={styles.Name}>
                         <div className={styles.Text}>Название заявки:</div>
                         <CustomInput
-                            defaultValue={title}
+                            value={title}
                             name="title"
                             width={350}
                             height={44}
@@ -29,8 +30,8 @@ export const Details: FC<IDetails> = ({ onChange, title }) => {
                     <div className={styles.Name}>
                         <div className={styles.Text}>Название компании:</div>
                         <CustomInput
+                            value={company}
                             name="company"
-                            type="number"
                             width={350}
                             height={44}
                             placeholder="Введите текст..."
@@ -42,7 +43,7 @@ export const Details: FC<IDetails> = ({ onChange, title }) => {
                         <CustomSelect
                             name="priority"
                             text="Приоритетность"
-                            dataOption={data}
+                            dataOption={prioritetData}
                             width={350}
                             change={onChange}
                         />
@@ -52,7 +53,7 @@ export const Details: FC<IDetails> = ({ onChange, title }) => {
                         <CustomSelect
                             name="status"
                             text="Статус заявки"
-                            dataOption={data2}
+                            dataOption={statusData}
                             width={350}
                             change={onChange}
                         />

@@ -24,3 +24,4 @@ export { ViewCompany } from "./Modals/ViewCompany/ViewCompany";
 export { HeaderTop } from "./HeaderTop/HeaderTop";
 export { HeaderBottom } from "./HeaderBottom/HeaderBottom";
 export { EditRequest } from "./Modals/EditRequest/EditRequest";
+export { ViewRequest } from "./Modals/ViewRequest/ViewRequest";

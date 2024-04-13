@@ -7,7 +7,7 @@ interface IFetch {
     inState: IUser[];
     oneUserGet: IUserGet;
     oneUser: IUser;
-    userProfile: iGetUser,
+    userProfile: iGetUser;
     userProfileAdded: () => void;
     getOneUser: (id: number | undefined) => void;
     putting: (postState: IUser, id: number | undefined) => void;
@@ -15,7 +15,7 @@ interface IFetch {
     posting: (postState: IUser) => void;
 }
 
-export const usersApi = create<IFetch>((set) => ({
+export const usersApi = create<IFetch>((set, get) => ({
     inState: [],
     userProfile: {
         first_name: "",
@@ -46,17 +46,15 @@ export const usersApi = create<IFetch>((set) => ({
         username: "",
     },
     userProfileAdded: async () => {
-        try{
-            const response = await axios.get(`${BASE_URL}/users/${localStorage.getItem('id')}/`);
+        try {
+            const response = await axios.get(`${BASE_URL}/users/${localStorage.getItem("id")}/`);
             console.log(response);
-            
+
             set({
-                userProfile: response.data
-            })
-            
-        }catch(error){
+                userProfile: response.data,
+            });
+        } catch (error) {
             console.log(error);
-            
         }
     },
     getOneUser: async (id) => {
@@ -86,6 +84,8 @@ export const usersApi = create<IFetch>((set) => ({
     posting: async (postState) => {
         try {
             const postResponse = await axios.post(`${BASE_URL}/users/create/`, postState);
+            const oldList = get().inState
+            set({inState: [...oldList, postState]})
             console.log(postResponse);
         } catch (error) {
             console.log(error, "postUserError");

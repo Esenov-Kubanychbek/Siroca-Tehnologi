@@ -17,7 +17,7 @@ interface IJobTitle {
     deleting: (id: number) => void;
 }
 
-export const jobTitleApi = create<IJobTitle>((set) => ({
+export const jobTitleApi = create<IJobTitle>((set, get) => ({
     jobTitleList: [],
     oneJobTitle: {
         title: "",
@@ -42,6 +42,10 @@ export const jobTitleApi = create<IJobTitle>((set) => ({
         try {
             const postResponse = await axios.post(`${BASE_URL}/company/create_job-title/`, postState);
             console.log(postResponse);
+            const oldList = get().jobTitleList;
+            set({
+                jobTitleList: [...oldList, postState],
+            });
             set({
                 oneJobTitle: {
                     title: "",

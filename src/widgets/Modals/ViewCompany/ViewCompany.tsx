@@ -1,21 +1,21 @@
-import {  CloseSquare } from "iconsax-react";
-import styles from "./ViewCompany.module.scss"
+import { CloseSquare } from "iconsax-react";
+import styles from "./ViewCompany.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { Collapse } from "antd";
 import CollapsePanel from "antd/es/collapse/CollapsePanel";
-import { FC, } from "react";
+import { FC } from "react";
 import { useViewCompany } from "../../../shared/hooks/modalHooks/useViewCompany";
 import { useDataInputCompaniesStore } from "./api/dataInputCompanies";
 
 export const ViewCompany: FC = () => {
     const modal = useViewCompany();
-    const {selectedCompanyData, fetchDatas} = useDataStoreComponies();
-    const {changeInput, changeInputOne, dataInputCompanies} = useDataInputCompaniesStore();
+    const { selectedCompanyData, fetchDatas } = useDataStoreComponies();
+    const { changeInput, changeInputOne, dataInputCompanies } = useDataInputCompaniesStore();
     const change = async () => {
         await changeInputOne(dataInputCompanies, selectedCompanyData, selectedCompanyData?.id);
-            fetchDatas();
-    }
+        fetchDatas();
+    };
 
     return (
         <div className={styles.CreateCompany}>
@@ -76,13 +76,14 @@ export const ViewCompany: FC = () => {
                     <label htmlFor="sel">Ответственный менеджер</label>
                     <br />
                     <Collapse accordion>
-                        <CollapsePanel header='Ответственный менеджер' key={16}>
-
-                        </CollapsePanel>
+                        <CollapsePanel
+                            header="Ответственный менеджер"
+                            key={16}
+                        ></CollapsePanel>
                     </Collapse>
                 </div>
             </div>
-                
+
             <div className={styles.buttons}>
                 <div onClick={modal.close}>
                     <CustomButton
@@ -97,11 +98,9 @@ export const ViewCompany: FC = () => {
                         width={150}
                         text="Сохранить"
                         onClick={change}
-                        
                     />
                 </div>
             </div>
         </div>
     );
 };
-

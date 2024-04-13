@@ -3,17 +3,17 @@ import { create } from "zustand";
 import { BASE_URL } from "../../../shared/variables/variables";
 
 export interface IGetRequest {
-    [key: string]: string | number;
+    id: number;
     task_number: string;
     title: string;
-    description: string;
+    short_description: string;
     status: string;
     priority: string;
     start_date: string;
     finish_date: string;
-    company: number;
-    main_client: number;
-    main_manager: number;
+    company: string;
+    main_client: string;
+    main_manager: string;
 }
 
 export interface IFetchGet {

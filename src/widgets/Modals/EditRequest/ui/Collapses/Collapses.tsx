@@ -1,7 +1,7 @@
 import { Collapse, CollapseProps } from "antd";
 import { ChangeEvent, FC } from "react";
 import { BriefDescription, CheckList, Comments, DatesContainer, Description, Details, Humans, LinkJira } from "..";
-import { ICreateRequest } from "../../../CreateRequest/api/requestApi";
+import { ICreateRequest } from "../../../CreateRequest/api/createRequestApi";
 
 interface ICollapses {
     request: ICreateRequest;
@@ -17,6 +17,7 @@ export const Collapses: FC<ICollapses> = ({ onChange, request }) => {
                 <Details
                     onChange={onChange}
                     title={request.title}
+                    company={request.company}
                 />
             ),
         },
