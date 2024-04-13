@@ -25,11 +25,12 @@ export const Authorization: FC = () => {
         };
         try {
             const response = await axios.post(`${BASE_URL}/users/login/`, loginInfo);
-            console.log(response.status);
+            console.log(response);
             if (response.status === 200) {
                 const access = response.data.access;
                 localStorage.setItem("access", access);
                 localStorage.setItem("role_type", response.data.role_type);
+                localStorage.setItem("id", response.data.id)
                 if (response.data.role_type === "") {
                     navigate(PATHS.admin);
                 } else if (response.data.role_type === "manager") {

@@ -24,7 +24,8 @@ interface ITimeFilter {
     isFilter: boolean;
 }
 export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
-    const fetchRequest = getRequestApi();
+    const [isMounted, setIsMounted] = useState<boolean>(false);
+    //There we saveing all choosed or not selects
     const [filterItems, setFilterItems] = useState<FilterItem[]>([
         { text: "Номер", type: "task_number", isOpen: false, values: [], pos: 0, selected: [] },
         { text: "Компания", type: "company", isOpen: false, values: [], pos: 120, selected: [] },
@@ -37,7 +38,8 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         { text: "Приоритет", type: "priority", isOpen: false, values: [], pos: 1196, selected: [] },
         { text: "Статус", type: "status", isOpen: false, values: [], pos: 1320, selected: [] },
     ]);
-    const [isMounted, setIsMounted] = useState<boolean>(false);
+
+    //Thats for entDs, NOT MY CODE
     const items: TabsProps["items"] = [
         {
             key: "1",
@@ -70,9 +72,12 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             ),
         },
     ];
-    const reqsFilter = fetchRequest.filterState; //здесь я беру состояние айтемов в фильтере
 
-    //Здесь я возврощяю состояние фильтров на исходное состояние
+    //Fetching in zustand all state
+    const fetchRequest = getRequestApi();
+    const reqsFilter = fetchRequest.filterState;
+
+    //Change filter state to defoult mean
     const fullFilterState = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/?page=${fetchRequest.now}`, {
@@ -86,6 +91,8 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         }
     };
 
+
+    //Beetwin all selects value
     const beetwinSelcetsVal = () => {
         fullFilterState();
         const timeState = [...filterItems];
@@ -98,10 +105,13 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         });
         setFilterItems(timeState);
     };
+
+    //Calling beetwinSelcetsVal
     useEffect(() => {
         beetwinSelcetsVal();
     }, []);
 
+    //Func to close of already open selecters
     const closeAllSelect = (): void => {
         setIsMounted(false);
         setFilterItems((prevFilterItems: FilterItem[]) =>
@@ -109,6 +119,8 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         );
     };
 
+
+    //Func to open selector or dropdawn
     const openDropDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         beetwinSelcetsVal();
         const targetId = (e.target as HTMLDivElement)?.id; // Проверяем, что e.target является HTMLDivElement и имеет свойство id
@@ -121,6 +133,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         }
     };
 
+    //Func to push or edit filter items with id
     const updateFilterItems = (newFilterItem: FilterItem) => {
         setFilterItems((prevFilterItems: FilterItem[]) => {
             const existingItemIndex = prevFilterItems.findIndex((item) => item.type === newFilterItem.type);
@@ -138,6 +151,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         });
     };
 
+    //There i calling update func on confirm the selects
     const getSelect = async (e: { type: string; selected: string[] }) => {
         try {
             closeAllSelect();
@@ -147,6 +161,9 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             console.log(error);
         }
     };
+
+
+    //Func to get date input values
     const onChangeDate = async (e: { target: { value: string; id: string } }) => {
         try {
             console.log(e.target.value);
@@ -158,28 +175,29 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         }
     };
 
+
+    //There im uping the filters to backend, im mapping all choosed selects end filter.
+    //Thats already working 
     const upSelects = async () => {
         try {
             const response = await axios.get(
-                `${BASE_URL}/applications/form/?${filterItems[0].selected[0] ? "task_number=" : ""}${
-                    filterItems[0].selected[0]
-                        ? filterItems[0].selected.map((el) => {
-                              return `${el}`;
-                          })
-                        : ""
+                `${BASE_URL}/applications/form/?${filterItems[0].selected[0] ? "task_number=" : ""}${filterItems[0].selected[0]
+                    ? filterItems[0].selected.map((el) => {
+                        return `${el}`;
+                    })
+                    : ""
                 }${filterItems
                     .map((el) => {
                         return el.type === "task_number"
                             ? ""
                             : el.selected[0]
-                              ? `&${el.type}=${
-                                    el.selected[0]
-                                        ? el.selected.map((el) => {
-                                              return `${el}`;
-                                          })
-                                        : ""
+                                ? `&${el.type}=${el.selected[0]
+                                    ? el.selected.map((el) => {
+                                        return `${el}`;
+                                    })
+                                    : ""
                                 }`
-                              : "";
+                                : "";
                     })
                     .join("")}`,
                 {
@@ -195,12 +213,16 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         }
     };
 
+
+    //Thats useEf to caling the uoSelects on changes to mount and filter state
     useEffect(() => {
         if (isMounted) {
             upSelects();
         }
     }, [filterItems, isMounted]);
 
+
+    //For clear the choosed filters
     const clearFilter = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/?page=1`, {
@@ -222,28 +244,51 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         }
     };
 
+
+    //Thats func to dell the select about id
     const delSelect = (e: { target: { id: string; className: string } }) => {
-        clearFilter();
         setFilterItems((prevFilterItems: FilterItem[]) =>
             prevFilterItems.map((el: FilterItem) =>
                 el.type === e.target.id
                     ? {
-                          ...el,
-                          selected: el.selected.filter((el) => {
-                              el !== e.target.className;
-                          }),
-                      }
+                        ...el,
+                        selected: el.selected.filter((el) => {
+                            if (el === e.target.className) {
+                                return
+                            } else {
+                                return el
+                            }
+                        }),
+                    }
                     : { ...el, selected: el.selected },
             ),
         );
     };
+
+    //Thats already in procces (not work)
+    useEffect(() => {
+        const mapped = filterItems.map((el) => {
+            return el.selected
+        })
+        console.log(mapped);
+
+        if (mapped.length >= 1) {
+            return
+        } else {
+            clearFilter()
+        }
+    }, [filterItems])
+
     return (
         <div>
-            {isFilter ? (
+            {isFilter ? (//isFilter is the handle state open/close
                 <div className={styles.DetailFilters}>
                     <ul>
-                        {filterItems.map((el: FilterItem) => {
+                        {filterItems.map((el: FilterItem) => {//There im mapping filter items selector, dropdawn
+                            //Cutting the words if is the long
                             const displayedText = el.text.length > 10 ? el.text.substring(0, 10) + "..." : el.text;
+
+                            //There im geting date selectors
                             if (el.type === "finish_date" || el.type === "start_date") {
                                 return (
                                     <>
@@ -255,13 +300,13 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                                         />
                                     </>
                                 );
-                            } else {
+                            } else {//Just if item not date type
                                 return (
                                     <div
                                         key={el.text}
                                         className={el.isOpen ? styles.ItemOpen : styles.Item}
                                     >
-                                        {el.isOpen ? (
+                                        {el.isOpen ? (//if selector is open we will render input 
                                             <>
                                                 <input
                                                     className={styles.SelInput}
@@ -277,7 +322,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                                                     <ArrowLeft2 id={el.text} />
                                                 </div>
                                             </>
-                                        ) : (
+                                        ) : (//else just p
                                             <>
                                                 <p key={el.text}>{displayedText}</p>
                                                 <div
@@ -291,7 +336,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                                             </>
                                         )}
 
-                                        {el.isOpen && (
+                                        {el.isOpen && (//If selector is open we wil render dropdown
                                             <SelectFilterItem
                                                 getSelect={getSelect}
                                                 el={el}
@@ -303,44 +348,35 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                         })}
                         <button
                             className={styles.Clear}
-                            onClick={clearFilter}
-                        >
+                            onClick={clearFilter}>
                             Сбросить фильтр
                         </button>
                     </ul>
                     <div className={styles.selected}>
-                        {filterItems
+                        {filterItems//There im rendering always choosed selects
                             ? filterItems.map((el) => {
-                                  return el.selected.map((elim) => {
-                                      return (
-                                          <div
-                                              className={styles.selectedItem}
-                                              key={elim}
-                                          >
-                                              <EllipsisOutlined />
-                                              <p>{elim.length > 5 ? elim.substring(0, 8) + "..." : elim}</p>
-                                              <div
-                                                  onClick={() =>
-                                                      delSelect({ target: { id: el.type, className: `${elim}` } })
-                                                  }
-                                                  id={el.type}
-                                                  className={`${elim}`}
-                                              >
-                                                  <CloseSquare
-                                                      size={16}
-                                                      id={el.type}
-                                                      className={`${elim}`}
-                                                  />
-                                              </div>
-                                          </div>
-                                      );
-                                  });
-                              })
+                                return el.selected.map((elim) => {
+                                    return (
+                                        <div className={styles.selectedItem} key={elim}>
+                                            <EllipsisOutlined />
+                                            <p>{elim.length > 5 ? elim.substring(0, 8) + "..." : elim}</p>
+                                            <div onClick={() => delSelect({ target: { id: el.type, className: `${elim}` } })} id={el.type} className={`${elim}`} >
+                                                <CloseSquare
+                                                    size={16}
+                                                    id={el.type}
+                                                    className={`${elim}`}
+                                                />
+                                            </div>
+                                        </div>
+                                    );
+                                });
+                            })
                             : null}
                     </div>
                 </div>
             ) : null}
 
+            {/* After not my code  */}
             <ConfigProvider
                 theme={{
                     components: {
