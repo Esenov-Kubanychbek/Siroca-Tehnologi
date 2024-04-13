@@ -28,11 +28,7 @@ export const ReportModal: FC = () => {
         setResults(e);
         try {
             const response = await axios.get(
-<<<<<<< HEAD
                 `${BASE_URL}/applications/filter/?${e.company ? `company_name=${e.company}&` : ""}${e.maneger ? `manager_first_name=${e.maneger}&` : ""}${e.begin ? `start_date=${e.begin}&` : ""}${e.end ? `finish_date=${e.end}&` : ""}`,
-=======
-                `${BASE_URL}/applications/filter/?${e.company ? `company_name=${e.company}&` : ''}${e.maneger ? `manager_first_name=${e.maneger}&` : ''}${e.begin ? `start_date=${e.begin}&` : ''}${e.end ? `finish_date=${e.end}&` : ''}`,
->>>>>>> 5c6cebd75a18c3ce0cfef5830ffe80923e30dc40
                 {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,
