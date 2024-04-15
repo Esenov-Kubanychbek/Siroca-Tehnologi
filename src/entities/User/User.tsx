@@ -1,17 +1,16 @@
 import { FC } from "react";
 import styles from "./User.module.scss";
 import { ItemInner } from "../../shared/ui";
-import { IUser } from "../../shared/types/userTypes";
-import { useViewUser } from "../../shared/hooks/modalHooks";
 import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
+import { IUserTypes } from "./types/types";
 
-export const User: FC<{ user: IUser }> = ({ user }) => {
-    const modal = useViewUser();
+export const User: FC<IUserTypes> = (props) => {
+    const { user, setModal } = props;
     const fetchData = usersApi();
     return (
         <div
             onClick={() => {
-                modal.open();
+                setModal(true);
                 fetchData.getOneUser(user.id);
             }}
             className={styles.User}

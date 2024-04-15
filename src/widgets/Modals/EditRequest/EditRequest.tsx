@@ -1,20 +1,18 @@
-import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "./EditRequest.module.scss";
 import { CloseSquare } from "iconsax-react";
 import { CustomButton } from "../../../shared/ui";
-import { useEditRequest, useSuccess } from "../../../shared/hooks/modalHooks";
+import { useSuccess } from "../../../shared/hooks/modalHooks";
 import { editRequestApi, IRequest } from "./api/editRequestApi";
 import { SuccessModal } from "../..";
 import { Modal } from "antd";
 import "./style.scss";
 import { Collapses } from "./ui";
-import { ICreateRequest, createRequestApi } from "../CreateRequest/api/createRequestApi";
+import { createRequestApi } from "../CreateRequest/api/createRequestApi";
+import { IEditRequest } from "./types/types";
 
-export const EditRequest: FC<{ request: ICreateRequest; setRequest: Dispatch<SetStateAction<ICreateRequest>> }> = ({
-    request,
-    setRequest,
-}) => {
-    const modal = useEditRequest();
+export const EditRequest: FC<IEditRequest> = (props) => {
+    const { request, setRequest, setModal } = props;
     const fetchData = editRequestApi();
     const success = useSuccess();
     const createRequest = createRequestApi();
@@ -44,7 +42,7 @@ export const EditRequest: FC<{ request: ICreateRequest; setRequest: Dispatch<Set
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         fetchData.editRequest(requestState, createRequest.id);
-        modal.close();
+        setModal(false);
         success.open();
         console.log("success");
         setTimeout(success.close, 1000);
@@ -56,7 +54,7 @@ export const EditRequest: FC<{ request: ICreateRequest; setRequest: Dispatch<Set
                     <div className={styles.TextTop}>Создание заявки</div>
                     <CloseSquare
                         cursor={"pointer"}
-                        onClick={modal.close}
+                        onClick={() => setModal(false)}
                         size={34}
                     />
                 </div>
@@ -72,7 +70,7 @@ export const EditRequest: FC<{ request: ICreateRequest; setRequest: Dispatch<Set
                 <div className={styles.Buttons}>
                     <CustomButton
                         type="button"
-                        onClick={modal.close}
+                        onClick={() => setModal(false)}
                         variant="Secondary"
                         width={150}
                         text="Отменить"

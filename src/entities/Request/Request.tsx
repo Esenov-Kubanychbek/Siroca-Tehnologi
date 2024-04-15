@@ -2,16 +2,15 @@ import { FC } from "react";
 import styles from "./Request.module.scss";
 import { IRequest } from "./types/types";
 import { ItemInner } from "../../shared/ui";
-import { useViewRequest } from "../../shared/hooks/modalHooks";
 import { getOneRequestApi } from "../../widgets/Modals/ViewRequest/api/getOneRequestApi";
 
-export const Request: FC<{ request: IRequest; role: string }> = ({ request, role }) => {
-    const modal = useViewRequest();
+export const Request: FC<IRequest> = (props) => {
+    const { request, role, setModal } = props;
     const fetchData = getOneRequestApi();
     return (
         <div
             onClick={() => {
-                modal.open();
+                setModal(true);
                 fetchData.getOneRequest(request.id);
             }}
             className={styles.Request}

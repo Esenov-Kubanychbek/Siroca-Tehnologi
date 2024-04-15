@@ -14,7 +14,6 @@ const RolesList: React.FC<IRolesList> = ({ list, listType, handleChangeBox, box 
         handleChangeBox([listType, e]);
     };
 
-
     return (
         <div className={styles.MenuCont}>
             <div className={styles.HeaderPrg}>

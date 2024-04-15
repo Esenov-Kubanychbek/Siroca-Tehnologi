@@ -1,31 +1,32 @@
 import { CloseSquare } from "iconsax-react";
 import styles from "./ViewUser.module.scss";
-import { usePosition, useSuccess, useViewUser } from "../../../shared/hooks/modalHooks";
-import { FC, FormEvent } from "react";
+import { useSuccess } from "../../../shared/hooks/modalHooks";
+import { FC, FormEvent, useState } from "react";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { AddButton } from "../CreateUser/ui/AddButton";
 import { Modal } from "antd";
-import { CreatePosition, SuccessModal } from "../..";
+import { CreateJobTitle, SuccessModal } from "../..";
 import { RoleButton } from "./ui/RoleButton";
 import { ViewPhoto } from "./ui/ViewPhoto";
 import { usersApi } from "../../Admin/Users/api/usersApi";
 import { deleteUserApi } from "./api/deleteUserApi";
+import { IViewUserModal } from "./types/types";
 
-export const ViewUser: FC = () => {
-    const positionFunc = usePosition();
+export const ViewUser: FC<IViewUserModal> = (props) => {
+    const { setModal } = props;
+    const [jobTitleModal, setJobTitleModal] = useState<boolean>(false);
     const fetchData = usersApi();
     const deleting = deleteUserApi();
-    const modal = useViewUser();
     const success = useSuccess();
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (Object.values(fetchData.oneUserGet).every((value) => value === value)) {
-            modal.close();
+            setModal(false);
             success.open();
             console.log(fetchData.oneUserGet, "error");
             setTimeout(success.close, 1000);
         } else {
-            modal.close();
+            setModal(false);
             success.open();
             console.log(fetchData.oneUserGet, "something changed");
             setTimeout(success.close, 1000);
@@ -33,7 +34,7 @@ export const ViewUser: FC = () => {
     };
     const deleteUser = () => {
         deleting.deleteUser(fetchData.oneUserGet.id);
-        modal.close();
+        setModal(false);
         success.open();
         setTimeout(success.close, 1000);
     };
@@ -47,7 +48,7 @@ export const ViewUser: FC = () => {
                 <CloseSquare
                     cursor={"pointer"}
                     size={34}
-                    onClick={modal.close}
+                    onClick={() => setModal(false)}
                 />
             </div>
             <div className={styles.Description}>
@@ -119,7 +120,7 @@ export const ViewUser: FC = () => {
                             width={210}
                             placeholder="Напишите..."
                         />
-                        <AddButton onClick={positionFunc.open} />
+                        <AddButton onClick={() => setJobTitleModal(true)} />
                     </div>
                 </div>
             </div>
@@ -136,6 +137,7 @@ export const ViewUser: FC = () => {
                     variant="Without"
                     width={160}
                     text="Отменить"
+                    onClick={() => setModal(false)}
                 />
                 <CustomButton
                     variant="Primary"
@@ -147,11 +149,11 @@ export const ViewUser: FC = () => {
             <Modal
                 width={700}
                 centered
-                open={positionFunc.isOpen}
-                onCancel={positionFunc.close}
+                open={jobTitleModal}
+                onCancel={() => setJobTitleModal(false)}
                 zIndex={10}
             >
-                <CreatePosition />
+                <CreateJobTitle setModal={setJobTitleModal} />
             </Modal>
             <Modal
                 width={350}

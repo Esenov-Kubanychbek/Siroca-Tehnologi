@@ -5,7 +5,6 @@ import { Eye, EyeSlash, InfoCircle } from "iconsax-react";
 import { Modal } from "antd";
 import { CallToAdmin } from "../../widgets";
 import { useNavigate } from "react-router-dom";
-import { useCallToAdmin } from "../../shared/hooks/modalHooks";
 import { BASE_URL, PATHS } from "../../shared/variables/variables";
 
 export const Authorization: FC = () => {
@@ -30,7 +29,7 @@ export const Authorization: FC = () => {
                 const access = response.data.access;
                 localStorage.setItem("access", access);
                 localStorage.setItem("role_type", response.data.role_type);
-                localStorage.setItem("id", response.data.id)
+                localStorage.setItem("id", response.data.id);
                 if (response.data.role_type === "") {
                     navigate(PATHS.admin);
                 } else if (response.data.role_type === "manager") {
@@ -45,8 +44,7 @@ export const Authorization: FC = () => {
             setErr(true);
         }
     };
-
-    const modal = useCallToAdmin();
+    const [modal, setModal] = useState<boolean>(false);
     return (
         <form
             onSubmit={handleLogin}
@@ -102,7 +100,7 @@ export const Authorization: FC = () => {
                 </div>
                 <button
                     type="button"
-                    onClick={modal.open}
+                    onClick={() => setModal(true)}
                     className={styles.Link}
                 >
                     Не могу войти
@@ -117,10 +115,10 @@ export const Authorization: FC = () => {
             <Modal
                 width={678}
                 centered
-                open={modal.isOpen}
-                onCancel={modal.close}
+                open={modal}
+                onCancel={() => setModal(false)}
             >
-                <CallToAdmin />
+                <CallToAdmin setModal={setModal} />
             </Modal>
         </form>
     );

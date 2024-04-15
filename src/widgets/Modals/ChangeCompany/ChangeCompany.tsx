@@ -4,21 +4,17 @@ import { useState } from "react";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { Modal } from "antd";
 import { ViewCompany } from "../ViewCompany/ViewCompany";
-import { useViewCompany } from "../../../shared/hooks/modalHooks/useViewCompany";
 
 export const ChangeCompany = () => {
-    const { open, isOpen, close } = useViewCompany();
     const [modalButtons, setModalButtons] = useState<boolean>(false);
     const { selectedCompanyData } = useDataStoreComponies();
     const { deleteCompany, data, idCompany, closeModalView, modalViewCompany } = useDataStoreComponies();
-
-    const modal = useViewCompany();
-
+    const [modal, setModal] = useState<boolean>(false);
     const deleteComp = () => {
         deleteCompany(idCompany);
         console.log(data);
-        modal.close();
         closeModalView();
+        setModal(false);
     };
 
     return (
@@ -37,14 +33,7 @@ export const ChangeCompany = () => {
                             style={{ display: `${modalButtons ? "block" : "none"}` }}
                             className={styles.moreClick}
                         >
-                            <p
-                                onClick={() => {
-                                    open();
-                                    console.log(isOpen);
-                                }}
-                            >
-                                Редактировать
-                            </p>
+                            <p onClick={() => setModal(true)}>Редактировать</p>
                             <p onClick={deleteComp}>Удалить</p>
                         </div>
                         <div
@@ -58,7 +47,6 @@ export const ChangeCompany = () => {
                         size={34}
                     />
                 </div>
-
                 <div className={styles.datasCompany}>
                     <div className={styles.headerText}>{selectedCompanyData?.name}</div>
                     <div className={styles.container1}>
@@ -88,7 +76,6 @@ export const ChangeCompany = () => {
                         <span>Ответственный менеджер:</span>
                         <div>{selectedCompanyData?.main_manager}</div>
                     </div>
-
                     <div className={styles.count_usesrs}>
                         <span>Количество пользователей :</span>
                         <div>{selectedCompanyData?.count_users}</div>
@@ -98,10 +85,10 @@ export const ChangeCompany = () => {
             <Modal
                 centered
                 width={700}
-                open={isOpen}
-                onCancel={close}
+                open={modal}
+                onCancel={() => setModal(false)}
             >
-                <ViewCompany />
+                <ViewCompany setModal={setModal} />
             </Modal>
         </>
     );

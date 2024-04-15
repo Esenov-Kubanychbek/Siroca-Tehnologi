@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { CloseSquare, MoreSquare } from "iconsax-react";
 import styles from "./ViewRequest.module.scss";
-import { useViewRequest } from "../../../shared/hooks/modalHooks";
 import { Collapses, MenuRequest } from "./ui";
 import { getOneRequestApi } from "./api/getOneRequestApi";
+import { IViewRequestModal } from "./types/types";
 
-export const ViewRequest: FC = () => {
-    const modal = useViewRequest();
+export const ViewRequest: FC<IViewRequestModal> = (props) => {
+    const { setModal } = props;
     const fetchData = getOneRequestApi();
     return (
         <div className={styles.ViewRequest}>
@@ -27,7 +27,7 @@ export const ViewRequest: FC = () => {
                         <CloseSquare
                             cursor={"pointer"}
                             size={34}
-                            onClick={modal.close}
+                            onClick={() => setModal(false)}
                         />
                     </div>
                 </div>

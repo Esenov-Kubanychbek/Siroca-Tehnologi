@@ -4,13 +4,12 @@ import { ButtonCreate } from "../../../shared/ui/ButtonCreate/ButtonCreate";
 import styles from "./Companies.module.scss";
 import { CreateCompany } from "../..";
 import { useDataStoreComponies } from "./api/componiesApi";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { ListTopName, ListTop, ItemInner } from "../../../shared/ui";
 import { ChangeCompany } from "../../Modals/ChangeCompany/ChangeCompany";
-import { useCompany } from "../../../shared/hooks/modalHooks";
 
 export const Companies: FC = () => {
-    const modal = useCompany();
+    const [modal, setModal] = useState<boolean>(false);
     const { users, fetchDatas, getUsers, data, selectedIdCompany, openModalView, closeModalView, modalViewCompany } =
         useDataStoreComponies();
 
@@ -31,7 +30,7 @@ export const Companies: FC = () => {
                 <SearchInput />
                 <div
                     className={styles.Buttons}
-                    onClick={modal.open}
+                    onClick={() => setModal(true)}
                 >
                     <ButtonCreate name="Создать компанию" />
                 </div>
@@ -120,10 +119,10 @@ export const Companies: FC = () => {
             <Modal
                 centered
                 width={700}
-                open={modal.isOpen}
-                onCancel={modal.close}
+                open={modal}
+                onCancel={() => setModal(false)}
             >
-                <CreateCompany />
+                <CreateCompany setModal={setModal} />
             </Modal>
         </div>
     );

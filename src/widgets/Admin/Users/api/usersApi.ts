@@ -4,7 +4,7 @@ import { iGetUser, IUser, IUserGet } from "../../../../shared/types/userTypes";
 import { BASE_URL } from "../../../../shared/variables/variables";
 
 interface IFetch {
-    inState: IUser[];
+    usersList: IUser[];
     oneUserGet: IUserGet;
     oneUser: IUser;
     userProfile: iGetUser;
@@ -12,11 +12,11 @@ interface IFetch {
     getOneUser: (id: number | undefined) => void;
     putting: (postState: IUser, id: number | undefined) => void;
     getting: () => void;
-    posting: (postState: IUser) => void;
+    postUser: (user: FormData) => void
 }
 
 export const usersApi = create<IFetch>((set, get) => ({
-    inState: [],
+    usersList: [],
     userProfile: {
         first_name: "",
         job_title: 0,
@@ -49,7 +49,6 @@ export const usersApi = create<IFetch>((set, get) => ({
         try {
             const response = await axios.get(`${BASE_URL}/users/${localStorage.getItem("id")}/`);
             console.log(response);
-
             set({
                 userProfile: response.data,
             });
@@ -76,19 +75,18 @@ export const usersApi = create<IFetch>((set, get) => ({
     getting: async () => {
         try {
             const response = await axios.get(`${BASE_URL}/users/profiles/?limit=12&offset=0`);
-            set({ inState: response.data.results });
+            set({ usersList: response.data.results });
         } catch (error) {
             console.log(error, "getUserError");
         }
     },
-    posting: async (postState) => {
+    postUser: async (user) => {
         try {
-            const postResponse = await axios.post(`${BASE_URL}/users/create/`, postState);
-            const oldList = get().inState
-            set({inState: [...oldList, postState]})
-            console.log(postResponse);
+            const response = await axios.post(`${BASE_URL}/users/create/`, user)
+            const oldList = get().usersList
+            set({usersList: [...oldList, response.data]})
         } catch (error) {
             console.log(error, "postUserError");
         }
-    },
+    }
 }));

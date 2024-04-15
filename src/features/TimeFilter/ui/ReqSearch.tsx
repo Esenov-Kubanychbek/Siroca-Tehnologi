@@ -16,7 +16,6 @@ export const ReqSearch: FC = () => {
     };
     const fetchRequest = getRequestApi();
 
-
     //Search func
     const search = async () => {
         try {

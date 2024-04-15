@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL, PATHS } from "../../../shared/variables/variables";
 import RolesList from "./components/rolesMenu/RolesList";
-import styles from "./Roles.module.scss"
+import styles from "./Roles.module.scss";
 
 interface PermissionData {
     [key: string]: boolean;
@@ -54,7 +54,7 @@ export const Roles: React.FC<IRoles> = () => {
         get();
     }, []);
 
-    //there im add al selects to they key 
+    //there im add al selects to they key
     const getCheckBoxVal = (e: [string, React.ChangeEvent<HTMLInputElement>]) => {
         //just checking is this client or manager
         if (e[0] === "Клиент") {
@@ -78,7 +78,6 @@ export const Roles: React.FC<IRoles> = () => {
         }
     };
 
-
     //there im doing put req to save all changed roles
     const onSave = async () => {
         try {
@@ -97,7 +96,7 @@ export const Roles: React.FC<IRoles> = () => {
             console.log(error);
         }
     };
-    
+
     //just navigate
     const navigate = useNavigate();
 
@@ -128,4 +127,3 @@ export const Roles: React.FC<IRoles> = () => {
         </div>
     );
 };
- 

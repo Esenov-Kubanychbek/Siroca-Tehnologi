@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { ConfigProvider, Tabs } from "antd";
 import type { TabsProps } from "antd";
-import { Companies, Positions, Roles, Users } from "./../../widgets";
+import { Companies, JobTitles, Roles, Users } from "./../../widgets";
 
 export const AdminNavigate: FC = () => {
     const items: TabsProps["items"] = [
@@ -18,7 +18,7 @@ export const AdminNavigate: FC = () => {
         {
             key: "3",
             label: "Должности",
-            children: <Positions />,
+            children: <JobTitles />,
         },
         {
             key: "4",

@@ -1,15 +1,14 @@
 import { FC, useState } from "react";
 import styles from "./HeaderBottom.module.scss";
-import { ButtonRequest, FilterButton, ReportButton, TimeFilter } from "../../features";
-import { MoreSquare } from "iconsax-react";
-import { useCreateRequest } from "../../shared/hooks/modalHooks";
+import { FilterButton, ReportButton, TimeFilter } from "../../features";
+import { Edit, MoreSquare } from "iconsax-react";
 import { Modal } from "antd";
 import { CreateRequest } from "..";
 import { ReqSearch } from "../../features/TimeFilter/ui/ReqSearch";
 
 export const HeaderBottom: FC<{ role: "client" | "manager" | "admin" }> = ({ role }) => {
     const [report, setReport] = useState<boolean>(false);
-    const modal = useCreateRequest();
+    const [modal, setModal] = useState<boolean>(false);
     const [isFilter, setIsFilter] = useState(false);
 
     const onFilter = () => {
@@ -30,9 +29,17 @@ export const HeaderBottom: FC<{ role: "client" | "manager" | "admin" }> = ({ rol
                     <FilterButton onClick={onFilter} />
                     {role === "client" ? null : (
                         <div style={{ display: "flex", gap: "16px" }}>
-                            <div onClick={modal.open}>
-                                <ButtonRequest />
-                            </div>
+                            <button
+                                aria-label="createRequest"
+                                onClick={() => setModal(true)}
+                                className={styles.ButtonRequest}
+                            >
+                                Создать заявку
+                                <Edit
+                                    size={24}
+                                    color="white"
+                                />
+                            </button>
                             <div style={{ position: "relative" }}>
                                 <MoreSquare
                                     cursor={"pointer"}
@@ -61,10 +68,10 @@ export const HeaderBottom: FC<{ role: "client" | "manager" | "admin" }> = ({ rol
             <Modal
                 centered
                 width={500}
-                open={modal.isOpen}
-                onCancel={modal.close}
+                open={modal}
+                onCancel={() => setModal(false)}
             >
-                <CreateRequest />
+                <CreateRequest setModal={setModal} />
             </Modal>
         </div>
     );

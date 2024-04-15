@@ -2,26 +2,20 @@ import { CloseSquare, EyeSlash } from "iconsax-react";
 import styles from "./ChangePassword.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { FC } from "react";
-// import { useChangePasswordStore } from "./api/ChangePassword";
+import { IChangeModal } from "./types/types";
 
-export const ChangePassword: FC = () => {
-    // const {changePassword} = useChangePasswordStore();
-    // const [oldPassword, setOldPassword] = useState<string>('');
-    // const [newPassword1, setNewPassword1] = useState<string>('');
-    // const [newPassword2, setNewPassword2] = useState<string>('');
-    // const changePass = () => {
-    //     if(oldPassword && newPassword1 && newPassword2){
-    //         if(newPassword1 === newPassword2){
-    //             changePassword()
-    //         }
-    //     }
-    // }
+export const ChangePassword: FC<IChangeModal> = (props) => {
+    const { setModal } = props;
     return (
         <div className={styles.ChangePassword}>
             <div className={styles.block}>
                 <div className={styles.block1}>
                     <div className={styles.h1}>Сменить пароль</div>
-                    <CloseSquare className={styles.close} />
+                    <CloseSquare
+                        className={styles.close}
+                        cursor={"pointer"}
+                        onClick={() => setModal(false)}
+                    />
                 </div>
                 <div className={styles.block2}>
                     <div className={styles.labels}>
@@ -61,12 +55,13 @@ export const ChangePassword: FC = () => {
                         width={208}
                         text="Не могу войти"
                         variant="Secondary"
+                        onClick={() => setModal(false)}
                     />
                     <CustomButton
                         width={208}
                         text="Сменить пароль"
                         variant="Primary"
-                        // onClick={changePass}
+                        onClick={() => setModal(false)}
                     />
                 </div>
             </div>
