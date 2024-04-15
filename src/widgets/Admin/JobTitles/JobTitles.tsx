@@ -16,7 +16,7 @@ export const JobTitles: FC = () => {
     const [state, setState] = useState<boolean>(false);
     const [position, setPosition] = useState<number>(0);
     const [modal, setModal] = useState<boolean>(false);
-    const [modalReady, setModalReady] = useState<boolean>(false)
+    const [modalReady, setModalReady] = useState<boolean>(false);
     const modalSuccess = useSuccess();
     const fetchData = jobTitleApi();
     const handleClick = () => {
@@ -41,7 +41,7 @@ export const JobTitles: FC = () => {
                     </button>
                     <button
                         className={styles.Delete}
-                        onClick={()=> setModalReady(true)}
+                        onClick={() => setModalReady(true)}
                         style={
                             position > 0
                                 ? { color: "#e51616" }
@@ -116,14 +116,14 @@ export const JobTitles: FC = () => {
                 centered
                 width={550}
                 open={modalReady}
-                onCancel={()=> setModalReady(false)}
+                onCancel={() => setModalReady(false)}
                 zIndex={12}
             >
                 <ReadyModal
-                    no={()=> setModalReady(false)}
+                    no={() => setModalReady(false)}
                     yes={() => {
                         fetchData.deleteJobTitle(position);
-                        setModalReady(false)
+                        setModalReady(false);
                     }}
                     content="Вы уверены? Данная должность удалится безвозвратно"
                 />

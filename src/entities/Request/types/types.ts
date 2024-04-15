@@ -16,6 +16,6 @@ export interface IObject {
 
 export interface IRequest {
     request: IObject;
-    role: string;
+    role: string | null;
     setModal: Dispatch<SetStateAction<boolean>>;
 }

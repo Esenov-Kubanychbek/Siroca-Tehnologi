@@ -15,11 +15,11 @@ export const Roles: React.FC<IRoles> = () => {
     const [boxesClient, setBoxesClient] = useState<PermissionData | undefined>();
     const [boxesManeger, setBoxesManeger] = useState<PermissionData | undefined>();
     const ClientList: string[] = [
-        "Добавление чек листа к заявке",
-        "Добавление файла к заявке",
         "Добавление/удаление комментария к заявке",
         "Скачивание отчёта",
         "Просмотр изменений истории по заявке 'Logs'",
+        "Добавление файла к заявке",
+        "Добавление чек листа к заявке",
         "Просмотр профиль другого пользователя",
     ];
 
@@ -119,7 +119,7 @@ export const Roles: React.FC<IRoles> = () => {
                 />
             </div>
             <div className={styles.SettingsBtn}>
-                <button onClick={() => navigate(PATHS.rolessettings)}>Дополнительные настройки</button>
+                <button onClick={() => navigate(PATHS.rolessettings)}>Расширенные настройки</button>
             </div>
             <div className={styles.SettingsSave}>
                 <button onClick={onSave}>Сохранить</button>

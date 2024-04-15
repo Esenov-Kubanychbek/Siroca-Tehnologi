@@ -13,7 +13,7 @@ import { usersApi } from "../../Admin/Users/api/usersApi";
 
 export const CreateUser: FC<ICreateUserModal> = (props) => {
     const { setModal } = props;
-    const createUserApi = usersApi()
+    const createUserApi = usersApi();
     const [jobTitleModal, setJobTitleModal] = useState<boolean>(false);
     const [formValues, setFormValue] = useState([
         { name: "role_type", value: null },
@@ -50,7 +50,7 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                         }
                     }
                 });
-                createUserApi.postUser(formData)
+                createUserApi.postUser(formData);
             }
         } catch (error) {
             console.log(formValues);

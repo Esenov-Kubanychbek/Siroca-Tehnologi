@@ -6,16 +6,16 @@ import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const LoginButton: FC<{ variant: "Primary" | "Secondary" }> = ({ variant }) => {
-    const navigate = useNavigate()
-    const [modal, setModal] = useState<boolean>(false)
+    const navigate = useNavigate();
+    const [modal, setModal] = useState<boolean>(false);
     const exitFunc = () => {
-        setModal(false)
-        navigate("/")
-    }
+        setModal(false);
+        navigate("/");
+    };
     return (
         <>
             <button
-                onClick={()=> setModal(true)}
+                onClick={() => setModal(true)}
                 className={styles[variant]}
                 aria-label="login"
             >
@@ -25,9 +25,13 @@ export const LoginButton: FC<{ variant: "Primary" | "Secondary" }> = ({ variant 
                 width={550}
                 centered
                 open={modal}
-                onCancel={()=> setModal(false)}
+                onCancel={() => setModal(false)}
             >
-                <ReadyModal content="Вы уверены?" no={()=> setModal(false)} yes={exitFunc}/>
+                <ReadyModal
+                    content="Вы уверены?"
+                    no={() => setModal(false)}
+                    yes={exitFunc}
+                />
             </Modal>
         </>
     );

@@ -32,10 +32,8 @@ export const Authorization: FC = () => {
                 localStorage.setItem("id", response.data.id);
                 if (response.data.role_type === "") {
                     navigate(PATHS.admin);
-                } else if (response.data.role_type === "manager") {
-                    navigate(PATHS.manager);
-                } else {
-                    navigate(PATHS.client);
+                } else if (response.data.role_type !== "") {
+                    navigate(PATHS.main);
                 }
             } else {
                 setErr(true);

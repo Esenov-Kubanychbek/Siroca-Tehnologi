@@ -12,6 +12,6 @@ export interface IObject {
 }
 
 export interface IRequest {
-    role: string;
+    role: string | null;
     api: string;
 }

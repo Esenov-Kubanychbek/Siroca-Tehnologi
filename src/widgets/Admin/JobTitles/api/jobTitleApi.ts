@@ -58,13 +58,13 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
     deleteJobTitle: async (id) => {
         try {
             const deleteResponse = await axios.delete(`${BASE_URL}/company/destroy_job-title/${id}/`);
-            const oldList = get().jobTitleList
+            const oldList = get().jobTitleList;
             oldList.map((card, i) => {
-                if(card.id === id) {
-                    const secondList =  oldList.slice(0, i).concat(oldList.slice(i+1))
-                    set({jobTitleList: secondList})
+                if (card.id === id) {
+                    const secondList = oldList.slice(0, i).concat(oldList.slice(i + 1));
+                    set({ jobTitleList: secondList });
                 }
-            })
+            });
             console.log(deleteResponse);
         } catch (error) {
             console.log(error, "deleteJobTitleError");

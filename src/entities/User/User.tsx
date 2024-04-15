@@ -3,16 +3,24 @@ import styles from "./User.module.scss";
 import { ItemInner } from "../../shared/ui";
 import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
 import { IUserTypes } from "./types/types";
+import { idRoles } from "../../pages/MainPage/api/idRoles";
 
 export const User: FC<IUserTypes> = (props) => {
     const { user, setModal } = props;
     const fetchData = usersApi();
+    const roles = idRoles();
+    const fmRoles = roles.formatedState;
+    const role_type = localStorage.getItem("role_type");
     return (
         <div
-            onClick={() => {
-                setModal(true);
-                fetchData.getOneUser(user.id);
-            }}
+            onClick={
+                (fmRoles && fmRoles.manager_can_view_profiles_extra && role_type === "manager") || role_type === ""
+                    ? () => {
+                          setModal(true);
+                          fetchData.getOneUser(user.id);
+                      }
+                    : () => console.log("no roles")
+            }
             className={styles.User}
         >
             <ItemInner

@@ -6,6 +6,7 @@ import { CustomButton, CustomInput } from "../../../shared/ui";
 import { Modal } from "antd";
 import { EditRequest } from "../..";
 import { ICreateRequestModal } from "./types/types";
+import { idRoles } from "../../../pages/MainPage/api/idRoles";
 
 export const CreateRequest: FC<ICreateRequestModal> = (props) => {
     const { setModal } = props;
@@ -15,6 +16,8 @@ export const CreateRequest: FC<ICreateRequestModal> = (props) => {
         title: "",
         company: "",
     });
+    const roles = idRoles();
+    const fmRoles = roles.formatedState;
     const RequestCreateValue = (e: ChangeEvent<HTMLInputElement>) => {
         setRequestState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
     };
@@ -23,7 +26,17 @@ export const CreateRequest: FC<ICreateRequestModal> = (props) => {
         if (Object.values(requestState).every((value) => value !== "")) {
             fetchData.posting(requestState);
             setModal(false);
-            setEditModal(true);
+            if (
+                (fmRoles &&
+                    localStorage.getItem("role_type") === "client" &&
+                    fmRoles.client_can_edit_application_extra) ||
+                localStorage.getItem("role_type") === "manager" ||
+                localStorage.getItem("role_type") === ""
+            ) {
+                setEditModal(true);
+            } else {
+                return;
+            }
         } else {
             console.log("postTrimError");
         }

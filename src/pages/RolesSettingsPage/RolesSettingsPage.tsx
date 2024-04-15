@@ -10,9 +10,7 @@ import { BASE_URL } from "../../shared/variables/variables";
 import { SearchInput } from "../../features";
 import { IUser } from "../../shared/types/userTypes";
 
-interface Props {}
-
-export const RolesSettingsPage: FC<Props> = () => {
+export const RolesSettingsPage: FC = () => {
     const [boxesReg, setBoxesReg] = useState<IUser[]>([]);
     const [navtype, setNavtype] = useState<string>("client");
     const headerSettingsList: string[] = [
@@ -23,7 +21,7 @@ export const RolesSettingsPage: FC<Props> = () => {
         "Добавление/удаление чек-листов",
         "Просмотр профиля других пользователей",
         "Создание заявки",
-        "Создание/редактирование заявки",
+        "Редактирование заявки",
     ];
     const headerSettingsListManager: string[] = [
         "Добавление/удаление комментария к заявке",
@@ -133,48 +131,50 @@ export const RolesSettingsPage: FC<Props> = () => {
                 className={styles.Container}
                 ref={scrollContainerRef}
             >
-                <div className={styles.BackCont}>
-                    <div className={styles.NvMneu}>
-                        <div
-                            onClick={nvMenu}
-                            className={styles.Back}
-                        >
-                            <div className={styles.Icn}>
-                                <ArrowRight
-                                    size={34}
-                                    color="#1C6AB1"
-                                />
+                <div className={styles.Fixednav}>
+                    <div className={styles.BackCont}>
+                        <div className={styles.NvMneu}>
+                            <div
+                                onClick={nvMenu}
+                                className={styles.Back}
+                            >
+                                <div className={styles.Icn}>
+                                    <ArrowRight
+                                        size={34}
+                                        color="#1C6AB1"
+                                    />
+                                </div>
+                                <p>Назад</p>
                             </div>
-                            <p>Назад</p>
+                            <p className={styles.Par}>Расширенные настройки</p>
                         </div>
-                        <p className={styles.Par}>Дополнительные настройки</p>
-                    </div>
 
-                    <div className={styles.Search}>
-                        <SearchInput />
+                        <div className={styles.Search}>
+                            <SearchInput />
+                            <button
+                                onClick={saveRoles}
+                                className={styles.Save}
+                            >
+                                Сохранить
+                            </button>
+                        </div>
+                    </div>
+                    <div className={styles.topnav}>
                         <button
-                            onClick={saveRoles}
-                            className={styles.Save}
+                            onClick={changeNav}
+                            id="client"
+                            className={navtype === "client" ? styles.topNavActive : styles.topNavAnActive}
                         >
-                            Сохранить
+                            Клиент
+                        </button>
+                        <button
+                            onClick={changeNav}
+                            id="manager"
+                            className={navtype === "manager" ? styles.topNavActive : styles.topNavAnActive}
+                        >
+                            Менеджер
                         </button>
                     </div>
-                </div>
-                <div className={styles.topnav}>
-                    <button
-                        onClick={changeNav}
-                        id="client"
-                        className={navtype === "client" ? styles.topNavActive : styles.topNavAnActive}
-                    >
-                        Клиент
-                    </button>
-                    <button
-                        onClick={changeNav}
-                        id="manager"
-                        className={navtype === "manager" ? styles.topNavActive : styles.topNavAnActive}
-                    >
-                        Менеджер
-                    </button>
                 </div>
                 <HeaderSettings
                     name="Имя пользователя"

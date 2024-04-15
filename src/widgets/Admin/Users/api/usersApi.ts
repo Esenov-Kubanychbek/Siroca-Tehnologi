@@ -12,7 +12,7 @@ interface IFetch {
     getOneUser: (id: number | undefined) => void;
     putting: (postState: IUser, id: number | undefined) => void;
     getting: () => void;
-    postUser: (user: FormData) => void
+    postUser: (user: FormData) => void;
 }
 
 export const usersApi = create<IFetch>((set, get) => ({
@@ -82,11 +82,11 @@ export const usersApi = create<IFetch>((set, get) => ({
     },
     postUser: async (user) => {
         try {
-            const response = await axios.post(`${BASE_URL}/users/create/`, user)
-            const oldList = get().usersList
-            set({usersList: [...oldList, response.data]})
+            const response = await axios.post(`${BASE_URL}/users/create/`, user);
+            const oldList = get().usersList;
+            set({ usersList: [...oldList, response.data] });
         } catch (error) {
             console.log(error, "postUserError");
         }
-    }
+    },
 }));

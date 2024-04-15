@@ -86,7 +86,10 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
                     const isChecked =
                         genBoxes && Object.entries(genBoxes)[index] ? Object.entries(genBoxes)[index][1] : false;
                     return (
-                        <div className={styles.el}>
+                        <div
+                            className={styles.el}
+                            key={index}
+                        >
                             <input
                                 type="checkbox"
                                 onChange={getCheckBoxVal}
@@ -98,7 +101,10 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
                 } else {
                     const isChecked = boxes && Object.entries(boxes)[index] ? Object.entries(boxes)[index][1] : false;
                     return (
-                        <div className={styles.el}>
+                        <div
+                            className={styles.el}
+                            key={index}
+                        >
                             <input
                                 type="checkbox"
                                 onChange={getCheckBoxVal}
