@@ -15,7 +15,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     const [page, setPage] = useState<{ now: number }>({ now: 1 });
     const [reqCount, setReqCount] = useState<number>(0);
     const [prevNext, setPrevNext] = useState<{ prev: boolean; next: boolean }>({ prev: false, next: false });
-
+    console.log(prevNext);
     //getting state in zustand
     const fetchRequest = getRequestApi();
     const apiLength = fetchRequest.getState;
@@ -29,6 +29,8 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 },
             });
             setReqCount(response.data.results.created_count);
+            console.log(response.data.results.created_count);
+            
             fetchRequest.setState(response.data.results.results);
             fetchRequest.setFilterState(response.data.results.results);
 
@@ -66,7 +68,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                             setPage({ now: Number(targetId) });
                         }}
                         id={`${index}`}
-                        className={styles.paginBtn}
+                        className={page.now === index ? styles.paginBtn : styles.paginBtnAnActive}
                     >
                         {index}
                     </button>
@@ -98,12 +100,12 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
 
     //next end prev page
     const nextPage = () => {
-        if (prevNext.next) {
+        if (Math.ceil(reqCount / 50) !> page.now) {
             setPage({ now: page.now + 1 });
         }
     };
     const prevPage = () => {
-        if (prevNext.prev) {
+        if (page.now > 1) {
             setPage({ now: page.now - 1 });
         }
     };
@@ -154,14 +156,14 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                             >
                                 <ArrowLeft2
                                     size={24}
-                                    style={prevNext.prev ? { color: "black" } : { color: "#DEDEDE" }}
+                                    style={page.now === 1 ? {color: "#DEDEDE" } : { color: "black"}}
                                 />
                             </button>
                             <button
                                 onClick={() => {
                                     setPage({ now: 1 });
                                 }}
-                                className={styles.paginBtn}
+                                className={page.now === 1 ? styles.paginBtn : styles.paginBtnAnActive}
                             >
                                 1
                             </button>
@@ -173,11 +175,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                             >
                                 <ArrowLeft2
                                     size={24}
-                                    style={
-                                        prevNext.prev
-                                            ? { color: "black", transform: "rotate(-180deg)" }
-                                            : { color: "#DEDEDE", transform: "rotate(-180deg)" }
-                                    }
+                                    style={Math.ceil(reqCount / 50) === page.now ? {color: "#DEDEDE", transform: "rotate(-180deg)" } : { transform: "rotate(-180deg)" }}
                                 />
                             </button>
                         </div>

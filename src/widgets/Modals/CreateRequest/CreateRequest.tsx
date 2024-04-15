@@ -6,6 +6,7 @@ import { CloseSquare } from "iconsax-react";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { Modal } from "antd";
 import { EditRequest } from "../..";
+import { idRoles } from "../../../pages/MainPage/api/idRoles";
 
 export const CreateRequest: FC = () => {
     const modal = useCreateRequest();
@@ -15,6 +16,8 @@ export const CreateRequest: FC = () => {
         title: "",
         company: "",
     });
+    const roles = idRoles()
+    const fmRoles = roles.formatedState
     const RequestCreateValue = (e: ChangeEvent<HTMLInputElement>) => {
         setRequestState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
     };
@@ -23,7 +26,12 @@ export const CreateRequest: FC = () => {
         if (Object.values(requestState).every((value) => value !== "")) {
             fetchData.posting(requestState);
             modal.close();
-            editModal.open();
+            if(fmRoles && localStorage.getItem("role_type") === "client" && fmRoles.client_can_edit_application_extra || localStorage.getItem("role_type") === "manager" ||  localStorage.getItem("role_type") === "" ){
+                 editModal.open();
+            }else{
+                return
+            }
+           
         } else {
             console.log("postTrimError");
         }

@@ -25,7 +25,7 @@ const RolesList: React.FC<IRolesList> = ({ list, listType, handleChangeBox, box 
                 const check = box && Object.entries(box)[index] ? Object.entries(box)[index][1] : false;
                 const name = box && Object.entries(box)[index] ? Object.entries(box)[index][0] : undefined;
                 return (
-                    <div className={styles.ListItem}>
+                    <div key={index} className={styles.ListItem}>
                         <input
                             type="checkbox"
                             onChange={onChange}
