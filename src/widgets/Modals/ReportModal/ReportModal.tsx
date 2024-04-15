@@ -28,7 +28,7 @@ export const ReportModal: FC = () => {
         setResults(e);
         try {
             const response = await axios.get(
-                `${BASE_URL}/applications/filter/?${e.company ? `company_name=${e.company}&` : ''}${e.maneger ? `manager_first_name=${e.maneger}&` : ''}${e.begin ? `start_date=${e.begin}&` : ''}${e.end ? `finish_date=${e.end}&` : ''}`,
+                `${BASE_URL}/applications/filter/?${e.company ? `company_name=${e.company}&` : ""}${e.maneger ? `manager_first_name=${e.maneger}&` : ""}${e.begin ? `start_date=${e.begin}&` : ""}${e.end ? `finish_date=${e.end}&` : ""}`,
                 {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,
@@ -50,7 +50,7 @@ export const ReportModal: FC = () => {
     const downLoad = async () => {
         try {
             const response = await axios.get(
-                `${BASE_URL}/applications/filter/export-to-excel/?${results?.company ? `company_name=${results?.company}&` : ''}${results?.maneger ? `manager_first_name=${results?.maneger}&` : ''}${results?.begin ? `start_date=${results?.begin}&` : ''}${results?.end ? `finish_date=${results?.end}&` : ''}`,
+                `${BASE_URL}/applications/filter/export-to-excel/?${results?.company ? `company_name=${results?.company}&` : ""}${results?.maneger ? `manager_first_name=${results?.maneger}&` : ""}${results?.begin ? `start_date=${results?.begin}&` : ""}${results?.end ? `finish_date=${results?.end}&` : ""}`,
                 {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,
