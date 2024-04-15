@@ -13,7 +13,7 @@ interface IItemSettingRoles {
     checkBoxList: string[];
     getBoxes: (e: IUser) => void;
     inBoxList: IUser[];
-    genRoles: { [key: string]: boolean } | undefined
+    genRoles: { [key: string]: boolean } | undefined,
 }
 
 const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxList, getBoxes, inBoxList, genRoles }) => {
@@ -80,7 +80,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxLi
                 if (boxes && Object.entries(boxes)[index] && Object.entries(boxes)[index][1] == null) {
                     const isChecked = genBoxes && Object.entries(genBoxes)[index] ? Object.entries(genBoxes)[index][1] : false;
                     return (
-                        <div className={styles.el}>
+                        <div className={styles.el} key={index}>
                             <input
                                 type="checkbox"
                                 onChange={getCheckBoxVal}
@@ -92,7 +92,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({ user, index, checkBoxLi
                 } else {
                     const isChecked = boxes && Object.entries(boxes)[index] ? Object.entries(boxes)[index][1] : false;
                     return (
-                        <div className={styles.el}>
+                        <div className={styles.el} key={index}>
                             <input
                                 type="checkbox"
                                 onChange={getCheckBoxVal}

@@ -5,7 +5,7 @@ import { ItemInner } from "../../shared/ui";
 import { useViewRequest } from "../../shared/hooks/modalHooks";
 import { getOneRequestApi } from "../../widgets/Modals/ViewRequest/api/getOneRequestApi";
 
-export const Request: FC<{ request: IRequest; role: string }> = ({ request, role }) => {
+export const Request: FC<{ request: IRequest; role: string | null}> = ({ request, role }) => {
     const modal = useViewRequest();
     const fetchData = getOneRequestApi();
     return (

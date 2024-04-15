@@ -14,9 +14,9 @@ const HeaderSettings: React.FC<IHeaderSettings> = ({ list, name }) => {
             <div className={styles.HeaderName}>
                 <p className={styles.name}>{name}</p>
             </div>
-            {list.map((el) => {
+            {list.map((el, index) => {
                 return (
-                    <div className={styles.HeaderItem}>
+                    <div key={index} className={styles.HeaderItem}>
                         <p>{el}</p>
                     </div>
                 );

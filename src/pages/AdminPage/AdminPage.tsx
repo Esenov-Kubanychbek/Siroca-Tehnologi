@@ -7,8 +7,8 @@ export const AdminPage: FC = () => {
         <div className={styles.AdminPage}>
             <Dashboard />
             <header className={styles.Inner}>
-                <HeaderTop role="admin" />
-                <HeaderBottom role="admin" />
+                <HeaderTop role="admin"/>
+                <HeaderBottom role="admin"/>
             </header>
         </div>
     );

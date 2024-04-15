@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { ListTop, ListTopName } from "../../../shared/ui";
 
-export const RequestTop: FC<{ role: string }> = ({ role }) => {
+export const RequestTop: FC<{ role: string | null }> = ({ role }) => {
     return (
         <ListTop>
             <ListTopName
