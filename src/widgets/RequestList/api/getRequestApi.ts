@@ -26,8 +26,8 @@ export interface IFetchGet {
     setNow: (num: number) => void;
     setState: (data: []) => void;
     clearFilter: () => void;
-    setIsOpen: () => void,
-    isFilterOpen: boolean
+    setIsOpen: () => void;
+    isFilterOpen: boolean;
 }
 
 export const getRequestApi = create<IFetchGet>((set, get) => ({
@@ -51,8 +51,8 @@ export const getRequestApi = create<IFetchGet>((set, get) => ({
         set({ getState: data });
     },
     setIsOpen: () => {
-        const currentIsFilterOpen = get().isFilterOpen; 
-        set({ isFilterOpen: !currentIsFilterOpen }); 
+        const currentIsFilterOpen = get().isFilterOpen;
+        set({ isFilterOpen: !currentIsFilterOpen });
     },
     setFilterState: (data: []) => {
         set({ filterState: data });

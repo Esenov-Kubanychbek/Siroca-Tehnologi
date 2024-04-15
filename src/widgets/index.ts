@@ -1,6 +1,6 @@
 export { Administration } from "./Admin/Administration/Administration";
 export { Companies } from "./Admin/Companies/Companies";
-export { Positions } from "./Admin/Positions/Positions";
+export { JobTitles } from "./Admin/JobTitles/JobTitles";
 export { Roles } from "./Admin/Roles/Roles";
 export { Users } from "./Admin/Users/Users";
 export { Dashboard } from "./Dashboard/Dashboard";
@@ -9,7 +9,7 @@ export { RequestTop } from "./RequestList/ui/RequestTop";
 export { CallToAdmin } from "./Modals/CallToAdmin/CallToAdmin";
 export { ChangePassword } from "./Modals/ChangePassword/ChangePassword";
 export { CreateCompany } from "./Modals/CreateCompany/CreateCompany";
-export { CreatePosition } from "./Modals/CreatePosition/CreatePosition";
+export { CreateJobTitle } from "./Modals/CreateJobTitle/CreateJobTitle";
 export { CreateRequest } from "./Modals/CreateRequest/CreateRequest";
 export { CreateUser } from "./Modals/CreateUser/CreateUser";
 export { LoadingModal } from "./Modals/LoadingModal/LoadingModal";

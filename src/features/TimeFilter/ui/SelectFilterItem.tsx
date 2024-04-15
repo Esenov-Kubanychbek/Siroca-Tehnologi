@@ -12,7 +12,7 @@ interface ISelectItem {
 }
 //There im rendering selecter dropdawn
 export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
-    const [selects, setSelects] = useState<string[]>([]);//All choosed selects
+    const [selects, setSelects] = useState<string[]>([]); //All choosed selects
 
     // pushing choosed selects
     const addSelect = (e: { currentTarget: { id: string } }) => {
@@ -42,7 +42,7 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
             >
                 Применить
             </button>
-            {el.values &&//checking if values is already true
+            {el.values && //checking if values is already true
                 el.values.map((elem: string | number | boolean, index) => {
                     const displayedText = String(elem).length > 10 ? String(elem).substring(0, 10) + "..." : elem;
                     return (

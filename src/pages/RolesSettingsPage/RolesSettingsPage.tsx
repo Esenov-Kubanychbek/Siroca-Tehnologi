@@ -10,9 +10,7 @@ import { BASE_URL } from "../../shared/variables/variables";
 import { SearchInput } from "../../features";
 import { IUser } from "../../shared/types/userTypes";
 
-interface Props { }
-
-export const RolesSettingsPage: FC<Props> = () => {
+export const RolesSettingsPage: FC = () => {
     const [boxesReg, setBoxesReg] = useState<IUser[]>([]);
     const [navtype, setNavtype] = useState<string>("client");
     const headerSettingsList: string[] = [
@@ -23,7 +21,7 @@ export const RolesSettingsPage: FC<Props> = () => {
         "Добавление/удаление чек-листов",
         "Просмотр профиля других пользователей",
         "Создание заявки",
-        "Редактирование заявки"
+        "Редактирование заявки",
     ];
     const headerSettingsListManager: string[] = [
         "Добавление/удаление комментария к заявке",
@@ -32,7 +30,7 @@ export const RolesSettingsPage: FC<Props> = () => {
         "Удаление заявки",
         "Создание/редактирование компании",
         "Создание/редактирование пользователя",
-        "Создание/удаление должности"
+        "Создание/удаление должности",
     ];
     const renderSettingsList: string[][] = [
         [
@@ -43,7 +41,7 @@ export const RolesSettingsPage: FC<Props> = () => {
             "Добавление/удаление чек-листов",
             "Просмотр профиля других пользователей",
             "Создание заявки",
-            "Создание/редактирование заявки"
+            "Создание/редактирование заявки",
         ],
         [
             "Добавление/удаление комментария к заявке",
@@ -52,8 +50,8 @@ export const RolesSettingsPage: FC<Props> = () => {
             "Удаление заявки",
             "Создание/редактирование компании",
             "Создание/редактирование пользователя",
-            "Создание/удаление должности"
-        ]
+            "Создание/удаление должности",
+        ],
     ];
     const fetchData = usersApi();
     useEffect(() => {
@@ -87,12 +85,10 @@ export const RolesSettingsPage: FC<Props> = () => {
     //puting changes
     const reqRoles = async (data: IUser) => {
         try {
-            if (data.role_type === 'client') {
+            if (data.role_type === "client") {
                 const sendingData = {
-                    "users_data": [
-                        data
-                    ]
-                }
+                    users_data: [data],
+                };
                 const response = await axios.put(`${BASE_URL}/users/clientpermissions/detail/`, sendingData, {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,
@@ -101,24 +97,21 @@ export const RolesSettingsPage: FC<Props> = () => {
                 console.log(response);
             } else if (data.role_type === "manager") {
                 const sendingData = {
-                    "users_data": [
-                        data
-                    ]
-                }
+                    users_data: [data],
+                };
                 const response = await axios.put(`${BASE_URL}/users/managerpermissions/detail/`, sendingData, {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,
                     },
                 });
                 console.log(response);
-            } else if (data.role_type === '') {
-                return
+            } else if (data.role_type === "") {
+                return;
             }
         } catch (error) {
             console.log(error);
         }
     };
-
 
     //on click save im doing put to save all changes
     const saveRoles = () => {
@@ -183,13 +176,12 @@ export const RolesSettingsPage: FC<Props> = () => {
                         </button>
                     </div>
                 </div>
-
                 <HeaderSettings
                     name="Имя пользователя"
                     list={navtype === "client" ? headerSettingsList : headerSettingsListManager}
                 />
                 <RolesRender
-                    users={fetchData.inState ? fetchData.inState : []}
+                    users={fetchData.usersList ? fetchData.usersList : []}
                     list={navtype === "client" ? renderSettingsList[0] : renderSettingsList[1]}
                     getChanges={(e: IUser[]) => setBoxesReg(e)}
                     navType={navtype}

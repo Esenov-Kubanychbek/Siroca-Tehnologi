@@ -31,11 +31,11 @@ export const CheckList: FC = () => {
         console.log(checkValue, "postCheck");
     };
 
-    const roles = idRoles()
-    const role_type = localStorage.getItem("role_type")
+    const roles = idRoles();
+    const role_type = localStorage.getItem("role_type");
 
     const render = () => {
-        if (roles.formatedState && role_type === 'client' && roles.formatedState.client_can_add_checklist_extra) {
+        if (roles.formatedState && role_type === "client" && roles.formatedState.client_can_add_checklist_extra) {
             return (
                 <div className={styles.CheckList}>
                     <div className={styles.InputEnter}>
@@ -92,7 +92,7 @@ export const CheckList: FC = () => {
                         />
                     </div>
                 </div>
-            )
+            );
         } else if (role_type === "manager" || role_type === "") {
             return (
                 <div className={styles.CheckList}>
@@ -150,18 +150,13 @@ export const CheckList: FC = () => {
                         />
                     </div>
                 </div>
-            )
+            );
         } else {
             return (
                 <p style={{ fontSize: "20px", color: "red" }}>У вас нет таких прав, обратитесь к администратору! </p>
-            )
+            );
         }
-    }
+    };
 
-    return (
-        <>
-            {render()}
-        </>
-
-    );
+    return <>{render()}</>;
 };

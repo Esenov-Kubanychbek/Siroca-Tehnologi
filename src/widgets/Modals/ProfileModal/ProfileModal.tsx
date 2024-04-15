@@ -1,20 +1,17 @@
 import { CloseSquare } from "iconsax-react";
 import styles from "./ProfileModal.module.scss";
-// import profileImage from "../../../shared/assets/profileImage.svg";
 import { CustomButton } from "../../../shared/ui";
-import { useProfile } from "../../../shared/hooks/modalHooks";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { usersApi } from "../../Admin/Users/api/usersApi";
 import { Modal } from "antd";
 import { ChangePassword } from "../ChangePassword/ChangePassword";
-import { useChangePassword } from "../../../shared/hooks/modalHooks/useChangePassword";
+import { IProfileModal } from "./types/types";
 
-export const ProfileModal: FC = () => {
-    const modal = useProfile();
+export const ProfileModal: FC<IProfileModal> = (props) => {
+    const { setModal } = props;
     const { userProfile, userProfileAdded } = usersApi();
     console.log(userProfile);
-    const changePasswordModal = useChangePassword();
-
+    const [changeModal, setChangeModal] = useState<boolean>(false);
     useEffect(() => {
         userProfileAdded();
     });
@@ -25,7 +22,7 @@ export const ProfileModal: FC = () => {
                 <CloseSquare
                     cursor={"pointer"}
                     size={34}
-                    onClick={modal.close}
+                    onClick={() => setModal(false)}
                 />
             </div>
             <div className={styles.datas}>
@@ -101,7 +98,7 @@ export const ProfileModal: FC = () => {
                     </li>
                     <li>
                         <button
-                            onClick={changePasswordModal.open}
+                            onClick={() => setChangeModal(true)}
                             className={styles.btn}
                         >
                             Сменить пароль
@@ -119,10 +116,10 @@ export const ProfileModal: FC = () => {
             <Modal
                 width={265}
                 centered
-                open={changePasswordModal.isOpen}
-                onCancel={changePasswordModal.close}
+                open={changeModal}
+                onCancel={() => setChangeModal(false)}
             >
-                <ChangePassword />
+                <ChangePassword setModal={setChangeModal} />
             </Modal>
         </div>
     );

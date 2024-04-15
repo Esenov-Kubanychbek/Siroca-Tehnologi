@@ -87,6 +87,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             console.log(error);
         }
     };
+
     //Beetwin all selects value
     const beetwinSelcetsVal = () => {
         fullFilterState();
@@ -107,6 +108,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             prevFilterItems.map((el: FilterItem) => (el.text ? { ...el, isOpen: false } : el)),
         );
     };
+
     //Func to open selector or dropdawn
     const openDropDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         beetwinSelcetsVal();
@@ -142,34 +144,42 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         setIsMounted(true);
         updateFilterItems({ type: e.type, selected: e.selected, pos: 1, isOpen: true, values: [], text: "" });
     };
+
     //Func to get date input values
     const onChangeDate = (e: { target: { value: string; id: string } }) => {
         console.log(e.target.value);
         const newSelect = { selected: [e.target.value], type: e.target.id };
         getSelect(newSelect);
     };
+
     //There im uping the filters to backend, im mapping all choosed selects end filter.
-    //Thats already working 
+    //Thats already working
     const upSelects = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/applications/form/?${filterItems[0].selected[0] ? "task_number=" : ""}${filterItems[0].selected[0]
-                ? filterItems[0].selected.map((el) => {
-                    return `${el}`;
-                })
-                : ""}${filterItems
+            const response = await axios.get(
+                `${BASE_URL}/applications/form/?${filterItems[0].selected[0] ? "task_number=" : ""}${
+                    filterItems[0].selected[0]
+                        ? filterItems[0].selected.map((el) => {
+                              return `${el}`;
+                          })
+                        : ""
+                }${filterItems
                     .map((el) => {
-                        return el.type === "task_number" ? "" : el.selected[0]
-                            ? `&${el.type}=${el.selected[0]
-                                ? el.selected.map((el) => {
-                                    return `${el}`;
-                                })
-                                : ""
-                            }`
-                            : "";
+                        return el.type === "task_number"
+                            ? ""
+                            : el.selected[0]
+                              ? `&${el.type}=${
+                                    el.selected[0]
+                                        ? el.selected.map((el) => {
+                                              return `${el}`;
+                                          })
+                                        : ""
+                                }`
+                              : "";
                     })
                     .join("")}`,
                 {
-                    headers: { Authorization: `JWT ${localStorage.getItem("access")}`, },
+                    headers: { Authorization: `JWT ${localStorage.getItem("access")}` },
                 },
             );
             console.log(response);
@@ -188,11 +198,12 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             upSelects();
         }
     }, [filterItems, isMounted]);
+
     //For clear the choosed filters
     const clearFilter = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/?page=1`, {
-                headers: { Authorization: `JWT ${localStorage.getItem("access")}`, },
+                headers: { Authorization: `JWT ${localStorage.getItem("access")}` },
             });
             fetchRequest.setState(response.data.results.results);
             fetchRequest.setFilterState(response.data.results.results);
@@ -207,85 +218,173 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             console.log(error);
         }
     };
+
     //Thats func to dell the select about id
     const delSelect = (e: { target: { id: string; className: string } }) => {
         setFilterItems((prevFilterItems: FilterItem[]) =>
             prevFilterItems.map((el: FilterItem) =>
-                el.type === e.target.id ? {
-                    ...el, selected: el.selected.filter((el) => {
-                        if (el === e.target.className) {
-                            return
-                        } else {
-                            return el
-                        }
-                    }),
-                } : { ...el, selected: el.selected },),
+                el.type === e.target.id
+                    ? {
+                          ...el,
+                          selected: el.selected.filter((el) => {
+                              if (el === e.target.className) {
+                                  return;
+                              } else {
+                                  return el;
+                              }
+                          }),
+                      }
+                    : { ...el, selected: el.selected },
+            ),
         );
     };
     //Thats already in procces (not work)
     useEffect(() => {
-        const mapped = filterItems.map((el) => { return el.selected })
+        const mapped = filterItems.map((el) => {
+            return el.selected;
+        });
         if (mapped.length >= 1) {
-            return
-        } else { clearFilter() }
-    }, [filterItems])
+            return;
+        } else {
+            clearFilter();
+        }
+    }, [filterItems]);
     return (
         <div>
-            {isFilter ? (//isFilter is the handle state open/close
+            {isFilter ? ( //isFilter is the handle state open/close
                 <div className={styles.DetailFilters}>
                     <ul>
-                        {filterItems.map((el: FilterItem) => {//There im mapping filter items selector, dropdawn
+                        {filterItems.map((el: FilterItem) => {
+                            //There im mapping filter items selector, dropdawn
                             //Cutting the words if is the long
                             const displayedText = el.text.length > 10 ? el.text.substring(0, 10) + "..." : el.text;
                             //There im geting date selectors
                             if (el.type === "finish_date" || el.type === "start_date") {
-                                return (<> <input className={styles.date} type="date" id={el.type} onChange={(e) => onChangeDate(e)} /></>);
-                            } else {//Just if item not date type
                                 return (
-                                    <div key={el.text} className={el.isOpen ? styles.ItemOpen : styles.Item}>
-                                        {el.isOpen ? (//if selector is open we will render input 
+                                    <>
+                                        {" "}
+                                        <input
+                                            className={styles.date}
+                                            type="date"
+                                            id={el.type}
+                                            onChange={(e) => onChangeDate(e)}
+                                        />
+                                    </>
+                                );
+                            } else {
+                                //Just if item not date type
+                                return (
+                                    <div
+                                        key={el.text}
+                                        className={el.isOpen ? styles.ItemOpen : styles.Item}
+                                    >
+                                        {el.isOpen ? ( //if selector is open we will render input
                                             <>
-                                                <input className={styles.SelInput} value={displayedText} type="text" />
-                                                <div className={styles.Icn} style={el.isOpen ? { transform: "rotate(90deg)" } : undefined} id={el.text} onClick={(e) => openDropDown(e)}>
+                                                <input
+                                                    className={styles.SelInput}
+                                                    value={displayedText}
+                                                    type="text"
+                                                />
+                                                <div
+                                                    className={styles.Icn}
+                                                    style={el.isOpen ? { transform: "rotate(90deg)" } : undefined}
+                                                    id={el.text}
+                                                    onClick={(e) => openDropDown(e)}
+                                                >
                                                     <ArrowLeft2 id={el.text} />
                                                 </div>
                                             </>
-                                        ) : (//else just p
+                                        ) : (
+                                            //else just p
                                             <>
                                                 <p key={el.text}>{displayedText}</p>
-                                                <div key={`${el.text}-icon`} id={el.text} className={styles.Icn} onClick={(e) => openDropDown(e)}>
+                                                <div
+                                                    key={`${el.text}-icon`}
+                                                    id={el.text}
+                                                    className={styles.Icn}
+                                                    onClick={(e) => openDropDown(e)}
+                                                >
                                                     <ArrowLeft2 id={el.text} />
                                                 </div>
                                             </>
                                         )}
-                                        {el.isOpen && (<SelectFilterItem getSelect={getSelect} el={el} />)}
+                                        {el.isOpen && (
+                                            <SelectFilterItem
+                                                getSelect={getSelect}
+                                                el={el}
+                                            />
+                                        )}
                                     </div>
                                 );
                             }
                         })}
-                        <button className={styles.Clear} onClick={clearFilter}> Сбросить фильтр </button>
+                        <button
+                            className={styles.Clear}
+                            onClick={clearFilter}
+                        >
+                            {" "}
+                            Сбросить фильтр{" "}
+                        </button>
                     </ul>
                     <div className={styles.selected}>
                         {/* There im rendering always choosed selects */}
-                        {filterItems ? filterItems.map((el) => {
-                            return el.selected.map((elim) => {
-                                return (
-                                    <div className={styles.selectedItem} key={elim}>
-                                        <EllipsisOutlined />
-                                        <p>{elim.length > 5 ? elim.substring(0, 8) + "..." : elim}</p>
-                                        <div onClick={() => delSelect({ target: { id: el.type, className: `${elim}` } })} id={el.type} className={`${elim}`} >
-                                            <CloseSquare size={16} id={el.type} className={`${elim}`} />
-                                        </div>
-                                    </div>
-                                );
-                            });
-                        }) : null}
+                        {filterItems
+                            ? filterItems.map((el) => {
+                                  return el.selected.map((elim) => {
+                                      return (
+                                          <div
+                                              className={styles.selectedItem}
+                                              key={elim}
+                                          >
+                                              <EllipsisOutlined />
+                                              <p>{elim.length > 5 ? elim.substring(0, 8) + "..." : elim}</p>
+                                              <div
+                                                  onClick={() =>
+                                                      delSelect({ target: { id: el.type, className: `${elim}` } })
+                                                  }
+                                                  id={el.type}
+                                                  className={`${elim}`}
+                                              >
+                                                  <CloseSquare
+                                                      size={16}
+                                                      id={el.type}
+                                                      className={`${elim}`}
+                                                  />
+                                              </div>
+                                          </div>
+                                      );
+                                  });
+                              })
+                            : null}
                     </div>
                 </div>
             ) : null}
             {/* After not my code  */}
-            <ConfigProvider theme={{ components: { Tabs: { inkBarColor: "#1C6AD2", itemColor: "#252525", itemHoverColor: "#1C6AD2", itemSelectedColor: "#1C6AB1", fontFamily: "Geologica", fontSize: 20, margin: isFilter ? (isMounted ? 100 : 70) : 10, }, }, }}>
-                <Tabs defaultActiveKey="1" items={items} tabBarStyle={{ padding: "24px", width: role === "admin" ? "1764px" : "1790px", fontWeight: 700, backgroundColor: "white", }} />
+            <ConfigProvider
+                theme={{
+                    components: {
+                        Tabs: {
+                            inkBarColor: "#1C6AD2",
+                            itemColor: "#252525",
+                            itemHoverColor: "#1C6AD2",
+                            itemSelectedColor: "#1C6AB1",
+                            fontFamily: "Geologica",
+                            fontSize: 20,
+                            margin: isFilter ? (isMounted ? 100 : 70) : 10,
+                        },
+                    },
+                }}
+            >
+                <Tabs
+                    defaultActiveKey="1"
+                    items={items}
+                    tabBarStyle={{
+                        padding: "24px",
+                        width: role === "admin" ? "1764px" : "1790px",
+                        fontWeight: 700,
+                        backgroundColor: "white",
+                    }}
+                />
             </ConfigProvider>
         </div>
     );

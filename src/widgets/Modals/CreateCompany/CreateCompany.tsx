@@ -4,17 +4,16 @@ import { CustomButton, CustomInput } from "../../../shared/ui";
 import { FC, useState } from "react";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
-import { useAddManager, useCompany } from "../../../shared/hooks/modalHooks";
 import { Modal } from "antd";
 import { AddManager } from "../AddManager/AddManager";
+import { ICreateCompanyModal } from "./types/types";
 
-export const CreateCompany: FC = () => {
-    const modal = useCompany();
+export const CreateCompany: FC<ICreateCompanyModal> = (props) => {
+    const { setModal } = props;
     const [allData, setAllData] = useState<boolean>(false);
     const [hovered, setHovered] = useState<boolean>(false);
     const { addCompany, users } = useDataStoreComponies();
     const { changeInput, resetInput, dataInputCompanies } = useDataInputCompaniesStore();
-    const addManager = useAddManager();
 
     const addNewCompany = () => {
         if (
@@ -27,7 +26,7 @@ export const CreateCompany: FC = () => {
             addCompany(dataInputCompanies);
             resetInput();
             setAllData(false);
-            modal.close();
+            setModal(false);
             console.log(dataInputCompanies.main_manager);
         } else {
             setAllData(true);
@@ -35,7 +34,7 @@ export const CreateCompany: FC = () => {
         }
     };
     const managers = users.filter((item) => item.role_type === "manager");
-
+    const [managerModal, setManagerModal] = useState<boolean>(false);
     return (
         <div className={styles.CreateCompany}>
             <div className={styles.blockOne}>
@@ -43,7 +42,7 @@ export const CreateCompany: FC = () => {
                 <CloseSquare
                     cursor={"pointer"}
                     size={32}
-                    onClick={modal.close}
+                    onClick={() => setModal(false)}
                 />
             </div>
             <div className={styles.blockTwo}>
@@ -124,7 +123,7 @@ export const CreateCompany: FC = () => {
                                 color="white"
                                 onMouseEnter={() => setHovered(true)}
                                 onMouseLeave={() => setHovered(false)}
-                                onClick={addManager.open}
+                                onClick={() => setManagerModal(true)}
                             />
                         </div>
                     </div>
@@ -132,17 +131,16 @@ export const CreateCompany: FC = () => {
             </div>
             <p style={{ display: `${allData ? "block" : "none"}` }}>Все поля должны быть обязательно заполнены*</p>
             <div className={styles.buttons}>
-                <div onClick={modal.close}>
-                    <CustomButton
-                        variant="Without"
-                        width={150}
-                        text="Отменить"
-                        onClick={() => {
-                            resetInput();
-                            setAllData(false);
-                        }}
-                    />
-                </div>
+                <CustomButton
+                    variant="Without"
+                    width={150}
+                    text="Отменить"
+                    onClick={() => {
+                        setModal(false);
+                        resetInput();
+                        setAllData(false);
+                    }}
+                />
                 <div>
                     <CustomButton
                         variant="Primary"
@@ -152,14 +150,13 @@ export const CreateCompany: FC = () => {
                     />
                 </div>
             </div>
-
             <Modal
-                open={addManager.isOpen}
-                onCancel={addManager.close}
+                open={managerModal}
+                onCancel={() => setManagerModal(false)}
                 width={500}
                 centered
             >
-                <AddManager />
+                <AddManager setModal={setManagerModal} />
             </Modal>
         </div>
     );

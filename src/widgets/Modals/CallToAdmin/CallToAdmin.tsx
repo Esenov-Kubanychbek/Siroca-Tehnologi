@@ -1,10 +1,10 @@
 import { Call, CloseSquare, Sms, Whatsapp } from "iconsax-react";
 import styles from "./CallToAdmin.module.scss";
-import { useCallToAdmin } from "../../../shared/hooks/modalHooks";
 import { FC } from "react";
+import { ICallToAdminModal } from "./types/types";
 
-export const CallToAdmin: FC = () => {
-    const modal = useCallToAdmin();
+export const CallToAdmin: FC<ICallToAdminModal> = (props) => {
+    const { setModal } = props;
     return (
         <div className={styles.CallToAdmin}>
             <div className={styles.header}>
@@ -15,7 +15,7 @@ export const CallToAdmin: FC = () => {
                 <CloseSquare
                     cursor={"pointer"}
                     size={34}
-                    onClick={modal.close}
+                    onClick={() => setModal(false)}
                 />
             </div>
             <div className={styles.Contacts}>

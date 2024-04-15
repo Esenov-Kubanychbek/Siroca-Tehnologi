@@ -1,14 +1,13 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./UserList.module.scss";
 import { UsersTop } from "./UsersTop";
 import { Modal } from "antd";
 import { ViewUser } from "../../../Modals/ViewUser/ViewUser";
-import { useViewUser } from "../../../../shared/hooks/modalHooks";
 import { usersApi } from "../api/usersApi";
 import { User } from "../../../../entities";
 
 export const UsersList: FC = () => {
-    const modal = useViewUser();
+    const [modal, setModal] = useState<boolean>(false);
     const fetchData = usersApi();
     useEffect(() => {
         fetchData.getting();
@@ -20,9 +19,10 @@ export const UsersList: FC = () => {
                     <UsersTop />
                 </div>
                 <div className={styles.Users}>
-                    {fetchData.inState.map((card) => (
+                    {fetchData.usersList.map((card, i) => (
                         <User
-                            key={card.id}
+                            setModal={setModal}
+                            key={i}
                             user={card}
                         />
                     ))}
@@ -31,11 +31,11 @@ export const UsersList: FC = () => {
             <Modal
                 centered
                 width={700}
-                open={modal.isOpen}
-                onCancel={modal.close}
+                open={modal}
+                onCancel={() => setModal(false)}
                 zIndex={6}
             >
-                <ViewUser />
+                <ViewUser setModal={setModal} />
             </Modal>
         </>
     );

@@ -1,4 +1,6 @@
-export interface IRequest {
+import { Dispatch, SetStateAction } from "react";
+
+export interface IObject {
     id?: number;
     task_number: string;
     title: string;
@@ -10,4 +12,10 @@ export interface IRequest {
     company: string;
     main_client: string;
     main_manager: string;
+}
+
+export interface IRequest {
+    request: IObject;
+    role: string | null;
+    setModal: Dispatch<SetStateAction<boolean>>;
 }

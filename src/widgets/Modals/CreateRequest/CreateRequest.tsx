@@ -1,23 +1,23 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "./CreateRequest.module.scss";
 import { ICreateRequest, createRequestApi } from "./api/createRequestApi";
-import { useEditRequest, useCreateRequest } from "../../../shared/hooks/modalHooks";
 import { CloseSquare } from "iconsax-react";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { Modal } from "antd";
 import { EditRequest } from "../..";
+import { ICreateRequestModal } from "./types/types";
 import { idRoles } from "../../../pages/MainPage/api/idRoles";
 
-export const CreateRequest: FC = () => {
-    const modal = useCreateRequest();
-    const editModal = useEditRequest();
+export const CreateRequest: FC<ICreateRequestModal> = (props) => {
+    const { setModal } = props;
+    const [editModal, setEditModal] = useState<boolean>(false);
     const fetchData = createRequestApi();
     const [requestState, setRequestState] = useState<ICreateRequest>({
         title: "",
         company: "",
     });
-    const roles = idRoles()
-    const fmRoles = roles.formatedState
+    const roles = idRoles();
+    const fmRoles = roles.formatedState;
     const RequestCreateValue = (e: ChangeEvent<HTMLInputElement>) => {
         setRequestState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
     };
@@ -25,13 +25,18 @@ export const CreateRequest: FC = () => {
         e.preventDefault();
         if (Object.values(requestState).every((value) => value !== "")) {
             fetchData.posting(requestState);
-            modal.close();
-            if(fmRoles && localStorage.getItem("role_type") === "client" && fmRoles.client_can_edit_application_extra || localStorage.getItem("role_type") === "manager" ||  localStorage.getItem("role_type") === "" ){
-                 editModal.open();
-            }else{
-                return
+            setModal(false);
+            if (
+                (fmRoles &&
+                    localStorage.getItem("role_type") === "client" &&
+                    fmRoles.client_can_edit_application_extra) ||
+                localStorage.getItem("role_type") === "manager" ||
+                localStorage.getItem("role_type") === ""
+            ) {
+                setEditModal(true);
+            } else {
+                return;
             }
-           
         } else {
             console.log("postTrimError");
         }
@@ -46,7 +51,7 @@ export const CreateRequest: FC = () => {
                     <div className={styles.TextTop}>Создание заявки</div>
                     <CloseSquare
                         cursor={"pointer"}
-                        onClick={modal.close}
+                        onClick={() => setModal(false)}
                         size={34}
                     />
                 </div>
@@ -71,7 +76,7 @@ export const CreateRequest: FC = () => {
                 <div className={styles.Buttons}>
                     <CustomButton
                         type="button"
-                        onClick={modal.close}
+                        onClick={() => setModal(false)}
                         variant="Secondary"
                         width={150}
                         text="Отменить"
@@ -87,12 +92,13 @@ export const CreateRequest: FC = () => {
             <Modal
                 width={732}
                 centered
-                open={editModal.isOpen}
-                onCancel={editModal.close}
+                open={editModal}
+                onCancel={() => setEditModal(false)}
             >
                 <EditRequest
                     request={requestState}
                     setRequest={setRequestState}
+                    setModal={setEditModal}
                 />
             </Modal>
         </>

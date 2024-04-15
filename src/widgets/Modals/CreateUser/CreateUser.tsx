@@ -4,14 +4,17 @@ import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CloseSquare } from "iconsax-react";
 import { RoleButton } from "./ui/RoleButton";
 import { AddButton } from "./ui/AddButton";
-import { ConfigProvider, Modal } from "antd";
-import { CreatePosition, SuccessModal } from "../..";
-import { usePosition, useSuccess, useUser } from "../../../shared/hooks/modalHooks";
+import { Modal } from "antd";
+import { CreateJobTitle, SuccessModal } from "../..";
+import { useSuccess } from "../../../shared/hooks/modalHooks";
 import { AddPhoto } from "./ui/AddPhoto";
-import axios from "axios";
-import { BASE_URL } from "../../../shared/variables/variables";
+import { ICreateUserModal } from "./types/types";
+import { usersApi } from "../../Admin/Users/api/usersApi";
 
-export const CreateUser: FC = () => {
+export const CreateUser: FC<ICreateUserModal> = (props) => {
+    const { setModal } = props;
+    const createUserApi = usersApi();
+    const [jobTitleModal, setJobTitleModal] = useState<boolean>(false);
     const [formValues, setFormValue] = useState([
         { name: "role_type", value: null },
         { name: "first_name", value: null },
@@ -22,8 +25,6 @@ export const CreateUser: FC = () => {
         { name: "job_title", value: null },
         { name: "image", value: null },
     ]);
-    const positionFunc = usePosition();
-    const modal = useUser();
     const success = useSuccess();
 
     const postTrim = async (e: FormEvent<HTMLFormElement>) => {
@@ -49,8 +50,7 @@ export const CreateUser: FC = () => {
                         }
                     }
                 });
-                const response = await axios.post(`${BASE_URL}/users/create/`, formData);
-                console.log(response);
+                createUserApi.postUser(formData);
             }
         } catch (error) {
             console.log(formValues);
@@ -81,7 +81,7 @@ export const CreateUser: FC = () => {
                 <CloseSquare
                     cursor={"pointer"}
                     size={34}
-                    onClick={modal.close}
+                    onClick={() => setModal(false)}
                 />
             </div>
             <div className={styles.Description}>
@@ -151,7 +151,7 @@ export const CreateUser: FC = () => {
                             placeholder="Напишите..."
                             change={addValues}
                         />
-                        <AddButton onClick={positionFunc.open} />
+                        <AddButton onClick={() => setJobTitleModal(true)} />
                     </div>
                 </div>
             </div>
@@ -160,7 +160,7 @@ export const CreateUser: FC = () => {
                     type="button"
                     variant="Without"
                     width={160}
-                    onClick={modal.close}
+                    onClick={() => setModal(false)}
                     text="Отменить"
                 />
                 <CustomButton
@@ -173,29 +173,21 @@ export const CreateUser: FC = () => {
             <Modal
                 width={700}
                 centered
-                open={positionFunc.isOpen}
-                onCancel={positionFunc.close}
+                open={jobTitleModal}
+                onCancel={() => setJobTitleModal(false)}
                 zIndex={10}
             >
-                <CreatePosition />
+                <CreateJobTitle setModal={setJobTitleModal} />
             </Modal>
-            <ConfigProvider
-                theme={{
-                    token: {
-                        borderRadiusLG: 50,
-                    },
-                }}
+            <Modal
+                width={350}
+                centered
+                zIndex={11}
+                open={success.isOpen}
+                onCancel={success.close}
             >
-                <Modal
-                    width={350}
-                    centered
-                    zIndex={11}
-                    open={success.isOpen}
-                    onCancel={success.close}
-                >
-                    <SuccessModal content="Пользователь Добавлен!" />
-                </Modal>
-            </ConfigProvider>
+                <SuccessModal content="Пользователь Добавлен!" />
+            </Modal>
         </form>
     );
 };

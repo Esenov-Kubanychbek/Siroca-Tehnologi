@@ -4,8 +4,8 @@ import styles from "./ReportModal.module.scss";
 import { FC, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../shared/variables/variables";
-import { useReport } from "../../../shared/hooks/modalHooks";
 import { FileExcelFilled } from "@ant-design/icons";
+import { IReportModal } from "./types/types";
 
 interface ResultsData {
     company: string;
@@ -17,10 +17,10 @@ interface ResultsData {
 interface ExcelData {
     filtered_data_size: number;
     results: { company: string }[];
-    // Добавьте другие свойства из ответа API, если это необходимо
 }
 
-export const ReportModal: FC = () => {
+export const ReportModal: FC<IReportModal> = (props) => {
+    const { setModal } = props;
     const [results, setResults] = useState<ResultsData | null>(null);
     const [excel, setExcel] = useState<ExcelData | false | null>(null);
 
@@ -80,15 +80,13 @@ export const ReportModal: FC = () => {
         }
     };
 
-    const modal = useReport();
-
     return (
         <div className={styles.RepModalWindow}>
             <div className={styles.Header1}>
                 <p>Скачать отчёт</p>
                 <CloseSquare
                     cursor={"pointer"}
-                    onClick={modal.close}
+                    onClick={() => setModal(false)}
                     color="black"
                     size={34}
                 />

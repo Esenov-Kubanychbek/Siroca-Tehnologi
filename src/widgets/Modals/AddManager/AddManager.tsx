@@ -5,16 +5,16 @@ import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { IUserGet } from "../../../shared/types/userTypes";
 import { CustomButton } from "../../../shared/ui";
 import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
-import { useAddManager } from "../../../shared/hooks/modalHooks";
+import { IAddManagerModal } from "./types/types";
 
-export const AddManager: FC = () => {
+export const AddManager: FC<IAddManagerModal> = (props) => {
+    const { setModal } = props;
     const { users } = useDataStoreComponies();
     const managers = users.filter((array) => array.role_type === "manager");
     const [filteredManager, setFilteredManager] = useState<IUserGet[]>();
     const [inputValue, setInputValue] = useState<string>("");
     const { addManager } = useDataInputCompaniesStore();
     const [err, setErr] = useState<boolean>(false);
-    const modal = useAddManager();
 
     const filterManager = (text: string) => {
         const filtered = managers.filter((manager) => {
@@ -43,7 +43,7 @@ export const AddManager: FC = () => {
                     filteredManager.map((array) => {
                         addManager(array.id);
                     });
-                    modal.close();
+                    setModal(false);
                     setInputValue("");
                 }
                 return true;
@@ -54,8 +54,11 @@ export const AddManager: FC = () => {
     };
     return (
         <div className={styles.AddManager}>
-            <CloseSquare className={styles.close} />
-
+            <CloseSquare
+                className={styles.close}
+                cursor={"pointer"}
+                onClick={() => setModal(false)}
+            />
             <div className={styles.addContainer}>
                 <p className={styles.head}>Добавить менеджера</p>
 
@@ -99,6 +102,7 @@ export const AddManager: FC = () => {
                     variant="Secondary"
                     width={150}
                     text="Отмена"
+                    onClick={() => setModal(false)}
                 />
                 <CustomButton
                     variant="Primary"

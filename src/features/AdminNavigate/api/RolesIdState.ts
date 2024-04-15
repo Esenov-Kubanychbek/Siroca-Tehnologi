@@ -1,10 +1,10 @@
 import { create } from "zustand";
 
 export interface IRolesId {
-    [key: string]: boolean | string,
+    [key: string]: boolean | string;
 }
 interface IFetch {
-    rolesState: IRolesId | null,
+    rolesState: IRolesId | null;
     setRoles: (data: IRolesId | null) => void;
 }
 
