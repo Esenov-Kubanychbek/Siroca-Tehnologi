@@ -100,6 +100,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             el.values = vals;
         });
         setFilterItems(timeState);
+        
     };
     //Func to close of already open selecters
     const closeAllSelect = (): void => {
@@ -244,11 +245,10 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             return el.selected;
         });
         if (mapped.length >= 1) {
-            return;
-        } else {
-            clearFilter();
-        }
-    }, [filterItems]);
+            return
+        } else { clearFilter() }
+    }, [filterItems])
+    
     return (
         <div>
             {isFilter ? ( //isFilter is the handle state open/close
@@ -280,17 +280,8 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                                     >
                                         {el.isOpen ? ( //if selector is open we will render input
                                             <>
-                                                <input
-                                                    className={styles.SelInput}
-                                                    value={displayedText}
-                                                    type="text"
-                                                />
-                                                <div
-                                                    className={styles.Icn}
-                                                    style={el.isOpen ? { transform: "rotate(90deg)" } : undefined}
-                                                    id={el.text}
-                                                    onClick={(e) => openDropDown(e)}
-                                                >
+                                                <p className={styles.SelInput} >{displayedText}</p>
+                                                <div className={styles.Icn} style={el.isOpen ? { transform: "rotate(90deg)" } : undefined} id={el.text} onClick={(e) => openDropDown(e)}>
                                                     <ArrowLeft2 id={el.text} />
                                                 </div>
                                             </>
