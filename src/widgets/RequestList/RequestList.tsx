@@ -2,7 +2,7 @@ import styles from "./RequestList.module.scss";
 import { FC, MouseEvent, useEffect, useState } from "react";
 import { Request } from "../../entities";
 import { RequestTop, ViewRequest } from "..";
-import { ConfigProvider, Modal } from "antd";
+import { Modal } from "antd";
 import { getRequestApi } from "./api/getRequestApi";
 import { IRequest } from "./types/types";
 import axios from "axios";
@@ -15,7 +15,6 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     const [prevNext, setPrevNext] = useState<{ prev: boolean; next: boolean }>({ prev: false, next: false });
     const [modal, setModal] = useState<boolean>(false);
     console.log(prevNext);
-    //getting state in zustand
     const fetchRequest = getRequestApi();
     const apiLength = fetchRequest.getState;
 
@@ -125,24 +124,6 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
             </div>
             {apiLength.length > 1 ? (
                 <div className={styles.Pagination}>
-                    <ConfigProvider
-                        theme={{
-                            token: {
-                                colorBorder: "black",
-                            },
-                            components: {
-                                Pagination: {
-                                    itemSize: 56,
-                                    itemActiveBg: "#1C6AB1",
-                                    colorPrimary: "white",
-                                    colorPrimaryHover: "white",
-                                    fontFamily: "Geologica",
-                                    fontSize: 20,
-                                    borderRadius: 8,
-                                },
-                            },
-                        }}
-                    >
                         <div className={styles.paginationCont}>
                             <button
                                 onClick={prevPage}
@@ -177,7 +158,6 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                                 />
                             </button>
                         </div>
-                    </ConfigProvider>
                 </div>
             ) : null}
             <Modal

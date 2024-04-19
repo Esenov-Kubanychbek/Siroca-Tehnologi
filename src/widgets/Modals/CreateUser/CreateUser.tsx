@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "./CreateUser.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CloseSquare } from "iconsax-react";
@@ -6,7 +6,6 @@ import { RoleButton } from "./ui/RoleButton";
 import { AddButton } from "./ui/AddButton";
 import { Modal } from "antd";
 import { CreateJobTitle, SuccessModal } from "../..";
-import { useSuccess } from "../../../shared/hooks/modalHooks";
 import { AddPhoto } from "./ui/AddPhoto";
 import { ICreateUserModal } from "./types/types";
 import { usersApi } from "../../Admin/Users/api/usersApi";
@@ -15,6 +14,7 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
     const { setModal } = props;
     const createUserApi = usersApi();
     const [jobTitleModal, setJobTitleModal] = useState<boolean>(false);
+    const [modalSuccess, setModalSuccess] = useState<boolean>(false);
     const [formValues, setFormValue] = useState([
         { name: "role_type", value: null },
         { name: "first_name", value: null },
@@ -25,7 +25,6 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
         { name: "job_title", value: null },
         { name: "image", value: null },
     ]);
-    const success = useSuccess();
 
     const postTrim = async (e: FormEvent<HTMLFormElement>) => {
         try {
@@ -51,12 +50,15 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                     }
                 });
                 createUserApi.postUser(formData);
+                setModal(false);
+                setModalSuccess(true);
+                setTimeout(() => setModalSuccess(false), 1000);
             }
         } catch (error) {
             console.log(formValues);
         }
     };
-    const addValues = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const addValues = (e: ChangeEvent<HTMLInputElement>) => {
         const state = [...formValues];
         state.map((el: { name: string; value: null | string | File }) => {
             if (el.name === e.target.name) {
@@ -177,14 +179,17 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                 onCancel={() => setJobTitleModal(false)}
                 zIndex={10}
             >
-                <CreateJobTitle setModal={setJobTitleModal} />
+                <CreateJobTitle
+                    setModal={setJobTitleModal}
+                    setModalSuccess={setModalSuccess}
+                />
             </Modal>
             <Modal
                 width={350}
                 centered
                 zIndex={11}
-                open={success.isOpen}
-                onCancel={success.close}
+                open={modalSuccess}
+                onCancel={() => setModalSuccess(false)}
             >
                 <SuccessModal content="Пользователь Добавлен!" />
             </Modal>

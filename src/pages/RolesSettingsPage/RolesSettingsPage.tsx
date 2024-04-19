@@ -55,7 +55,7 @@ export const RolesSettingsPage: FC = () => {
     ];
     const fetchData = usersApi();
     useEffect(() => {
-        fetchData.getting();
+        fetchData.getUsersList();
     }, []);
 
     const navigate = useNavigate();

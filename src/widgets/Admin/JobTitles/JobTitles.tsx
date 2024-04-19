@@ -1,37 +1,51 @@
 import styles from "./JobTitles.module.scss";
-import { Modal } from "antd";
-import { SearchInput } from "../../../features";
-import { ButtonCreate } from "../../../shared/ui/ButtonCreate/ButtonCreate";
-import { ListTop } from "../../../shared/ui/ListTop/ListTop";
-import { ListTopName } from "../../../shared/ui/ListTop/ListTopName";
-import { useSuccess } from "../../../shared/hooks/modalHooks";
-import { ChangeEvent, FC, useEffect, useState } from "react";
-import { ItemInner } from "../../../shared/ui";
-import { jobTitleApi } from "./api/jobTitleApi";
-import { ReadyModal, SuccessModal } from "../..";
+import { Modals } from "./ui/Modals";
 import { Trash } from "iconsax-react";
-import { CreateJobTitle } from "../..";
+import { SearchInput } from "../../../features";
+import { jobTitleApi } from "./api/jobTitleApi";
+import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from "react";
+import { ButtonCreate, ListTop, ListTopName, ItemInner } from "../../../shared/ui";
 
 export const JobTitles: FC = () => {
     const [state, setState] = useState<boolean>(false);
-    const [position, setPosition] = useState<number>(0);
     const [modal, setModal] = useState<boolean>(false);
+    const [position, setPosition] = useState<number>(0);
+    const [inputState, setInputState] = useState<string>('');
     const [modalReady, setModalReady] = useState<boolean>(false);
-    const modalSuccess = useSuccess();
+    const [closeState, setCloseState] = useState<boolean>(false);
+    const [modalSuccess, setModalSuccess] = useState<boolean>(false);
     const fetchData = jobTitleApi();
+    useEffect(() => {
+        fetchData.getJobTitleList();
+    }, []);
     const handleClick = () => {
         setState(!state);
         setPosition(0);
     };
-    useEffect(() => {
-        fetchData.getJobTitleList();
-    }, []);
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setInputState(e.target.value);
+        setCloseState(true)
+    };
+    const search = () => {
+        const results = fetchData.jobTitleList.filter(item => item.title.includes(inputState));
+        fetchData.setSearchList(results)
+    };
+    const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            search();
+        }
+    };
+    const closeFunc = () => {
+        setCloseState(false);
+        setInputState("");
+        fetchData.setSearchList(fetchData.jobTitleList)
+    }
     return (
         <>
             <div className={styles.JobTitles}>
                 <div className={styles.Name}>Поиск по должностям</div>
                 <div className={styles.Input}>
-                    <SearchInput />
+                    <SearchInput value={inputState} onChange={handleChange} onKeyDown={handleKeyPress} closeState={closeState} closeFunc={closeFunc}/>
                     <ButtonCreate onClick={() => setModal(true)} />
                     <button
                         className={styles.Trash}
@@ -73,7 +87,8 @@ export const JobTitles: FC = () => {
                         className={styles.Inner}
                         style={fetchData.jobTitleList.length > 11 ? { overflowY: "scroll" } : { overflowY: "hidden" }}
                     >
-                        {fetchData.jobTitleList.map((card, i) => (
+                        {fetchData.searchList.length > 0 ? (
+                            fetchData.searchList.map((card, i) => (
                             <div
                                 key={i}
                                 className={styles.Item}
@@ -90,44 +105,22 @@ export const JobTitles: FC = () => {
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setPosition(Number(e.target.value))}
                                 />
                             </div>
-                        ))}
+                        )))
+                        :
+                        <div className={styles.Nothing}>По вашему запросу ничего не найдено!</div>
+                        }
                     </div>
                 </div>
             </div>
-            <Modal
-                centered
-                width={700}
-                open={modal}
-                onCancel={() => setModal(false)}
-                zIndex={10}
-            >
-                <CreateJobTitle setModal={setModal} />
-            </Modal>
-            <Modal
-                centered
-                width={350}
-                open={modalSuccess.isOpen}
-                onCancel={modalSuccess.close}
-                zIndex={11}
-            >
-                <SuccessModal content="Должность добавлена!" />
-            </Modal>
-            <Modal
-                centered
-                width={550}
-                open={modalReady}
-                onCancel={() => setModalReady(false)}
-                zIndex={12}
-            >
-                <ReadyModal
-                    no={() => setModalReady(false)}
-                    yes={() => {
-                        fetchData.deleteJobTitle(position);
-                        setModalReady(false);
-                    }}
-                    content="Вы уверены? Данная должность удалится безвозвратно"
-                />
-            </Modal>
+            <Modals
+                position={position}
+                modal={modal}
+                setModal={setModal}
+                modalReady={modalReady}
+                setModalReady={setModalReady}
+                modalSuccess={modalSuccess}
+                setModalSuccess={setModalSuccess}
+            />
         </>
     );
 };

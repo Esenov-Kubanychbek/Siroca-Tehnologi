@@ -76,3 +76,16 @@
         }
     }
 }
+
+.Nothing {
+    width: 402px;
+    padding:  0 10px;
+    height: 170px;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    color: $black71;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}

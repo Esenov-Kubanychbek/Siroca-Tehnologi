@@ -9,16 +9,37 @@ interface ILog {
     text: string;
 }
 
+interface ICheckList {
+    id: number;
+    text: string;
+    completed: boolean
+    deadline: string;
+    application: number;
+    manager: number;
+}
+
+interface IComments {
+    id: number;
+    user: string;
+    text: string;
+    date_added: string;
+    application: number;
+}
+
 interface IObject {
     id: number;
     logs: ILog[];
     company: string;
+    main_client: string;
+    main_manager: string;
+    checklist: ICheckList[]
+    comments: IComments[]
     task_number: string;
     title: string;
     description: string;
     short_description: string;
-    files: null;
-    jira: null;
+    files: string;
+    jira: string;
     status: string;
     payment_state: string;
     priority: string;
@@ -37,15 +58,19 @@ interface IFetch {
 
 export const getOneRequestApi = create<IFetch>((set) => ({
     oneRequest: {
-        id: 1,
+        id: 0,
         logs: [],
         company: "",
+        main_client: "",
+        main_manager: "",
+        checklist: [],
+        comments: [],
         task_number: "",
         title: "",
         description: "",
         short_description: "",
-        files: null,
-        jira: null,
+        files: "",
+        jira: "",
         status: "",
         payment_state: "",
         priority: "",
@@ -58,7 +83,11 @@ export const getOneRequestApi = create<IFetch>((set) => ({
     },
     getOneRequest: async (id) => {
         try {
-            const getOneResponse = await axios.get(`${BASE_URL}/applications/form_view/${id}/`);
+            const getOneResponse = await axios.get(`${BASE_URL}/applications/form_view/${id}/`, {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
+            });
             console.log(getOneResponse.data, "getOneRequestSuccess");
             set({ oneRequest: getOneResponse.data });
         } catch (error) {

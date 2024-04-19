@@ -94,8 +94,8 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         const timeState = [...filterItems];
         timeState.forEach((el: FilterItem) => {
             const vals = reqsFilter.map((elem: IGetRequest) => {
-                // const id = el.type;
-                return String(elem); // Преобразуем значение в строку
+                const id = el.type;
+                return String(elem[id]); // Преобразуем значение в строку
             });
             el.values = vals;
         });

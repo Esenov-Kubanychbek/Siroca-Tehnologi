@@ -10,9 +10,11 @@ interface IObject {
 
 interface IJobTitle {
     jobTitleList: IObject[];
+    searchList: IObject[];
     oneJobTitle: IObject;
     setJobTitle: (e: ChangeEvent<HTMLInputElement>) => void;
     getJobTitleList: () => void;
+    setSearchList: (searchState: IObject[]) => void;
     postJobTitle: (postState: { title: string }) => void;
     deleteJobTitle: (id: number) => void;
 }
@@ -22,6 +24,7 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
     oneJobTitle: {
         title: "",
     },
+    searchList: [],
     setJobTitle: (e) => {
         set((prevState) => ({
             oneJobTitle: {
@@ -34,9 +37,13 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
         try {
             const response = await axios.get(`${BASE_URL}/company/list_job-title/?limit=12&offset=0`);
             set({ jobTitleList: response.data.results });
+            set({searchList: response.data.results});
         } catch (error) {
             console.log(error, "getJobTitleError");
         }
+    },
+    setSearchList: (searchState) => {
+        set({searchList: searchState})
     },
     postJobTitle: async (postState) => {
         try {

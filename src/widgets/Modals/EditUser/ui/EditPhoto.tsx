@@ -1,17 +1,17 @@
 import { GalleryAdd } from "iconsax-react";
-import styles from "./ViewPhoto.module.scss";
+import styles from "./EditPhoto.module.scss";
 import { usersApi } from "../../../Admin/Users/api/usersApi";
+import { FC } from "react";
 
-export const ViewPhoto = () => {
+export const EditPhoto: FC = () => {
     const fetchData = usersApi();
     return (
-        <div>
-            <div className={styles.ViewPhoto}>
+            <div className={styles.EditPhoto}>
                 <GalleryAdd
                     size={50}
                     color="#252525"
                 />
-                <div className={styles.Text2}>Добавьте фотографию пользователя</div>
+                <p>Добавьте фотографию пользователя</p>
                 <img
                     src={fetchData.oneUserGet.image}
                     className={styles.Image}
@@ -24,6 +24,5 @@ export const ViewPhoto = () => {
                     accept="image/*"
                 />
             </div>
-        </div>
     );
 };

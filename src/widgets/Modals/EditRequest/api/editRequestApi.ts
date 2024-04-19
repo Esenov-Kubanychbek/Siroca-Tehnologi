@@ -2,7 +2,22 @@ import axios from "axios";
 import { create } from "zustand";
 import { BASE_URL } from "../../../../shared/variables/variables";
 
+interface ICheckList {
+    text?: string;
+    completed?: boolean;
+    deadline?: string;
+    application?: number | null;
+    manager?: number | null;
+}
+
+interface IComments {
+    text?: string;
+    application?: number | null;
+}
+
 export interface IRequest {
+    checklist?: ICheckList[];
+    comments?: IComments[];
     task_number?: string;
     title?: string;
     description?: string;

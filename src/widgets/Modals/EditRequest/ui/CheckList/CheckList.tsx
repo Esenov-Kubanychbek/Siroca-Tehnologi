@@ -66,7 +66,7 @@ export const CheckList: FC = () => {
                                 <CustomButton
                                     name="completed"
                                     type="button"
-                                    variant="Request"
+                                    variant="Primary"
                                     width={130}
                                     text="Сохранить"
                                     onClick={postCheck}
@@ -86,7 +86,7 @@ export const CheckList: FC = () => {
                             </div>
                         </div>
                         <CustomButton
-                            variant="Request"
+                            variant="Primary"
                             text="Добавить задачу"
                             width={172}
                         />
@@ -124,7 +124,7 @@ export const CheckList: FC = () => {
                                 <CustomButton
                                     name="completed"
                                     type="button"
-                                    variant="Request"
+                                    variant="Primary"
                                     width={130}
                                     text="Сохранить"
                                     onClick={postCheck}
@@ -144,7 +144,7 @@ export const CheckList: FC = () => {
                             </div>
                         </div>
                         <CustomButton
-                            variant="Request"
+                            variant="Primary"
                             text="Добавить задачу"
                             width={172}
                         />

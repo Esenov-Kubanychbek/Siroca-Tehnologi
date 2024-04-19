@@ -6,6 +6,6 @@ export interface IRole {
     role?: string | null;
 }
 
-export interface IViewUserModal {
+export interface IEditUserModal {
     setModal: Dispatch<SetStateAction<boolean>>;
 }

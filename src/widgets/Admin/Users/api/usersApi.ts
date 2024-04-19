@@ -3,20 +3,35 @@ import { create } from "zustand";
 import { iGetUser, IUser, IUserGet } from "../../../../shared/types/userTypes";
 import { BASE_URL } from "../../../../shared/variables/variables";
 
+interface IUserGetDetails {
+    count: number
+    next: null;
+    previous: null;
+    results: IUser[];
+}
+
 interface IFetch {
     usersList: IUser[];
+    usersGetDetails: IUserGetDetails;
     oneUserGet: IUserGet;
     oneUser: IUser;
     userProfile: iGetUser;
+    getUsersList: () => void;
+    setSearchList: (searchState: string) => void;
     userProfileAdded: () => void;
     getOneUser: (id: number | undefined) => void;
     putting: (postState: IUser, id: number | undefined) => void;
-    getting: () => void;
     postUser: (user: FormData) => void;
 }
 
 export const usersApi = create<IFetch>((set, get) => ({
     usersList: [],
+    usersGetDetails: {
+        count: 1,
+        next: null,
+        previous: null,
+        results: []
+    },
     userProfile: {
         first_name: "",
         job_title: 0,
@@ -45,6 +60,23 @@ export const usersApi = create<IFetch>((set, get) => ({
         surname: "",
         username: "",
     },
+    getUsersList: async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}/users/profiles/?page=1`);
+            set({usersGetDetails: response.data})
+            set({ usersList: response.data.results });
+        } catch (error) {
+            console.log(error, "getUsersListError");
+        }
+    },
+    setSearchList: async (searchState) => {
+        try {
+            const response = await axios.get(`${BASE_URL}/users/profiles/?search=${searchState}`);
+            set({ usersList: response.data.results });
+        } catch (error) {
+            console.log(error, "getUsersListError");
+        }
+    },
     userProfileAdded: async () => {
         try {
             const response = await axios.get(`${BASE_URL}/users/${localStorage.getItem("id")}/`);
@@ -70,14 +102,6 @@ export const usersApi = create<IFetch>((set, get) => ({
             console.log(response.data);
         } catch (error) {
             console.log(error, "putOneUserError");
-        }
-    },
-    getting: async () => {
-        try {
-            const response = await axios.get(`${BASE_URL}/users/profiles/?limit=12&offset=0`);
-            set({ usersList: response.data.results });
-        } catch (error) {
-            console.log(error, "getUserError");
         }
     },
     postUser: async (user) => {
