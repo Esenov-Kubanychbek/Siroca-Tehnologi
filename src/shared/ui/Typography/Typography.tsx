@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { FC, createElement } from "react";
 import styles from "./Typography.module.scss";
-import { ITags, TypographyProps } from "./model/types";
+import { ITags, TypographyProps } from "./types/types";
 import { capitalize as cap } from "../../../shared/helpers/utils";
 
 export const Typography: FC<TypographyProps> = (props) => {

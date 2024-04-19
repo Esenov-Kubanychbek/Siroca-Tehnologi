@@ -5,5 +5,5 @@ export const PATHS = {
     admin: "/admin",
     work: "/work",
     rolessettings: "/rolessettings",
-    main: "/main"
+    main: "/main",
 };

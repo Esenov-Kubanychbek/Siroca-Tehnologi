@@ -1,14 +1,13 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styles from "./Users.module.scss";
-import { SearchInput } from "../../../features/SearchInput/SearchInput";
-import { ButtonCreate } from "../../../shared/ui/ButtonCreate/ButtonCreate";
+import { SearchInput } from "../../../features";
+import { ButtonCreate } from "../../../shared/ui";
 import { UsersList } from "./ui/UsersList";
 import { Modal } from "antd";
-import { CreateUser } from "../../Modals/CreateUser/CreateUser";
-import { useUser } from "../../../shared/hooks/modalHooks";
+import { CreateUser } from "../..";
 
 export const Users: FC = () => {
-    const modal = useUser();
+    const [modal, setModal] = useState<boolean>(false);
     return (
         <div className={styles.Users}>
             <div className={styles.UsersSearch}>
@@ -17,7 +16,7 @@ export const Users: FC = () => {
                     <SearchInput />
                     <ButtonCreate
                         name="Создать пользователя"
-                        onClick={modal.open}
+                        onClick={() => setModal(true)}
                     />
                 </div>
             </div>
@@ -25,11 +24,11 @@ export const Users: FC = () => {
             <Modal
                 centered
                 width={700}
-                open={modal.isOpen}
-                onCancel={modal.close}
+                open={modal}
+                onCancel={() => setModal(false)}
                 zIndex={5}
             >
-                <CreateUser />
+                <CreateUser setModal={setModal} />
             </Modal>
         </div>
     );

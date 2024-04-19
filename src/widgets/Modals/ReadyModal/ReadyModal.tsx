@@ -4,7 +4,7 @@ import { FC } from "react";
 import { IReady } from "./types/types";
 
 export const ReadyModal: FC<IReady> = (props) => {
-    const { content, no, yes } = props;
+    const { content, yes, no } = props;
     return (
         <div className={styles.ReadyModal}>
             <div className={styles.Container}>

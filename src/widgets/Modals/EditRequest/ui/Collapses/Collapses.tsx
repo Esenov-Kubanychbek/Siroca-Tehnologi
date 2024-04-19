@@ -35,9 +35,10 @@ export const Collapses: FC<ICollapses> = ({ onChange, request }) => {
             key: "4",
             label: "Даты",
             children: <DatesContainer onChange={onChange} />,
-        },{
+        },
+        {
             key: "5",
-            label:"Комментарии",
+            label: "Комментарии",
             children: <Comments onChange={onChange} />,
         },
         {

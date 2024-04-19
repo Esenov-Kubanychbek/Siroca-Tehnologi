@@ -1,25 +1,24 @@
 import styles from "./NotifModal.module.scss";
 import { NewNotification } from "../..";
 import { CloseSquare } from "iconsax-react";
-import { useNotif } from "../../../shared/hooks/modalHooks";
 import { FC } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../shared/variables/variables";
+import { INotifModal } from "./types/types";
 
-export const NotifModal: FC = () => {
-    const modal = useNotif();
-    const setTrue = async() => {
+export const NotifModal: FC<INotifModal> = (props) => {
+    const { setModal } = props;
+    const setTrue = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/notifications/true/`, {
-                headers:{
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
-            })
-            modal.close()
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
+            });
+            setModal(false);
             console.log(response);
         } catch (error) {
             console.log(error);
-            
         }
     } 
 
@@ -46,7 +45,8 @@ export const NotifModal: FC = () => {
                         cursor={"pointer"}
                         size={34}
                         onClick={() => {
-                            setTrue()}}
+                            setTrue();
+                        }}
                     />
                 </div>
                 <div className={styles.ContentBlock}>

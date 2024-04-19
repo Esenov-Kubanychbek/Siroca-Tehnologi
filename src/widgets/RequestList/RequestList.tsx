@@ -8,19 +8,17 @@ import { IRequest } from "./types/types";
 import axios from "axios";
 import { BASE_URL } from "../../shared/variables/variables";
 import { ArrowLeft2 } from "iconsax-react";
-import { useViewRequest } from "../../shared/hooks/modalHooks";
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
-    const modal = useViewRequest();
     const [page, setPage] = useState<{ now: number }>({ now: 1 });
     const [reqCount, setReqCount] = useState<number>(0);
     const [prevNext, setPrevNext] = useState<{ prev: boolean; next: boolean }>({ prev: false, next: false });
+    const [modal, setModal] = useState<boolean>(false);
     console.log(prevNext);
     //getting state in zustand
     const fetchRequest = getRequestApi();
     const apiLength = fetchRequest.getState;
 
-    //just get all reqs with pagination
     const reqPage = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/?page=${page.now}&${api}`, {
@@ -30,7 +28,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
             });
             setReqCount(response.data.results.created_count);
             console.log(response.data.results.created_count);
-            
+
             fetchRequest.setState(response.data.results.results);
             fetchRequest.setFilterState(response.data.results.results);
 
@@ -52,12 +50,10 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
         }
     };
 
-    //onChange now page we calling reqPage()
     useEffect(() => {
         reqPage();
     }, [page.now]);
 
-    //just rendering paginattion btns 
     const renderPagButtons = () => {
         if (Math.ceil(reqCount / 50) > 1) {
             for (let index = 2; index <= 5; index++) {
@@ -79,7 +75,6 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
         }
     };
 
-    //just if pages will be more of 5
     const renderMoreBtns = () => {
         for (let index = 6; index <= Math.ceil(reqCount / 50); index++) {
             return (
@@ -96,11 +91,9 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
             );
         }
     };
-    
 
-    //next end prev page
     const nextPage = () => {
-        if (Math.ceil(reqCount / 50) !> page.now) {
+        if (Math.ceil(reqCount / 50)! > page.now) {
             setPage({ now: page.now + 1 });
         }
     };
@@ -123,6 +116,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                             role={role}
                             key={i}
                             request={card}
+                            setModal={setModal}
                         />
                     ))
                 ) : (
@@ -156,7 +150,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                             >
                                 <ArrowLeft2
                                     size={24}
-                                    style={page.now === 1 ? {color: "#DEDEDE" } : { color: "black"}}
+                                    style={page.now === 1 ? { color: "#DEDEDE" } : { color: "black" }}
                                 />
                             </button>
                             <button
@@ -175,7 +169,11 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                             >
                                 <ArrowLeft2
                                     size={24}
-                                    style={Math.ceil(reqCount / 50) === page.now ? {color: "#DEDEDE", transform: "rotate(-180deg)" } : { transform: "rotate(-180deg)" }}
+                                    style={
+                                        Math.ceil(reqCount / 50) === page.now
+                                            ? { color: "#DEDEDE", transform: "rotate(-180deg)" }
+                                            : { transform: "rotate(-180deg)" }
+                                    }
                                 />
                             </button>
                         </div>
@@ -185,11 +183,11 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
             <Modal
                 centered
                 width={750}
-                open={modal.isOpen}
-                onCancel={modal.close}
+                open={modal}
+                onCancel={() => setModal(false)}
                 zIndex={5}
             >
-                <ViewRequest />
+                <ViewRequest setModal={setModal} />
             </Modal>
         </div>
     );

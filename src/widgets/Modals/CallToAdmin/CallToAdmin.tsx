@@ -1,12 +1,11 @@
 import { Call, CloseSquare, Sms, Whatsapp } from "iconsax-react";
 import styles from "./CallToAdmin.module.scss";
-import { useCallToAdmin } from "../../../shared/hooks/modalHooks";
+import { ICallToAdminModal } from "./types/types";
 import { FC, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../shared/variables/variables";
 
-export const CallToAdmin: FC = () => {
-    const modal = useCallToAdmin();
+export const CallToAdmin: FC<ICallToAdminModal> = (props) => {
     const getContacts = async() =>{
         try {
             const response = await axios.get(`${BASE_URL}/users/admin_contacts/`)
@@ -19,6 +18,7 @@ export const CallToAdmin: FC = () => {
     useEffect(() => {
         getContacts()
     }, [])
+    const { setModal } = props;
     return (
         <div className={styles.CallToAdmin}>
             <div className={styles.header}>
@@ -29,7 +29,7 @@ export const CallToAdmin: FC = () => {
                 <CloseSquare
                     cursor={"pointer"}
                     size={34}
-                    onClick={modal.close}
+                    onClick={() => setModal(false)}
                 />
             </div>
             <div className={styles.Contacts}>

@@ -5,11 +5,11 @@ import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { Collapse } from "antd";
 import CollapsePanel from "antd/es/collapse/CollapsePanel";
 import { FC } from "react";
-import { useViewCompany } from "../../../shared/hooks/modalHooks/useViewCompany";
 import { useDataInputCompaniesStore } from "./api/dataInputCompanies";
+import { IViewCompanyModal } from "./types/types";
 
-export const ViewCompany: FC = () => {
-    const modal = useViewCompany();
+export const ViewCompany: FC<IViewCompanyModal> = (props) => {
+    const { setModal } = props;
     const { selectedCompanyData, fetchDatas } = useDataStoreComponies();
     const { changeInput, changeInputOne, dataInputCompanies } = useDataInputCompaniesStore();
     const change = async () => {
@@ -24,7 +24,7 @@ export const ViewCompany: FC = () => {
                 <CloseSquare
                     cursor={"pointer"}
                     size={32}
-                    onClick={modal.close}
+                    onClick={() => setModal(false)}
                 />
             </div>
             <div className={styles.blockTwo}>
@@ -83,23 +83,18 @@ export const ViewCompany: FC = () => {
                     </Collapse>
                 </div>
             </div>
-
             <div className={styles.buttons}>
-                <div onClick={modal.close}>
-                    <CustomButton
-                        variant="Without"
-                        width={150}
-                        text="Сбросить"
-                    />
-                </div>
-                <div onClick={modal.close}>
-                    <CustomButton
-                        variant="Primary"
-                        width={150}
-                        text="Сохранить"
-                        onClick={change}
-                    />
-                </div>
+                <CustomButton
+                    variant="Without"
+                    width={150}
+                    text="Сбросить"
+                />
+                <CustomButton
+                    variant="Primary"
+                    width={150}
+                    text="Сохранить"
+                    onClick={change}
+                />
             </div>
         </div>
     );
