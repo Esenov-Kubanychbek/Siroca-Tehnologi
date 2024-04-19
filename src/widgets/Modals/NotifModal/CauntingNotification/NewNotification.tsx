@@ -3,6 +3,7 @@ import { NotificationSingle } from "../../../";
 import { FC, useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../../shared/variables/variables";
+import { getRequestApi } from "../../../RequestList/api/getRequestApi";
 
 interface INotification {
     created_at: string;
@@ -16,13 +17,16 @@ interface INotification {
 
 export const NewNotification: FC<{ active: boolean }> = ({ active }) => {
     const [notifications, setNotifications] = useState([]);
+    const {now} = getRequestApi()
     const getNotification = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/applications/notifications/`, {
+            const response = await axios.get(`${BASE_URL}/applications/notifications/?page=${now}`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
+            console.log(response);
+            
             if (active === true) {
                 const res = response.data.filter((el: INotification) => {
                     if (el.is_read === false) {

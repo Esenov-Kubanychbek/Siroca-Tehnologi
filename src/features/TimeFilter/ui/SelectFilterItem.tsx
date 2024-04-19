@@ -12,8 +12,8 @@ interface ISelectItem {
 }
 //There im rendering selecter dropdawn
 export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
-    const [selects, setSelects] = useState<string[]>([]); //All choosed selects
-
+    const [selects, setSelects] = useState<string[]>([]);//All choosed selects
+    
     // pushing choosed selects
     const addSelect = (e: { currentTarget: { id: string } }) => {
         const value = e.currentTarget.id;
