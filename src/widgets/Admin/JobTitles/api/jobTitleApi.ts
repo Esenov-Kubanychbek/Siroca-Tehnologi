@@ -64,7 +64,7 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
     },
     deleteJobTitle: async (id) => {
         try {
-            const deleteResponse = await axios.delete(`${BASE_URL}/company/destroy_job-title/${id}/`);
+            const deleteResponse = await axios.delete(`${BASE_URL}/company/delete_job-title/${id}/`);
             const oldList = get().jobTitleList;
             oldList.map((card, i) => {
                 if (card.id === id) {

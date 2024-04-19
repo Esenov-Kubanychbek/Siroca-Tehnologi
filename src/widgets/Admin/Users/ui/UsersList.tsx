@@ -5,8 +5,8 @@ import { Modal } from "antd";
 import { usersApi } from "../api/usersApi";
 import { User } from "../../../../entities";
 import { EditUser } from "../../..";
-import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
-import { CustomButton } from "../../../../shared/ui";
+// import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
+// import { CustomButton } from "../../../../shared/ui";
 
 export const UsersList: FC = () => {
     const [modal, setModal] = useState<boolean>(false);
@@ -32,14 +32,14 @@ export const UsersList: FC = () => {
                     ) : (<div className={styles.Nothing}>По вашему запросу ничего не найдено!</div>)
                     }
                 </div>
-                <div className={styles.Bottom}>
+                {/* <div className={styles.Bottom}>
                     <div className={styles.Pagination}>
                         <ArrowLeft2 cursor={"pointer"}/>
                         <CustomButton text="1" width={56} variant="Primary"/>
                         <ArrowRight2 cursor={"pointer"} />
                     </div>
                     <div className={styles.BottomRight}>Количество пользователей с 1 по 50 из 200</div>
-                </div>
+                </div> */}
             </div>
             <Modal
                 centered

@@ -45,7 +45,7 @@ interface IFetch {
 export const editRequestApi = create<IFetch>(() => ({
     editRequest: async (request, id) => {
         try {
-            const editResponse = await axios.put(`${BASE_URL}/applications/form_redact/${id}/`, request, {
+            const editResponse = await axios.put(`${BASE_URL}/applications/form_edit/${id}/`, request, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },

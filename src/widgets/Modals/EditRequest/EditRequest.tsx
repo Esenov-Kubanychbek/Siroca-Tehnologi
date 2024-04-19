@@ -18,9 +18,10 @@ export const EditRequest: FC<IEditRequest> = (props) => {
     const [requestState, setRequestState] = useState<IRequest>({
         title: request.title,
         company: request.company,
-        description: "",
+        description: "long story",
+        short_description: "short",
         files: null,
-        jira: "",
+        jira: "https://jira.geeks.kg/secure/Dashboard.jspa",
         status: "К выполнению",
         payment_state: "",
         priority: "Высокий",

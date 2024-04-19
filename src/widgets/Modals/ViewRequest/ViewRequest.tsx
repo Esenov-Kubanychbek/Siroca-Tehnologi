@@ -14,7 +14,7 @@ export const ViewRequest: FC<IViewRequestModal> = (props) => {
             <div>
                 <div className={styles.Header}>
                     <div className={styles.Name}>
-                        Заявка - Оптима Банк /&nbsp;
+                        Заявка - {fetchData.oneRequest.company} /&nbsp;
                         <div className={styles.Number}>{fetchData.oneRequest.task_number}</div>
                     </div>
                     <div className={styles.buttons}>
