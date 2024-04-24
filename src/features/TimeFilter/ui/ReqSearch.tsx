@@ -23,7 +23,7 @@ export const ReqSearch: FC = () => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            fetchRequest.setState(response.data.results.results);
+            fetchRequest.setState(response.data.results);
 
             console.log(response);
         } catch (error) {
@@ -57,8 +57,14 @@ export const ReqSearch: FC = () => {
         setCloseState(false);
         setInputState("");
         updateSearch();
-    }
+    };
     return (
-        <SearchInput value={inputState} onChange={handleChange} onKeyDown={handleKeyPress} closeFunc={closeFunc} closeState={closeState}/>
+        <SearchInput
+            value={inputState}
+            onChange={handleChange}
+            onKeyDown={handleKeyPress}
+            closeFunc={closeFunc}
+            closeState={closeState}
+        />
     );
 };

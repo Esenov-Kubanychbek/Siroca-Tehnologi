@@ -19,14 +19,14 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
     const [openManeger, setOpenManeger] = useState<string>("");
     const [openBegin, setOpenBegin] = useState<string>("");
     const [openEnd, setOpenEnd] = useState<string>("");
-    const [choosedFilters, setChoosedGilters] = useState<string[]>([])
-    const [showItems, setShowItems] = useState<(string | null)[]>([])
-    const [managerShow, setManagerShow] = useState<(string | null)[]>([])
-    const { data, fetchDatas } = useDataStoreComponies()
+    const [choosedFilters, setChoosedGilters] = useState<string[]>([]);
+    const [showItems, setShowItems] = useState<(string | null)[]>([]);
+    const [managerShow, setManagerShow] = useState<(string | null)[]>([]);
+    const { data, fetchDatas } = useDataStoreComponies();
 
     useEffect(() => {
-        fetchDatas()
-    }, [])
+        fetchDatas();
+    }, []);
     const CleanFilters = () => {
         setOpenCompany("");
         setOpenManeger("");
@@ -50,54 +50,51 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
         setState: React.Dispatch<React.SetStateAction<string>>,
     ) => {
         if (e.target.id && e.target.id === "company") {
-
             const mapped = data.map((el) => {
                 if (el.name.includes(e.target.value)) {
-                    return el.name
+                    return el.name;
                 } else {
-                    return null
+                    return null;
                 }
-            })
+            });
             setState(e.target.value);
-            setShowItems(mapped)
+            setShowItems(mapped);
         } else if (e.target.id && e.target.id === "manager") {
             const mapped = data.map((el) => {
                 if (el.name.includes(e.target.value)) {
-                    return el.name
+                    return el.name;
                 } else {
-                    return null
+                    return null;
                 }
-            })
-            setManagerShow(mapped)
+            });
+            setManagerShow(mapped);
             setState(e.target.value);
         } else {
             setState(e.target.value);
         }
-
     };
     const addChoosed = (e: ChangeEvent<HTMLInputElement>) => {
-        if(!choosedFilters.includes(e.target.id) && e.target.checked === true){
-          setChoosedGilters([...choosedFilters, e.target.id])  
-        }else if(!e.target.checked){
-            const find = [...choosedFilters]
+        if (!choosedFilters.includes(e.target.id) && e.target.checked === true) {
+            setChoosedGilters([...choosedFilters, e.target.id]);
+        } else if (!e.target.checked) {
+            const find = [...choosedFilters];
             const filt = find.filter((el) => {
-                if(el !== e.target.id){
-                    return el
-                }else{
-                    return null
+                if (el !== e.target.id) {
+                    return el;
+                } else {
+                    return null;
                 }
-                
-            })
-            setChoosedGilters(filt)
+            });
+            setChoosedGilters(filt);
         }
-    }
+    };
 
-    const onEnter = (e: KeyboardEvent<HTMLUListElement>)=> {
-        if(e.key === "Enter"){
-            setOpenCompany('')
-            setOpenManeger('') 
+    const onEnter = (e: KeyboardEvent<HTMLUListElement>) => {
+        if (e.key === "Enter") {
+            setOpenCompany("");
+            setOpenManeger("");
         }
-    }
+    };
 
     return (
         <form
@@ -119,29 +116,34 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
                         className={styles.inpWithIcn}
                     />
                     <div className={styles.showItems}>
-                        {openCompany && showItems && showItems.map((el, index) => {
-                            if (el === null) {
-                                return null
-                            } else {
-                                return (
-                                    <p id={`${index}`}>{el} <input type="checkbox" id={el} onChange={addChoosed} /></p>
-                                )
-                            }
-
-                        })}
+                        {openCompany &&
+                            showItems &&
+                            showItems.map((el, index) => {
+                                if (el === null) {
+                                    return null;
+                                } else {
+                                    return (
+                                        <p id={`${index}`}>
+                                            {el}{" "}
+                                            <input
+                                                type="checkbox"
+                                                id={el}
+                                                onChange={addChoosed}
+                                            />
+                                        </p>
+                                    );
+                                }
+                            })}
                     </div>
                     <div className={styles.choosed}>
-                {
-                    choosedFilters.map((el) => {
-                       
-                            return(
+                        {choosedFilters.map((el) => {
+                            return (
                                 <div>
                                     <p>{el}</p>
                                 </div>
-                            )
-                    })
-                }
-            </div>
+                            );
+                        })}
+                    </div>
                 </div>
                 <div className={styles.InputCont}>
                     <p>Менеджер</p>
@@ -176,7 +178,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
                     />
                 </div>
             </ul>
-            
+
             <div className={styles.EnterCont}>
                 <a
                     href="#"

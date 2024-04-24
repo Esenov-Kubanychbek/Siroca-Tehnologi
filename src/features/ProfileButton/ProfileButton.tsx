@@ -6,7 +6,7 @@ import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
 
 export const ProfileButton: FC = () => {
     const [modal, setModal] = useState<boolean>(false);
-    const fetchUsers = usersApi()
+    const fetchUsers = usersApi();
     return (
         <>
             <button
@@ -14,7 +14,10 @@ export const ProfileButton: FC = () => {
                 aria-label="profile"
                 className={styles.Profile}
             >
-                <img alt="profile" src={fetchUsers.oneUserGet.image}/>
+                <img
+                    alt="profile"
+                    src={fetchUsers.oneUserGet.image}
+                />
                 <p>Мой профиль</p>
             </button>
             <Modal

@@ -82,7 +82,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            fetchRequest.setFilterState(response.data.results.results);
+            fetchRequest.setFilterState(response.data.results);
         } catch (error) {
             console.log(error);
         }
@@ -100,7 +100,6 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             el.values = vals;
         });
         setFilterItems(timeState);
-        
     };
     //Func to close of already open selecters
     const closeAllSelect = (): void => {
@@ -184,7 +183,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                 },
             );
             console.log(response);
-            fetchRequest.setState(response.data.results.results);
+            fetchRequest.setState(response.data.results);
         } catch (error) {
             console.log(error);
         }
@@ -206,8 +205,8 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             const response = await axios.get(`${BASE_URL}/applications/form/?page=1`, {
                 headers: { Authorization: `JWT ${localStorage.getItem("access")}` },
             });
-            fetchRequest.setState(response.data.results.results);
-            fetchRequest.setFilterState(response.data.results.results);
+            fetchRequest.setState(response.data.results);
+            fetchRequest.setFilterState(response.data.results);
             const timeState = [...filterItems];
             timeState.map((el: FilterItem) => {
                 el.selected = [];
@@ -245,23 +244,25 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             return el.selected;
         });
         if (mapped.length >= 1) {
-            return
-        } else { clearFilter() }
-    }, [filterItems])
-    
+            return;
+        } else {
+            clearFilter();
+        }
+    }, [filterItems]);
+
     return (
         <div>
             {isFilter ? ( //isFilter is the handle state open/close
                 <div className={styles.DetailFilters}>
                     <ul>
-                        {filterItems.map((el: FilterItem) => {
+                        {filterItems.map((el: FilterItem, i) => {
                             //There im mapping filter items selector, dropdawn
                             //Cutting the words if is the long
                             const displayedText = el.text.length > 10 ? el.text.substring(0, 10) + "..." : el.text;
                             //There im geting date selectors
                             if (el.type === "finish_date" || el.type === "start_date") {
                                 return (
-                                    <>
+                                    <div key={i}>
                                         {" "}
                                         <input
                                             className={styles.date}
@@ -269,7 +270,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                                             id={el.type}
                                             onChange={(e) => onChangeDate(e)}
                                         />
-                                    </>
+                                    </div>
                                 );
                             } else {
                                 //Just if item not date type
@@ -280,8 +281,14 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                                     >
                                         {el.isOpen ? ( //if selector is open we will render input
                                             <>
-                                                <p className={styles.SelInput} >{displayedText}</p>
-                                                <div className={styles.Icn} style={el.isOpen ? { transform: "rotate(90deg)" } : undefined} id={el.text} onClick={(e) => openDropDown(e)}>
+                                                <p className={styles.SelInput}>{displayedText}</p>
+                                                <div
+                                                    key={i}
+                                                    className={styles.Icn}
+                                                    style={el.isOpen ? { transform: "rotate(90deg)" } : undefined}
+                                                    id={el.text}
+                                                    onClick={(e) => openDropDown(e)}
+                                                >
                                                     <ArrowLeft2 id={el.text} />
                                                 </div>
                                             </>

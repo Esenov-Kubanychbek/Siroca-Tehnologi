@@ -79,7 +79,7 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
             onSubmit={postTrim}
         >
             <div className={styles.Top}>
-                <div className={styles.TextTop}>Создание пользователя</div>
+                <div>Создание пользователя</div>
                 <CloseSquare
                     cursor={"pointer"}
                     size={34}

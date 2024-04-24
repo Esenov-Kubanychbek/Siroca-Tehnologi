@@ -8,13 +8,16 @@ import { IRequest } from "./types/types";
 import axios from "axios";
 import { BASE_URL } from "../../shared/variables/variables";
 import { ArrowLeft2 } from "iconsax-react";
+import { AddComment } from "../Modals/ViewRequest/ui";
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
     const [page, setPage] = useState<{ now: number }>({ now: 1 });
     const [reqCount, setReqCount] = useState<number>(0);
     const [prevNext, setPrevNext] = useState<{ prev: boolean; next: boolean }>({ prev: false, next: false });
     const [modal, setModal] = useState<boolean>(false);
-    console.log(prevNext);
+    useEffect(()=>{
+        console.log(prevNext);
+    }, [])
     const fetchRequest = getRequestApi();
     const apiLength = fetchRequest.getState;
 
@@ -25,12 +28,10 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            setReqCount(response.data.results.created_count);
-            console.log(response.data.results.created_count);
-
-            fetchRequest.setState(response.data.results.results);
-            fetchRequest.setFilterState(response.data.results.results);
-
+            setReqCount(response.data.created_count);
+            console.log(response.data);
+            fetchRequest.setState(response.data.results);
+            fetchRequest.setFilterState(response.data.results);
             if (response.data) {
                 setPrevNext((prev: { prev: boolean; next: boolean }) => {
                     return { ...prev, next: true };
@@ -41,8 +42,6 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     return { ...prev, prev: true };
                 });
             }
-            console.log(response);
-
             fetchRequest.setNow(page.now);
         } catch (error) {
             console.log(error);
@@ -124,40 +123,40 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
             </div>
             {apiLength.length > 1 ? (
                 <div className={styles.Pagination}>
-                        <div className={styles.paginationCont}>
-                            <button
-                                onClick={prevPage}
-                                className={styles.pagToggle}
-                            >
-                                <ArrowLeft2
-                                    size={24}
-                                    style={page.now === 1 ? { color: "#DEDEDE" } : { color: "black" }}
-                                />
-                            </button>
-                            <button
-                                onClick={() => {
-                                    setPage({ now: 1 });
-                                }}
-                                className={page.now === 1 ? styles.paginBtn : styles.paginBtnAnActive}
-                            >
-                                1
-                            </button>
-                            {renderPagButtons()}
-                            {Math.ceil(reqCount / 50) > 5 ? "..." + renderMoreBtns() : null}
-                            <button
-                                onClick={nextPage}
-                                className={styles.pagToggle}
-                            >
-                                <ArrowLeft2
-                                    size={24}
-                                    style={
-                                        Math.ceil(reqCount / 50) === page.now
-                                            ? { color: "#DEDEDE", transform: "rotate(-180deg)" }
-                                            : { transform: "rotate(-180deg)" }
-                                    }
-                                />
-                            </button>
-                        </div>
+                    <div className={styles.paginationCont}>
+                        <button
+                            onClick={prevPage}
+                            className={styles.pagToggle}
+                        >
+                            <ArrowLeft2
+                                size={24}
+                                style={page.now === 1 ? { color: "#DEDEDE" } : { color: "black" }}
+                            />
+                        </button>
+                        <button
+                            onClick={() => {
+                                setPage({ now: 1 });
+                            }}
+                            className={page.now === 1 ? styles.paginBtn : styles.paginBtnAnActive}
+                        >
+                            1
+                        </button>
+                        {renderPagButtons()}
+                        {Math.ceil(reqCount / 50) > 5 ? "..." + renderMoreBtns() : null}
+                        <button
+                            onClick={nextPage}
+                            className={styles.pagToggle}
+                        >
+                            <ArrowLeft2
+                                size={24}
+                                style={
+                                    Math.ceil(reqCount / 50) === page.now
+                                        ? { color: "#DEDEDE", transform: "rotate(-180deg)" }
+                                        : { transform: "rotate(-180deg)" }
+                                }
+                            />
+                        </button>
+                    </div>
                 </div>
             ) : null}
             <Modal
@@ -168,6 +167,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 zIndex={5}
             >
                 <ViewRequest setModal={setModal} />
+                <AddComment/>
             </Modal>
         </div>
     );

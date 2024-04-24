@@ -30,18 +30,16 @@ export const CreateJobTitle: FC<ICreateJobTitleModal> = (props) => {
                     <CloseSquare size={34} />
                 </div>
             </div>
-            <div>
-                <CustomInput
-                    name="title"
-                    placeholder="Напишите..."
-                    width={560}
-                    value={fetchData.oneJobTitle.title}
-                    change={fetchData.setJobTitle}
-                />
-            </div>
+            <CustomInput
+                name="title"
+                placeholder="Напишите..."
+                width={560}
+                value={fetchData.oneJobTitle.title}
+                change={fetchData.setJobTitle}
+            />
             <div className={styles.Buttons}>
                 <CustomButton
-                    variant="Secondary"
+                    variant="Without"
                     width={150}
                     text="Отменить"
                     onClick={() => setModal(false)}

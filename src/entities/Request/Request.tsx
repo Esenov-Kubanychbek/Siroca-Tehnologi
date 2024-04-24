@@ -3,6 +3,7 @@ import styles from "./Request.module.scss";
 import { IRequest } from "./types/types";
 import { ItemInner } from "../../shared/ui";
 import { getOneRequestApi } from "../../widgets/Modals/ViewRequest/api/getOneRequestApi";
+import { priorityColor, statusColor } from "../../shared/helpers";
 
 export const Request: FC<IRequest> = (props) => {
     const { request, role, setModal } = props;
@@ -54,8 +55,8 @@ export const Request: FC<IRequest> = (props) => {
             >
                 <div
                     style={{
-                        border: `1px solid ${request.priority === "Низкий" ? "blue" : ""} ${request.priority === "Средний" ? "#B4A416" : ""} ${request.priority === "Высокий" ? "red" : ""}`,
-                        color: `${request.priority === "Низкий" ? "blue" : ""} ${request.priority === "Средний" ? "#B4A416" : ""} ${request.priority === "Высокий" ? "red" : ""}`,
+                        border: `1px solid ${priorityColor(request.priority)}`,
+                        color: `${priorityColor(request.priority)}`,
                     }}
                 >
                     {request.priority}
@@ -67,8 +68,8 @@ export const Request: FC<IRequest> = (props) => {
             >
                 <div
                     style={{
-                        border: `1px solid ${request.status === "К выполнению" ? "#0094FF" : ""} ${request.status === "В работе" ? "#25815A" : ""} ${request.status === "Тестируется" ? "#8B5D17" : ""} ${request.status === "Проверено" ? "#D20A0A" : ""} ${request.status === "Закрыто" ? "#0500FF" : ""}`,
-                        color: `${request.status === "К выполнению" ? "#0094FF" : ""} ${request.status === "В работе" ? "#25815A" : ""} ${request.status === "Тестируется" ? "#8B5D17" : ""} ${request.status === "Проверено" ? "#D20A0A" : ""} ${request.status === "Закрыто" ? "#0500FF" : ""}`,
+                        border: `1px solid ${statusColor(request.status)}`,
+                        color: `${statusColor(request.status)}`,
                     }}
                 >
                     {request.status.slice(0, 9)}...

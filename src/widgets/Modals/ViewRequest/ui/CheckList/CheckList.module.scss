@@ -1,46 +1,125 @@
-.ChekcLists {
-    .panel {
-        height: 64px;
-        display: flex;
-        background-color: #f4f4f4;
-        padding: 5px 8px;
-        border-radius: 10px;
-        margin: 8px 0;
-        div {
+@import "index.scss";
+
+.CheckLists {
+    padding-bottom: 100px;
+    width: 580px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    .Main {
+        border-radius: 8px;
+        background-color: $blackf4;
+        .Header {
+            width: 580px;
+            height: 44px;
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: space-between;
-            input {
-                width: 24px;
-                height: 24px;
+            background-color: $blackf4;
+            border-radius: 8px 8px 0 0;
+            gap: 340px;
+            .HeaderLeft {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                font-size: 18px;
+                font-weight: 500;
             }
-        }
-        .block1 {
-            width: 280px;
-            padding: 8px;
-            p {
-                padding-left: 12px;
+            button {
+                width: 100px;
+                height: 30px;
                 font-size: 16px;
-                font-weight: 500;
+                font-weight: 700;
+                color: $black5c;
+                border-radius: 8px;
+                border: 1px solid $black3b;
             }
         }
-        .block2 {
-            span {
-                font-size: 14px;
-                font-weight: 500;
-                color: #1c6ab1;
-            }
+        .CheckList {
+            height: 54px;
+            display: flex;
+            padding: 5px 8px;
+            justify-content: space-between;
             div {
-                background-color: white;
-                padding: 8px 16px;
-                border-radius: 6px;
-                margin-left: 10px;
+                display: flex;
+                align-items: center;
+                input {
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 8px;
+                }
+            }
+            .Left {
+                width: 280px;
+                padding: 8px;
                 p {
-                    padding-left: 10px;
-                    font-weight: 500;
+                    padding-left: 12px;
                     font-size: 16px;
+                    font-weight: 500;
+                }
+            }
+            .Right {
+                span {
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: $blue;
+                }
+                div {
+                    background-color: white;
+                    padding: 8px 16px;
+                    border-radius: 6px;
+                    margin-left: 10px;
+                    p {
+                        padding-left: 10px;
+                        font-weight: 500;
+                        font-size: 16px;
+                    }
                 }
             }
         }
+    }
+}
+
+.InputEnter {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.InputRelative {
+    position: relative;
+    .CheckAbsolute {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        left: 16px;
+        top: 10px;
+        cursor: pointer;
+    }
+    .CloseSquare {
+        position: absolute;
+        top: 10px;
+        left: 540px;
+    }
+}
+
+.CheckDesc {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    input {
+        width: 130px;
+        height: 44px;
+        background-color: $blackf4;
+        padding-left: 16px;
+        font-size: 16px;
+        font-weight: 500;
+        border: none;
+        border-radius: 8px;
+        background-color: $blackf4;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        opacity: 0;
     }
 }

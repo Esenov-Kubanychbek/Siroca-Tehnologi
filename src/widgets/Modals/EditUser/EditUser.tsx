@@ -56,6 +56,7 @@ export const EditUser: FC<IEditUserModal> = (props) => {
                     <div className={styles.Name}>
                         <div className={styles.Text}>Имя</div>
                         <CustomInput
+                            readOnly={true}
                             name="first_name"
                             value={fetchData.oneUserGet.first_name}
                             width={340}
@@ -64,6 +65,7 @@ export const EditUser: FC<IEditUserModal> = (props) => {
                         <div>
                             <div className={styles.Text}>Фамилия</div>
                             <CustomInput
+                                readOnly={true}
                                 name="surname"
                                 value={fetchData.oneUserGet.surname}
                                 width={340}
@@ -81,6 +83,7 @@ export const EditUser: FC<IEditUserModal> = (props) => {
                 <div>
                     <div className={styles.Text}>Логин</div>
                     <CustomInput
+                        readOnly={true}
                         name="username"
                         value={fetchData.oneUserGet.username}
                         width={272}
@@ -100,6 +103,7 @@ export const EditUser: FC<IEditUserModal> = (props) => {
                 <div>
                     <div className={styles.Text}>Компания</div>
                     <CustomInput
+                        readOnly={true}
                         value={fetchData.oneUserGet.main_company}
                         type="text"
                         name="main_company"
@@ -111,6 +115,7 @@ export const EditUser: FC<IEditUserModal> = (props) => {
                     <div className={styles.Text}>Должность в компании</div>
                     <div className={styles.AddRole}>
                         <CustomInput
+                            readOnly={true}
                             value={fetchData.oneUserGet.job_title}
                             name="job_title"
                             type="text"

@@ -20,8 +20,11 @@ export const UsersList: FC = () => {
                 <div className={styles.Top}>
                     <UsersTop />
                 </div>
-                <div className={styles.Users} style={fetchData.usersList.length > 9 ? {overflowY: "scroll"} : {overflowY: "hidden"}} >
-                    {fetchData.usersList.length > 0 ? (                    
+                <div
+                    className={styles.Users}
+                    style={fetchData.usersList.length > 9 ? { overflowY: "scroll" } : { overflowY: "hidden" }}
+                >
+                    {fetchData.usersList.length > 0 ? (
                         fetchData.usersList.map((card, i) => (
                             <User
                                 setModal={setModal}
@@ -29,8 +32,9 @@ export const UsersList: FC = () => {
                                 user={card}
                             />
                         ))
-                    ) : (<div className={styles.Nothing}>По вашему запросу ничего не найдено!</div>)
-                    }
+                    ) : (
+                        <div className={styles.Nothing}>По вашему запросу ничего не найдено!</div>
+                    )}
                 </div>
                 {/* <div className={styles.Bottom}>
                     <div className={styles.Pagination}>

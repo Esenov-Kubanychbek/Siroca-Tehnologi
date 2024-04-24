@@ -14,9 +14,9 @@ export const StatusNumber: FC = () => {
                 },
             });
             setCount([
-                response.data.results.closed_count,
-                response.data.results.created_count,
-                response.data.results.in_progress_count,
+                response.data.closed_count,
+                response.data.created_count,
+                response.data.in_progress_count,
             ]);
         } catch (error) {
             console.log(error);

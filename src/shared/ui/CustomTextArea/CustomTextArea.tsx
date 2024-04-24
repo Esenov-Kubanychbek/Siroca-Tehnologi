@@ -1,17 +1,8 @@
-import { ChangeEvent, FC } from "react";
+import { FC } from "react";
 import style from "./CustomTextArea.module.scss";
+import { IText } from "./types/types";
 
-interface IText {
-    placeholder: string;
-    height?: number;
-    width?: number;
-    variant: string;
-    value?: string;
-    name?: string;
-    change?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-}
-
-export const CustomTextArea: FC<IText> = ({ placeholder, height, width, variant, value, name, change }) => {
+export const CustomTextArea: FC<IText> = ({ placeholder, height, width, variant, value, name, change, readOnly}) => {
     return (
         <textarea
             value={value}
@@ -25,6 +16,7 @@ export const CustomTextArea: FC<IText> = ({ placeholder, height, width, variant,
             placeholder={placeholder}
             cols={30}
             rows={20}
+            readOnly={readOnly}
         ></textarea>
     );
 };

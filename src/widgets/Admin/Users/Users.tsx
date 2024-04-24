@@ -14,24 +14,30 @@ export const Users: FC = () => {
     const fetchUsers = usersApi();
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setInputState(e.target.value);
-        setCloseState(true)
+        setCloseState(true);
     };
     const handleKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === "Enter") {
-            fetchUsers.setSearchList(inputState)
+            fetchUsers.setSearchList(inputState);
         }
     };
     const closeFunc = () => {
         setCloseState(false);
         setInputState("");
-        fetchUsers.getUsersList()
-    }
+        fetchUsers.getUsersList();
+    };
     return (
         <div className={styles.Users}>
             <div className={styles.UsersSearch}>
                 <div className={styles.Name}>Поиск по пользователям</div>
                 <div className={styles.Search}>
-                    <SearchInput value={inputState} onChange={handleChange} closeState={closeState} closeFunc={closeFunc} onKeyDown={handleKeyPress}/>
+                    <SearchInput
+                        value={inputState}
+                        onChange={handleChange}
+                        closeState={closeState}
+                        closeFunc={closeFunc}
+                        onKeyDown={handleKeyPress}
+                    />
                     <ButtonCreate
                         name="Создать пользователя"
                         onClick={() => setModal(true)}

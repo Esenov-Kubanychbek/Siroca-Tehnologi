@@ -34,8 +34,8 @@ export interface IRequest {
     finish_date?: string;
     deadline_date?: string;
     company?: string;
-    main_client?: number | null;
-    main_manager?: number | null;
+    main_client?: string;
+    main_manager?: string;
 }
 
 interface IFetch {

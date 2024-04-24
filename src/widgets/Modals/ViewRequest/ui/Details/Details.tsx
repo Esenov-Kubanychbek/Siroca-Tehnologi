@@ -1,7 +1,7 @@
 import styles from "./Details.module.scss";
-import "../Style.scss";
 import { FC } from "react";
 import { getOneRequestApi } from "../../api/getOneRequestApi";
+import { priorityColor, statusColor } from "../../../../../shared/helpers";
 
 export const Details: FC = () => {
     const fetchData = getOneRequestApi();
@@ -16,8 +16,10 @@ export const Details: FC = () => {
             <div className={styles.Data}>
                 <p>{fetchData.oneRequest.title}</p>
                 <p>{fetchData.oneRequest.company}</p>
-                <p className={styles.prioritet}>{fetchData.oneRequest.priority}</p>
-                <p className={styles.status}>{fetchData.oneRequest.status}</p>
+                <p style={{ color: `${priorityColor(fetchData.oneRequest.priority)}` }}>
+                    {fetchData.oneRequest.priority}
+                </p>
+                <p style={{ color: `${statusColor(fetchData.oneRequest.status)}` }}>{fetchData.oneRequest.status}</p>
             </div>
         </div>
     );

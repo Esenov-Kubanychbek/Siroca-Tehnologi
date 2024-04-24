@@ -65,12 +65,15 @@
             width: 422px;
             background-color: white;
             position: relative;
+            cursor: pointer;
+            &:hover {
+                background-color: $hover;
+            }
             input {
                 top: 16px;
                 left: 382px;
                 width: 24px;
                 height: 24px;
-                cursor: pointer;
                 position: absolute;
             }
         }
@@ -79,7 +82,7 @@
 
 .Nothing {
     width: 402px;
-    padding:  0 10px;
+    padding: 0 10px;
     height: 170px;
     font-size: 20px;
     font-weight: 700;

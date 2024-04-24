@@ -1,10 +1,9 @@
 import styles from "./People.module.scss";
-import "../Style.scss";
 import { FC } from "react";
 import { getOneRequestApi } from "../../api/getOneRequestApi";
 
 export const People: FC = () => {
-    const fetchRequest = getOneRequestApi()
+    const fetchRequest = getOneRequestApi();
     return (
         <div className={styles.People}>
             <div className={styles.Name}>

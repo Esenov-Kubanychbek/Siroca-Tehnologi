@@ -42,7 +42,7 @@ export const getRequestApi = create<IFetchGet>((set, get) => ({
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            set({ getState: getResponse.data.results.results });
+            set({ getState: getResponse.data.results });
         } catch (error) {
             console.log(error, "GetRequestError");
         }
@@ -67,7 +67,7 @@ export const getRequestApi = create<IFetchGet>((set, get) => ({
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            set({ getState: response.data.results.results });
+            set({ getState: response.data.results });
         } catch (error) {
             console.log(error);
         }

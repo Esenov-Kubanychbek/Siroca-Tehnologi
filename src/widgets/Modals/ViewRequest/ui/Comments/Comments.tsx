@@ -1,46 +1,53 @@
 import styles from "./Comments.module.scss";
-import { EllipsisOutlined } from "@ant-design/icons";
 import Avatar from "antd/es/avatar/avatar";
-import { CustomInput } from "../../../../../shared/ui";
-import "../Style.scss";
 import { FC } from "react";
+import { MoreSquare } from "iconsax-react";
+import { getOneRequestApi } from "../../api/getOneRequestApi";
+import { CustomInput } from "../../../../../shared/ui";
+import { Popover } from "antd";
+import { deleteCommentApi } from "../../api/deleteCommentApi";
 
 export const Comments: FC = () => {
+    const fetchRequest = getOneRequestApi();
+    const deleteComment = deleteCommentApi()
+    const deleteFunc = (props: number) => {
+        deleteComment.deleteComment(props)
+        fetchRequest.getOneRequest(fetchRequest.oneRequest.id)
+    }
     return (
-        <div className={styles.Comments}>
-            <div className={styles.commentsUser}>
-                <div className={styles.header}>
-                    <div>
-                        <Avatar />
-                        <p>Ажиржанова Уулкан</p>
+        <>
+            {fetchRequest.oneRequest.comments.map((card, i) => (
+                <div
+                    className={styles.OneComment}
+                    key={i}
+                >
+                    <div className={styles.Header}>
+                        <div className={styles.HeaderLeft}>
+                            <Avatar />
+                            <p>{card.user}</p>
+                        </div>
+                        <Popover
+                            placement="bottomRight"
+                            content={
+                            <div className={styles.MoreButtons}>
+                                <button className={styles.Button}>Редактировать</button>
+                                <button className={styles.Button} onClick={()=>deleteFunc(card.id)}>Удалить</button>
+                            </div>}
+                            trigger={"click"}
+                        >
+                            <MoreSquare
+                                cursor={"pointer"}
+                                variant="Bulk"
+                                color="#929292"
+                                size={34}
+                            />
+                        </Popover>
                     </div>
-                    <div>
-                        <EllipsisOutlined />
-                    </div>
+                    <div className={styles.Comment}>{card.text}</div>
+                    <div className={styles.Date}>{card.date_added}</div>
                 </div>
-                <div className={styles.comments}>
-                    "Заявка выглядит полной и информативной. Хорошо представлены основные детали и требования.
-                    Рекомендуется провести дополнительный анализ потребностей клиента для более точного определения
-                    спецификаций проекта.
-                </div>
-                <div className={styles.date}>23.03.2024/20:24</div>
-            </div>
-            <div className={styles.inputs}>
-                <CustomInput
-                    width={580}
-                    height={44}
-                    placeholder="Добавьте коментарий..."
-                />
-            </div>
-            <div className={styles.commentsUser}>
-                <p className={styles.youComents}>Ваш коментарий</p>
-                <div className={styles.comments}>
-                    "Заявка выглядит полной и информативной. Хорошо представлены основные детали и требования.
-                    Рекомендуется провести дополнительный анализ потребностей клиента для более точного определения
-                    спецификаций проекта.
-                </div>
-                <div className={styles.date}>23.03.2024/20:24</div>
-            </div>
-        </div>
+            ))}
+            <CustomInput width={580} placeholder="Добавьте коментарии"/>
+        </>
     );
 };

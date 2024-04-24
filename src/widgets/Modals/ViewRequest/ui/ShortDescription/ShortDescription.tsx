@@ -1,4 +1,3 @@
-import "../Style.scss";
 import { FC } from "react";
 import styles from "./ShortDescription.module.scss";
 import { getOneRequestApi } from "../../api/getOneRequestApi";
