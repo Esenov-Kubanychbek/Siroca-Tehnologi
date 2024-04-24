@@ -17,8 +17,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     console.log(prevNext);
     //getting state in zustand
     const fetchRequest = getRequestApi();
-    const apiLength = fetchRequest.getState;
-
+    const apiLength = fetchRequest.getState
     const reqPage = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/?page=${page.now}&${api}`, {
@@ -26,12 +25,12 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            setReqCount(response.data.results.created_count);
-            console.log(response.data.results.created_count);
+            setReqCount(response.data.created_count);
+            console.log(response.data.created_count);
 
-            fetchRequest.setState(response.data.results.results);
-            fetchRequest.setFilterState(response.data.results.results);
-
+            fetchRequest.setState(response.data.results);
+            fetchRequest.setFilterState(response.data.results); 
+            
             if (response.data) {
                 setPrevNext((prev: { prev: boolean; next: boolean }) => {
                     return { ...prev, next: true };
@@ -91,7 +90,6 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
             );
         }
     };
-
     const nextPage = () => {
         if (Math.ceil(reqCount / 50)! > page.now) {
             setPage({ now: page.now + 1 });
@@ -110,7 +108,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 className={styles.Inner}
                 style={apiLength.length > 11 ? { overflowY: "scroll" } : { overflowY: "hidden" }}
             >
-                {fetchRequest.getState.length > 0 ? (
+                {apiLength.length > 0 ? (
                     fetchRequest.getState.map((card, i) => (
                         <Request
                             role={role}

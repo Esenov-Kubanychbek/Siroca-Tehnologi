@@ -50,7 +50,7 @@ export const NewNotification: FC<{ active: boolean }> = ({ active }) => {
     useEffect(() => {
         getNotification();
     }, []);
-
+    
     return (
         <div className={styles.newNotificationCont}>
             <div className={styles.newNotificationContH4}>
