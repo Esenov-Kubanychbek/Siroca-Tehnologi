@@ -12,9 +12,8 @@ export const ReportButton: FC = () => {
                 onClick={() => setModal(true)}
                 className={styles.Report}
             >
-                Cкачать отчет
                 <Import
-                    size={24}
+                    size={34}
                     color="#1C6AB1"
                 />
             </div>

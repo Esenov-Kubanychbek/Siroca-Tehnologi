@@ -20,7 +20,6 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     }, []);
     const fetchRequest = getRequestApi();
     const apiLength = fetchRequest.getState;
-
     const reqPage = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/?page=${page.now}&${api}`, {
@@ -89,7 +88,6 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
             );
         }
     };
-
     const nextPage = () => {
         if (Math.ceil(reqCount / 50)! > page.now) {
             setPage({ now: page.now + 1 });
@@ -108,7 +106,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 className={styles.Inner}
                 style={apiLength.length > 11 ? { overflowY: "scroll" } : { overflowY: "hidden" }}
             >
-                {fetchRequest.getState.length > 0 ? (
+                {apiLength.length > 0 ? (
                     fetchRequest.getState.map((card, i) => (
                         <Request
                             role={role}

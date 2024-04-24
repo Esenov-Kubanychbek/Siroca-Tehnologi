@@ -30,7 +30,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         { text: "Номер", type: "task_number", isOpen: false, values: [], pos: 0, selected: [] },
         { text: "Компания", type: "company", isOpen: false, values: [], pos: 120, selected: [] },
         { text: "Название", type: "title", isOpen: false, values: [], pos: 265, selected: [] },
-        { text: "Описание", type: "description", isOpen: false, values: [], pos: 408, selected: [] },
+        { text: "Описание", type: "short_description", isOpen: false, values: [], pos: 408, selected: [] },
         { text: "Заявитель", type: "main_client", isOpen: false, values: [], pos: 554, selected: [] },
         { text: "Менеджер", type: "main_manager", isOpen: false, values: [], pos: 705, selected: [] },
         { text: "Дата завершения", type: "finish_date", isOpen: false, values: [], pos: 867, selected: [] },
@@ -156,32 +156,18 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
     //Thats already working
     const upSelects = async () => {
         try {
-            const response = await axios.get(
-                `${BASE_URL}/applications/form/?${filterItems[0].selected[0] ? "task_number=" : ""}${
-                    filterItems[0].selected[0]
-                        ? filterItems[0].selected.map((el) => {
-                              return `${el}`;
-                          })
-                        : ""
-                }${filterItems
-                    .map((el) => {
-                        return el.type === "task_number"
-                            ? ""
-                            : el.selected[0]
-                              ? `&${el.type}=${
-                                    el.selected[0]
-                                        ? el.selected.map((el) => {
-                                              return `${el}`;
-                                          })
-                                        : ""
-                                }`
-                              : "";
-                    })
-                    .join("")}`,
-                {
-                    headers: { Authorization: `JWT ${localStorage.getItem("access")}` },
-                },
-            );
+            const url = `${BASE_URL}/applications/form/?${filterItems
+                .map((el, index) => {
+                    if (filterItems[index - 1] && filterItems[index - 1].selected.length > 0 && el.selected[0]) {
+                        return `&${el.type}=${el.selected.map((el) => el)}`;
+                    } else if (el.selected[0]) {
+                        return `${el.type}=${el.selected.map((el) => el)}`;
+                    }
+                })
+                .join("")}`;
+            const response = await axios.get(url, {
+                headers: { Authorization: `JWT ${localStorage.getItem("access")}` },
+            });
             console.log(response);
             fetchRequest.setState(response.data.results);
         } catch (error) {
@@ -211,7 +197,6 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             timeState.map((el: FilterItem) => {
                 el.selected = [];
             });
-            console.log(timeState);
             setFilterItems(timeState);
             setIsMounted(false);
         } catch (error) {
@@ -238,18 +223,6 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             ),
         );
     };
-    //Thats already in procces (not work)
-    useEffect(() => {
-        const mapped = filterItems.map((el) => {
-            return el.selected;
-        });
-        if (mapped.length >= 1) {
-            return;
-        } else {
-            clearFilter();
-        }
-    }, [filterItems]);
-
     return (
         <div>
             {isFilter ? ( //isFilter is the handle state open/close

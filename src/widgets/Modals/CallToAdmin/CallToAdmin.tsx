@@ -1,15 +1,20 @@
 import { Call, CloseSquare, Sms, Whatsapp } from "iconsax-react";
 import styles from "./CallToAdmin.module.scss";
 import { ICallToAdminModal } from "./types/types";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../shared/variables/variables";
 
 export const CallToAdmin: FC<ICallToAdminModal> = (props) => {
+    const [contacts, setContacts] = useState({
+        email: "",
+        phone_number: "",
+        whatsapp_number: "",
+    });
     const getContacts = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/users/admin_contacts/`);
-            console.log(response);
+            const response = await axios.get(`${BASE_URL}users/admin_contacts_list/`);
+            setContacts(response.data.results);
         } catch (error) {
             console.log(error);
         }
@@ -40,7 +45,7 @@ export const CallToAdmin: FC<ICallToAdminModal> = (props) => {
                         color="#717171"
                     />
                     <p>
-                        WhatsApp: <span> wa.me/996555444666</span>
+                        WhatsApp: <span> wa.me/{contacts.whatsapp_number}</span>
                     </p>
                 </div>
                 <div className={styles.Contact}>
@@ -50,7 +55,7 @@ export const CallToAdmin: FC<ICallToAdminModal> = (props) => {
                         color="#717171"
                     />
                     <p>
-                        Электронная почта: <span> siroca.@gmail.com</span>
+                        Электронная почта: <span>{contacts.email}</span>
                     </p>
                 </div>
                 <div className={styles.Contact}>
@@ -60,7 +65,7 @@ export const CallToAdmin: FC<ICallToAdminModal> = (props) => {
                         color="#717171"
                     />
                     <p>
-                        Телефон для справок: <span> 9965556667777</span>
+                        Телефон для справок: <span>{contacts.phone_number}</span>
                     </p>
                 </div>
             </div>

@@ -2,6 +2,7 @@ import React, { useState, FC, FormEvent, ChangeEvent, useEffect, KeyboardEvent }
 import { SearchNormal } from "iconsax-react";
 import styles from "./report.module.scss";
 import { useDataStoreComponies } from "../../../Admin/Companies/api/componiesApi";
+import { usersApi } from "../../../Admin/Users/api/usersApi";
 
 interface ReportFormProps {
     onSub: (formData: FormData) => void;
@@ -19,15 +20,19 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
     const [openManeger, setOpenManeger] = useState<string>("");
     const [openBegin, setOpenBegin] = useState<string>("");
     const [openEnd, setOpenEnd] = useState<string>("");
-    const [choosedFilters, setChoosedGilters] = useState<string[]>([]);
-    const [showItems, setShowItems] = useState<(string | null)[]>([]);
-    const [managerShow, setManagerShow] = useState<(string | null)[]>([]);
-    const { data, fetchDatas } = useDataStoreComponies();
 
-    useEffect(() => {
-        fetchDatas();
-    }, []);
+    const [showItems, setShowItems] = useState<(string | null)[]>([]);
+
+    const [choosedFilters, setChoosedGilters] = useState<string[]>([]);
+    const [choosedFiltersManager, setChoosedGiltersManager] = useState<string[]>([]);
+
+    const { data, fetchDatas } = useDataStoreComponies();
+    const { getUsersList, usersList } = usersApi();
+
     const CleanFilters = () => {
+        setChoosedGilters([]);
+        setChoosedGiltersManager([]);
+        setShowItems([]);
         setOpenCompany("");
         setOpenManeger("");
         setOpenBegin("");
@@ -37,12 +42,13 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
     const submitForm = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData: FormData = {
-            company: showItems,
-            maneger: managerShow,
+            company: choosedFilters,
+            maneger: choosedFiltersManager,
             begin: openBegin,
             end: openEnd,
         };
         onSub(formData);
+        console.log(choosedFilters);
     };
 
     const handleInputChange = (
@@ -60,14 +66,6 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
             setState(e.target.value);
             setShowItems(mapped);
         } else if (e.target.id && e.target.id === "manager") {
-            const mapped = data.map((el) => {
-                if (el.name.includes(e.target.value)) {
-                    return el.name;
-                } else {
-                    return null;
-                }
-            });
-            setManagerShow(mapped);
             setState(e.target.value);
         } else {
             setState(e.target.value);
@@ -88,6 +86,11 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
             setChoosedGilters(filt);
         }
     };
+    const addChoosedManager = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!choosedFiltersManager.includes(e.target.id)) {
+            setChoosedGiltersManager((prev) => [...prev, e.target.id]);
+        }
+    };
 
     const onEnter = (e: KeyboardEvent<HTMLUListElement>) => {
         if (e.key === "Enter") {
@@ -95,6 +98,10 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
             setOpenManeger("");
         }
     };
+    useEffect(() => {
+        fetchDatas();
+        getUsersList();
+    }, []);
 
     return (
         <form
@@ -119,9 +126,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
                         {openCompany &&
                             showItems &&
                             showItems.map((el, index) => {
-                                if (el === null) {
-                                    return null;
-                                } else {
+                                if (el !== null && !choosedFilters.includes(el)) {
                                     return (
                                         <p id={`${index}`}>
                                             {el}{" "}
@@ -158,6 +163,38 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
                         onChange={(e) => handleInputChange(e, setOpenManeger)}
                         className={styles.inpWithIcn}
                     />
+                    <div className={styles.showItems}>
+                        {openManeger &&
+                            usersList &&
+                            usersList.map((el, index) => {
+                                if (
+                                    el.first_name.includes(openManeger) &&
+                                    !choosedFiltersManager.includes(el.first_name)
+                                ) {
+                                    return (
+                                        <p id={`${index}`}>
+                                            {el.first_name}{" "}
+                                            <input
+                                                type="checkbox"
+                                                id={`${el.first_name}`}
+                                                onChange={addChoosedManager}
+                                            />
+                                        </p>
+                                    );
+                                } else {
+                                    return null;
+                                }
+                            })}
+                    </div>
+                    <div className={styles.choosed}>
+                        {choosedFiltersManager.map((el) => {
+                            return (
+                                <div>
+                                    <p>{el}</p>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
                 <div className={styles.InputCont}>
                     <p>Дата начала</p>

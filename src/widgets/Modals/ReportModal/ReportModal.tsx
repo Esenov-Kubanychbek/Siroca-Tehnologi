@@ -28,14 +28,14 @@ export const ReportModal: FC<IReportModal> = (props) => {
         setResults(e);
         try {
             const response = await axios.get(
-                `${BASE_URL}/applications/filter/?${e.company ? `company_name=${e.company.map((el) => (el !== null ? `${el}` : "")).join("")}` : ""}${e.maneger ? `&manager_first_name=${e.maneger.map((el) => (el !== null ? `${el}` : "")).join("")}` : ""}${e.begin ? `&start_date=${e.begin}&` : ""}${e.end ? `&finish_date=${e.end}` : ""}`,
+                `${BASE_URL}/applications/filter/?${e.company ? `company_name=${e.company.map((el) => (el === null ? "" : `${el}`))}` : ""}${e.maneger ? `&manager_first_name=${e.maneger.map((el) => (el !== null ? `${el}` : ""))}` : ""}${e.begin ? `&start_date=${e.begin}&` : ""}${e.end ? `&finish_date=${e.end}` : ""}`,
                 {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,
                     },
                 },
             );
-            console.log(response.data);
+            console.log(response);
 
             if (response.status === 200) {
                 setExcel(response.data);
@@ -50,7 +50,7 @@ export const ReportModal: FC<IReportModal> = (props) => {
     const downLoad = async () => {
         try {
             const response = await axios.get(
-                `${BASE_URL}/applications/filter/export-to-excel/?${results?.company ? `company_name=${results?.company}&` : ""}${results?.maneger ? `manager_first_name=${results?.maneger}&` : ""}${results?.begin ? `start_date=${results?.begin}&` : ""}${results?.end ? `finish_date=${results?.end}&` : ""}`,
+                `${BASE_URL}/applications/filter/export-to-excel/?${results?.company ? `company_name=${results.company.map((el) => (el === null ? "" : `${el}`))}` : ""}${results?.maneger ? `&manager_first_name=${results.maneger.map((el) => (el !== null ? `${el}` : "")).join("")}` : ""}${results?.begin ? `&start_date=${results.begin}&` : ""}${results?.end ? `&finish_date=${results.end}` : ""}`,
                 {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,
@@ -110,7 +110,9 @@ export const ReportModal: FC<IReportModal> = (props) => {
                             >
                                 <FileExcelFilled size={30} />
                             </div>
-                            <p className={styles.Name}>{excel.results[0].company}</p>
+                            <p className={styles.Name}>
+                                {results?.company.map((el, index) => (index === 1 ? ` ,${el}` : `${el}`))}
+                            </p>
                         </div>
                         <p className={styles.kb}>{excel.filtered_data_size / 1000} kb</p>
                     </div>

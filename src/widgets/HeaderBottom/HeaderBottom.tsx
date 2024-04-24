@@ -1,14 +1,13 @@
 import { FC, useState } from "react";
 import styles from "./HeaderBottom.module.scss";
 import { FilterButton, ReportButton, TimeFilter } from "../../features";
-import { Edit, MoreSquare } from "iconsax-react";
+import { Edit } from "iconsax-react";
 import { Modal } from "antd";
 import { CreateRequest } from "..";
 import { ReqSearch } from "../../features/TimeFilter/ui/ReqSearch";
 import { idRoles } from "../../pages/MainPage/api/idRoles";
 
 export const HeaderBottom: FC<{ role: string | null }> = ({ role }) => {
-    const [report, setReport] = useState<boolean>(false);
     const [modal, setModal] = useState<boolean>(false);
     const [isFilter, setIsFilter] = useState(false);
     const roles = idRoles().formatedState;
@@ -42,26 +41,8 @@ export const HeaderBottom: FC<{ role: string | null }> = ({ role }) => {
                                     color="white"
                                 />
                             </button>
-                            <div style={{ position: "relative" }}>
-                                <MoreSquare
-                                    cursor={"pointer"}
-                                    size={56}
-                                    variant="Linear"
-                                    color="#1C6AB1"
-                                    onClick={() => setReport(!report)}
-                                />
-                                {report && (
-                                    <div
-                                        style={{
-                                            position: "absolute",
-                                            zIndex: "10",
-                                            top: "70px",
-                                            right: "0",
-                                        }}
-                                    >
-                                        <ReportButton />
-                                    </div>
-                                )}
+                            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+                                <ReportButton />
                             </div>
                         </div>
                     )}
@@ -82,26 +63,8 @@ export const HeaderBottom: FC<{ role: string | null }> = ({ role }) => {
                             ) : null}
 
                             {roles && roles.client_can_get_reports_extra ? (
-                                <div style={{ position: "relative" }}>
-                                    <MoreSquare
-                                        cursor={"pointer"}
-                                        size={56}
-                                        variant="Linear"
-                                        color="#1C6AB1"
-                                        onClick={() => setReport(!report)}
-                                    />
-                                    {report && (
-                                        <div
-                                            style={{
-                                                position: "absolute",
-                                                zIndex: "10",
-                                                top: "70px",
-                                                right: "0",
-                                            }}
-                                        >
-                                            <ReportButton />
-                                        </div>
-                                    )}
+                                <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+                                    <ReportButton />
                                 </div>
                             ) : null}
                         </div>
@@ -120,26 +83,8 @@ export const HeaderBottom: FC<{ role: string | null }> = ({ role }) => {
                                 />
                             </button>
                             {roles && roles.manager_can_get_reports_extra ? (
-                                <div style={{ position: "relative" }}>
-                                    <MoreSquare
-                                        cursor={"pointer"}
-                                        size={56}
-                                        variant="Linear"
-                                        color="#1C6AB1"
-                                        onClick={() => setReport(!report)}
-                                    />
-                                    {report && (
-                                        <div
-                                            style={{
-                                                position: "absolute",
-                                                zIndex: "10",
-                                                top: "70px",
-                                                right: "0",
-                                            }}
-                                        >
-                                            <ReportButton />
-                                        </div>
-                                    )}
+                                <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+                                    <ReportButton />
                                 </div>
                             ) : null}
                         </div>
