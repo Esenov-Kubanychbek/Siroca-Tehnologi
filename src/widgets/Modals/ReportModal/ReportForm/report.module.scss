@@ -81,14 +81,14 @@
                 margin-top: 26px;
                 margin-left: 10px;
             }
-            .showItems{
+            .showItems {
                 border-radius: 8px;
                 box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.178);
                 z-index: 4;
                 width: 170px;
                 background: white;
                 position: absolute;
-                p{
+                p {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
@@ -96,26 +96,26 @@
                     cursor: pointer;
                     width: 150px;
                     margin: 0;
-                    input{
+                    input {
                         margin: 0;
                         width: 20px;
                         height: 20px;
                         border-radius: 5px;
                     }
                 }
-                p:hover{
+                p:hover {
                     background: #0000000a;
                 }
             }
         }
     }
 
-    .choosed{
+    .choosed {
         width: 82.5%;
         position: absolute;
         display: flex;
         margin: 7px;
-        p{
+        p {
             padding: 6px 15px;
             border-radius: 8px;
             background: #00000017;

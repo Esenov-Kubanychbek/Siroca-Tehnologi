@@ -12,7 +12,7 @@ interface IFetch {
     postComment: (comment: IComments) => void;
 }
 
-export const commentsApi = create<IFetch>(() => ({
+export const postCommentApi = create<IFetch>(() => ({
     postComment: async (comment) => {
         try {
             const postResponse = await axios.post(`${BASE_URL}/applications/comments/`, comment, {
@@ -20,9 +20,9 @@ export const commentsApi = create<IFetch>(() => ({
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            console.log(postResponse);
+            console.log(postResponse, "postCommentSuccess");
         } catch (error) {
-            console.log(error, "postCommentsError");
+            console.log(error, "postCommentSuccess");
         }
     },
 }));

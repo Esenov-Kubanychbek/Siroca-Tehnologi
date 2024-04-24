@@ -10,7 +10,7 @@ export const JobTitles: FC = () => {
     const [state, setState] = useState<boolean>(false);
     const [modal, setModal] = useState<boolean>(false);
     const [position, setPosition] = useState<number>(0);
-    const [inputState, setInputState] = useState<string>('');
+    const [inputState, setInputState] = useState<string>("");
     const [modalReady, setModalReady] = useState<boolean>(false);
     const [closeState, setCloseState] = useState<boolean>(false);
     const [modalSuccess, setModalSuccess] = useState<boolean>(false);
@@ -24,28 +24,34 @@ export const JobTitles: FC = () => {
     };
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setInputState(e.target.value);
-        setCloseState(true)
+        setCloseState(true);
     };
     const search = () => {
-        const results = fetchData.jobTitleList.filter(item => item.title.includes(inputState));
-        fetchData.setSearchList(results)
+        const results = fetchData.jobTitleList.filter((item) => item.title.includes(inputState));
+        fetchData.setSearchList(results);
     };
     const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
+        if (e.key === "Enter") {
             search();
         }
     };
     const closeFunc = () => {
         setCloseState(false);
         setInputState("");
-        fetchData.setSearchList(fetchData.jobTitleList)
-    }
+        fetchData.setSearchList(fetchData.jobTitleList);
+    };
     return (
         <>
             <div className={styles.JobTitles}>
                 <div className={styles.Name}>Поиск по должностям</div>
                 <div className={styles.Input}>
-                    <SearchInput value={inputState} onChange={handleChange} onKeyDown={handleKeyPress} closeState={closeState} closeFunc={closeFunc}/>
+                    <SearchInput
+                        value={inputState}
+                        onChange={handleChange}
+                        onKeyDown={handleKeyPress}
+                        closeState={closeState}
+                        closeFunc={closeFunc}
+                    />
                     <ButtonCreate onClick={() => setModal(true)} />
                     <button
                         className={styles.Trash}
@@ -55,7 +61,7 @@ export const JobTitles: FC = () => {
                     </button>
                     <button
                         className={styles.Delete}
-                        onClick={() => setModalReady(true)}
+                        onClick={() => position > 0 && setModalReady(true)}
                         style={
                             position > 0
                                 ? { color: "#e51616" }
@@ -68,7 +74,7 @@ export const JobTitles: FC = () => {
                     </button>
                     <button
                         className={styles.Cancel}
-                        onClick={() => setState(!state)}
+                        onClick={handleClick}
                         style={state ? { display: "block" } : { display: "none" }}
                     >
                         Отменить
@@ -89,26 +95,28 @@ export const JobTitles: FC = () => {
                     >
                         {fetchData.searchList.length > 0 ? (
                             fetchData.searchList.map((card, i) => (
-                            <div
-                                key={i}
-                                className={styles.Item}
-                            >
-                                <ItemInner
-                                    width={422}
-                                    content={card.title}
-                                />
-                                <input
-                                    style={state ? { display: "block" } : { display: "none" }}
-                                    type="radio"
-                                    name="delete"
-                                    value={card.id}
-                                    onChange={(e: ChangeEvent<HTMLInputElement>) => setPosition(Number(e.target.value))}
-                                />
-                            </div>
-                        )))
-                        :
-                        <div className={styles.Nothing}>По вашему запросу ничего не найдено!</div>
-                        }
+                                <div
+                                    key={i}
+                                    className={styles.Item}
+                                >
+                                    <ItemInner
+                                        width={422}
+                                        content={card.title}
+                                    />
+                                    <input
+                                        style={state ? { display: "block" } : { display: "none" }}
+                                        type="radio"
+                                        name="delete"
+                                        value={card.id}
+                                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                            setPosition(Number(e.target.value))
+                                        }
+                                    />
+                                </div>
+                            ))
+                        ) : (
+                            <div className={styles.Nothing}>По вашему запросу ничего не найдено!</div>
+                        )}
                     </div>
                 </div>
             </div>

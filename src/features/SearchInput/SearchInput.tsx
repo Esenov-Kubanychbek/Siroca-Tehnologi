@@ -4,7 +4,7 @@ import { CloseSquare, SearchNormal1 } from "iconsax-react";
 import { ISearchInput } from "./types/types";
 
 export const SearchInput: FC<ISearchInput> = (props) => {
-    const {value, onChange, onKeyDown, closeState, closeFunc} = props
+    const { value, onChange, onKeyDown, closeState, closeFunc } = props;
     return (
         <div className={styles.Search}>
             <SearchNormal1

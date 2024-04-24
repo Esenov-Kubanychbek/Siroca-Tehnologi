@@ -28,7 +28,7 @@ export const ReportModal: FC<IReportModal> = (props) => {
         setResults(e);
         try {
             const response = await axios.get(
-                `${BASE_URL}/applications/filter/?${e.company ? `company_name=${e.company.map(el => el !== null ? `${el}` : '').join('')}` : ""}${e.maneger ? `&manager_first_name=${e.maneger.map(el => el !== null ? `${el}` : '').join('')}` : ""}${e.begin ? `&start_date=${e.begin}&` : ""}${e.end ? `&finish_date=${e.end}` : ""}`,
+                `${BASE_URL}/applications/filter/?${e.company ? `company_name=${e.company.map((el) => (el !== null ? `${el}` : "")).join("")}` : ""}${e.maneger ? `&manager_first_name=${e.maneger.map((el) => (el !== null ? `${el}` : "")).join("")}` : ""}${e.begin ? `&start_date=${e.begin}&` : ""}${e.end ? `&finish_date=${e.end}` : ""}`,
                 {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,

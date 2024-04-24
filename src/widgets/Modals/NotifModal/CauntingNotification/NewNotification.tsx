@@ -17,7 +17,7 @@ interface INotification {
 
 export const NewNotification: FC<{ active: boolean }> = ({ active }) => {
     const [notifications, setNotifications] = useState([]);
-    const {now} = getRequestApi()
+    const { now } = getRequestApi();
     const getNotification = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/notifications/?page=${now}`, {
@@ -26,7 +26,7 @@ export const NewNotification: FC<{ active: boolean }> = ({ active }) => {
                 },
             });
             console.log(response);
-            
+
             if (active === true) {
                 const res = response.data.filter((el: INotification) => {
                     if (el.is_read === false) {
@@ -59,9 +59,10 @@ export const NewNotification: FC<{ active: boolean }> = ({ active }) => {
                 </h4>
             </div>
             {notifications
-                ? notifications.map((el: INotification) => {
+                ? notifications.map((el: INotification, i) => {
                       return (
                           <NotificationSingle
+                              key={i}
                               active={active}
                               notif={el}
                           />

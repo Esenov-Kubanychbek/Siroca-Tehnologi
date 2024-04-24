@@ -31,18 +31,18 @@ export const Collapses: FC = () => {
         },
         {
             key: "6",
-            label: "Комментарии",
-            children: <Comments />,
-        },
-        {
-            key: "7",
             label: "Описание",
             children: <Description />,
         },
         {
-            key: "8",
+            key: "7",
             label: "Краткое описание",
             children: <ShortDescription />,
+        },
+        {
+            key: "8",
+            label: "Комментарии",
+            children: <Comments />,
         },
         {
             key: "9",
@@ -52,7 +52,7 @@ export const Collapses: FC = () => {
     ];
     return (
         <Collapse
-            defaultActiveKey={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+            defaultActiveKey={[2, 3, 4, 5, 6, 7, 8, 9]}
             items={items}
         />
     );

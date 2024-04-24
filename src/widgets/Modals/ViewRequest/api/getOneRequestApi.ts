@@ -10,12 +10,12 @@ interface ILog {
 }
 
 interface ICheckList {
-    id: number;
+    id?: number;
     text: string;
-    completed: boolean
+    completed?: boolean;
     deadline: string;
     application: number;
-    manager: number;
+    manager?: number;
 }
 
 interface IComments {
@@ -32,8 +32,8 @@ interface IObject {
     company: string;
     main_client: string;
     main_manager: string;
-    checklist: ICheckList[]
-    comments: IComments[]
+    checklists: ICheckList[];
+    comments: IComments[];
     task_number: string;
     title: string;
     description: string;
@@ -63,7 +63,7 @@ export const getOneRequestApi = create<IFetch>((set) => ({
         company: "",
         main_client: "",
         main_manager: "",
-        checklist: [],
+        checklists: [],
         comments: [],
         task_number: "",
         title: "",

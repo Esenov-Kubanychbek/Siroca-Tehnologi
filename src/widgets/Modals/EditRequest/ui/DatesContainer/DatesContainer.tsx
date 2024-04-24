@@ -58,7 +58,7 @@ export const DatesContainer: FC<{ onChange: (e: ChangeEvent<HTMLInputElement>) =
                             onChange={onChange}
                             value={"Оплачено"}
                         />
-                        <label htmlFor="paid" >Оплачено</label>
+                        <label htmlFor="paid">Оплачено</label>
                     </div>
                     <div className={styles.UniPay}>
                         <input
@@ -68,7 +68,7 @@ export const DatesContainer: FC<{ onChange: (e: ChangeEvent<HTMLInputElement>) =
                             onChange={onChange}
                             value={"Не оплачено"}
                         />
-                        <label htmlFor="not_paid" >Не оплачено</label>
+                        <label htmlFor="not_paid">Не оплачено</label>
                     </div>
                     <div className={styles.UniPay}>
                         <input
@@ -78,7 +78,7 @@ export const DatesContainer: FC<{ onChange: (e: ChangeEvent<HTMLInputElement>) =
                             onChange={onChange}
                             value={"Ожидание оплаты"}
                         />
-                        <label htmlFor="wait_paid" >Ожидание оплаты</label>
+                        <label htmlFor="wait_paid">Ожидание оплаты</label>
                     </div>
                 </div>
             </div>

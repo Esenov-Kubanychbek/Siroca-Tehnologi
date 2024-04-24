@@ -1,7 +1,6 @@
 import { FC } from "react";
 import styles from "./MenuRequest.module.scss";
 import { InfoCircle, Link1, Menu, Message2, TaskSquare } from "iconsax-react";
-import "../Style.scss";
 
 export const MenuRequest: FC = () => {
     return (

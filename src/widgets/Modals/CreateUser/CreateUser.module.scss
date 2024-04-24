@@ -1,19 +1,19 @@
-@import "../../../app/styles/index.scss";
+@import "index.scss";
 
 .CreateUser {
     width: 560px;
     display: flex;
     padding: 24px 0;
+    align-items: end;
     justify-content: center;
     flex-direction: column;
     gap: 32px;
-    .TextTop {
-        font-size: 32px;
-        font-weight: 700;
-    }
 }
 
 .Top {
+    font-size: 32px;
+    font-weight: 700;
+    width: 560px;
     display: flex;
     justify-content: space-between;
 }

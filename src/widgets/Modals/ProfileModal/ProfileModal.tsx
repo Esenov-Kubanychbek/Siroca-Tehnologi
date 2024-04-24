@@ -10,7 +10,7 @@ import { usersApi } from "../../Admin/Users/api/usersApi";
 export const ProfileModal: FC<IProfileModal> = (props) => {
     const { setModal } = props;
     const [changeModal, setChangeModal] = useState<boolean>(false);
-    const fetchUsers = usersApi()
+    const fetchUsers = usersApi();
     return (
         <div className={styles.ProfileModal}>
             <div className={styles.Header}>
@@ -35,7 +35,10 @@ export const ProfileModal: FC<IProfileModal> = (props) => {
                     <p>Пароль:</p>
                 </div>
                 <div className={styles.Data}>
-                    <img src={fetchUsers.oneUserGet.image} className={styles.Image} />
+                    <img
+                        src={fetchUsers.oneUserGet.image}
+                        className={styles.Image}
+                    />
                     <p>{fetchUsers.oneUserGet.first_name}</p>
                     <p>{fetchUsers.oneUserGet.surname}</p>
                     <p>{fetchUsers.oneUserGet.job_title}</p>

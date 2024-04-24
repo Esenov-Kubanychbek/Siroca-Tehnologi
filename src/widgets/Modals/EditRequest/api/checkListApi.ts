@@ -4,7 +4,7 @@ import { BASE_URL } from "../../../../shared/variables/variables";
 
 export interface ICheckList {
     text: string;
-    completed?: boolean;
+    completed?: boolean | string;
     deadline?: string;
     application: number | null;
     manager?: number | null;

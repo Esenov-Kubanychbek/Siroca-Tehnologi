@@ -20,27 +20,31 @@ export const NotifModal: FC<INotifModal> = (props) => {
         } catch (error) {
             console.log(error);
         }
-    } 
+    };
 
-    const clearNotification = async() => {
+    const clearNotification = async () => {
         try {
             const response = await axios.delete(`${BASE_URL}/applications/notifications/`, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
-            })
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
+            });
             console.log(response);
-            
         } catch (error) {
             console.log(error);
         }
-    }
+    };
     return (
         <div className={styles.NotifModal}>
             <div className={styles.Container}>
                 <div className={styles.NotifHeader}>
                     <h3 className={styles.NotifH3}>Уведомление</h3>
-                    <button className={styles.ClearBtn} onClick={clearNotification}>Очистить все</button>
+                    <button
+                        className={styles.ClearBtn}
+                        onClick={clearNotification}
+                    >
+                        Очистить все
+                    </button>
                     <CloseSquare
                         cursor={"pointer"}
                         size={34}

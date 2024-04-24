@@ -6,18 +6,17 @@ import axios from "axios";
 import { BASE_URL } from "../../../shared/variables/variables";
 
 export const CallToAdmin: FC<ICallToAdminModal> = (props) => {
-    const getContacts = async() =>{
+    const getContacts = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/users/admin_contacts/`)
+            const response = await axios.get(`${BASE_URL}/users/admin_contacts/`);
             console.log(response);
-            
         } catch (error) {
             console.log(error);
         }
-    }
+    };
     useEffect(() => {
-        getContacts()
-    }, [])
+        getContacts();
+    }, []);
     const { setModal } = props;
     return (
         <div className={styles.CallToAdmin}>
