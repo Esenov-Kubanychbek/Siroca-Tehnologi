@@ -21,8 +21,8 @@ export const AddComment: FC = () => {
                 application: fetchRequest.oneRequest.id,
                 text: comment,
             });
-            setComment("")
-            fetchRequest.getOneRequest(fetchRequest.oneRequest.id)
+            setComment("");
+            fetchRequest.getOneRequest(fetchRequest.oneRequest.id);
         } else {
             console.log("trimCommentError");
         }

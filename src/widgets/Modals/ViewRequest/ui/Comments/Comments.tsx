@@ -9,11 +9,11 @@ import { deleteCommentApi } from "../../api/deleteCommentApi";
 
 export const Comments: FC = () => {
     const fetchRequest = getOneRequestApi();
-    const deleteComment = deleteCommentApi()
+    const deleteComment = deleteCommentApi();
     const deleteFunc = (props: number) => {
-        deleteComment.deleteComment(props)
-        fetchRequest.getOneRequest(fetchRequest.oneRequest.id)
-    }
+        deleteComment.deleteComment(props);
+        fetchRequest.getOneRequest(fetchRequest.oneRequest.id);
+    };
     return (
         <>
             {fetchRequest.oneRequest.comments.map((card, i) => (
@@ -29,10 +29,16 @@ export const Comments: FC = () => {
                         <Popover
                             placement="bottomRight"
                             content={
-                            <div className={styles.MoreButtons}>
-                                <button className={styles.Button}>Редактировать</button>
-                                <button className={styles.Button} onClick={()=>deleteFunc(card.id)}>Удалить</button>
-                            </div>}
+                                <div className={styles.MoreButtons}>
+                                    <button className={styles.Button}>Редактировать</button>
+                                    <button
+                                        className={styles.Button}
+                                        onClick={() => deleteFunc(card.id)}
+                                    >
+                                        Удалить
+                                    </button>
+                                </div>
+                            }
                             trigger={"click"}
                         >
                             <MoreSquare
@@ -47,7 +53,10 @@ export const Comments: FC = () => {
                     <div className={styles.Date}>{card.date_added}</div>
                 </div>
             ))}
-            <CustomInput width={580} placeholder="Добавьте коментарии"/>
+            <CustomInput
+                width={580}
+                placeholder="Добавьте коментарии"
+            />
         </>
     );
 };

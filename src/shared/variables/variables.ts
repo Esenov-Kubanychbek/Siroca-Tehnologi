@@ -4,7 +4,7 @@ export const authToken = {
     headers: {
         Authorization: `JWT ${localStorage.getItem("access")}`,
     },
-}
+};
 
 export const PATHS = {
     auth: "/",

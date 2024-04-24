@@ -9,14 +9,14 @@ import { deleteRequestApi } from "./api/deleteRequestApi";
 
 export const ViewRequest: FC<IViewRequestModal> = (props) => {
     const { setModal } = props;
-    const [open, setOpen] = useState<boolean>(false)
+    const [open, setOpen] = useState<boolean>(false);
     const fetchData = getOneRequestApi();
-    const deleteRequest = deleteRequestApi()
+    const deleteRequest = deleteRequestApi();
     const deleteFunc = () => {
-        deleteRequest.deleteRequest(fetchData.oneRequest.id)
-        setModal(false)
+        deleteRequest.deleteRequest(fetchData.oneRequest.id);
+        setModal(false);
         setOpen(false);
-    }
+    };
     const handleOpenChange = (newOpen: boolean) => {
         setOpen(newOpen);
     };
@@ -33,11 +33,17 @@ export const ViewRequest: FC<IViewRequestModal> = (props) => {
                         <Popover
                             placement="bottomRight"
                             content={
-                            <div className={styles.MoreButtons}>
-                                <button className={styles.Button}>Редактировать</button>
-                                <button className={styles.Button}>Закрыть</button>
-                                <button className={styles.Button} onClick={deleteFunc}>Удалить</button>
-                            </div>}
+                                <div className={styles.MoreButtons}>
+                                    <button className={styles.Button}>Редактировать</button>
+                                    <button className={styles.Button}>Закрыть</button>
+                                    <button
+                                        className={styles.Button}
+                                        onClick={deleteFunc}
+                                    >
+                                        Удалить
+                                    </button>
+                                </div>
+                            }
                             onOpenChange={handleOpenChange}
                             trigger={"click"}
                             open={open}

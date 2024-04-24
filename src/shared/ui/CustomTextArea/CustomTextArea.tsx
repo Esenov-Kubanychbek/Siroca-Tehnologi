@@ -2,7 +2,7 @@ import { FC } from "react";
 import style from "./CustomTextArea.module.scss";
 import { IText } from "./types/types";
 
-export const CustomTextArea: FC<IText> = ({ placeholder, height, width, variant, value, name, change, readOnly}) => {
+export const CustomTextArea: FC<IText> = ({ placeholder, height, width, variant, value, name, change, readOnly }) => {
     return (
         <textarea
             value={value}

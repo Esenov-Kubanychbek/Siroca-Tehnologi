@@ -15,9 +15,9 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     const [reqCount, setReqCount] = useState<number>(0);
     const [prevNext, setPrevNext] = useState<{ prev: boolean; next: boolean }>({ prev: false, next: false });
     const [modal, setModal] = useState<boolean>(false);
-    useEffect(()=>{
+    useEffect(() => {
         console.log(prevNext);
-    }, [])
+    }, []);
     const fetchRequest = getRequestApi();
     const apiLength = fetchRequest.getState;
 
@@ -167,7 +167,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 zIndex={5}
             >
                 <ViewRequest setModal={setModal} />
-                <AddComment/>
+                <AddComment />
             </Modal>
         </div>
     );

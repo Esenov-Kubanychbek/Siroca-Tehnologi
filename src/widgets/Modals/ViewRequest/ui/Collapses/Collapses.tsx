@@ -1,13 +1,13 @@
 import { Collapse, CollapseProps } from "antd";
 import { FC } from "react";
-import { CheckList, Comments, Date, Description, Details, LinkJira, Logs, People, ShortDescription } from "..";
+import { CheckList, Comments, Date, Description, Details, LinkJira, RequestLogs, People, ShortDescription } from "..";
 
 export const Collapses: FC = () => {
     const items: CollapseProps["items"] = [
         {
             key: "1",
             label: "Logs",
-            children: <Logs />,
+            children: <RequestLogs />,
         },
         {
             key: "2",

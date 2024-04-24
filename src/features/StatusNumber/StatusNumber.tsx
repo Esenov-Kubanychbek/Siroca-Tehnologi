@@ -13,11 +13,7 @@ export const StatusNumber: FC = () => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            setCount([
-                response.data.closed_count,
-                response.data.created_count,
-                response.data.in_progress_count,
-            ]);
+            setCount([response.data.closed_count, response.data.created_count, response.data.in_progress_count]);
         } catch (error) {
             console.log(error);
         }

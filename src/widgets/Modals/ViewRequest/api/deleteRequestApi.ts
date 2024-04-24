@@ -6,17 +6,17 @@ interface IFetch {
     deleteRequest: (id: number) => void;
 }
 
-export const deleteRequestApi = create<IFetch>(()=> ({
+export const deleteRequestApi = create<IFetch>(() => ({
     deleteRequest: async (id: number) => {
         try {
             const response = await axios.delete(`${BASE_URL}/applications/form_view/${id}/`, {
                 headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`
-                }
-            })
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                },
+            });
             console.log(response, "deleteRequestSuccess");
         } catch (error) {
             console.log(error, "deleteRequestError");
         }
-    }
-}))
+    },
+}));
