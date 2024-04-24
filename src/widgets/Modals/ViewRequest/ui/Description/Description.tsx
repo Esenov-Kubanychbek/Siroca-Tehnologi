@@ -1,41 +1,27 @@
 import styles from "./Description.module.scss";
 import { FolderAdd } from "iconsax-react";
-import xlsx from "../../../../../shared/assets/excel.svg";
-import "../Style.scss";
 import { FC } from "react";
 import { getOneRequestApi } from "../../api/getOneRequestApi";
+import { CustomTextArea } from "../../../../../shared/ui";
 
 export const Description: FC = () => {
-    const fetchData = getOneRequestApi();
+    const fetchRequest = getOneRequestApi();
     return (
-        <div className={styles.container}>
-            <p className={styles.description}>{fetchData.oneRequest.description}</p>
-            <FolderAdd className={styles.folderAdd} />
-            {fetchData.oneRequest.files !== null ? (
-                <div>
-                    <div className={styles.xlsx}>
-                        <img
-                            src={xlsx}
-                            alt="xlsx"
-                        />
-                        <p>Интеграция Лис Mbank</p>
-                    </div>
-                    <div className={styles.xlsx}>
-                        <img
-                            src={xlsx}
-                            alt="xlsx"
-                        />
-                        <p>Интеграция Лис Mbank</p>
-                    </div>
-                    <div className={styles.images}>
-                        <div />
-                        <div />
-                        <div />
-                    </div>
-                </div>
-            ) : (
-                false
-            )}
+        <div className={styles.Description}>
+            <CustomTextArea
+                name="description"
+                placeholder="Напишите..."
+                height={100}
+                width={580}
+                variant="TextArea"
+                readOnly={true}
+                value={fetchRequest.oneRequest.description === null ? "" : fetchRequest.oneRequest.description}
+            />
+            <FolderAdd
+                className={styles.Icon}
+                size={24}
+                color="#5C5C5C"
+            />
         </div>
     );
 };

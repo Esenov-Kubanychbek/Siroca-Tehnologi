@@ -1,30 +1,33 @@
 import axios from "axios";
 import { create } from "zustand";
-import { iGetUser, IUser, IUserGet } from "../../../../shared/types/userTypes";
+import { IUser, IUserGet } from "../../../../shared/types/userTypes";
 import { BASE_URL } from "../../../../shared/variables/variables";
+
+interface IUserGetDetails {
+    count: number;
+    next: null;
+    previous: null;
+    results: IUser[];
+}
 
 interface IFetch {
     usersList: IUser[];
+    usersGetDetails: IUserGetDetails;
     oneUserGet: IUserGet;
     oneUser: IUser;
-    userProfile: iGetUser;
-    userProfileAdded: () => void;
+    getUsersList: () => void;
+    setSearchList: (searchState: string) => void;
     getOneUser: (id: number | undefined) => void;
-    putting: (postState: IUser, id: number | undefined) => void;
-    getting: () => void;
     postUser: (user: FormData) => void;
 }
 
 export const usersApi = create<IFetch>((set, get) => ({
     usersList: [],
-    userProfile: {
-        first_name: "",
-        job_title: 0,
-        main_company: 0,
-        password: "",
-        role_type: "",
-        surname: "",
-        username: "",
+    usersGetDetails: {
+        count: 1,
+        next: null,
+        previous: null,
+        results: [],
     },
     oneUser: {
         first_name: "",
@@ -45,15 +48,21 @@ export const usersApi = create<IFetch>((set, get) => ({
         surname: "",
         username: "",
     },
-    userProfileAdded: async () => {
+    getUsersList: async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/users/${localStorage.getItem("id")}/`);
-            console.log(response);
-            set({
-                userProfile: response.data,
-            });
+            const response = await axios.get(`${BASE_URL}/users/profiles/?page=1`);
+            set({ usersGetDetails: response.data });
+            set({ usersList: response.data });
         } catch (error) {
-            console.log(error);
+            console.log(error, "getUsersListError");
+        }
+    },
+    setSearchList: async (searchState) => {
+        try {
+            const response = await axios.get(`${BASE_URL}/users/profiles/?search=${searchState}`);
+            set({ usersList: response.data });
+        } catch (error) {
+            console.log(error, "getUsersListError");
         }
     },
     getOneUser: async (id) => {
@@ -62,22 +71,6 @@ export const usersApi = create<IFetch>((set, get) => ({
             set({ oneUserGet: response.data });
         } catch (error) {
             console.log(error, "getOneUserError");
-        }
-    },
-    putting: async (postState, id) => {
-        try {
-            const response = await axios.put(`${BASE_URL}/users/${id}/`, postState);
-            console.log(response.data);
-        } catch (error) {
-            console.log(error, "putOneUserError");
-        }
-    },
-    getting: async () => {
-        try {
-            const response = await axios.get(`${BASE_URL}/users/profiles/?limit=12&offset=0`);
-            set({ usersList: response.data.results });
-        } catch (error) {
-            console.log(error, "getUserError");
         }
     },
     postUser: async (user) => {

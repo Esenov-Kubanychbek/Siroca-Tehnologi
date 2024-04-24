@@ -10,6 +10,7 @@ export const RoleButton: FC<IRole> = (props) => {
                 <label className={styles.Text}>
                     Клиент
                     <input
+                        readOnly
                         type="radio"
                         onChange={change}
                         name="role_type"
@@ -22,6 +23,7 @@ export const RoleButton: FC<IRole> = (props) => {
                 <label className={styles.Text}>
                     Менеджер
                     <input
+                        readOnly
                         type="radio"
                         onChange={change}
                         name="role_type"

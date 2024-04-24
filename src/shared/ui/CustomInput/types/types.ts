@@ -12,4 +12,5 @@ export interface IInput {
     paddingLeft?: number;
     change?: (e: ChangeEvent<HTMLInputElement>) => void;
     onClick?: () => void;
+    readOnly?: boolean;
 }

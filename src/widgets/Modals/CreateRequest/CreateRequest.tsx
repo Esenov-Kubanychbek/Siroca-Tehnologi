@@ -77,7 +77,7 @@ export const CreateRequest: FC<ICreateRequestModal> = (props) => {
                     <CustomButton
                         type="button"
                         onClick={() => setModal(false)}
-                        variant="Secondary"
+                        variant="Without"
                         width={150}
                         text="Отменить"
                     />

@@ -1,6 +1,5 @@
 import styles from "./LinkJira.module.scss";
 import { Link1 } from "iconsax-react";
-import "../Style.scss";
 import { FC } from "react";
 import { getOneRequestApi } from "../../api/getOneRequestApi";
 

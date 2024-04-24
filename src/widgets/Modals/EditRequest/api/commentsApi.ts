@@ -9,13 +9,13 @@ export interface IComments {
 }
 
 interface IFetch {
-    postComment: (postState: IComments) => void;
+    postComment: (comment: IComments) => void;
 }
 
 export const commentsApi = create<IFetch>(() => ({
-    postComment: async (postState) => {
+    postComment: async (comment) => {
         try {
-            const postResponse = await axios.post(`${BASE_URL}/applications/comments/`, postState, {
+            const postResponse = await axios.post(`${BASE_URL}/applications/comments/`, comment, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },

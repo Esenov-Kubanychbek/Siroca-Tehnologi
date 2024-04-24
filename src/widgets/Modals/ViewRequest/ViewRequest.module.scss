@@ -1,9 +1,12 @@
+@import "index.scss";
+
 .ViewRequest {
     display: flex;
     gap: 14px;
     width: 698px;
     overflow-y: scroll;
     height: 900px;
+    position: relative;
     .Header {
         display: flex;
         align-items: center;
@@ -18,5 +21,21 @@
         .Number {
             color: #1c6ab1;
         }
+    }
+}
+
+.MoreButtons {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .Button {
+        height: 41px;
+        background: none;
+        border: none;
+        color: $blue;
+        font-weight: 700;
+        font-size: 14px;
     }
 }

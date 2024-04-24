@@ -1,15 +1,13 @@
 import { CloseSquare } from "iconsax-react";
 import styles from "./CreateJobTitle.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
-import { useSuccess } from "../../../shared/hooks/modalHooks";
 import { FC } from "react";
 import { jobTitleApi } from "../../Admin/JobTitles/api/jobTitleApi";
 import { ICreateJobTitleModal } from "./types/types";
 
 export const CreateJobTitle: FC<ICreateJobTitleModal> = (props) => {
-    const { setModal } = props;
+    const { setModal, setModalSuccess } = props;
     const fetchData = jobTitleApi();
-    const modalSuccess = useSuccess();
     const postTrim = () => {
         if (fetchData.oneJobTitle.title == "") {
             console.log("write position");
@@ -17,8 +15,8 @@ export const CreateJobTitle: FC<ICreateJobTitleModal> = (props) => {
             fetchData.postJobTitle(fetchData.oneJobTitle);
             console.log(fetchData.oneJobTitle);
             setModal(false);
-            modalSuccess.open();
-            setTimeout(modalSuccess.close, 1000);
+            setModalSuccess(true);
+            setTimeout(() => setModalSuccess(false), 1000);
         }
     };
     return (
@@ -32,18 +30,16 @@ export const CreateJobTitle: FC<ICreateJobTitleModal> = (props) => {
                     <CloseSquare size={34} />
                 </div>
             </div>
-            <div>
-                <CustomInput
-                    name="title"
-                    placeholder="Напишите..."
-                    width={560}
-                    value={fetchData.oneJobTitle.title}
-                    change={fetchData.setJobTitle}
-                />
-            </div>
+            <CustomInput
+                name="title"
+                placeholder="Напишите..."
+                width={560}
+                value={fetchData.oneJobTitle.title}
+                change={fetchData.setJobTitle}
+            />
             <div className={styles.Buttons}>
                 <CustomButton
-                    variant="Secondary"
+                    variant="Without"
                     width={150}
                     text="Отменить"
                     onClick={() => setModal(false)}

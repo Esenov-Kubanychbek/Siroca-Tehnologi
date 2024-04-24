@@ -21,22 +21,20 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
     const [openBegin, setOpenBegin] = useState<string>("");
     const [openEnd, setOpenEnd] = useState<string>("");
 
-    const [showItems, setShowItems] = useState<(string | null)[]>([])
+    const [showItems, setShowItems] = useState<(string | null)[]>([]);
 
-    const [choosedFilters, setChoosedGilters] = useState<string[]>([])
-    const [choosedFiltersManager, setChoosedGiltersManager] = useState<string[]>([])
+    const [choosedFilters, setChoosedGilters] = useState<string[]>([]);
+    const [choosedFiltersManager, setChoosedGiltersManager] = useState<string[]>([]);
 
-    const { data, fetchDatas } = useDataStoreComponies()
-    const { getting, usersList } = usersApi()
-    
-
+    const { data, fetchDatas } = useDataStoreComponies();
+    const { getUsersList, usersList } = usersApi();
 
     const CleanFilters = () => {
-        setChoosedGilters([])
-        setChoosedGiltersManager([])
-        setShowItems([])
-        setOpenCompany('')
-        setOpenManeger('')
+        setChoosedGilters([]);
+        setChoosedGiltersManager([]);
+        setShowItems([]);
+        setOpenCompany("");
+        setOpenManeger("");
         setOpenBegin("");
         setOpenEnd("");
     };
@@ -60,53 +58,51 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
         if (e.target.id && e.target.id === "company") {
             const mapped = data.map((el) => {
                 if (el.name.includes(e.target.value)) {
-                    return el.name
+                    return el.name;
                 } else {
-                    return null
+                    return null;
                 }
-            })
+            });
             setState(e.target.value);
-            setShowItems(mapped)
+            setShowItems(mapped);
         } else if (e.target.id && e.target.id === "manager") {
             setState(e.target.value);
         } else {
             setState(e.target.value);
         }
-
     };
     const addChoosed = (e: ChangeEvent<HTMLInputElement>) => {
         if (!choosedFilters.includes(e.target.id) && e.target.checked === true) {
-            setChoosedGilters([...choosedFilters, e.target.id])
+            setChoosedGilters([...choosedFilters, e.target.id]);
         } else if (!e.target.checked) {
-            const find = [...choosedFilters]
+            const find = [...choosedFilters];
             const filt = find.filter((el) => {
                 if (el !== e.target.id) {
-                    return el
+                    return el;
                 } else {
-                    return null
+                    return null;
                 }
-
-            })
-            setChoosedGilters(filt)
+            });
+            setChoosedGilters(filt);
         }
-    }
+    };
     const addChoosedManager = (e: ChangeEvent<HTMLInputElement>) => {
-        if(!choosedFiltersManager.includes(e.target.id)){
-            setChoosedGiltersManager((prev) => [...prev, e.target.id])
+        if (!choosedFiltersManager.includes(e.target.id)) {
+            setChoosedGiltersManager((prev) => [...prev, e.target.id]);
         }
-    }
+    };
 
     const onEnter = (e: KeyboardEvent<HTMLUListElement>) => {
         if (e.key === "Enter") {
-            setOpenCompany('')
-            setOpenManeger('')
+            setOpenCompany("");
+            setOpenManeger("");
         }
-    }
+    };
     useEffect(() => {
-        fetchDatas()
-        getting()
-    }, [])
-    
+        fetchDatas();
+        getUsersList();
+    }, []);
+
     return (
         <form
             onSubmit={submitForm}
@@ -127,26 +123,31 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
                         className={styles.inpWithIcn}
                     />
                     <div className={styles.showItems}>
-                        {openCompany && showItems && showItems.map((el, index) => {
-                            if (el !== null && !choosedFilters.includes(el)) {
-                                return (
-                                    <p id={`${index}`}>{el} <input type="checkbox" id={el} onChange={addChoosed} /></p>
-                                )
-                            }
-
-                        })}
+                        {openCompany &&
+                            showItems &&
+                            showItems.map((el, index) => {
+                                if (el !== null && !choosedFilters.includes(el)) {
+                                    return (
+                                        <p id={`${index}`}>
+                                            {el}{" "}
+                                            <input
+                                                type="checkbox"
+                                                id={el}
+                                                onChange={addChoosed}
+                                            />
+                                        </p>
+                                    );
+                                }
+                            })}
                     </div>
                     <div className={styles.choosed}>
-                        {
-                            choosedFilters.map((el) => {
-
-                                return (
-                                    <div>
-                                        <p>{el}</p>
-                                    </div>
-                                )
-                            })
-                        }
+                        {choosedFilters.map((el) => {
+                            return (
+                                <div>
+                                    <p>{el}</p>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
                 <div className={styles.InputCont}>
@@ -163,27 +164,36 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
                         className={styles.inpWithIcn}
                     />
                     <div className={styles.showItems}>
-                        {openManeger && usersList && usersList.map((el, index) => {
-                            if(el.first_name.includes(openManeger) && !choosedFiltersManager.includes(el.first_name)){
-                                return (
-                                    <p id={`${index}`}>{el.first_name} <input type="checkbox" id={`${el.first_name}`} onChange={addChoosedManager} /></p>
-                                )
-                            }else{
-                                return null
-                            }
-                                
-                        })}
+                        {openManeger &&
+                            usersList &&
+                            usersList.map((el, index) => {
+                                if (
+                                    el.first_name.includes(openManeger) &&
+                                    !choosedFiltersManager.includes(el.first_name)
+                                ) {
+                                    return (
+                                        <p id={`${index}`}>
+                                            {el.first_name}{" "}
+                                            <input
+                                                type="checkbox"
+                                                id={`${el.first_name}`}
+                                                onChange={addChoosedManager}
+                                            />
+                                        </p>
+                                    );
+                                } else {
+                                    return null;
+                                }
+                            })}
                     </div>
                     <div className={styles.choosed}>
-                        {
-                            choosedFiltersManager.map((el) => {
-                                return (
-                                    <div>
-                                        <p>{el}</p>
-                                    </div>
-                                )
-                            })
-                        }
+                        {choosedFiltersManager.map((el) => {
+                            return (
+                                <div>
+                                    <p>{el}</p>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
                 <div className={styles.InputCont}>

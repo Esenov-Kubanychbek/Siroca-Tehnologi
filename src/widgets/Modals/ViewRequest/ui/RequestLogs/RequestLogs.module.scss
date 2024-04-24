@@ -1,0 +1,20 @@
+@import "index.scss";
+
+.Logs {
+    :first-child {
+        border-radius: 8px 8px 0 0;
+    }
+    :last-child {
+        border-radius: 0 0 8px 8px;
+    }
+}
+
+.Log {
+    width: 548px;
+    height: 24px;
+    display: flex;
+    padding: 16px;
+    align-items: center;
+    border: 1px solid $blackde;
+    justify-content: space-between;
+}

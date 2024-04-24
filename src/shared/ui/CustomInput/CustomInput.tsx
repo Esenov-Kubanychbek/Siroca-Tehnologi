@@ -3,8 +3,20 @@ import styles from "./CustomInput.module.scss";
 import { IInput } from "./types/types";
 
 export const CustomInput: FC<IInput> = (props) => {
-    const { width, placeholder, height, background, value, name, type, change, paddingLeft, defaultValue, onClick } =
-        props;
+    const {
+        width,
+        placeholder,
+        height,
+        background,
+        value,
+        name,
+        type,
+        change,
+        paddingLeft,
+        defaultValue,
+        onClick,
+        readOnly,
+    } = props;
 
     return (
         <input
@@ -22,6 +34,7 @@ export const CustomInput: FC<IInput> = (props) => {
             placeholder={placeholder}
             className={styles.Input}
             onClick={onClick}
+            readOnly={readOnly}
         />
     );
 };

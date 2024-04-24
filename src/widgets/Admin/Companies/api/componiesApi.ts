@@ -51,14 +51,14 @@ interface DataStore extends Data {
 
 const fetchData = async () => {
     try {
-        const response = await axios.get(`${BASE_URL}/company/list/`, {
+        const response = await axios.get(`${BASE_URL}/company/list/?page=1`, {
             headers: {
                 Authorization: `JWT ${localStorage.getItem("access")}`,
             },
         });
         console.log(response);
 
-        return response.data.results;
+        return response.data;
     } catch (error) {
         console.error("Ошибка при получении данных:", error);
         return null;
@@ -95,8 +95,8 @@ const deleteCompanies = async (id: number) => {
 
 const getUser = async () => {
     try {
-        const response = await axios.get(`${BASE_URL}/users/profiles/`);
-        return response.data.results;
+        const response = await axios.get(`${BASE_URL}/users/profiles/?page=1`);
+        return response.data;
     } catch (error) {
         console.log(error, "getUserError");
     }

@@ -1,8 +1,10 @@
-@import "../../../app/styles/index.scss";
+@import "index.scss";
 
 .Primary,
 .Secondary,
-.Without {
+.Without,
+.ColorBlue,
+.ColorRed {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,26 +33,14 @@
     border: none;
 }
 
-.Request,
-.Application {
-    cursor: pointer;
-    height: 44px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 700;
-    font-size: 18px;
-    border-radius: 8px;
-}
-
-.Application {
-    background-color: $blackde;
+.ColorBlue {
+    background-color: $blackf4;
     color: $blue;
     border: none;
 }
 
-.Request {
-    background-color: $blue;
-    color: white;
+.ColorRed {
+    background: none;
+    color: $highest;
     border: none;
 }

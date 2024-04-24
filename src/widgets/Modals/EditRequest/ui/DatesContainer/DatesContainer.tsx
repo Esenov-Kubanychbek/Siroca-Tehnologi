@@ -52,21 +52,33 @@ export const DatesContainer: FC<{ onChange: (e: ChangeEvent<HTMLInputElement>) =
                 <div className={styles.Pay}>
                     <div className={styles.UniPay}>
                         <input
+                            id="paid"
                             type="radio"
                             name="payment_state"
                             onChange={onChange}
                             value={"Оплачено"}
                         />
-                        <div className={styles.Text2}>Оплачен</div>
+                        <label htmlFor="paid">Оплачено</label>
                     </div>
                     <div className={styles.UniPay}>
                         <input
+                            id="not_paid"
                             type="radio"
                             name="payment_state"
                             onChange={onChange}
                             value={"Не оплачено"}
                         />
-                        <div className={styles.Text2}>Не оплачен</div>
+                        <label htmlFor="not_paid">Не оплачено</label>
+                    </div>
+                    <div className={styles.UniPay}>
+                        <input
+                            id="wait_paid"
+                            type="radio"
+                            name="payment_state"
+                            onChange={onChange}
+                            value={"Ожидание оплаты"}
+                        />
+                        <label htmlFor="wait_paid">Ожидание оплаты</label>
                     </div>
                 </div>
             </div>

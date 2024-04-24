@@ -2,7 +2,6 @@ import { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "./EditRequest.module.scss";
 import { CloseSquare } from "iconsax-react";
 import { CustomButton } from "../../../shared/ui";
-import { useSuccess } from "../../../shared/hooks/modalHooks";
 import { editRequestApi, IRequest } from "./api/editRequestApi";
 import { SuccessModal } from "../..";
 import { Modal } from "antd";
@@ -14,25 +13,28 @@ import { IEditRequest } from "./types/types";
 export const EditRequest: FC<IEditRequest> = (props) => {
     const { request, setRequest, setModal } = props;
     const fetchData = editRequestApi();
-    const success = useSuccess();
+    const [modalSuccess, setModalSuccess] = useState<boolean>(false);
     const createRequest = createRequestApi();
     const [requestState, setRequestState] = useState<IRequest>({
         title: request.title,
         company: request.company,
-        description: "",
+        description: "long story",
+        short_description: "short",
         files: null,
-        jira: "",
+        jira: "https://jira.geeks.kg/secure/Dashboard.jspa",
         status: "К выполнению",
-        payment_state: "",
+        payment_state: "Не оплачено",
         priority: "Высокий",
-        application_date: "",
-        confirm_date: "",
-        offer_date: "",
-        start_date: "",
-        finish_date: "",
-        deadline_date: "",
-        main_client: null,
-        main_manager: 2,
+        application_date: "2001-02-21",
+        confirm_date: "2002-02-21",
+        offer_date: "2003-02-21",
+        start_date: "2004-02-21",
+        finish_date: "2005-02-21",
+        deadline_date: "2006-02-21",
+        main_client: "",
+        main_manager: "zub",
+        comments: [],
+        checklist: [],
     });
     const RequestCreateValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setRequestState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
@@ -43,9 +45,9 @@ export const EditRequest: FC<IEditRequest> = (props) => {
         e.preventDefault();
         fetchData.editRequest(requestState, createRequest.id);
         setModal(false);
-        success.open();
+        setModalSuccess(true);
         console.log("success");
-        setTimeout(success.close, 1000);
+        setTimeout(() => setModalSuccess(false), 1000);
     };
     return (
         <form onSubmit={postTrim}>
@@ -86,8 +88,8 @@ export const EditRequest: FC<IEditRequest> = (props) => {
                     width={350}
                     centered
                     zIndex={11}
-                    open={success.isOpen}
-                    onCancel={success.close}
+                    open={modalSuccess}
+                    onCancel={() => setModalSuccess(false)}
                 >
                     <SuccessModal content="Заявка успешно создана!" />
                 </Modal>

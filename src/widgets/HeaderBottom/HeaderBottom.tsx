@@ -41,7 +41,7 @@ export const HeaderBottom: FC<{ role: string | null }> = ({ role }) => {
                                     color="white"
                                 />
                             </button>
-                            <div style={{ position: "relative", display: 'flex', alignItems: "center" }}>
+                            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
                                 <ReportButton />
                             </div>
                         </div>
@@ -63,7 +63,7 @@ export const HeaderBottom: FC<{ role: string | null }> = ({ role }) => {
                             ) : null}
 
                             {roles && roles.client_can_get_reports_extra ? (
-                                <div style={{ position: "relative", display: 'flex', alignItems: "center"  }}>
+                                <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
                                     <ReportButton />
                                 </div>
                             ) : null}
@@ -83,7 +83,7 @@ export const HeaderBottom: FC<{ role: string | null }> = ({ role }) => {
                                 />
                             </button>
                             {roles && roles.manager_can_get_reports_extra ? (
-                                <div style={{ position: "relative", display: 'flex', alignItems: "center"  }}>
+                                <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
                                     <ReportButton />
                                 </div>
                             ) : null}

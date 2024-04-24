@@ -10,9 +10,11 @@ interface IObject {
 
 interface IJobTitle {
     jobTitleList: IObject[];
+    searchList: IObject[];
     oneJobTitle: IObject;
     setJobTitle: (e: ChangeEvent<HTMLInputElement>) => void;
     getJobTitleList: () => void;
+    setSearchList: (searchState: IObject[]) => void;
     postJobTitle: (postState: { title: string }) => void;
     deleteJobTitle: (id: number) => void;
 }
@@ -22,6 +24,7 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
     oneJobTitle: {
         title: "",
     },
+    searchList: [],
     setJobTitle: (e) => {
         set((prevState) => ({
             oneJobTitle: {
@@ -33,10 +36,14 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
     getJobTitleList: async () => {
         try {
             const response = await axios.get(`${BASE_URL}/company/list_job-title/?limit=12&offset=0`);
-            set({ jobTitleList: response.data.results });
+            set({ jobTitleList: response.data });
+            set({ searchList: response.data });
         } catch (error) {
             console.log(error, "getJobTitleError");
         }
+    },
+    setSearchList: (searchState) => {
+        set({ searchList: searchState });
     },
     postJobTitle: async (postState) => {
         try {
@@ -57,7 +64,7 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
     },
     deleteJobTitle: async (id) => {
         try {
-            const deleteResponse = await axios.delete(`${BASE_URL}/company/destroy_job-title/${id}/`);
+            const deleteResponse = await axios.delete(`${BASE_URL}/company/delete_job-title/${id}/`);
             const oldList = get().jobTitleList;
             oldList.map((card, i) => {
                 if (card.id === id) {

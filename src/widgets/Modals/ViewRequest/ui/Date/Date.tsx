@@ -1,5 +1,4 @@
 import styles from "./Date.module.scss";
-import "../Style.scss";
 import { FC } from "react";
 import { getOneRequestApi } from "../../api/getOneRequestApi";
 

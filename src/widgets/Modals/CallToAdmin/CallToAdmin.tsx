@@ -9,19 +9,19 @@ export const CallToAdmin: FC<ICallToAdminModal> = (props) => {
     const [contacts, setContacts] = useState({
         email: "",
         phone_number: "",
-        whatsapp_number: ""
-    })
-    const getContacts = async() =>{
+        whatsapp_number: "",
+    });
+    const getContacts = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}users/admin_contacts_list/`)
-            setContacts(response.data.results)
+            const response = await axios.get(`${BASE_URL}users/admin_contacts_list/`);
+            setContacts(response.data.results);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
     useEffect(() => {
-        getContacts()
-    }, [])
+        getContacts();
+    }, []);
     const { setModal } = props;
     return (
         <div className={styles.CallToAdmin}>
