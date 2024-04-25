@@ -17,7 +17,6 @@ export const NotifButton: FC = () => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            console.log(response);
             response.data.map((el: { is_read: boolean }) => {
                 if (el.is_read === false) {
                     setCount((prev) => prev + 1);

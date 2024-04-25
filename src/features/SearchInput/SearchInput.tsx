@@ -1,14 +1,14 @@
 import styles from "./SearchInput.module.scss";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC } from "react";
 import { CloseSquare, SearchNormal1 } from "iconsax-react";
+ interface input {
+inputState?: string;
+change?:(e: ChangeEvent<HTMLInputElement>) => void;
+click?: () => void;
+ }
 
-export const SearchInput: FC = () => {
-    const [state, setState] = useState<boolean>(false);
-    const [inputState, setInputState] = useState<string>("");
-    const change = (e: ChangeEvent<HTMLInputElement>) => {
-        setState(true);
-        setInputState(e.target.value);
-    };
+export const SearchInput: FC<input> = ({inputState, change, click}) => {
+    
     return (
         <div className={styles.Search}>
             <SearchNormal1
@@ -24,12 +24,9 @@ export const SearchInput: FC = () => {
                 variant="Bold"
                 color="#3B3B3B"
                 size={24}
-                style={{ display: state ? "block" : "none" }}
+                style={{ display: inputState ? "block" : "none" }}
                 className={styles.Close}
-                onClick={() => {
-                    setState(false);
-                    setInputState("");
-                }}
+                onClick={click}
             />
         </div>
     );

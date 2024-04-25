@@ -1,6 +1,5 @@
 .CreateCompany {
     width: 660px;
-    height: 539px;
     box-sizing: border-box;
     border-radius: 8px;
     background-color: white;
@@ -67,6 +66,41 @@
             border-radius: 8px;
             margin-left: 50px;
 
+        }
+        
+    }
+    .addedManeger{
+        .searchInput{
+            height: 56px;
+            border: none;
+            border-radius: 8px;
+            width: 488px;
+            background-color: #F4F4F4;
+            padding: 8px 16px;
+            box-sizing: border-box;
+            font-size: 18px;
+            font-weight: 700;
+            &:active{
+                border: none;
+            }
+        }
+
+    }
+    .allManagers{
+        width: 488px;
+        margin: 0;
+        box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.084);
+        border-radius: 8px;
+        padding: 0 16px;
+        background-color: #F4F4F4;
+        box-sizing: border-box;
+        max-height: 132px;
+        .manager{                   
+            font-size: 18px;
+            font-weight: 500;
+            height: 44px;
+            padding: 8px;
+            box-sizing: border-box;
         }
     }
     .hintAdd{

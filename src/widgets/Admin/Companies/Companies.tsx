@@ -4,26 +4,31 @@ import { ButtonCreate } from "../../../shared/ui/ButtonCreate/ButtonCreate";
 import styles from "./Companies.module.scss";
 import { CreateCompany } from "../..";
 import {  useDataStoreComponies } from "./api/componiesApi";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { ListTopName, ListTop, ItemInner } from "../../../shared/ui";
 import { ChangeCompany } from "../../Modals/ChangeCompany/ChangeCompany";
 import { useCompany } from "../../../shared/hooks/modalHooks";
+import { SccessfullyModal } from "../../Modals/SccessfullyModal/SccessfullyModal";
 
 export const Companies: FC = () => {
     const modal = useCompany();
-    const { users, fetchDatas, getUsers, data, selectedIdCompany, openModalView, closeModalView, modalViewCompany } = useDataStoreComponies();
-
-    
+    const {  fetchDatas, getUsers, data, selectedIdCompany, openModalView, closeModalView, modalViewCompany } = useDataStoreComponies();
+    const [modalScc, setModalScc] = useState<string>('none');
+    const closeModal = () => {
+        setModalScc('none');
+    };
+    const openModal = () => {
+        setModalScc('block');
+        console.log(modalScc);
+        
+    }
 
     useEffect(() => {
         getUsers();
         fetchDatas();
     }, [getUsers, fetchDatas]);
 
-    const managerName = (id: number) => {
-        const manager = users.find((user) => user.id === id);
-        return manager ? manager.first_name : '';
-    }
+    
 
     return (
         <div className={styles.Companies}>
@@ -51,29 +56,34 @@ export const Companies: FC = () => {
                             <li className={styles.datas} onClick={() => {
                                 selectedIdCompany(dataCompany.id);
                                 openModalView();
+                                
                             }} key={dataCompany.id}>
                                 <ItemInner width={modalViewCompany ? 160 : 206} content={dataCompany.name} />
                                 <ItemInner width={modalViewCompany ? 160 : 210} content={dataCompany.country} />
                                 <ItemInner width={modalViewCompany ? 160 : 306} content={dataCompany.count_users} />
                                 <ItemInner width={modalViewCompany ? 160 : 286} content={dataCompany.count_applications} />
-                                <div className={styles.managerName} style={{ width: `${modalViewCompany ? '160px' : '208px'}`}}>
-                                    {managerName(dataCompany.main_manager)}
+                                <div className={styles.managerName} style={{ width: `${modalViewCompany ? '160px' : '225px'}`}}>
+                                    {dataCompany.main_manager}
                                 </div>
-                                <ItemInner width={modalViewCompany ? 160 : 206} content={dataCompany.created_at} />
-                                <ItemInner width={modalViewCompany ? 160 : 296} content={dataCompany.last_updated_at} />
+                                <ItemInner width={modalViewCompany ? 160 : 230} content={dataCompany.created_at} />
+                                <ItemInner width={modalViewCompany ? 160 : 310} content={dataCompany.last_updated_at} />
                             </li>
                         ))}
                     </ul>
                 </div>
                 <ChangeCompany />               
             </div>
+            {modalScc === 'block' ? <SccessfullyModal closeModal={closeModal} modalScc={modalScc} texts='Успешно'/> : null}
+
             <Modal
                 centered
                 width={700}
                 open={modal.isOpen}
-                onCancel={modal.close}
+                onCancel={() => {
+                    modal.close();
+                }}
             >
-                <CreateCompany />
+                <CreateCompany  openModals={openModal}/>
             </Modal>
         </div>
     );

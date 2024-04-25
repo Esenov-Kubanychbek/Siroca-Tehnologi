@@ -6,8 +6,11 @@ import { IUserGet } from "../../../shared/types/userTypes"
 import { CustomButton } from "../../../shared/ui"
 import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies"
 import { useAddManager } from "../../../shared/hooks/modalHooks"
-
-export const AddManager: FC = () => {
+interface types {
+    type: string,
+    addNewChangeManager?: (id:number) => void,
+}
+export const AddManager: FC<types> = ({type, addNewChangeManager}) => {
     const { users } = useDataStoreComponies();
     const managers = users.filter(array => array.role_type === 'manager');
     const [filteredManager, setFilteredManager] = useState<IUserGet[]>();
@@ -36,14 +39,19 @@ export const AddManager: FC = () => {
     }
 
     const addManagers = () => {
-        console.log(inputValue);
 
         managers?.some((array) => {
             if (inputValue === array.first_name) {
                 if (filteredManager?.length === 1) {
                     setErr(false);
                     filteredManager.map(array => {
+                        if(type === 'created'){
                         addManager(array.id)
+                        }
+                        if(type === 'changes'){
+                            array.id !== undefined && addNewChangeManager!== undefined && addNewChangeManager(array.id)
+                            
+                        }
                     });
                     modal.close();
                     setInputValue('');                    
@@ -57,7 +65,10 @@ export const AddManager: FC = () => {
     }
     return (
         <div className={styles.AddManager}>
-            <CloseSquare className={styles.close} />
+            <CloseSquare className={styles.close} onClick={() => {
+                        modal.close();
+                        setInputValue('')
+                    }}/>
 
             <div className={styles.addContainer}>
                 <p className={styles.head}>Добавить менеджера</p>
@@ -93,6 +104,10 @@ export const AddManager: FC = () => {
                     variant="Secondary"
                     width={150}
                     text="Отмена"
+                    onClick={() => {
+                        modal.close();
+                        setInputValue('')
+                    }}
                 />
                 <CustomButton
                     variant="Primary"

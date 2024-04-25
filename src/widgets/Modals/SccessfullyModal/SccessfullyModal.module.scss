@@ -1,0 +1,22 @@
+.SccessfullyModal{
+    position: absolute;
+    top: -20px;
+    right: 20px;
+    width: 420px;
+    height: 80px;
+    box-sizing: border-box;
+    transition:  0.3s ease;
+    padding: 24px 32px;
+    background-color: #D8ECFF;
+    border-radius: 8px;
+    margin-right: -500px;
+    p{
+        font-size: 20px;
+        font-weight: 700;
+    }
+    div{
+        display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+}

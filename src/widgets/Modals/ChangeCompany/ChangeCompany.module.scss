@@ -41,6 +41,10 @@
         justify-content: flex-end   ;
         
     }
+    .times{
+        display: flex;
+        justify-content: space-between
+    };
     .datasCompany{
         margin-top: -20px;
         width: 508;
@@ -55,9 +59,7 @@
                 display: flex;
                 flex-direction: column;
                 
-                .miniContainer{
-                    margin: 8px 0;
-                }
+                
             }
             .block2{
                 padding-left: 100px;
@@ -73,6 +75,12 @@
                 padding: 8px 16px;
                 margin: 8px 0;
             }
+        }
+    }
+    .miniContainer{
+        margin: 16px 0 0 0 ;
+        p{
+            font-weight: 700;
         }
     }
 }

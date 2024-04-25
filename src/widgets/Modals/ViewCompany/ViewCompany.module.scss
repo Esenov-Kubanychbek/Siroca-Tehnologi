@@ -53,4 +53,68 @@
         justify-content: space-between;
         margin: 30px 40px;
     }
+    .managers{
+        display: flex;
+        width: 476px;
+        justify-content: space-between;
+        padding: 0 16px;
+        background-color: #F4F4F4;
+        box-sizing: border-box;
+        .manager{
+            height: 56px;
+            box-sizing: border-box;
+            font-size: 18px;
+            font-weight: 700;
+        }        
+    }
+    .mainManager{
+        background-color: #F4F4F4;
+        width: 476px;
+        height: 56px;
+        font-size: 18px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        padding: 0 16px;
+        border-radius: 8px;
+    }
+    .addManagers {
+        background-color: #1C6AB1;
+        width: 56px;
+        height: 56px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        margin-left: 50px;
+
+    }
+    .hintAdd{
+        position: fixed;
+        margin-left: 465px;
+    }
+    .hint {
+        width: 184px;
+        height: 60px;
+        background-color: #929292;
+        color: white;
+        box-sizing: border-box;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 8px;
+        text-align: center;
+        margin-top: -80px;
+    }
+    .tre {
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 10px solid #929292;
+        position: relative;
+        left: 90px;
+    }
 }

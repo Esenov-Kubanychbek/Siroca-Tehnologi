@@ -1,37 +1,83 @@
 import { AddSquare, CloseSquare } from "iconsax-react";
 import styles from "./CreateCompany.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
-import { FC, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
 import { useAddManager, useCompany } from "../../../shared/hooks/modalHooks";
 import { Modal } from "antd";
 import { AddManager } from "../AddManager/AddManager";
+import { IUserGet } from "../../../shared/types/userTypes";
 
-export const CreateCompany: FC = () => {
+interface modal {
+    openModals: () => void;
+}
+
+export const CreateCompany: FC<modal> = ({openModals}) => {
     const modal = useCompany();
     const [allData, setAllData] = useState<boolean>(false);
-    const [hovered, setHovered] = useState<boolean>(false)
+    const [hovered, setHovered] = useState<boolean>(false);
+    const [inputValue, setInputValue] = useState<string>('');
+    const [inputValueText, setInputValueText] = useState<string>('')
     const { addCompany, users } = useDataStoreComponies();
-    const { changeInput, resetInput, dataInputCompanies } = useDataInputCompaniesStore();
-    const addManager =  useAddManager();
+    const { changeInput, resetInput, dataInputCompanies, addMainManager } = useDataInputCompaniesStore();
+    const [filteredManager, setFilteredManager] = useState<IUserGet[]>([]);
+    const managers = users.filter(item => item.role_type === 'manager');
+    const [err, setErr] = useState<boolean>(false)
+    const addManager = useAddManager();
 
     const addNewCompany = () => {
-        if (dataInputCompanies.name && dataInputCompanies.company_code && dataInputCompanies.country && dataInputCompanies.managers && dataInputCompanies.domain) {
-
-            addCompany(dataInputCompanies);
-            resetInput();
-            setAllData(false);
-            modal.close();
-            console.log(dataInputCompanies.main_manager);
-
+        if (
+            dataInputCompanies.name &&
+            dataInputCompanies.company_code &&
+            dataInputCompanies.country &&
+            dataInputCompanies.managers &&
+            dataInputCompanies.domain
+        ) {
+            const managerFound = filteredManager?.some((filtered) => {
+                if (filtered.first_name === inputValue) {
+                    addCompany(dataInputCompanies);
+                    resetInput();
+                    setAllData(false);
+                    modal.close();
+                    console.log(dataInputCompanies.main_manager);
+                    setInputValue('');
+                    setErr(false);
+                    setTimeout(() => {
+                        openModals();
+                    }, 300)
+                    return true; // Возвращаем true, чтобы завершить поиск
+                }
+                return false; // Возвращаем false, чтобы продолжить поиск
+            });
+            if (!managerFound) {
+                setErr(true); // Устанавливаем ошибку, если менеджер не найден
+            }
         } else {
             setAllData(true);
             console.log('error');
-
         }
     }
-    const managers = users.filter(item => item.role_type === 'manager');
+    
+    
+    const filterManager = (text: string) => {
+        const filtered = managers.filter(manager => {
+            const inputText = text.toLowerCase();
+            const nameManager = manager.first_name.toLowerCase();
+            return nameManager.startsWith(inputText);
+        });
+        return filtered;
+    };
+
+    const searchManagerChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setInputValue(value);
+        setInputValueText(value);
+        const filter = filterManager(value);
+        setFilteredManager(filter)
+    }
+
+
 
 
     return (
@@ -102,11 +148,18 @@ export const CreateCompany: FC = () => {
                     <br />
 
                     <div className={styles.managers}>
-                        <select className={styles.select} onChange={changeInput} name="main_manager" id="3">
-                            {managers.map((manager) => (
-                                <option key={manager.id} value={manager.id}>{manager.first_name}</option>
-                            ))}
-                        </select>
+                        <div className={styles.addedManeger}>
+                            <input value={inputValue} onChange={searchManagerChange} placeholder="Введите имя пользователя" type="text" className={styles.searchInput} />
+                            <div style={{ display: `${inputValueText ? 'block' : 'none'}` }} className={styles.allManagers}>
+                                {filteredManager.map((manager) => (
+                                    <div onClick={() => {
+                                        addMainManager(manager.id);
+                                        setInputValue(manager.first_name);
+                                        setInputValueText('');
+                                    }} className={styles.manager}>{manager.first_name} </div>
+                                ))}
+                            </div>
+                        </div>
                         <div
                             className={styles.hintAdd}
                             style={{ display: `${hovered ? 'block' : 'none'}` }}
@@ -126,7 +179,9 @@ export const CreateCompany: FC = () => {
                                 color="white"
                                 onMouseEnter={() => setHovered(true)}
                                 onMouseLeave={() => setHovered(false)}
-                                onClick={addManager.open    }
+                                onClick={() => {
+                                    addManager.open();
+                                }}
                             />
                         </div>
                     </div>
@@ -136,6 +191,7 @@ export const CreateCompany: FC = () => {
 
             </div>
             <p style={{ display: `${allData ? 'block' : 'none'}` }}>Все поля должны быть обязательно заполнены*</p>
+            <p style={{ display: `${err ? 'block' : 'none'}` }}>Такого менеджера не существует*</p>
             <div className={styles.buttons}>
                 <div onClick={modal.close}>
                     <CustomButton
@@ -144,7 +200,8 @@ export const CreateCompany: FC = () => {
                         text="Отменить"
                         onClick={() => {
                             resetInput();
-                            setAllData(false)
+                            setAllData(false);
+                            setErr(false)
                         }}
                     />
                 </div>
@@ -158,14 +215,13 @@ export const CreateCompany: FC = () => {
                     />
                 </div>
             </div>
-
             <Modal
                 open={addManager.isOpen}
                 onCancel={addManager.close}
                 width={500}
                 centered
             >
-                <AddManager/>
+                <AddManager type='created'/>
             </Modal>
 
         </div>

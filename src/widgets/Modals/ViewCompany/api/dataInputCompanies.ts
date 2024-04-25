@@ -1,6 +1,4 @@
 import create from 'zustand';
-import { dataCompanies } from '../../../Admin/Companies/api/componiesApi';
-import axios from 'axios';
 
 // Добавляем объявление Symbol.iterator для типа number | undefined[]
 declare global {
@@ -9,13 +7,18 @@ declare global {
     }
 }
 // Модифицированный интерфейс DataAddCompanies
-interface DataAddCompanies {
+export interface DataAddCompanies {
+    id?:number,
     name: string;
     company_code: string;
     country: string;
     managers: (number | undefined)[];
-    main_manager: number | null;
+    main_manager: number;
     domain: string;
+    count_users?: number;
+    count_applications?: number;
+    created_at?: string;
+    last_updated_at?: string;
 }
 
 interface DataInputCompaniesStore {
@@ -23,7 +26,8 @@ interface DataInputCompaniesStore {
     resetInput: () => void;
     dataInputCompanies: DataAddCompanies;
     addManager: (manager: number | undefined)=> void;
-    changeInputOne: (data: DataAddCompanies, state: dataCompanies | null, id: number | undefined) => void;
+    addMainManager: (manager: number | undefined)=> void;
+
 }
 // Создаем хранилище Zustand
 export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) => ({
@@ -32,7 +36,7 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
         company_code: "",
         country: "",
         managers: [],
-        main_manager: null,
+        main_manager: 0,
         domain: ""
     },
     // Функция изменения
@@ -56,6 +60,15 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
             }
         }));
     },
+    addMainManager: (manager) => {
+        set((state) => ({
+            dataInputCompanies: {
+                ...state.dataInputCompanies,
+                main_manager: typeof manager === 'number' && !isNaN(manager) ? manager : state.dataInputCompanies.main_manager
+
+            }
+        }));
+    },
     // Новая функция сброса
     resetInput: () => {
         set({
@@ -64,38 +77,11 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
                 company_code: "",
                 country: "",
                 managers: [],
-                main_manager: null,
+                main_manager: 0,
                 domain: ""
             }
         });
 
-    },
-    changeInputOne: async (data, state, id) =>  {
-        
-        if(state !== null){
-            const datas = {
-                id:id,
-                name: data.name ? data.name : state.name,
-                company_code: data.company_code ? data.company_code : state.company_code,
-                country: data.country ? data.country : state.country,
-                main_manager: data.main_manager ? data.main_manager : state.main_manager,
-                domain:  data.domain ? data.domain : state.domain,
-                managers: [...state.managers, ...data.managers],
-            }
-           try{
-            const response = await axios.put(`http://13.60.17.217:80/api/v1/company/${id}/`, datas);
-            console.log(response);
-            return response;            
-            
-           }catch(error){
-            console.log(error);
-            
-           }
-           console.log(id);
-           
-           console.log(datas);         
-        }
-        
-        
-    },
+    }
+    
 }));

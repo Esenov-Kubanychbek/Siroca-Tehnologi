@@ -2,14 +2,16 @@ import { create } from 'zustand';
 import axios from 'axios';
 import { Data } from 'iconsax-react';
 import { IUserGet } from '../../../../shared/types/userTypes';
+import { DataAddCompanies } from '../../../Modals/ViewCompany/api/dataInputCompanies';
+import { ChangeEvent } from 'react';
 
 export interface dataAddCompanies {
     name: string,
     company_code: string,
     country: string,
     managers: (number | undefined)[],
-    main_manager:  number | null,
-    domain: string  
+    main_manager: number | null,
+    domain: string
 }
 export interface userCompany {
     first_name: string,
@@ -23,8 +25,8 @@ export interface dataCompanies {
     name: string,
     company_code: string,
     country: string,
-    created_at:string | null| string,
-    main_manager:number,
+    created_at: string | null | string,
+    main_manager: number,
     managers: (number | undefined)[],
     domain: string,
     last_updated_at: string,
@@ -37,27 +39,28 @@ interface Data {
 interface DataStore extends Data {
     fetchDatas: () => Promise<void>;
     addCompany: (company: dataAddCompanies) => Promise<void>;
-    selectedIdCompany: (id: number) => void;
-    selectedCompanyData: dataCompanies | null;
+    selectedIdCompany: (id: number) => Promise<void>;
+    selectedCompanyData: DataAddCompanies;
     deleteCompany: (id: number) => Promise<void>;
     idCompany: number;
     modalViewCompany: boolean;
     openModalView: () => void;
     closeModalView: () => void;
     users: IUserGet[];
-    getUsers:() => Promise<void>;
+    getUsers: () => Promise<void>;
+    changeInputOne: (data: DataAddCompanies, state: DataAddCompanies | null, id: number | undefined, mainManager: number | undefined | false, maangers: (number | undefined)[]) => void;
+    changeInputCompany: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const fetchData = async () => {
     try {
-        const response = await axios.get('http://13.60.17.217:80/api/v1/company/list/', {
+        const response = await axios.get('http://13.51.161.14/api/v1/company/list/', {
             headers: {
                 Authorization: `JWT ${localStorage.getItem("access")}`,
             },
         });
-        console.log(response);
-        
-        return response.data.results    
+
+        return response.data.results
 
     } catch (error) {
         console.error("Ошибка при получении данных:", error);
@@ -69,10 +72,12 @@ const addCompanies = async (datas: dataAddCompanies) => {
     console.log(datas);
 
     try {
-        const response = await axios.post('http://13.60.17.217:80/api/v1/company/create/', datas,
-        {headers: {
-            Authorization: `JWT ${localStorage.getItem('access')}`
-        }});
+        const response = await axios.post('http://13.51.161.14/api/v1/company/create/', datas,
+            {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('access')}`
+                }
+            });
         console.log(response);
 
         return response.data;
@@ -84,7 +89,7 @@ const addCompanies = async (datas: dataAddCompanies) => {
 };
 const deleteCompanies = async (id: number) => {
     try {
-        const response = await axios.delete(`http://13.60.17.217:80/api/v1/company/${id}/`)
+        const response = await axios.delete(`http://13.51.161.14:80/api/v1/company/edit/${id}/`)
         return response
     } catch (error) {
         console.error("Ошибка при удалении компании:", error);
@@ -94,11 +99,22 @@ const deleteCompanies = async (id: number) => {
 
 const getUser = async () => {
     try {
-        const response = await axios.get('http://13.60.17.217:80/api/v1/users/profiles/');
+        const response = await axios.get('http://13.51.161.14/api/v1/users/profiles/');
 
         return response.data.results
     } catch (error) {
         console.log(error, "getUserError");
+    }
+}
+
+const selectedId = async (id: number) => {
+    try {
+        const response = await axios.get(`http://13.51.161.14:80/api/v1/company/detail/${id}/`);
+
+        return response.data;
+    } catch (error) {
+        console.log(error);
+
     }
 }
 
@@ -107,14 +123,22 @@ const getUser = async () => {
 const useDataStoreComponies = create<DataStore>((set) => ({
     data: [],
     modalViewCompany: false,
-    selectedCompanyData: null,
+    selectedCompanyData: {
+        name: '',
+        company_code: '',
+        country: '',
+        managers: [],
+        main_manager: 0,
+        domain: '',
+    },
     idCompany: 0,
     users: [],
+
     openModalView: () => {
-        set({modalViewCompany: true})
+        set({ modalViewCompany: true })
     },
     closeModalView: () => {
-        set({modalViewCompany: false})
+        set({ modalViewCompany: false })
     },
     fetchDatas: async () => {
         const datas = await fetchData();
@@ -129,36 +153,75 @@ const useDataStoreComponies = create<DataStore>((set) => ({
             set({ data: newData });
         }
     },
-    selectedIdCompany: (id: number) => {
-        if (id !== null) {
-            set((state) => {
-                let selectedCompany = null;
-                if (id !== null) {
-                    selectedCompany = state.data.find((item) => item.id === id);
-                }
-                console.log(selectedCompany);
+    selectedIdCompany: async (id: number) => {
+        const data = await selectedId(id);
 
-                return {
-                    ...state,
-                    selectedCompanyData: selectedCompany,
-                    idCompany: id,
-                };
-            });
-        }
+        set((state) => {
+
+
+
+            return {
+                ...state,
+                selectedCompanyData: data,
+                idCompany: id,
+            };
+        });
+
     },
     deleteCompany: async (id: number) => {
-         await deleteCompanies(id);
-         const newData = await fetchData();
-            if (newData !== null) {
-                set({ data: newData });
-                console.log(newData);
-                
-            }
+        await deleteCompanies(id);
+        const newData = await fetchData();
+        if (newData !== null) {
+            set({ data: newData });
+            console.log(newData);
+
+        }
     },
     getUsers: async () => {
         const users = await getUser();
-        set({users: users})
-    }
+        set({ users: users })
+    },
+    changeInputCompany: (e) => {
+        const { name, value } = e.target;
+        
+        
+        set((state) => ({
+            ...state, 
+            selectedCompanyData: {
+                ...state.selectedCompanyData, 
+                [name]: value ,
+            }
+        }));
+    },
+    
+    changeInputOne: async (data, state, id, mainManager, managers) => {
+
+        if (state !== null) {
+            const datas = {
+                id: id,
+                name: data.name ? data.name : state.name,
+                company_code: data.company_code ? data.company_code : state.company_code,
+                country: data.country ? data.country : state.country,
+                main_manager: Number(mainManager),
+                domain: data.domain ? data.domain : state.domain,
+                managers: managers,
+            }
+            try {
+                const response = await axios.put(`http://13.51.161.14:80/api/v1/company/edit/${id}/`, datas);
+                console.log(response);
+                if (response.data) {
+                    fetchData();
+                }
+
+            } catch (error) {
+                console.log(error);
+
+            }
+
+        }
+
+
+    },
 }));
 
 export { useDataStoreComponies };
