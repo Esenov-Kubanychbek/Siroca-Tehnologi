@@ -6,6 +6,11 @@
     display: flex;
     justify-content: center;
     background-color: $blackde;
+    .noList{
+        margin-top: 30%;
+        font-size: 23px;
+        color: grey;
+    }
     .Container {
         display: flex;
         flex-direction: column;

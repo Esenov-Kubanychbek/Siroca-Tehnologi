@@ -62,6 +62,7 @@
         line-height: normal;
         border: none;
         background: #00000000;
+        z-index: 3;
     }
 
     .topNavActive {
@@ -81,6 +82,8 @@
         border: none;
         background: #00000000;
         border-bottom: 2px solid #1c6ab1;
+        z-index: 3;
+        
     }
 }
 

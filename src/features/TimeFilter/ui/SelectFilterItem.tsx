@@ -7,6 +7,7 @@ interface ISelectItem {
         values: string[];
         type: string;
         pos: number;
+        selected: (string | number | null | boolean)[]
     };
     getSelect: (obj: { selected: string[]; type: string }) => void;
 }
@@ -45,7 +46,10 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
             {el.values && //checking if values is already true
                 el.values.map((elem: string | number | boolean, index) => {
                     const displayedText = String(elem).length > 10 ? String(elem).substring(0, 10) + "..." : elem;
-                    return (
+                    if(el.selected.includes(elem)){
+                        return
+                    }else{
+                       return (
                         <div
                             className={styles.Cont}
                             key={`${el.type}-${index}`}
@@ -64,7 +68,9 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
                                 {displayedText}
                             </label>
                         </div>
-                    );
+                    ); 
+                    }
+                    
                 })}
         </div>
     );

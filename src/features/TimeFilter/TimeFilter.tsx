@@ -279,6 +279,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                                                 </div>
                                             </>
                                         )}
+                                        
                                         {el.isOpen && (
                                             <SelectFilterItem
                                                 getSelect={getSelect}
