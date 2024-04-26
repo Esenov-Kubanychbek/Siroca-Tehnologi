@@ -1,7 +1,7 @@
 import axios from "axios";
 import { create } from "zustand";
 import { IUser, IUserGet } from "../../../../shared/types/userTypes";
-import { BASE_URL } from "../../../../shared/variables/variables";
+import { BASE_URL, authToken } from "../../../../shared/variables/variables";
 
 interface IUserGetDetails {
     count: number;
@@ -50,7 +50,7 @@ export const usersApi = create<IFetch>((set, get) => ({
     },
     getUsersList: async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/users/profiles/?page=1`);
+            const response = await axios.get(`${BASE_URL}/users/profiles/?page=1`, authToken);
             set({ usersGetDetails: response.data });
             set({ usersList: response.data });
         } catch (error) {
