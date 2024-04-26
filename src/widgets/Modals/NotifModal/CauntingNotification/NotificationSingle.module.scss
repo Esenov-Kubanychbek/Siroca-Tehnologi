@@ -31,6 +31,9 @@
             background: #25252566;
         }
         .TimeOnWose {
+            display: flex;
+            align-items: center;
+            gap: 7px;
             color: #252525a6;
             font-size: 14px;
             line-height: 17.61px;
@@ -48,7 +51,6 @@
             line-height: 22.64px;
             font-weight: 500;
             display: flex;
-            flex-direction: column;
             width: 270px;
             .Span {
                 font-weight: 700;

@@ -35,6 +35,7 @@ export const Authorization: FC = () => {
                 } else if (response.data.role_type !== "") {
                     navigate(PATHS.main);
                 }
+                
             } else {
                 setErr(true);
             }

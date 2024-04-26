@@ -1,13 +1,16 @@
 import styles from "./NotifModal.module.scss";
 import { NewNotification } from "../..";
 import { CloseSquare } from "iconsax-react";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../shared/variables/variables";
 import { INotifModal } from "./types/types";
+import { getRequestApi } from "../../RequestList/api/getRequestApi";
 
 export const NotifModal: FC<INotifModal> = (props) => {
+    const [isHave, setIsHave] = useState<boolean>()
     const { setModal } = props;
+    const { now } = getRequestApi()
     const setTrue = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/notifications/true/`, {
@@ -21,19 +24,38 @@ export const NotifModal: FC<INotifModal> = (props) => {
             console.log(error);
         }
     };
-
-    const clearNotification = async () => {
+    const isHaveNotif = async () => {
         try {
-            const response = await axios.delete(`${BASE_URL}/applications/notifications/`, {
+            const response = await axios.get(`${BASE_URL}/applications/notifications/?page=${now}`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
+            });
+            if (response.data[0]) {
+                setIsHave(true)
+            } else {
+                setIsHave(false)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const clearNotification = async () => {
+        try {
+            const response = await axios.delete(`${BASE_URL}/applications/notifications/delete/all/`, {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                }
             });
             console.log(response);
         } catch (error) {
             console.log(error);
         }
     };
+
+    useEffect(() => {
+        isHaveNotif()
+    }, [])
     return (
         <div className={styles.NotifModal}>
             <div className={styles.Container}>
@@ -54,10 +76,11 @@ export const NotifModal: FC<INotifModal> = (props) => {
                     />
                 </div>
                 <div className={styles.ContentBlock}>
-                    <div className={styles.InnerCont}>
+                    {isHave ? <div className={styles.InnerCont}>
                         <NewNotification active={true} />
                         <NewNotification active={false} />
-                    </div>
+                    </div> : <p className={styles.noList}>Список пуст!</p>}
+
                 </div>
             </div>
         </div>

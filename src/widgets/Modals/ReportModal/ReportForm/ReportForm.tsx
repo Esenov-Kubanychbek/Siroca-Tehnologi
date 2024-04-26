@@ -6,6 +6,7 @@ import { usersApi } from "../../../Admin/Users/api/usersApi";
 
 interface ReportFormProps {
     onSub: (formData: FormData) => void;
+    setExcel: (e: null) => void
 }
 
 interface FormData {
@@ -15,7 +16,7 @@ interface FormData {
     end: string;
 }
 
-const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
+const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
     const [openCompany, setOpenCompany] = useState<string>("");
     const [openManeger, setOpenManeger] = useState<string>("");
     const [openBegin, setOpenBegin] = useState<string>("");
@@ -37,6 +38,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
         setOpenManeger("");
         setOpenBegin("");
         setOpenEnd("");
+        setExcel(null)
     };
 
     const submitForm = (e: FormEvent<HTMLFormElement>) => {
@@ -72,6 +74,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
         }
     };
     const addChoosed = (e: ChangeEvent<HTMLInputElement>) => {
+        setOpenCompany("")
         if (!choosedFilters.includes(e.target.id) && e.target.checked === true) {
             setChoosedGilters([...choosedFilters, e.target.id]);
         } else if (!e.target.checked) {
@@ -87,6 +90,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub }) => {
         }
     };
     const addChoosedManager = (e: ChangeEvent<HTMLInputElement>) => {
+        setOpenManeger("")
         if (!choosedFiltersManager.includes(e.target.id)) {
             setChoosedGiltersManager((prev) => [...prev, e.target.id]);
         }

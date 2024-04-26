@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import HeaderSettings from "./ui/header/HeaderSettings";
 import RolesRender from "./ui/itemsRender/RolesItemsRender";
 import styles from "./RolesSettingsPage.module.scss";
@@ -12,7 +12,8 @@ import { IUser } from "../../shared/types/userTypes";
 
 export const RolesSettingsPage: FC = () => {
     const [boxesReg, setBoxesReg] = useState<IUser[]>([]);
-    const [navtype, setNavtype] = useState<string>("client");
+    const [navtype, setNavtype] = useState<string>("Клиент");
+    const [users, setUsers] = useState<IUser[]>([])
     const headerSettingsList: string[] = [
         "Добавление/удаление комментария к заявке",
         "Скачивание отчета по заявкам",
@@ -54,9 +55,6 @@ export const RolesSettingsPage: FC = () => {
         ],
     ];
     const fetchData = usersApi();
-    useEffect(() => {
-        fetchData.getUsersList();
-    }, []);
 
     const navigate = useNavigate();
 
@@ -122,9 +120,23 @@ export const RolesSettingsPage: FC = () => {
 
     //just nav to client ot manager
     const changeNav = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const id = (e.target as HTMLButtonElement).id;
+        const id = (e.target as HTMLButtonElement).innerText;
         setNavtype(id);
     };
+    const onSearch = (event: ChangeEvent<HTMLInputElement>) => {
+        const filterUsers = fetchData.usersList.filter((el) => {
+            if(el.username.includes(event.target.value)){
+                return el
+            }
+        })
+        setUsers(filterUsers)
+    }
+    useEffect(() => {
+        fetchData.getUsersList();
+    }, []);
+    useEffect(() => {
+        setUsers(fetchData.usersList)
+    }, [fetchData.usersList])
     return (
         <div className={styles.Settings}>
             <div
@@ -150,7 +162,7 @@ export const RolesSettingsPage: FC = () => {
                         </div>
 
                         <div className={styles.Search}>
-                            <SearchInput />
+                            <SearchInput onChange={(event) => {onSearch(event)}}/>
                             <button
                                 onClick={saveRoles}
                                 className={styles.Save}
@@ -163,14 +175,14 @@ export const RolesSettingsPage: FC = () => {
                         <button
                             onClick={changeNav}
                             id="client"
-                            className={navtype === "client" ? styles.topNavActive : styles.topNavAnActive}
+                            className={navtype === "Клиент" ? styles.topNavActive : styles.topNavAnActive}
                         >
                             Клиент
                         </button>
                         <button
                             onClick={changeNav}
                             id="manager"
-                            className={navtype === "manager" ? styles.topNavActive : styles.topNavAnActive}
+                            className={navtype === "Менеджер" ? styles.topNavActive : styles.topNavAnActive}
                         >
                             Менеджер
                         </button>
@@ -178,11 +190,11 @@ export const RolesSettingsPage: FC = () => {
                 </div>
                 <HeaderSettings
                     name="Имя пользователя"
-                    list={navtype === "client" ? headerSettingsList : headerSettingsListManager}
+                    list={navtype === "Клиент" ? headerSettingsList : headerSettingsListManager}
                 />
                 <RolesRender
-                    users={fetchData.usersList ? fetchData.usersList : []}
-                    list={navtype === "client" ? renderSettingsList[0] : renderSettingsList[1]}
+                    users={users ? users : []}
+                    list={navtype === "Клиент" ? renderSettingsList[0] : renderSettingsList[1]}
                     getChanges={(e: IUser[]) => setBoxesReg(e)}
                     navType={navtype}
                 />
