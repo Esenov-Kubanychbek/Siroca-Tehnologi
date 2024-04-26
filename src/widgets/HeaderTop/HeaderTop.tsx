@@ -1,16 +1,12 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styles from "./HeaderTop.module.scss";
-import { LoginButton, NotifButton, ProfileButton, StatusNumber } from "../../features";
-// import { IRoles, idRoles } from "../../pages/MainPage/api/idRoles";
+import { LoginButton, ProfileButton, StatusNumber } from "../../features";
+import { NotifButton } from "./ui/NotifButton/NotifButton";
+import { Popover } from "antd";
+import { NotifModal } from "../Modals/NotifModal/NotifModal";
 
 export const HeaderTop: FC<{ role: string | null }> = ({ role }) => {
-    // const [allRoles, setAllRoles] = useState<IRoles | null>()
-    // const getRoles = idRoles()
-
-    // useEffect(() => {
-    //     setAllRoles(getRoles.rolesState)
-    // }, [getRoles.rolesState])
-
+    const [notifOpen, setNotifOpen] = useState<boolean>(false)
     return (
         <div className={styles.HeaderTop}>
             <div
@@ -22,7 +18,19 @@ export const HeaderTop: FC<{ role: string | null }> = ({ role }) => {
                     <StatusNumber />
                 </div>
                 <div className={styles.DataProfile}>
-                    <NotifButton />
+                    <Popover
+                        placement="bottomRight"
+                        content={<NotifModal setClose={setNotifOpen}/>}
+                        trigger={"click"}
+                        open={notifOpen}
+                        onOpenChange={() => {
+                            setNotifOpen(!notifOpen)
+                        }}
+                    >
+                       <>
+                       <NotifButton /> 
+                       </>
+                    </Popover>
                     <ProfileButton />
                     {role === "admin" ? null : <LoginButton variant="Primary" />}
                 </div>
