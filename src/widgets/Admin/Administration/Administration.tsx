@@ -1,4 +1,5 @@
-import { AdminNavigate, NotifButton, ProfileButton } from "../../../features";
+import { AdminNavigate, ProfileButton } from "../../../features";
+import { NotifButton } from "../../HeaderTop/ui/NotifButton/NotifButton";
 import styles from "./Administration.module.scss";
 import { FC } from "react";
 

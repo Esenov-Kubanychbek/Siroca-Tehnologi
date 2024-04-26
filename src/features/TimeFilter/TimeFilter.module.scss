@@ -146,6 +146,8 @@
             .SelInput {
                 display: flex;
                 align-items: center;
+                padding: 7px 10px;
+                max-width: 120px;
                 gap: 16px;
                 color: var(---700, #3b3b3b);
                 font-size: 16px;
@@ -153,7 +155,11 @@
                 font-weight: 500;
                 line-height: normal;
                 background: white;
-                border: none;
+                border: 1px solid grey;
+                border-radius: 8px;
+            }
+            .SelInput:focus{
+                outline: none;
             }
 
             .Icn {

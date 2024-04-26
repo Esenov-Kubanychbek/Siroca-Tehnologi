@@ -5,6 +5,7 @@ interface ISelectItem {
     el: {
         text: string;
         values: string[];
+        prevValues: string[];
         type: string;
         pos: number;
         selected: (string | number | null | boolean)[]
@@ -46,7 +47,7 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
             {el.values && //checking if values is already true
                 el.values.map((elem: string | number | boolean, index) => {
                     const displayedText = String(elem).length > 10 ? String(elem).substring(0, 10) + "..." : elem;
-                    if(el.selected.includes(elem)){
+                    if(el.selected.includes(elem) || elem === "null" || elem === "undefined"){
                         return
                     }else{
                        return (

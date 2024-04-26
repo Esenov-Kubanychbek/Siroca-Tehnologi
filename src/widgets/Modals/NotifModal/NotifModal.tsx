@@ -4,12 +4,10 @@ import { CloseSquare } from "iconsax-react";
 import { FC, useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../shared/variables/variables";
-import { INotifModal } from "./types/types";
 import { getRequestApi } from "../../RequestList/api/getRequestApi";
 
-export const NotifModal: FC<INotifModal> = (props) => {
+export const NotifModal: FC<{setClose: (bul: boolean) => void}> = ({setClose}) => {
     const [isHave, setIsHave] = useState<boolean>()
-    const { setModal } = props;
     const { now } = getRequestApi()
     const setTrue = async () => {
         try {
@@ -18,7 +16,6 @@ export const NotifModal: FC<INotifModal> = (props) => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            setModal(false);
             console.log(response);
         } catch (error) {
             console.log(error);
@@ -72,6 +69,7 @@ export const NotifModal: FC<INotifModal> = (props) => {
                         size={34}
                         onClick={() => {
                             setTrue();
+                            setClose(false)
                         }}
                     />
                 </div>
