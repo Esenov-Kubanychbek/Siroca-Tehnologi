@@ -10,11 +10,13 @@
 }
 
 .Log {
+    font-size: 18px;
+    font-weight: 500;
+    color: $black3b;
     width: 548px;
-    height: 24px;
-    display: flex;
     padding: 16px;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     border: 1px solid $blackde;
-    justify-content: space-between;
 }

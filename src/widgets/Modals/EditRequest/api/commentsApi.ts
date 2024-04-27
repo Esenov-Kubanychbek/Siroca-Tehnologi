@@ -1,6 +1,7 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL } from "../../../../shared/variables/variables";
+import { BASE_URL, authToken } from "../../../../shared/variables/variables";
+import { ChangeEvent } from "react";
 
 export interface IComments {
     text: string;
@@ -9,18 +10,28 @@ export interface IComments {
 }
 
 interface IFetch {
+    commentState: IComments;
+    commentChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
     postComment: (comment: IComments) => void;
 }
 
-export const commentsApi = create<IFetch>(() => ({
+export const commentsApi = create<IFetch>((set) => ({
+    commentState: {
+        text: "",
+        application: 0,
+    },
+    commentChange: (e) => {
+        set((prevState) => ({
+            commentState: {
+                ...prevState.commentState,
+                [e.target.name]: e.target.value,
+            },
+        }));
+    },
     postComment: async (comment) => {
         try {
-            const postResponse = await axios.post(`${BASE_URL}/applications/comments/`, comment, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
-            console.log(postResponse);
+            const postResponse = await axios.post(`${BASE_URL}/applications/comments/`, comment, authToken);
+            console.log(postResponse, "postCommentSuccess");
         } catch (error) {
             console.log(error, "postCommentsError");
         }

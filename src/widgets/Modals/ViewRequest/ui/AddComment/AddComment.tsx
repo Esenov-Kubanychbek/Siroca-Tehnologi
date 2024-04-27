@@ -70,9 +70,7 @@ export const AddComment: FC = () => {
                 </div>
             );
         } else {
-            return (
-                <p style={{ fontSize: "20px", color: "red" }}>У вас нет таких прав, обратитесь к администратору! </p>
-            );
+            return null;
         }
     };
 

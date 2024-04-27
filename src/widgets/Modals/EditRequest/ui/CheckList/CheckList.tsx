@@ -6,43 +6,51 @@ import { ICheckList, checkListApi } from "../../api/checkListApi";
 import { idRoles } from "../../../../../pages/MainPage/api/idRoles";
 import { createRequestApi } from "../../../CreateRequest/api/createRequestApi";
 import { CloseSquare, TickSquare } from "iconsax-react";
+import { usersRoleTypeApi } from "../../api/usersRoleTypeApi";
 
 export const CheckList: FC = () => {
-    const data: number[] = [1, 2, 3, 4];
+    const fetchRoleType = usersRoleTypeApi();
     const fetchCheckList = checkListApi();
     const fetchRequest = createRequestApi();
-
     const [checkValue, setCheckValue] = useState<ICheckList>({
         text: "",
         completed: false,
         deadline: "2008-12-12",
-        application: fetchRequest.id,
-        manager: null,
+        application: fetchRequest.oneRequest.id,
+        manager: fetchRoleType.managersList[0],
     });
-
-    const checkListValue = (e: ChangeEvent<HTMLButtonElement | HTMLInputElement | HTMLSelectElement>) => {
+    const changeChecked = () => {
+        setCheckValue((prevState) => ({
+            ...prevState,
+            completed: !checkValue.completed,
+        }));
+        console.log(checkValue);
+    };
+    const checkListValue = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setCheckValue((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
+            application: fetchRequest.oneRequest.id,
         }));
         e.preventDefault();
         console.log(checkValue);
     };
-
     const postCheck = () => {
-        fetchCheckList.posting({
-            text: checkValue.text,
-            completed: checkValue.completed === "on" && true,
-            deadline: checkValue.deadline,
-            application: fetchRequest.id,
-            manager: checkValue.manager,
-        });
-        console.log(checkValue, "postCheck");
+        if (checkValue.text !== "") {
+            fetchCheckList.posting(checkValue);
+            setCheckValue({
+                text: "",
+                completed: false,
+                deadline: "2008-12-12",
+                application: 0,
+                manager: fetchRoleType.managersList[0],
+            });
+        } else {
+            console.log("checkListTrimError");
+        }
     };
-
     const roles = idRoles();
     const role_type = localStorage.getItem("role_type");
-
     const render = () => {
         if (roles.formatedState && role_type === "client" && roles.formatedState.client_can_add_checklist_extra) {
             return (
@@ -61,14 +69,23 @@ export const CheckList: FC = () => {
                                 width={553}
                                 placeholder="Подзадача..."
                                 height={44}
+                                value={checkValue.text}
                                 paddingLeft={52}
                                 change={checkListValue}
                             />
-                            <input
-                                type="checkbox"
-                                name="completed"
-                                onChange={checkListValue}
-                            />
+                            {checkValue.completed ? (
+                                <TickSquare
+                                    variant="Bold"
+                                    color="#1C6AB1"
+                                    onClick={changeChecked}
+                                    className={styles.Checked}
+                                />
+                            ) : (
+                                <div
+                                    onClick={changeChecked}
+                                    className={styles.NotChecked}
+                                />
+                            )}
                         </div>
                         <div className={styles.CheckDesc}>
                             <CustomButton
@@ -83,7 +100,7 @@ export const CheckList: FC = () => {
                                 change={checkListValue}
                                 name="manager"
                                 text="Назначить..."
-                                dataOption={data}
+                                dataOption={fetchRoleType.managersList}
                                 width={330}
                             />
                             <input
@@ -108,18 +125,26 @@ export const CheckList: FC = () => {
                     </div>
                     <div className={styles.InputEnter}>
                         <div className={styles.InputRelative}>
-                            <input
-                                type="checkbox"
-                                name="completed"
-                                className={styles.CheckAbsolute}
-                                onChange={checkListValue}
-                            />
+                            {checkValue.completed ? (
+                                <TickSquare
+                                    variant="Bold"
+                                    color="#1C6AB1"
+                                    onClick={changeChecked}
+                                    className={styles.Checked}
+                                />
+                            ) : (
+                                <div
+                                    onClick={changeChecked}
+                                    className={styles.NotChecked}
+                                />
+                            )}
                             <CustomInput
                                 name="text"
                                 width={553}
                                 placeholder="Подзадача..."
                                 height={44}
                                 paddingLeft={52}
+                                value={checkValue.text}
                                 change={checkListValue}
                             />
                             <CloseSquare
@@ -140,7 +165,7 @@ export const CheckList: FC = () => {
                                 change={checkListValue}
                                 name="manager"
                                 text="Назначить..."
-                                dataOption={data}
+                                dataOption={fetchRoleType.managersList}
                                 width={330}
                             />
                             <input
@@ -154,9 +179,7 @@ export const CheckList: FC = () => {
                 </div>
             );
         } else {
-            return (
-                <p style={{ fontSize: "20px", color: "red" }}>У вас нет таких прав, обратитесь к администратору! </p>
-            );
+            return null;
         }
     };
 

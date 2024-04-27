@@ -1,9 +1,23 @@
+@import "index.scss";
+
 .Description {
     position: relative;
-    width: 580px;
+    width: 560px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $blackf4;
+    padding: 10px;
     .Icon {
         position: absolute;
         top: 55px;
         right: 24px;
+    }
+    img {
+        width: 176px;
+        height: 176px;
+        border-radius: 8px;
     }
 }

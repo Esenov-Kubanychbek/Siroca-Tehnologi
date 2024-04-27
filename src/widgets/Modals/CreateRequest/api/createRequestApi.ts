@@ -1,34 +1,41 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL } from "../../../../shared/variables/variables";
+import { BASE_URL, authToken } from "../../../../shared/variables/variables";
+import { ChangeEvent } from "react";
 
 export interface ICreateRequest {
+    id?: number;
     title: string;
     company: string;
+    task_number?: string;
 }
 
 interface IFetch {
-    id: number;
     oneRequest: ICreateRequest;
-    posting: (postState: ICreateRequest) => void;
+    requestChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    postRequest: (postState: ICreateRequest) => void;
 }
 
 export const createRequestApi = create<IFetch>((set) => ({
-    id: 0,
     oneRequest: {
+        id: 0,
         title: "",
         company: "",
+        task_number: "",
     },
-    posting: async (postState) => {
+    requestChange: (e) => {
+        set((prevState) => ({
+            oneRequest: {
+                ...prevState.oneRequest,
+                [e.target.name]: e.target.value,
+            },
+        }));
+    },
+    postRequest: async (postState) => {
         try {
-            const postResponse = await axios.post(`${BASE_URL}/applications/create/`, postState, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
-            set({ oneRequest: postState });
-            set({ id: postResponse.data.id });
-            console.log(postResponse);
+            const response = await axios.post(`${BASE_URL}/applications/create/`, postState, authToken);
+            set({ oneRequest: response.data });
+            console.log(response, "postRequestSuccess");
         } catch (error) {
             console.log(error, "postRequestError");
         }

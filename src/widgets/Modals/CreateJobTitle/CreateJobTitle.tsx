@@ -10,10 +10,10 @@ export const CreateJobTitle: FC<ICreateJobTitleModal> = (props) => {
     const fetchData = jobTitleApi();
     const postTrim = () => {
         if (fetchData.oneJobTitle.title == "") {
-            console.log("write position");
+            console.log("write jobTitle");
         } else {
             fetchData.postJobTitle(fetchData.oneJobTitle);
-            console.log(fetchData.oneJobTitle);
+            fetchData.getJobTitleList();
             setModal(false);
             setModalSuccess(true);
             setTimeout(() => setModalSuccess(false), 1000);

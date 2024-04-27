@@ -23,7 +23,7 @@ export const Dashboard: FC = () => {
                     <TagUser />
                 </DashboardButton>
             </div>
-            {roleType === "admin" ? <LoginButton variant="Secondary" /> : null}
+            <LoginButton variant="Secondary" />
         </div>
     );
 };
