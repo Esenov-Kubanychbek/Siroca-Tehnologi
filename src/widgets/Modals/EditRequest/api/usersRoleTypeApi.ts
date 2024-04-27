@@ -17,7 +17,9 @@ export const usersRoleTypeApi = create<IFetch>((set) => ({
         set({ clientList: clientsName });
     },
     setManagers: (result) => {
-        const managersFiltered = result.filter((manager) => manager.role_type === "manager" || manager.role_type === "");
+        const managersFiltered = result.filter(
+            (manager) => manager.role_type === "manager" || manager.role_type === "",
+        );
         const managersName = managersFiltered.map((manager) => manager.username);
         set({ managersList: managersName });
     },

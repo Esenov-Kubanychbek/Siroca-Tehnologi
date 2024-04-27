@@ -6,6 +6,7 @@ import { BASE_URL } from "../../../../shared/variables/variables";
 import { getRequestApi } from "../../../RequestList/api/getRequestApi";
 
 interface INotification {
+    id: number;
     created_at: string;
     form_id: null | number | string;
     made_change: string;
@@ -65,6 +66,7 @@ export const NewNotification: FC<{ active: boolean }> = ({ active }) => {
                               key={i}
                               active={active}
                               notif={el}
+                              udDate={getNotification}
                           />
                       );
                   })
