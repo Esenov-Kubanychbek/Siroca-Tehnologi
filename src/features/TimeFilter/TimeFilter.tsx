@@ -15,7 +15,7 @@ export interface FilterItem {
     selected: string[];
     text: string;
     type: string;
-    prevValues: string[],
+    prevValues: string[];
     isOpen: boolean;
     values: string[];
     pos: number;
@@ -32,10 +32,26 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         { text: "Номер", type: "task_number", isOpen: false, values: [], prevValues: [], pos: 8, selected: [] },
         { text: "Компания", type: "company", isOpen: false, values: [], prevValues: [], pos: 125, selected: [] },
         { text: "Название", type: "title", isOpen: false, values: [], prevValues: [], pos: 275, selected: [] },
-        { text: "Описание", type: "short_description", isOpen: false, values: [], prevValues: [], pos: 418, selected: [] },
+        {
+            text: "Описание",
+            type: "short_description",
+            isOpen: false,
+            values: [],
+            prevValues: [],
+            pos: 418,
+            selected: [],
+        },
         { text: "Заявитель", type: "main_client", isOpen: false, values: [], prevValues: [], pos: 564, selected: [] },
         { text: "Менеджер", type: "main_manager", isOpen: false, values: [], prevValues: [], pos: 719, selected: [] },
-        { text: "Дата завершения", type: "finish_date", isOpen: false, values: [], prevValues: [], pos: 877, selected: [] },
+        {
+            text: "Дата завершения",
+            type: "finish_date",
+            isOpen: false,
+            values: [],
+            prevValues: [],
+            pos: 877,
+            selected: [],
+        },
         { text: "Дата начала", type: "start_date", isOpen: false, values: [], prevValues: [], pos: 1049, selected: [] },
         { text: "Приоритет", type: "priority", isOpen: false, values: [], prevValues: [], pos: 1222, selected: [] },
         { text: "Статус", type: "status", isOpen: false, values: [], prevValues: [], pos: 1350, selected: [] },
@@ -100,7 +116,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                 return String(elem[id]); // Преобразуем значение в строку
             });
             el.values = vals;
-            el.prevValues = vals
+            el.prevValues = vals;
         });
         setFilterItems(timeState);
     };
@@ -145,7 +161,15 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
     const getSelect = (e: { type: string; selected: string[] }) => {
         closeAllSelect();
         setIsMounted(true);
-        updateFilterItems({ type: e.type, selected: e.selected, pos: 1, isOpen: true, values: [], prevValues: [], text: "" });
+        updateFilterItems({
+            type: e.type,
+            selected: e.selected,
+            pos: 1,
+            isOpen: true,
+            values: [],
+            prevValues: [],
+            text: "",
+        });
     };
 
     //Func to get date input values
@@ -257,7 +281,13 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                                     >
                                         {el.isOpen ? ( //if selector is open we will render input
                                             <>
-                                                <InputSelects setState={setFilterItems} state={filterItems} i={i} placeholder={displayedText} className={styles.SelInput}/>
+                                                <InputSelects
+                                                    setState={setFilterItems}
+                                                    state={filterItems}
+                                                    i={i}
+                                                    placeholder={displayedText}
+                                                    className={styles.SelInput}
+                                                />
                                                 <div
                                                     key={i}
                                                     className={styles.Icn}
@@ -271,7 +301,13 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                                         ) : (
                                             //else just p
                                             <>
-                                                <p  onClick={(e) => openDropDown(e)} id={el.text}  key={el.text}>{displayedText}</p>
+                                                <p
+                                                    onClick={(e) => openDropDown(e)}
+                                                    id={el.text}
+                                                    key={el.text}
+                                                >
+                                                    {displayedText}
+                                                </p>
                                                 <div
                                                     key={`${el.text}-icon`}
                                                     id={el.text}
@@ -282,7 +318,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                                                 </div>
                                             </>
                                         )}
-                                        
+
                                         {el.isOpen && (
                                             <SelectFilterItem
                                                 getSelect={getSelect}

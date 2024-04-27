@@ -26,16 +26,16 @@ export const NotifButton: FC = () => {
         getCounts();
     }, []);
     return (
-            <button
-                aria-label="notif"
-                className={styles.NotifButton}
-            >
-                <Notification
-                    size={34}
-                    variant={"Bold"}
-                    color="#717171"
-                />
-                <div className={styles.NotifNumber}>{count}</div>
-            </button>
+        <button
+            aria-label="notif"
+            className={styles.NotifButton}
+        >
+            <Notification
+                size={34}
+                variant={"Bold"}
+                color="#717171"
+            />
+            <div className={styles.NotifNumber}>{count}</div>
+        </button>
     );
 };

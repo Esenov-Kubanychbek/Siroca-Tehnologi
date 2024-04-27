@@ -1,6 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL } from "../../../../shared/variables/variables";
+import { BASE_URL, authToken } from "../../../../shared/variables/variables";
 import { ChangeEvent } from "react";
 
 interface IObject {
@@ -35,7 +35,7 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
     },
     getJobTitleList: async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/company/list_job-title/?limit=12&offset=0`);
+            const response = await axios.get(`${BASE_URL}/company/list_job-title/?limit=12&offset=0`, authToken);
             set({ jobTitleList: response.data });
             set({ searchList: response.data });
         } catch (error) {
@@ -47,12 +47,8 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
     },
     postJobTitle: async (postState) => {
         try {
-            const postResponse = await axios.post(`${BASE_URL}/company/create_job-title/`, postState);
-            console.log(postResponse);
-            const oldList = get().jobTitleList;
-            set({
-                jobTitleList: [...oldList, postState],
-            });
+            const postResponse = await axios.post(`${BASE_URL}/company/create_job-title/`, postState, authToken);
+            console.log(postResponse, "postJobTitleSuccess");
             set({
                 oneJobTitle: {
                     title: "",
@@ -64,7 +60,7 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
     },
     deleteJobTitle: async (id) => {
         try {
-            const deleteResponse = await axios.delete(`${BASE_URL}/company/delete_job-title/${id}/`);
+            const deleteResponse = await axios.delete(`${BASE_URL}/company/delete_job-title/${id}/`, authToken);
             const oldList = get().jobTitleList;
             oldList.map((card, i) => {
                 if (card.id === id) {
@@ -72,7 +68,7 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
                     set({ jobTitleList: secondList });
                 }
             });
-            console.log(deleteResponse);
+            console.log(deleteResponse, "deleteJobTitleSuccess");
         } catch (error) {
             console.log(error, "deleteJobTitleError");
         }

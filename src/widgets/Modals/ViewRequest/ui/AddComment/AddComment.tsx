@@ -70,7 +70,7 @@ export const AddComment: FC = () => {
                 </div>
             );
         } else {
-            return null
+            return null;
         }
     };
 

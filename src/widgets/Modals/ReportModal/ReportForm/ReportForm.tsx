@@ -6,7 +6,7 @@ import { usersApi } from "../../../Admin/Users/api/usersApi";
 
 interface ReportFormProps {
     onSub: (formData: FormData) => void;
-    setExcel: (e: null) => void
+    setExcel: (e: null) => void;
 }
 
 interface FormData {
@@ -38,7 +38,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
         setOpenManeger("");
         setOpenBegin("");
         setOpenEnd("");
-        setExcel(null)
+        setExcel(null);
     };
 
     const submitForm = (e: FormEvent<HTMLFormElement>) => {
@@ -74,7 +74,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
         }
     };
     const addChoosed = (e: ChangeEvent<HTMLInputElement>) => {
-        setOpenCompany("")
+        setOpenCompany("");
         if (!choosedFilters.includes(e.target.id) && e.target.checked === true) {
             setChoosedGilters([...choosedFilters, e.target.id]);
         } else if (!e.target.checked) {
@@ -90,7 +90,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
         }
     };
     const addChoosedManager = (e: ChangeEvent<HTMLInputElement>) => {
-        setOpenManeger("")
+        setOpenManeger("");
         if (!choosedFiltersManager.includes(e.target.id)) {
             setChoosedGiltersManager((prev) => [...prev, e.target.id]);
         }

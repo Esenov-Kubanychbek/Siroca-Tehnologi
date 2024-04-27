@@ -13,7 +13,7 @@ import { IUser } from "../../shared/types/userTypes";
 export const RolesSettingsPage: FC = () => {
     const [boxesReg, setBoxesReg] = useState<IUser[]>([]);
     const [navtype, setNavtype] = useState<string>("Клиент");
-    const [users, setUsers] = useState<IUser[]>([])
+    const [users, setUsers] = useState<IUser[]>([]);
     const headerSettingsList: string[] = [
         "Добавление/удаление комментария к заявке",
         "Скачивание отчета по заявкам",
@@ -125,18 +125,18 @@ export const RolesSettingsPage: FC = () => {
     };
     const onSearch = (event: ChangeEvent<HTMLInputElement>) => {
         const filterUsers = fetchData.usersList.filter((el) => {
-            if(el.username.includes(event.target.value)){
-                return el
+            if (el.username.includes(event.target.value)) {
+                return el;
             }
-        })
-        setUsers(filterUsers)
-    }
+        });
+        setUsers(filterUsers);
+    };
     useEffect(() => {
         fetchData.getUsersList();
     }, []);
     useEffect(() => {
-        setUsers(fetchData.usersList)
-    }, [fetchData.usersList])
+        setUsers(fetchData.usersList);
+    }, [fetchData.usersList]);
     return (
         <div className={styles.Settings}>
             <div
@@ -162,7 +162,11 @@ export const RolesSettingsPage: FC = () => {
                         </div>
 
                         <div className={styles.Search}>
-                            <SearchInput onChange={(event) => {onSearch(event)}}/>
+                            <SearchInput
+                                onChange={(event) => {
+                                    onSearch(event);
+                                }}
+                            />
                             <button
                                 onClick={saveRoles}
                                 className={styles.Save}

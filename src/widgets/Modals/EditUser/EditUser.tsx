@@ -96,6 +96,7 @@ export const EditUser: FC<IEditUserModal> = (props) => {
                         text="Сбросить пароль"
                         width={272}
                         variant="ColorBlue"
+                        type="button"
                     />
                 </div>
             </div>

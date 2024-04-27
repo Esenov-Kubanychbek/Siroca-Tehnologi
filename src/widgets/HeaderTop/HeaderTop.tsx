@@ -6,7 +6,7 @@ import { Popover } from "antd";
 import { NotifModal } from "../Modals/NotifModal/NotifModal";
 
 export const HeaderTop: FC<{ role: string | null }> = ({ role }) => {
-    const [notifOpen, setNotifOpen] = useState<boolean>(false)
+    const [notifOpen, setNotifOpen] = useState<boolean>(false);
     return (
         <div className={styles.HeaderTop}>
             <div
@@ -20,16 +20,16 @@ export const HeaderTop: FC<{ role: string | null }> = ({ role }) => {
                 <div className={styles.DataProfile}>
                     <Popover
                         placement="bottomRight"
-                        content={<NotifModal setClose={setNotifOpen}/>}
+                        content={<NotifModal setClose={setNotifOpen} />}
                         trigger={"click"}
                         open={notifOpen}
                         onOpenChange={() => {
-                            setNotifOpen(!notifOpen)
+                            setNotifOpen(!notifOpen);
                         }}
                     >
-                       <>
-                       <NotifButton /> 
-                       </>
+                        <>
+                            <NotifButton />
+                        </>
                     </Popover>
                     <ProfileButton />
                     {role === "admin" ? null : <LoginButton variant="Primary" />}

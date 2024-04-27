@@ -15,25 +15,31 @@ interface INotificationSingle {
         text: string;
         title: string;
     };
-    udDate: () => void
+    udDate: () => void;
 }
 
-export const NotificationSingle: FC<INotificationSingle> = ({ active, notif,udDate }) => {
-
+export const NotificationSingle: FC<INotificationSingle> = ({ active, notif, udDate }) => {
     const delNotif = async () => {
         try {
-            await axios.delete(`${BASE_URL}/applications/notifications/delete/${notif.id}/`, authToken)
-            udDate()
+            await axios.delete(`${BASE_URL}/applications/notifications/delete/${notif.id}/`, authToken);
+            udDate();
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     return (
         <div className={styles.NotificationSingle}>
             <div className={styles.HeaderBlockSingle}>
                 <div className={active ? styles.HeaderBlockActive : styles.HeaderBlockAnactive}></div>
-                <p className={styles.TimeOnWose}>{notif.created_at} <CloseSquare onClick={delNotif} size={20} style={{ cursor: "pointer" }} /></p>
+                <p className={styles.TimeOnWose}>
+                    {notif.created_at}{" "}
+                    <CloseSquare
+                        onClick={delNotif}
+                        size={20}
+                        style={{ cursor: "pointer" }}
+                    />
+                </p>
             </div>
             <div className={styles.NotificationContent}>
                 <p className={styles.NumNotification}>

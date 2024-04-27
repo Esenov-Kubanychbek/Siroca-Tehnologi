@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 import { Data } from "iconsax-react";
 import { IUserGet } from "../../../../shared/types/userTypes";
-import { BASE_URL } from "../../../../shared/variables/variables";
+import { BASE_URL, authToken } from "../../../../shared/variables/variables";
 
 export interface dataAddCompanies {
     name: string;
@@ -51,13 +51,8 @@ interface DataStore extends Data {
 
 const fetchData = async () => {
     try {
-        const response = await axios.get(`${BASE_URL}/company/list/?page=1`, {
-            headers: {
-                Authorization: `JWT ${localStorage.getItem("access")}`,
-            },
-        });
+        const response = await axios.get(`${BASE_URL}/company/list/?page=1`, authToken);
         console.log(response);
-
         return response.data;
     } catch (error) {
         console.error("Ошибка при получении данных:", error);
@@ -67,15 +62,9 @@ const fetchData = async () => {
 
 const addCompanies = async (datas: dataAddCompanies) => {
     console.log(datas);
-
     try {
-        const response = await axios.post(`${BASE_URL}/company/create/`, datas, {
-            headers: {
-                Authorization: `JWT ${localStorage.getItem("access")}`,
-            },
-        });
+        const response = await axios.post(`${BASE_URL}/company/create/`, datas, authToken);
         console.log(response);
-
         return response.data;
     } catch (error) {
         console.log(datas);
@@ -85,7 +74,7 @@ const addCompanies = async (datas: dataAddCompanies) => {
 };
 const deleteCompanies = async (id: number) => {
     try {
-        const response = await axios.delete(`${BASE_URL}/company/${id}/`);
+        const response = await axios.delete(`${BASE_URL}/company/${id}/`, authToken);
         return response;
     } catch (error) {
         console.error("Ошибка при удалении компании:", error);
@@ -95,7 +84,7 @@ const deleteCompanies = async (id: number) => {
 
 const getUser = async () => {
     try {
-        const response = await axios.get(`${BASE_URL}/users/profiles/?page=1`);
+        const response = await axios.get(`${BASE_URL}/users/profiles/?page=1`, authToken);
         return response.data;
     } catch (error) {
         console.log(error, "getUserError");

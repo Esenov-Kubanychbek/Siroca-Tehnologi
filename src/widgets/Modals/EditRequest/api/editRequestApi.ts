@@ -1,55 +1,92 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL } from "../../../../shared/variables/variables";
-
-interface ICheckList {
-    text?: string;
-    completed?: boolean;
-    deadline?: string;
-    application?: number | null;
-    manager?: number | null;
-}
-
-interface IComments {
-    text?: string;
-    application?: number | null;
-}
-
-export interface IRequest {
-    checklist?: ICheckList[];
-    comments?: IComments[];
-    task_number?: string;
-    title?: string;
-    description?: string;
-    short_description?: string;
-    files?: string | null;
-    jira?: string;
-    status?: string;
-    payment_state?: string;
-    priority?: string;
-    application_date?: string;
-    confirm_date?: string;
-    offer_date?: string;
-    start_date?: string;
-    finish_date?: string;
-    deadline_date?: string;
-    company?: string;
-    main_client?: string;
-    main_manager?: string;
-}
+import { BASE_URL, authToken } from "../../../../shared/variables/variables";
+import { IRequest } from "../types/types";
+import { ChangeEvent } from "react";
 
 interface IFetch {
-    editRequest: (request: IRequest, id: number) => void;
+    requestState: IRequest;
+    setRequestData: (request: IRequest) => void;
+    requestChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+    requestFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    editRequest: (id: number | undefined) => void;
 }
 
-export const editRequestApi = create<IFetch>(() => ({
-    editRequest: async (request, id) => {
+export const editRequestApi = create<IFetch>((set, get) => ({
+    requestState: {
+        id: 0,
+        title: "",
+        company: "",
+        task_number: "",
+        description: "",
+        short_description: "",
+        jira: "",
+        status: "",
+        payment_state: "",
+        priority: "",
+        application_date: "",
+        confirm_date: "",
+        offer_date: "",
+        start_date: "",
+        finish_date: "",
+        deadline_date: "",
+        main_client: "",
+        main_manager: "",
+    },
+    setRequestData: (request) => {
+        set({
+            requestState: {
+                id: request.id,
+                title: request.title,
+                company: request.company,
+                task_number: request.task_number,
+                description: request.description,
+                short_description: request.short_description,
+                jira: request.jira,
+                files: request.files,
+                status: request.status,
+                payment_state: request.payment_state,
+                priority: request.priority,
+                application_date: request.application_date,
+                confirm_date: request.confirm_date,
+                offer_date: request.offer_date,
+                start_date: request.start_date,
+                finish_date: request.finish_date,
+                deadline_date: request.deadline_date,
+                main_client: request.main_client,
+                main_manager: request.main_manager,
+            },
+        });
+    },
+    requestChange: (e) => {
+        set((prevState) => ({
+            requestState: {
+                ...prevState.requestState,
+                [e.target.name]: e.target.value,
+            },
+        }));
+        const state = get().requestState;
+        console.log(state, "requestState");
+    },
+    requestFileChange: (e: ChangeEvent<HTMLInputElement>) => {
+        set((prevState) => ({
+            requestState: {
+                ...prevState.requestState,
+                files: e.target.files ? e.target.files : null,
+            },
+        }));
+        const state = get().requestState;
+        console.log(state, "requestState");
+    },
+    editRequest: async (id) => {
         try {
-            const editResponse = await axios.put(`${BASE_URL}/applications/form_edit/${id}/`, request, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
+            const state = get().requestState;
+            const formData = new FormData();
+            Object.entries(state).forEach(([key, value]) => {
+                formData.append(key, value as string);
             });
+            console.log(formData);
+            const editResponse = await axios.put(`${BASE_URL}/applications/form_edit/${id}/`, formData, authToken);
             console.log(editResponse, "editRequestSuccess");
         } catch (error) {
             console.log(error, "editRequestError");

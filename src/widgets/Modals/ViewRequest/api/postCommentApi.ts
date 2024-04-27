@@ -1,6 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL } from "../../../../shared/variables/variables";
+import { BASE_URL, authToken } from "../../../../shared/variables/variables";
 
 export interface IComments {
     text: string;
@@ -15,11 +15,7 @@ interface IFetch {
 export const postCommentApi = create<IFetch>(() => ({
     postComment: async (comment) => {
         try {
-            const postResponse = await axios.post(`${BASE_URL}/applications/comments/`, comment, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
+            const postResponse = await axios.post(`${BASE_URL}/applications/comments/`, comment, authToken);
             console.log(postResponse, "postCommentSuccess");
         } catch (error) {
             console.log(error, "postCommentSuccess");

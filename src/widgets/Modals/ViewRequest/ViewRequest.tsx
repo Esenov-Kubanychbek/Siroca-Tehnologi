@@ -35,7 +35,6 @@ export const ViewRequest: FC<IViewRequestModal> = (props) => {
                             content={
                                 <div className={styles.MoreButtons}>
                                     <button className={styles.Button}>Редактировать</button>
-                                    <button className={styles.Button}>Закрыть</button>
                                     <button
                                         className={styles.Button}
                                         onClick={deleteFunc}

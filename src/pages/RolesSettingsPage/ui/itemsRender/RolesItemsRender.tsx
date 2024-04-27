@@ -71,7 +71,7 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType 
 
     const filteredUsersClient = users.filter((el: IUser) => el.role_type === "client"); //filter to client
     const filteredUsersManager = users.filter((el: IUser) => el.role_type === "manager"); //filter to manager
-    
+
     return (
         <div className={styles.Container}>
             {navType === "Клиент"

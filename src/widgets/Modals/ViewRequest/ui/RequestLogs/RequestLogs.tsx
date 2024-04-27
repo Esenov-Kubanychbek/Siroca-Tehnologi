@@ -11,8 +11,8 @@ export const RequestLogs: FC = () => {
                     key={i}
                     className={styles.Log}
                 >
+                    <div>{card.formatted_created_at}</div>
                     <div>{card.text}</div>
-                    <div>{card.task_number}</div>
                 </div>
             ))}
         </div>

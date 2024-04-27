@@ -1,9 +1,11 @@
-import { ChangeEvent, FC } from "react";
+import { FC } from "react";
 import styles from "./LinkJira.module.scss";
 import { CustomInput } from "../../../../../shared/ui";
 import { Link1 } from "iconsax-react";
+import { editRequestApi } from "../../api/editRequestApi";
 
-export const LinkJira: FC<{ onChange: (e: ChangeEvent<HTMLInputElement>) => void }> = ({ onChange }) => {
+export const LinkJira: FC = () => {
+    const { requestState, requestChange } = editRequestApi();
     return (
         <div className={styles.LinkJira}>
             <CustomInput
@@ -12,7 +14,8 @@ export const LinkJira: FC<{ onChange: (e: ChangeEvent<HTMLInputElement>) => void
                 height={44}
                 placeholder="https://"
                 paddingLeft={45}
-                change={onChange}
+                change={requestChange}
+                value={requestState.jira === null ? "" : requestState.jira}
             />
             <Link1
                 className={styles.LinkIcon}

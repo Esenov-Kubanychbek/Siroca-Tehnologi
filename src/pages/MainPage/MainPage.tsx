@@ -2,10 +2,12 @@ import { Dashboard, HeaderBottom, HeaderTop } from "../../widgets";
 import { FC, useEffect } from "react";
 import { idRoles } from "./api/idRoles";
 import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
+import { usersRoleTypeApi } from "../../widgets/Modals/EditRequest/api/usersRoleTypeApi";
 
 export const MainPage: FC = () => {
     const roles = idRoles();
     const fetchUsers = usersApi();
+    const fetchRoleTypes = usersRoleTypeApi();
     const role = localStorage.getItem("role_type");
     const id = localStorage.getItem("id");
     useEffect(() => {
@@ -16,7 +18,12 @@ export const MainPage: FC = () => {
     }, [roles.rolesState, roles.genRolesState]);
     useEffect(() => {
         fetchUsers.getOneUser(Number(id));
+        fetchUsers.getUsersList();
     }, []);
+    useEffect(() => {
+        fetchRoleTypes.setClients(fetchUsers.usersList);
+        fetchRoleTypes.setManagers(fetchUsers.usersList);
+    }, [fetchUsers.usersList]);
 
     const render = () => {
         if (

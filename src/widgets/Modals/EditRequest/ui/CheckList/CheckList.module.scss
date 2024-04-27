@@ -57,6 +57,27 @@
     }
 }
 
+.NotChecked {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 16px;
+    top: 10px;
+    border-radius: 8px;
+    border: 2px solid $blackde;
+}
+
+.Checked {
+    position: absolute;
+    left: 16px;
+    top: 10px;
+    cursor: pointer;
+}
+
 .CheckDesc {
     display: flex;
     justify-content: center;

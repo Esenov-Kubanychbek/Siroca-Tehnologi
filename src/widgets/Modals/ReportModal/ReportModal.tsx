@@ -95,7 +95,10 @@ export const ReportModal: FC<IReportModal> = (props) => {
                 <p>Ведение данных для поиска</p>
             </div>
             <div className={styles.Form}>
-                <ReportForm onSub={subResults} setExcel={setExcel}/>
+                <ReportForm
+                    onSub={subResults}
+                    setExcel={setExcel}
+                />
             </div>
             <div className={styles.Results}>
                 <p>Результаты:</p>
@@ -111,7 +114,9 @@ export const ReportModal: FC<IReportModal> = (props) => {
                                 <FileExcelFilled size={30} />
                             </div>
                             <p className={styles.Name}>
-                                {results?.company[0] ? results?.company.map((el, index) => (index === 1 ? ` ,${el}` : `${el}`)) : "Все заявки"}
+                                {results?.company[0]
+                                    ? results?.company.map((el, index) => (index === 1 ? ` ,${el}` : `${el}`))
+                                    : "Все заявки"}
                             </p>
                         </div>
                         <p className={styles.kb}>{excel.filtered_data_size / 1000} kb</p>

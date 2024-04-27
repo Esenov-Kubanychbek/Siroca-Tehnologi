@@ -59,7 +59,7 @@ export const usersApi = create<IFetch>((set, get) => ({
     },
     setSearchList: async (searchState) => {
         try {
-            const response = await axios.get(`${BASE_URL}/users/profiles/?search=${searchState}`);
+            const response = await axios.get(`${BASE_URL}/users/profiles/?search=${searchState}`, authToken);
             set({ usersList: response.data });
         } catch (error) {
             console.log(error, "getUsersListError");
@@ -67,7 +67,7 @@ export const usersApi = create<IFetch>((set, get) => ({
     },
     getOneUser: async (id) => {
         try {
-            const response = await axios.get(`${BASE_URL}/users/${id}/`);
+            const response = await axios.get(`${BASE_URL}/users/${id}/`, authToken);
             set({ oneUserGet: response.data });
         } catch (error) {
             console.log(error, "getOneUserError");
@@ -75,7 +75,7 @@ export const usersApi = create<IFetch>((set, get) => ({
     },
     postUser: async (user) => {
         try {
-            const response = await axios.post(`${BASE_URL}/users/create/`, user);
+            const response = await axios.post(`${BASE_URL}/users/create/`, user, authToken);
             const oldList = get().usersList;
             set({ usersList: [...oldList, response.data] });
         } catch (error) {

@@ -7,14 +7,14 @@ interface IFilterButton {
 }
 
 export const FilterButton: FC<IFilterButton> = ({ onClick }) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [isOpen, setIsOpen] = useState<boolean>(false);
     return (
         <button
             aria-label="filter"
             className={isOpen ? styles.FilterButtonOpen : styles.FilterButton}
             onClick={() => {
                 onClick();
-                setIsOpen(!isOpen)
+                setIsOpen(!isOpen);
             }}
         >
             <Filter

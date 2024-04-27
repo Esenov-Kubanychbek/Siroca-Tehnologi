@@ -6,9 +6,9 @@ import axios from "axios";
 import { BASE_URL } from "../../../shared/variables/variables";
 import { getRequestApi } from "../../RequestList/api/getRequestApi";
 
-export const NotifModal: FC<{setClose: (bul: boolean) => void}> = ({setClose}) => {
-    const [isHave, setIsHave] = useState<boolean>()
-    const { now } = getRequestApi()
+export const NotifModal: FC<{ setClose: (bul: boolean) => void }> = ({ setClose }) => {
+    const [isHave, setIsHave] = useState<boolean>();
+    const { now } = getRequestApi();
     const setTrue = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/notifications/true/`, {
@@ -29,9 +29,9 @@ export const NotifModal: FC<{setClose: (bul: boolean) => void}> = ({setClose}) =
                 },
             });
             if (response.data[0]) {
-                setIsHave(true)
+                setIsHave(true);
             } else {
-                setIsHave(false)
+                setIsHave(false);
             }
         } catch (error) {
             console.log(error);
@@ -42,7 +42,7 @@ export const NotifModal: FC<{setClose: (bul: boolean) => void}> = ({setClose}) =
             const response = await axios.delete(`${BASE_URL}/applications/notifications/delete/all/`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
-                }
+                },
             });
             console.log(response);
         } catch (error) {
@@ -51,8 +51,8 @@ export const NotifModal: FC<{setClose: (bul: boolean) => void}> = ({setClose}) =
     };
 
     useEffect(() => {
-        isHaveNotif()
-    }, [])
+        isHaveNotif();
+    }, []);
     return (
         <div className={styles.NotifModal}>
             <div className={styles.Container}>
@@ -69,16 +69,19 @@ export const NotifModal: FC<{setClose: (bul: boolean) => void}> = ({setClose}) =
                         size={34}
                         onClick={() => {
                             setTrue();
-                            setClose(false)
+                            setClose(false);
                         }}
                     />
                 </div>
                 <div className={styles.ContentBlock}>
-                    {isHave ? <div className={styles.InnerCont}>
-                        <NewNotification active={true} />
-                        <NewNotification active={false} />
-                    </div> : <p className={styles.noList}>Список пуст!</p>}
-
+                    {isHave ? (
+                        <div className={styles.InnerCont}>
+                            <NewNotification active={true} />
+                            <NewNotification active={false} />
+                        </div>
+                    ) : (
+                        <p className={styles.noList}>Список пуст!</p>
+                    )}
                 </div>
             </div>
         </div>

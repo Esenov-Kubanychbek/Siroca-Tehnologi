@@ -1,7 +1,9 @@
-import { ChangeEvent, FC } from "react";
+import { FC } from "react";
 import { CustomTextArea } from "../../../../../shared/ui";
+import { editRequestApi } from "../../api/editRequestApi";
 
-export const ShortDescription: FC<{ onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void }> = ({ onChange }) => {
+export const ShortDescription: FC = () => {
+    const { requestState, requestChange } = editRequestApi();
     return (
         <CustomTextArea
             name="short_description"
@@ -9,7 +11,8 @@ export const ShortDescription: FC<{ onChange: (e: ChangeEvent<HTMLTextAreaElemen
             height={100}
             width={580}
             variant="TextArea"
-            change={onChange}
+            change={requestChange}
+            value={requestState.short_description === null ? "" : requestState.short_description}
         />
     );
 };

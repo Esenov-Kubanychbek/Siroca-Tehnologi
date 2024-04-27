@@ -8,7 +8,7 @@ interface ISelectItem {
         prevValues: string[];
         type: string;
         pos: number;
-        selected: (string | number | null | boolean)[]
+        selected: (string | number | null | boolean)[];
     };
     getSelect: (obj: { selected: string[]; type: string }) => void;
 }
@@ -47,31 +47,30 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
             {el.values && //checking if values is already true
                 el.values.map((elem: string | number | boolean, index) => {
                     const displayedText = String(elem).length > 10 ? String(elem).substring(0, 10) + "..." : elem;
-                    if(el.selected.includes(elem) || elem === "null" || elem === "undefined"){
-                        return
-                    }else{
-                       return (
-                        <div
-                            className={styles.Cont}
-                            key={`${el.type}-${index}`}
-                        >
-                            <input
-                                type="checkbox"
-                                onClick={addSelect}
-                                className={el.type}
-                                id={`${elem}`}
-                            />
-                            <label
-                                htmlFor={String(elem)}
-                                onClick={addSelect}
-                                className={el.type}
+                    if (el.selected.includes(elem) || elem === "null" || elem === "undefined") {
+                        return;
+                    } else {
+                        return (
+                            <div
+                                className={styles.Cont}
+                                key={`${el.type}-${index}`}
                             >
-                                {displayedText}
-                            </label>
-                        </div>
-                    ); 
+                                <input
+                                    type="checkbox"
+                                    onClick={addSelect}
+                                    className={el.type}
+                                    id={`${elem}`}
+                                />
+                                <label
+                                    htmlFor={String(elem)}
+                                    onClick={addSelect}
+                                    className={el.type}
+                                >
+                                    {displayedText}
+                                </label>
+                            </div>
+                        );
                     }
-                    
                 })}
         </div>
     );

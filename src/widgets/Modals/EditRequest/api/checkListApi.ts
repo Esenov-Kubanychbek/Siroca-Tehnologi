@@ -3,11 +3,11 @@ import { create } from "zustand";
 import { BASE_URL } from "../../../../shared/variables/variables";
 
 export interface ICheckList {
-    text: string;
+    text?: string;
     completed?: boolean | string;
     deadline?: string;
-    application: number | null;
-    manager?: number | null;
+    application?: number | null;
+    manager?: string;
 }
 
 interface IFetch {
