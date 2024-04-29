@@ -81,11 +81,11 @@ export const RolesSettingsPage: FC = () => {
     }, []);
 
     //puting changes
-    const reqRoles = async (data: IUser) => {
+    const reqRoles = async (props: {data: IUser[], role: string}) => {
         try {
-            if (data.role_type === "client") {
+            if (props.role === "client") {
                 const sendingData = {
-                    users_data: [data],
+                    users_data: props.data,
                 };
                 const response = await axios.put(`${BASE_URL}/users/clientpermissions/detail/`, sendingData, {
                     headers: {
@@ -93,17 +93,19 @@ export const RolesSettingsPage: FC = () => {
                     },
                 });
                 console.log(response);
-            } else if (data.role_type === "manager") {
+            } else if (props.role === "manager") {
                 const sendingData = {
-                    users_data: [data],
+                    users_data: props.data,
                 };
+                console.log(sendingData);
+                
                 const response = await axios.put(`${BASE_URL}/users/managerpermissions/detail/`, sendingData, {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,
                     },
                 });
                 console.log(response);
-            } else if (data.role_type === "") {
+            } else if (props.role === "") {
                 return;
             }
         } catch (error) {
@@ -113,10 +115,35 @@ export const RolesSettingsPage: FC = () => {
 
     //on click save im doing put to save all changes
     const saveRoles = () => {
+        const propertiesToDelete: string[] = [
+            'first_name',
+            'image',
+            'created_at',
+            'job_title',
+            'main_company',
+            'surname',
+            'username'
+        ];
+    
+        const managers: IUser[] = [];
+        const clients: IUser[] = [];
+    
         boxesReg.forEach((el: IUser) => {
-            reqRoles(el);
+            propertiesToDelete.forEach(property => {
+                delete el[property];
+            });
+    
+            if (el.role_type === "manager") {
+                managers.push(el);
+            } else if (el.role_type === "client") {
+                clients.push(el);
+            }
         });
+    
+        reqRoles({ data: managers, role: "manager" });
+        reqRoles({ data: clients, role: "client" });
     };
+    
 
     //just nav to client ot manager
     const changeNav = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -125,7 +152,7 @@ export const RolesSettingsPage: FC = () => {
     };
     const onSearch = (event: ChangeEvent<HTMLInputElement>) => {
         const filterUsers = fetchData.usersList.filter((el) => {
-            if (el.username.includes(event.target.value)) {
+            if (el.username?.includes(event.target.value)) {
                 return el;
             }
         });

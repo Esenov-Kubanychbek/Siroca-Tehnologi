@@ -38,12 +38,6 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
             className={styles.FilterItem}
             style={{ left: `${el.pos}px` }}
         >
-            <button
-                className={styles.add}
-                onClick={onUseSelects}
-            >
-                Применить
-            </button>
             {el.values && //checking if values is already true
                 el.values.map((elem: string | number | boolean, index) => {
                     const displayedText = String(elem).length > 10 ? String(elem).substring(0, 10) + "..." : elem;
@@ -72,6 +66,12 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
                         );
                     }
                 })}
+                <button
+                    className={styles.add}
+                    onClick={onUseSelects}
+                >
+                    Применить
+                </button>
         </div>
     );
 };
