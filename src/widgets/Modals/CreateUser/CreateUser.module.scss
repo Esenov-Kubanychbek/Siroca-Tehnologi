@@ -54,6 +54,37 @@
     gap: 16px;
 }
 
+.Bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.Input {
+    position: relative;
+    input {
+        padding-right: 25px;
+        padding-left: 25px;
+        color: $black5c;
+        font-size: 18px;
+        font-weight: 500;
+        border-radius: 8px;
+        background-color: $blackf4;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+    }
+    input:focus {
+        border: none;
+    }
+    svg {
+        position: absolute;
+        top: 16px;
+        right: 24px;
+    }
+}
+
 .AddRole {
     display: flex;
     justify-content: center;
@@ -64,4 +95,13 @@
     display: flex;
     justify-content: start;
     gap: 16px;
+}
+
+.NotExist {
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 8px;
+    background-color: $blackf4;
+    padding: 10px 5px;
+    color: #e51616;
 }

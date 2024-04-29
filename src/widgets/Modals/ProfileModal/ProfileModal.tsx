@@ -36,7 +36,7 @@ export const ProfileModal: FC<IProfileModal> = (props) => {
                 </div>
                 <div className={styles.Data}>
                     <img
-                        src={fetchUsers.oneUserGet.image}
+                        src={String(fetchUsers.oneUserGet.image)}
                         className={styles.Image}
                     />
                     <p>{fetchUsers.oneUserGet.first_name}</p>

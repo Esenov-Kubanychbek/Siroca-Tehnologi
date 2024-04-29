@@ -2,10 +2,10 @@ import { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 import styles from "./Users.module.scss";
 import { SearchInput } from "../../../features";
 import { ButtonCreate } from "../../../shared/ui";
-import { UsersList } from "./ui/UsersList";
 import { Modal } from "antd";
 import { CreateUser } from "../..";
 import { usersApi } from "./api/usersApi";
+import { UsersList } from "./ui";
 
 export const Users: FC = () => {
     const [modal, setModal] = useState<boolean>(false);
@@ -24,7 +24,7 @@ export const Users: FC = () => {
     const closeFunc = () => {
         setCloseState(false);
         setInputState("");
-        fetchUsers.getUsersList();
+        fetchUsers.getUsersList(1);
     };
     return (
         <div className={styles.Users}>

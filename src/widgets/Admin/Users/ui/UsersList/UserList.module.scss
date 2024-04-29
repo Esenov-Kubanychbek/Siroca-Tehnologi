@@ -1,0 +1,30 @@
+@import "index.scss";
+
+.UsersList {
+    display: flex;
+    margin-top: 20px;
+}
+
+.Main {
+    display: flex;
+    flex-direction: column;
+}
+
+.Users {
+    height: 560px;
+    overflow-x: hidden;
+    div {
+        transition: 0.1s;
+    }
+}
+
+.Nothing {
+    width: 1718px;
+    height: 500px;
+    font-size: 32px;
+    font-weight: 700;
+    display: flex;
+    color: $black71;
+    justify-content: center;
+    align-items: center;
+}

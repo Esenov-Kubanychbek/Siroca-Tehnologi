@@ -13,7 +13,6 @@ export const Administration: FC = () => {
                     <ProfileButton />
                 </div>
             </div>
-            <div className={styles.Line}></div>
             <AdminNavigate />
         </div>
     );

@@ -3,7 +3,7 @@ import { ListTop, ListTopName } from "../../../shared/ui";
 
 export const RequestTop: FC<{ role: string | null }> = ({ role }) => {
     return (
-        <ListTop>
+        <ListTop width={role === "admin" ? 1724 : 1820}>
             <ListTopName
                 name="Номер заявки"
                 width={role === "admin" ? 169 : 180}
