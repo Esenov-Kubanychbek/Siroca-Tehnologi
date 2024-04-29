@@ -51,7 +51,7 @@ export const Request: FC<IRequest> = (props) => {
             />
             <div
                 className={styles.Prioritet}
-                style={role === "admin" ? { width: "136px" } : { width: "150px" }}
+                style={{ width: role === "admin" ? "136px" :"150px" }}
             >
                 <div
                     style={{
@@ -64,7 +64,7 @@ export const Request: FC<IRequest> = (props) => {
             </div>
             <div
                 className={styles.Status}
-                style={role === "admin" ? { width: "114px" } : { width: "140px" }}
+                style={{ width: role === "admin" ? "114px" : "140px" }}
             >
                 <div
                     style={{
