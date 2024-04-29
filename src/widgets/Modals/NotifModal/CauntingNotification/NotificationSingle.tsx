@@ -43,11 +43,11 @@ export const NotificationSingle: FC<INotificationSingle> = ({ active, notif, udD
             </div>
             <div className={styles.NotificationContent}>
                 <p className={styles.NumNotification}>
-                    <span className={styles.Span}>{notif.task_number ? notif.task_number.slice(14) : ""}</span>
+                    <span className={styles.Span}>{notif.task_number ? notif.task_number.slice(14)  : ""}</span>  
                     {notif.title}
                 </p>
                 <p className={styles.NumNotification}>
-                    {notif.made_change}:{notif.text}
+                    {notif.made_change}{notif.text}
                 </p>
             </div>
         </div>

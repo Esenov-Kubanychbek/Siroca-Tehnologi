@@ -16,6 +16,7 @@ export const CustomInput: FC<IInput> = (props) => {
         defaultValue,
         onClick,
         readOnly,
+        id
     } = props;
 
     return (
@@ -23,6 +24,7 @@ export const CustomInput: FC<IInput> = (props) => {
             type={type}
             value={value}
             name={name}
+            id={id}
             defaultValue={defaultValue}
             onChange={change}
             style={{

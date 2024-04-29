@@ -1,4 +1,5 @@
 export interface IUser {
+    [key: string]: number | string | boolean | FileList | File | undefined | null,
     id?: number;
     first_name: string;
     image?: File | FileList | string;

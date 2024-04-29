@@ -2,7 +2,7 @@ import { Modal } from "antd";
 import styles from "./ReportButton.module.scss";
 import { FC, useState } from "react";
 import { ReportModal } from "../../widgets";
-import { Import } from "iconsax-react";
+import { ImportCurve } from "iconsax-react";
 
 export const ReportButton: FC = () => {
     const [modal, setModal] = useState<boolean>(false);
@@ -12,9 +12,9 @@ export const ReportButton: FC = () => {
                 onClick={() => setModal(true)}
                 className={styles.Report}
             >
-                <Import
-                    size={34}
-                    color="#1C6AB1"
+                <ImportCurve
+                    size={27}
+                    color="white"
                 />
             </div>
             <Modal
