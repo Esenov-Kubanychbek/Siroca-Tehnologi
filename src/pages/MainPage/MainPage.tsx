@@ -18,7 +18,7 @@ export const MainPage: FC = () => {
     }, [roles.rolesState, roles.genRolesState]);
     useEffect(() => {
         fetchUsers.getOneUser(Number(id));
-        fetchUsers.getUsersList();
+        fetchUsers.getUsersList(1);
     }, []);
     useEffect(() => {
         fetchRoleTypes.setClients(fetchUsers.usersList);

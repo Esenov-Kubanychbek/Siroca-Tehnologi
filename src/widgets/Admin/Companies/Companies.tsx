@@ -40,7 +40,7 @@ export const Companies: FC = () => {
                     style={{ width: modalViewCompany ? "1092px" : "100%" }}
                     className={styles.table}
                 >
-                    <ListTop>
+                    <ListTop width={modalViewCompany ? 1092 : 1718}>
                         <ListTopName
                             name="Компания"
                             width={modalViewCompany ? 160 : 206}

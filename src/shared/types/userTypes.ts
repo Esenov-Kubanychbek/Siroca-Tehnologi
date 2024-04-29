@@ -11,11 +11,21 @@ export interface IUser {
     username: string;
 }
 
+export interface ISendUser {
+    first_name: string;
+    image?: File | FileList | string;
+    job_title: string;
+    main_company: string;
+    role_type: string;
+    surname?: string;
+    username: string;
+}
+
 export interface IUserGet {
     id?: number;
     first_name: string;
-    image?: string | undefined;
-    job_title: number;
+    image?: File | FileList | string | undefined;
+    job_title: string;
     main_company: string;
     password: string;
     role_type: string;

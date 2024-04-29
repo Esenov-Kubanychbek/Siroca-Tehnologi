@@ -1,6 +1,6 @@
-@import "../../../../app/styles/index.scss";
+@import "index.scss";
 
-.AddPhoto {
+.AddImage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,6 +11,8 @@
     background-color: $blackf4;
     text-align: center;
     position: relative;
+    font-size: 14px;
+    font-weight: 500;
     .Input {
         top: 0;
         left: 0;
@@ -23,19 +25,5 @@
     }
     & ::-webkit-file-upload-button {
         visibility: hidden;
-    }
-    .Image {
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        border: 2px solid green;
-    }
-    .Image::before {
-        content: none;
-    }
-    .Image::after {
-        content: none;
     }
 }

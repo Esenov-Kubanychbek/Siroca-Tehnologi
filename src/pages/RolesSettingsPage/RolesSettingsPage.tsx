@@ -159,7 +159,7 @@ export const RolesSettingsPage: FC = () => {
         setUsers(filterUsers);
     };
     useEffect(() => {
-        fetchData.getUsersList();
+        fetchData.getUsersList(1);
     }, []);
     useEffect(() => {
         setUsers(fetchData.usersList);

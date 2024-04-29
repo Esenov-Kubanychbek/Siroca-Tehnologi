@@ -3,5 +3,6 @@ import { IUser } from "../../../shared/types/userTypes";
 
 export interface IUserTypes {
     user: IUser;
-    setModal: Dispatch<SetStateAction<boolean>>;
+    view: boolean;
+    setView: Dispatch<SetStateAction<boolean>>;
 }

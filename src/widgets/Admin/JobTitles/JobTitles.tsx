@@ -82,7 +82,7 @@ export const JobTitles: FC = () => {
                 </div>
                 <div className={styles.JobTitlesList}>
                     <div className={styles.Top}>
-                        <ListTop>
+                        <ListTop width={422}>
                             <ListTopName
                                 name="Должности"
                                 width={422}
