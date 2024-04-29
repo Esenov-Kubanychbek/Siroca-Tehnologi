@@ -1,24 +1,24 @@
 import { GalleryAdd } from "iconsax-react";
-import styles from "./EditPhoto.module.scss";
-import { usersApi } from "../../../Admin/Users/api/usersApi";
-import { FC } from "react";
+import styles from "./AddImage.module.scss";
+import { ChangeEvent, FC } from "react";
 
-export const EditPhoto: FC = () => {
-    const fetchData = usersApi();
+interface IAddImage {
+    added: boolean
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export const AddImage: FC<IAddImage> = (props) => {
+    const {added, onChange} = props
     return (
-        <div className={styles.EditPhoto}>
+        <div className={styles.AddImage} style={{border: added ? "none" : "1px solid red"}}>
             <GalleryAdd
                 size={50}
                 color="#252525"
             />
             <p>Добавьте фотографию пользователя</p>
-            <img
-                src={String(fetchData.oneUserGet.image)}
-                className={styles.Image}
-                alt="image"
-            />
             <input
                 name="image"
+                onChange={onChange}
                 className={styles.Input}
                 type="file"
                 accept="image/*"

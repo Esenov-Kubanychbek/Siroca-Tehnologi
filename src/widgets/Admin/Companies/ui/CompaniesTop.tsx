@@ -2,7 +2,7 @@ import { ListTop, ListTopName } from "../../../../shared/ui";
 
 export const CompaniesTop = () => {
     return (
-        <ListTop>
+        <ListTop width={1718}>
             <ListTopName
                 name="Компания"
                 width={206}

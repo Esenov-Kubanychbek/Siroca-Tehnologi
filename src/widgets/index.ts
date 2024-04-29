@@ -26,3 +26,5 @@ export { HeaderBottom } from "./HeaderBottom/HeaderBottom";
 export { EditRequest } from "./Modals/EditRequest/EditRequest";
 export { ViewRequest } from "./Modals/ViewRequest/ViewRequest";
 export { EditUser } from "./Modals/EditUser/EditUser";
+export { ResetPassword } from "./Modals/ResetPassword/ResetPassword";
+export {ViewUser} from "./Modals/ViewUser/ViewUser"
