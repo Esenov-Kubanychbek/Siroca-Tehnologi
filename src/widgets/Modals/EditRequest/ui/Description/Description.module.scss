@@ -1,9 +1,23 @@
 .Description {
     position: relative;
     width: 580px;
+    input,
     .Icon {
+        z-index: 2;
         position: absolute;
         top: 55px;
         right: 24px;
+    }
+    input {
+        z-index: 3;
+        width: 24px;
+        height: 24px;
+        background: none;
+        border: none;
+        color: transparent;
+        cursor: pointer;
+    }
+    & ::-webkit-file-upload-button {
+        visibility: hidden;
     }
 }

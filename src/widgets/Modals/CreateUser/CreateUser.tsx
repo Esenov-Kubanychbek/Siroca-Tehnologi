@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "./CreateUser.module.scss";
+<<<<<<< HEAD
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CloseSquare } from "iconsax-react";
 import { RoleButton } from "./ui/RoleButton";
@@ -73,6 +74,49 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
         setFormValue(state);
     };
 
+=======
+import { ButtonCreate, CustomButton, CustomInput } from "../../../shared/ui";
+import { CloseSquare, InfoCircle, TickCircle } from "iconsax-react";
+import { Modal } from "antd";
+import { CreateJobTitle, SuccessModal } from "../..";
+import { ICreateUserModal } from "./types/types";
+import { createUserApi } from "./api/createUserApi";
+import { AddImage, RoleButton } from "./ui";
+import { jobTitleApi } from "../../Admin/JobTitles/api/jobTitleApi";
+import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
+
+export const CreateUser: FC<ICreateUserModal> = (props) => {
+    const { setModal } = props;
+    const { createUser, createUserState, createUserChange } = createUserApi();
+    const { jobTitleList } = jobTitleApi();
+    const { data } = useDataStoreComponies();
+    const [added, setAdded] = useState<boolean>(true);
+    const [jobTitleModal, setJobTitleModal] = useState<boolean>(false);
+    const [modalSuccess, setModalSuccess] = useState<boolean>(false);
+    const hasJobTitle = jobTitleList.some((jobTitle) => {
+        return createUserState.job_title === jobTitle.title;
+    });
+    const hasCompany = data.some((company) => {
+        return createUserState.main_company === company.name;
+    });
+    const postTrim = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (
+            Object.values(createUserState).every((value) => value !== "") &&
+            hasJobTitle === true &&
+            hasCompany === true
+        ) {
+            createUser();
+            setModal(false);
+            setModalSuccess(true);
+            setTimeout(() => setModalSuccess(false), 1000);
+        } else if (createUserState.image === "") {
+            setAdded(false);
+        } else {
+            console.log("trimUserError");
+        }
+    };
+>>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
     return (
         <form
             className={styles.CreateUser}
@@ -87,7 +131,10 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                 />
             </div>
             <div className={styles.Description}>
-                <AddPhoto downLoad={addValues} />
+                <AddImage
+                    onChange={createUserChange}
+                    added={added}
+                />
                 <div className={styles.UserRole}>
                     <div className={styles.Name}>
                         <div className={styles.Text}>Имя</div>
@@ -95,7 +142,7 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                             name="first_name"
                             width={340}
                             placeholder="Напишите..."
-                            change={addValues}
+                            change={createUserChange}
                         />
                         <div>
                             <div className={styles.Text}>Фамилия</div>
@@ -103,13 +150,13 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                                 name="surname"
                                 width={340}
                                 placeholder="Напишите..."
-                                change={addValues}
+                                change={createUserChange}
                             />
                         </div>
                     </div>
                     <div>
                         <div className={styles.Text}>Тип роли</div>
-                        <RoleButton onChange={addValues} />
+                        <RoleButton onChange={createUserChange} />
                     </div>
                 </div>
             </div>
@@ -120,7 +167,7 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                         name="username"
                         width={272}
                         placeholder="@siroca.com"
-                        change={addValues}
+                        change={createUserChange}
                     />
                 </div>
                 <div>
@@ -129,13 +176,14 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                         name="password"
                         width={272}
                         placeholder="Напишите..."
-                        change={addValues}
+                        change={createUserChange}
                     />
                 </div>
             </div>
             <div className={styles.Login}>
-                <div>
+                <div className={styles.Bottom}>
                     <div className={styles.Text}>Компания</div>
+<<<<<<< HEAD
                     <CustomInput
                         type="text"
                         name="main_company"
@@ -143,10 +191,34 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                         placeholder="Напишите..."
                         change={addValues}
                     />
+=======
+                    <div className={styles.Input}>
+                        <input
+                            type="text"
+                            name="main_company"
+                            style={{ width: "222px", border: hasCompany ? "2px solid #00A91B" : "none" }}
+                            placeholder="Напишите..."
+                            onChange={createUserChange}
+                        />
+                        {hasCompany === true || createUserState.main_company === "" ? (
+                            hasCompany ? (
+                                <TickCircle color="#00A91B" />
+                            ) : null
+                        ) : (
+                            <InfoCircle color="#E51616" />
+                        )}
+                    </div>
+                    {hasCompany === true || createUserState.main_company === "" ? null : (
+                        <p className={styles.NotExist}>
+                            Компании с таким названием не существует! Повторите попытку, или создайте новую компанию.
+                        </p>
+                    )}
+>>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                 </div>
-                <div>
+                <div className={styles.Bottom}>
                     <div className={styles.Text}>Должность в компании</div>
                     <div className={styles.AddRole}>
+<<<<<<< HEAD
                         <CustomInput
                             name="job_title"
                             width={210}
@@ -154,7 +226,30 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                             change={addValues}
                         />
                         <AddButton onClick={() => setJobTitleModal(true)} />
+=======
+                        <div className={styles.Input}>
+                            <input
+                                name="job_title"
+                                style={{ width: "160px", border: hasJobTitle ? "2px solid #00A91B" : "none" }}
+                                placeholder="Напишите..."
+                                onChange={createUserChange}
+                            />
+                            {hasJobTitle === true || createUserState.job_title === "" ? (
+                                hasJobTitle ? (
+                                    <TickCircle color="#00A91B" />
+                                ) : null
+                            ) : (
+                                <InfoCircle color="#E51616" />
+                            )}
+                        </div>
+                        <ButtonCreate onClick={() => setJobTitleModal(true)} />
+>>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                     </div>
+                    {hasJobTitle === true || createUserState.job_title === "" ? null : (
+                        <p className={styles.NotExist}>
+                            Данной должности не существует! Повторите попытку, или создайте новую должность.
+                        </p>
+                    )}
                 </div>
             </div>
             <div className={styles.Buttons}>

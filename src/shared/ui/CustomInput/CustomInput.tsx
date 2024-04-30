@@ -17,15 +17,17 @@ export const CustomInput: FC<IInput> = (props) => {
         onClick,
         readOnly,
         maxLenght,
-        error
-    } = props;
-    console.log(error);
+        error,
     
+        id
+    } = props;
+
     return (
         <input
             type={type}
             value={value}
             name={name}
+            id={id}
             defaultValue={defaultValue}
             onChange={change}
             style={{

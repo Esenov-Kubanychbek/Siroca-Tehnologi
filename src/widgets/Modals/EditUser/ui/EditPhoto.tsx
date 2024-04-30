@@ -13,7 +13,7 @@ export const EditPhoto: FC = () => {
             />
             <p>Добавьте фотографию пользователя</p>
             <img
-                src={fetchData.oneUserGet.image}
+                src={String(fetchData.oneUserGet.image)}
                 className={styles.Image}
                 alt="image"
             />

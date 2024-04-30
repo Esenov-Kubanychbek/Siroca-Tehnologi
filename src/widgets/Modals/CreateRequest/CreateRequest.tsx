@@ -1,6 +1,6 @@
-import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import styles from "./CreateRequest.module.scss";
-import { ICreateRequest, createRequestApi } from "./api/createRequestApi";
+import { createRequestApi } from "./api/createRequestApi";
 import { CloseSquare } from "iconsax-react";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { Modal } from "antd";
@@ -11,20 +11,13 @@ import { idRoles } from "../../../pages/MainPage/api/idRoles";
 export const CreateRequest: FC<ICreateRequestModal> = (props) => {
     const { setModal } = props;
     const [editModal, setEditModal] = useState<boolean>(false);
-    const fetchData = createRequestApi();
-    const [requestState, setRequestState] = useState<ICreateRequest>({
-        title: "",
-        company: "",
-    });
+    const { oneRequest, postRequest, requestChange } = createRequestApi();
     const roles = idRoles();
     const fmRoles = roles.formatedState;
-    const RequestCreateValue = (e: ChangeEvent<HTMLInputElement>) => {
-        setRequestState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
-    };
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (Object.values(requestState).every((value) => value !== "")) {
-            fetchData.posting(requestState);
+        if (oneRequest.title && oneRequest.company !== "") {
+            postRequest(oneRequest);
             setModal(false);
             if (
                 (fmRoles &&
@@ -61,7 +54,8 @@ export const CreateRequest: FC<ICreateRequestModal> = (props) => {
                         placeholder="Напишите..."
                         width={400}
                         name="title"
-                        change={RequestCreateValue}
+                        value={oneRequest.title}
+                        change={requestChange}
                     />
                 </div>
                 <div className={styles.Input}>
@@ -70,7 +64,8 @@ export const CreateRequest: FC<ICreateRequestModal> = (props) => {
                         placeholder="Напишите..."
                         width={400}
                         name="company"
-                        change={RequestCreateValue}
+                        value={oneRequest.company}
+                        change={requestChange}
                     />
                 </div>
                 <div className={styles.Buttons}>
@@ -96,9 +91,8 @@ export const CreateRequest: FC<ICreateRequestModal> = (props) => {
                 onCancel={() => setEditModal(false)}
             >
                 <EditRequest
-                    request={requestState}
-                    setRequest={setRequestState}
                     setModal={setEditModal}
+                    requestFrom="CreateRequest"
                 />
             </Modal>
         </>

@@ -3,7 +3,7 @@ import { ListTop, ListTopName } from "../../../shared/ui";
 
 export const RequestTop: FC<{ role: string | null }> = ({ role }) => {
     return (
-        <ListTop>
+        <ListTop width={role === "admin" ? 1724 : 1820}>
             <ListTopName
                 name="Номер заявки"
                 width={role === "admin" ? 169 : 180}
@@ -13,11 +13,11 @@ export const RequestTop: FC<{ role: string | null }> = ({ role }) => {
                 width={role === "admin" ? 138 : 150}
             />
             <ListTopName
-                name="Наименования заявки"
+                name="Название заявки"
                 width={role === "admin" ? 249 : 260}
             />
             <ListTopName
-                name="Краткое описания"
+                name="Краткое описание"
                 width={role === "admin" ? 230 : 220}
             />
             <ListTopName
@@ -33,7 +33,7 @@ export const RequestTop: FC<{ role: string | null }> = ({ role }) => {
                 width={role === "admin" ? 164 : 180}
             />
             <ListTopName
-                name="Дата оканчания"
+                name="Дата завершение"
                 width={role === "admin" ? 194 : 180}
             />
             <ListTopName

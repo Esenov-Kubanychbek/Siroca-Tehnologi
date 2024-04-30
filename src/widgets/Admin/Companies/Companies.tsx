@@ -137,4 +137,3 @@ export const Companies: FC = () => {
         </div>
     );
 };
-

@@ -11,7 +11,6 @@ export const CustomSelect: FC<ISelect> = (props) => {
             name={name}
             className={styles.CustomSelect}
             style={{ width: `${width}px` }}
-            defaultValue={1}
         >
             <option
                 disabled

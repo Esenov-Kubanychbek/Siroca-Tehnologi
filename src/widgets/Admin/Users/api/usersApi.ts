@@ -15,13 +15,12 @@ interface IFetch {
     usersGetDetails: IUserGetDetails;
     oneUserGet: IUserGet;
     oneUser: IUser;
-    getUsersList: () => void;
+    getUsersList: (page: number) => void;
     setSearchList: (searchState: string) => void;
     getOneUser: (id: number | undefined) => void;
-    postUser: (user: FormData) => void;
 }
 
-export const usersApi = create<IFetch>((set, get) => ({
+export const usersApi = create<IFetch>((set) => ({
     usersList: [],
     usersGetDetails: {
         count: 1,
@@ -41,25 +40,26 @@ export const usersApi = create<IFetch>((set, get) => ({
     oneUserGet: {
         first_name: "",
         image: "",
-        job_title: 3,
+        job_title: "",
         main_company: "",
         password: "",
         role_type: "",
         surname: "",
         username: "",
     },
-    getUsersList: async () => {
+    getUsersList: async (page) => {
         try {
-            const response = await axios.get(`${BASE_URL}/users/profiles/?page=1`, authToken);
+            const response = await axios.get(`${BASE_URL}/users/profiles/?page=${page}`, authToken);
             set({ usersGetDetails: response.data });
             set({ usersList: response.data });
+            console.log(response, "getUsersListSuccess");
         } catch (error) {
             console.log(error, "getUsersListError");
         }
     },
     setSearchList: async (searchState) => {
         try {
-            const response = await axios.get(`${BASE_URL}/users/profiles/?search=${searchState}`);
+            const response = await axios.get(`${BASE_URL}/users/profiles/?search=${searchState}`, authToken);
             set({ usersList: response.data });
         } catch (error) {
             console.log(error, "getUsersListError");
@@ -67,19 +67,10 @@ export const usersApi = create<IFetch>((set, get) => ({
     },
     getOneUser: async (id) => {
         try {
-            const response = await axios.get(`${BASE_URL}/users/${id}/`);
+            const response = await axios.get(`${BASE_URL}/users/${id}/`, authToken);
             set({ oneUserGet: response.data });
         } catch (error) {
             console.log(error, "getOneUserError");
-        }
-    },
-    postUser: async (user) => {
-        try {
-            const response = await axios.post(`${BASE_URL}/users/create/`, user);
-            const oldList = get().usersList;
-            set({ usersList: [...oldList, response.data] });
-        } catch (error) {
-            console.log(error, "postUserError");
         }
     },
 }));

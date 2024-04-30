@@ -30,11 +30,15 @@ export const Request: FC<IRequest> = (props) => {
                 width={role === "admin" ? 249 : 260}
             />
             <ItemInner
+<<<<<<< HEAD
                 content={request.short_description}
+=======
+                content={request.short_description !== null && request.short_description !== ''? request.short_description : "------------"}
+>>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                 width={role === "admin" ? 230 : 220}
             />
             <ItemInner
-                content={request.main_client}
+                content={request.main_client !== null && request.main_client !== '' ? request.main_client : "-----------"}
                 width={role === "admin" ? 142 : 160}
             />
             <ItemInner
@@ -42,13 +46,14 @@ export const Request: FC<IRequest> = (props) => {
                 width={role === "admin" ? 188 : 200}
             />
             <ItemInner
-                content={request.start_date}
+                content={request.start_date !== null && request.start_date !== '' ? request.start_date : "-----------"}
                 width={role === "admin" ? 164 : 180}
             />
             <ItemInner
-                content={request.finish_date}
+                content={request.finish_date !== null && request.finish_date !== '' ? request.finish_date : "-----------"}
                 width={role === "admin" ? 194 : 180}
             />
+<<<<<<< HEAD
             <div
                 className={styles.Prioritet}
                 style={role === "admin" ? { width: "136px" } : { width: "150px" }}
@@ -68,6 +73,27 @@ export const Request: FC<IRequest> = (props) => {
             >
                 <div
                     style={{
+=======
+            <div
+                className={styles.Prioritet}
+                style={{ width: role === "admin" ? "136px" :"150px" }}
+            >
+                <div
+                    style={{
+                        border: `1px solid ${priorityColor(request.priority)}`,
+                        color: `${priorityColor(request.priority)}`,
+                    }}
+                >
+                    {request.priority}
+                </div>
+            </div>
+            <div
+                className={styles.Status}
+                style={{ width: role === "admin" ? "114px" : "140px" }}
+            >
+                <div
+                    style={{
+>>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                         border: `1px solid ${statusColor(request.status)}`,
                         color: `${statusColor(request.status)}`,
                     }}

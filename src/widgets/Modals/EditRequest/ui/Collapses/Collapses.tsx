@@ -1,55 +1,43 @@
 import { Collapse, CollapseProps } from "antd";
-import { ChangeEvent, FC } from "react";
-import { CheckList, Comments, DatesContainer, Description, Details, Humans, LinkJira, ShortDescription } from "..";
-import { ICreateRequest } from "../../../CreateRequest/api/createRequestApi";
+import { FC } from "react";
+import { CheckList, Comments, DatesContainer, Description, Details, People, LinkJira, ShortDescription } from "..";
 
-interface ICollapses {
-    request: ICreateRequest;
-    onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-}
-
-export const Collapses: FC<ICollapses> = ({ onChange, request }) => {
+export const Collapses: FC = () => {
     const items: CollapseProps["items"] = [
         {
             key: "1",
             label: "Детали заявки",
-            children: (
-                <Details
-                    onChange={onChange}
-                    title={request.title}
-                    company={request.company}
-                />
-            ),
+            children: <Details />,
         },
         {
             key: "2",
             label: "Ссылка на Jira",
-            children: <LinkJira onChange={onChange} />,
+            children: <LinkJira />,
         },
         {
             key: "3",
             label: "Люди",
-            children: <Humans onChange={onChange} />,
+            children: <People />,
         },
         {
             key: "4",
             label: "Даты",
-            children: <DatesContainer onChange={onChange} />,
+            children: <DatesContainer />,
         },
         {
             key: "5",
-            label: "Комментарии",
-            children: <Comments onChange={onChange} />,
+            label: "Описание",
+            children: <Description />,
         },
         {
             key: "6",
-            label: "Описание",
-            children: <Description onChange={onChange} />,
+            label: "Краткое описание",
+            children: <ShortDescription />,
         },
         {
             key: "7",
-            label: "Краткое описание",
-            children: <ShortDescription onChange={onChange} />,
+            label: "Комментарии",
+            children: <Comments />,
         },
         {
             key: "8",
@@ -59,6 +47,7 @@ export const Collapses: FC<ICollapses> = ({ onChange, request }) => {
     ];
     return (
         <Collapse
+            ghost
             defaultActiveKey={[1, 2, 3, 4, 5, 6, 7, 8]}
             items={items}
         />

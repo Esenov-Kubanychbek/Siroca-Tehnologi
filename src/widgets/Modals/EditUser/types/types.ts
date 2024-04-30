@@ -1,9 +1,9 @@
-import { ChangeEvent } from "react";
-import { Dispatch, SetStateAction } from "react";
 
-export interface IRole {
-    change?: (e: ChangeEvent<HTMLInputElement>) => void;
-    role?: string | null;
+import { Dispatch, SetStateAction } from "react"
+
+export interface IViewUser {
+    view: boolean
+    setView: Dispatch<SetStateAction<boolean>>
 }
 
 export interface IEditUserModal {

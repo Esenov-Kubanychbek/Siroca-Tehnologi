@@ -22,6 +22,15 @@ export const Description: FC = () => {
                 size={24}
                 color="#5C5C5C"
             />
+<<<<<<< HEAD
+=======
+            {fetchRequest.oneRequest.files !== null && (
+                <img
+                    src={fetchRequest.oneRequest.files}
+                    alt="description"
+                />
+            )}
+>>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
         </div>
     );
 };

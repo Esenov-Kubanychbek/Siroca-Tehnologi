@@ -57,9 +57,11 @@ export const ChangeCompany: FC <props> = ({ message, count }) => {
                         </div>
                         <div onClick={() => setModalButtons(false)} style={{ display: `${modalButtons ? 'block' : 'none'}` }} className={styles.blackBagr}></div>
                     </div>
-                    <CloseSquare onClick={closeModalView} size={34} />
+                    <CloseSquare
+                        onClick={closeModalView}
+                        size={34}
+                    />
                 </div>
-
                 <div className={styles.datasCompany}>
                     <div className={styles.headerText}>{selectedCompanyData?.name}</div>
                     <div className={styles.container1}>
@@ -130,6 +132,5 @@ export const ChangeCompany: FC <props> = ({ message, count }) => {
                 <CreateUser setModal={setModalCreateUser} />
             </Modal>
         </>
-    )
-}
-
+    );
+};

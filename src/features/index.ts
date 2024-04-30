@@ -2,7 +2,6 @@ export { AdminNavigate } from "./AdminNavigate/AdminNavigate";
 export { DashboardButton } from "./DashboardButton/DashboardButton";
 export { FilterButton } from "./FilterButton/FilterButton";
 export { LoginButton } from "./LoginButton/LoginButton";
-export { NotifButton } from "./NotifButton/NotifButton";
 export { ProfileButton } from "./ProfileButton/ProfileButton";
 export { ReportButton } from "./ReportButton/ReportButton";
 export { SearchInput } from "./SearchInput/SearchInput";

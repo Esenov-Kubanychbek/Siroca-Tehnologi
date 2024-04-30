@@ -77,7 +77,6 @@ const fetchData = async () => {
 
 const addCompanies = async (datas: dataAddCompanies) => {
     console.log(datas);
-
     try {
         const response = await axios.post('http://13.51.161.14:80/api/v1/company/create/', datas,
             {
@@ -86,7 +85,6 @@ const addCompanies = async (datas: dataAddCompanies) => {
                 }
             });
         console.log(response);
-
         return response.data;
     } catch (error) {
         console.log(datas);

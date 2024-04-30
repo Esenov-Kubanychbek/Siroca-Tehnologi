@@ -90,7 +90,6 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
                 domain: ""
             }
         });
-
     },
     company_code: ( text ) => {
         set((state) => ({

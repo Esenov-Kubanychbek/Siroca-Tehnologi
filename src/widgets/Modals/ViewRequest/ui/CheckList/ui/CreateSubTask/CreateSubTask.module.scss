@@ -1,0 +1,58 @@
+@import "index.scss";
+
+.CreateSubTask {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.NotChecked {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 16px;
+    top: 10px;
+    border-radius: 8px;
+    border: 2px solid $blackde;
+}
+
+.Checked {
+    position: absolute;
+    left: 16px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.InputRelative {
+    position: relative;
+}
+
+.CloseSquare {
+    position: absolute;
+    top: 10px;
+    left: 540px;
+}
+
+.CheckDesc {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    input {
+        width: 130px;
+        height: 44px;
+        padding-left: 16px;
+        font-size: 16px;
+        font-weight: 500;
+        border: none;
+        border-radius: 8px;
+        background-color: $blackf4;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        opacity: 0;
+    }
+}

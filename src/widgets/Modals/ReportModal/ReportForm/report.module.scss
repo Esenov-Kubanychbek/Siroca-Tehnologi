@@ -81,31 +81,31 @@
                 margin-top: 26px;
                 margin-left: 10px;
             }
-            .showItems {
-                border-radius: 8px;
-                box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.178);
-                z-index: 4;
-                width: 170px;
-                background: white;
-                position: absolute;
-                p {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    padding: 10px 10px 10px 10px;
-                    cursor: pointer;
-                    width: 150px;
-                    input {
-                        margin: 0;
-                        width: 20px;
-                        height: 20px;
-                        border-radius: 5px;
-                    }
-                }
-                p:hover {
-                    background: #0000000a;
-                }
+        }
+    }
+    .showItems {
+        border-radius: 8px;
+        z-index: 4;
+        width: 170px;
+        background: white;
+        position: absolute;
+        p {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 10px 10px 10px;
+            box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.178);
+            cursor: pointer;
+            width: 150px;
+            input {
+                margin: 0;
+                width: 20px;
+                height: 20px;
+                border-radius: 5px;
             }
+        }
+        p:hover {
+            background: #0000000a;
         }
     }
 

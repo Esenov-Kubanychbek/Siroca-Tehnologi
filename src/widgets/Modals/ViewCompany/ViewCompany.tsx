@@ -216,4 +216,3 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, }) => {
         </div>
     );
 };
-

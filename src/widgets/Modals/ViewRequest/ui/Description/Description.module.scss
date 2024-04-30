@@ -1,9 +1,32 @@
+<<<<<<< HEAD
 .Description {
     position: relative;
     width: 580px;
+=======
+@import "index.scss";
+
+.Description {
+    position: relative;
+    width: 560px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $blackf4;
+    padding: 10px;
+>>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
     .Icon {
         position: absolute;
         top: 55px;
         right: 24px;
     }
+<<<<<<< HEAD
+=======
+    img {
+        width: 176px;
+        height: 176px;
+        border-radius: 8px;
+    }
+>>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
 }

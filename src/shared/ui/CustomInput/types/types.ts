@@ -1,8 +1,9 @@
 import { ChangeEvent } from "react";
 
 export interface IInput {
+    id?: string;
     width: number;
-    placeholder: string;
+    placeholder?: string;
     height?: number;
     background?: string;
     value?: string | number;

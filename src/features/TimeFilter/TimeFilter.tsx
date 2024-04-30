@@ -9,11 +9,13 @@ import { SelectFilterItem } from "./ui/SelectFilterItem";
 import axios from "axios";
 import { BASE_URL } from "../../shared/variables/variables";
 import { EllipsisOutlined } from "@ant-design/icons";
+import { InputSelects } from "./ui/InputSelect";
 
-interface FilterItem {
+export interface FilterItem {
     selected: string[];
     text: string;
     type: string;
+    prevValues: string[];
     isOpen: boolean;
     values: string[];
     pos: number;
@@ -27,6 +29,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
     const [isMounted, setIsMounted] = useState<boolean>(false);
     //There we saveing all choosed or not selects
     const [filterItems, setFilterItems] = useState<FilterItem[]>([
+<<<<<<< HEAD
         { text: "Номер", type: "task_number", isOpen: false, values: [], pos: 0, selected: [] },
         { text: "Компания", type: "company", isOpen: false, values: [], pos: 120, selected: [] },
         { text: "Название", type: "title", isOpen: false, values: [], pos: 265, selected: [] },
@@ -37,6 +40,34 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         { text: "Дата начала", type: "start_date", isOpen: false, values: [], pos: 1039, selected: [] },
         { text: "Приоритет", type: "priority", isOpen: false, values: [], pos: 1196, selected: [] },
         { text: "Статус", type: "status", isOpen: false, values: [], pos: 1320, selected: [] },
+=======
+        { text: "Номер", type: "task_number", isOpen: false, values: [], prevValues: [], pos: 8, selected: [] },
+        { text: "Компания", type: "company", isOpen: false, values: [], prevValues: [], pos: 125, selected: [] },
+        { text: "Название", type: "title", isOpen: false, values: [], prevValues: [], pos: 275, selected: [] },
+        {
+            text: "Описание",
+            type: "short_description",
+            isOpen: false,
+            values: [],
+            prevValues: [],
+            pos: 418,
+            selected: [],
+        },
+        { text: "Заявитель", type: "main_client", isOpen: false, values: [], prevValues: [], pos: 564, selected: [] },
+        { text: "Менеджер", type: "main_manager", isOpen: false, values: [], prevValues: [], pos: 719, selected: [] },
+        {
+            text: "Дата завершения",
+            type: "finish_date",
+            isOpen: false,
+            values: [],
+            prevValues: [],
+            pos: 877,
+            selected: [],
+        },
+        { text: "Дата начала", type: "start_date", isOpen: false, values: [], prevValues: [], pos: 1049, selected: [] },
+        { text: "Приоритет", type: "priority", isOpen: false, values: [], prevValues: [], pos: 1222, selected: [] },
+        { text: "Статус", type: "status", isOpen: false, values: [], prevValues: [], pos: 1350, selected: [] },
+>>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
     ]);
     //Thats for entDs, NOT MY CODE
     const items: TabsProps["items"] = [
@@ -98,6 +129,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                 return String(elem[id]); // Преобразуем значение в строку
             });
             el.values = vals;
+            el.prevValues = vals;
         });
         setFilterItems(timeState);
     };
@@ -142,7 +174,19 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
     const getSelect = (e: { type: string; selected: string[] }) => {
         closeAllSelect();
         setIsMounted(true);
+<<<<<<< HEAD
         updateFilterItems({ type: e.type, selected: e.selected, pos: 1, isOpen: true, values: [], text: "" });
+=======
+        updateFilterItems({
+            type: e.type,
+            selected: e.selected,
+            pos: 1,
+            isOpen: true,
+            values: [],
+            prevValues: [],
+            text: "",
+        });
+>>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
     };
 
     //Func to get date input values
@@ -254,7 +298,17 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                                     >
                                         {el.isOpen ? ( //if selector is open we will render input
                                             <>
+<<<<<<< HEAD
                                                 <p className={styles.SelInput}>{displayedText}</p>
+=======
+                                                <InputSelects
+                                                    setState={setFilterItems}
+                                                    state={filterItems}
+                                                    i={i}
+                                                    placeholder={displayedText}
+                                                    className={styles.SelInput}
+                                                />
+>>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                                                 <div
                                                     key={i}
                                                     className={styles.Icn}
@@ -268,7 +322,13 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                                         ) : (
                                             //else just p
                                             <>
-                                                <p key={el.text}>{displayedText}</p>
+                                                <p
+                                                    onClick={(e) => openDropDown(e)}
+                                                    id={el.text}
+                                                    key={el.text}
+                                                >
+                                                    {displayedText}
+                                                </p>
                                                 <div
                                                     key={`${el.text}-icon`}
                                                     id={el.text}

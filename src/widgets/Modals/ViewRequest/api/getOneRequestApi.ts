@@ -1,12 +1,14 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL } from "../../../../shared/variables/variables";
+import { BASE_URL, authToken } from "../../../../shared/variables/variables";
 
 interface ILog {
     id: number;
     username: string;
     task_number: string;
     text: string;
+    created_at: string;
+    formatted_created_at: string;
 }
 
 interface ICheckList {
@@ -24,6 +26,9 @@ interface IComments {
     text: string;
     date_added: string;
     application: number;
+    formatted_date_added: string;
+    user_image: string;
+    user_id: number;
 }
 
 interface IObject {
@@ -83,11 +88,7 @@ export const getOneRequestApi = create<IFetch>((set) => ({
     },
     getOneRequest: async (id) => {
         try {
-            const getOneResponse = await axios.get(`${BASE_URL}/applications/form_view/${id}/`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
+            const getOneResponse = await axios.get(`${BASE_URL}/applications/form_view/${id}/`, authToken);
             console.log(getOneResponse.data, "getOneRequestSuccess");
             set({ oneRequest: getOneResponse.data });
         } catch (error) {

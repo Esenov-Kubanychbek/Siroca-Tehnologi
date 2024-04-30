@@ -55,9 +55,9 @@
         border-top: 1px solid var(---200, #dedede);
         border-bottom: 1px solid var(---200, #dedede);
         border-left: 2px solid var(---200, #dedede);
-        input {
-            width: 34px;
-            height: 34px;
+        input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
         }
     }
 }

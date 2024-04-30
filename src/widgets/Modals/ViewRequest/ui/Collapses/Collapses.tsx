@@ -52,6 +52,10 @@ export const Collapses: FC = () => {
     ];
     return (
         <Collapse
+<<<<<<< HEAD
+=======
+            ghost
+>>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
             defaultActiveKey={[2, 3, 4, 5, 6, 7, 8, 9]}
             items={items}
         />

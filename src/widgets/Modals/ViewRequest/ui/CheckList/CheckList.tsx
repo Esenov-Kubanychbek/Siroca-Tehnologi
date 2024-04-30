@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { CloseSquare, TickSquare, Timer1 } from "iconsax-react";
 import styles from "./CheckList.module.scss";
 import { ChangeEvent, FC, useState } from "react";
@@ -131,6 +132,20 @@ export const CheckList: FC = () => {
                     </div>
                 </div>
             ) : null}
+=======
+import styles from "./CheckList.module.scss";
+import { FC, useState } from "react";
+import { CustomButton } from "../../../../../shared/ui";
+import { SubTaskList } from "./ui/SubTaskList/SubTaskList";
+import { CreateSubTask } from "./ui/CreateSubTask/CreateSubTask";
+
+export const CheckList: FC = () => {
+    const [display, setDisplay] = useState<boolean>(false);
+    return (
+        <div className={styles.CheckLists}>
+            <SubTaskList />
+            {display && <CreateSubTask setDisplay={setDisplay} />}
+>>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
             <CustomButton
                 onClick={() => setDisplay(true)}
                 text="Добавить подзадачу"

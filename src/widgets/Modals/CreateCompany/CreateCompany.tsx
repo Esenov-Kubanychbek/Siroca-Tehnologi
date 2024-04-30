@@ -182,19 +182,13 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                         </div>
                         <div
                             className={styles.hintAdd}
-                            style={{ display: `${hovered ? 'block' : 'none'}` }}
-
+                            style={{ display: `${hovered ? "block" : "none"}` }}
                         >
-                            <p className={styles.hint}>
-                                Нажмите что бы добавить менеджера
-                            </p>
+                            <p className={styles.hint}>Нажмите что бы добавить менеджера</p>
                             <div className={styles.tre}> </div>
                         </div>
 
-                        <div
-                            className={styles.addManagers}
-                        >
-
+                        <div className={styles.addManagers}>
                             <AddSquare
                                 color="white"
                                 onMouseEnter={() => setHovered(true)}
@@ -203,10 +197,7 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                             />
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
             <p style={{ display: `${allData ? 'block' : 'none'}` }}>Все поля должны быть обязательно заполнены*</p>
             <p style={{ display: `${err ? 'block' : 'none'}` }}>Такого менеджера не существует*</p>
@@ -229,7 +220,6 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                         width={150}
                         text="Создать"
                         onClick={addNewCompany}
-
                     />
                 </div>
             </div>
@@ -241,7 +231,6 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
             >
                 <AddManager type='created' closeModal={closeAddManager} />
             </Modal>
-
         </div>
     );
 };
