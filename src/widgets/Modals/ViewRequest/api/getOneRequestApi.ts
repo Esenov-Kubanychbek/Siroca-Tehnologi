@@ -11,13 +11,21 @@ interface ILog {
     formatted_created_at: string;
 }
 
-interface ICheckList {
+interface ISubtask {
     id?: number;
     text: string;
     completed?: boolean;
-    deadline: string;
-    application: number;
+    deadline?: string;
+    checklist: number;
     manager?: number;
+}
+
+interface ICheckList {
+    id?: number;
+    main_manager?: string;
+    subtasks?: ISubtask[];
+    name: string;
+    application: number | null | string;
 }
 
 interface IComments {

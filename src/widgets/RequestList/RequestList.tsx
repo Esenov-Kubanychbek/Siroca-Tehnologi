@@ -56,7 +56,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     <div className={styles.Nothing}>По вашему запросу ничего не найдено!</div>
                 )}
             </div>
-            {apiLength.length > 1 ? (
+            {apiLength ? (
                 <Pagination page={page} setPage={setPage} count={reqCount}/>
             ) : null}
             <ItemCount count={reqCount} page={page}/>
