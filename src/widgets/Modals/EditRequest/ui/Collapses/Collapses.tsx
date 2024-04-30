@@ -1,6 +1,8 @@
 import { Collapse, CollapseProps } from "antd";
 import { FC } from "react";
-import { CheckList, Comments, DatesContainer, Description, Details, People, LinkJira, ShortDescription } from "..";
+import { Comments, DatesContainer, Description, Details, People, LinkJira, ShortDescription } from "..";
+import { AddSquare } from "iconsax-react";
+import { CheckLists } from "../../../../../features";
 
 export const Collapses: FC = () => {
     const items: CollapseProps["items"] = [
@@ -42,7 +44,8 @@ export const Collapses: FC = () => {
         {
             key: "8",
             label: "Чек-листы",
-            children: <CheckList />,
+            children: <CheckLists />,
+            extra: <AddSquare/>
         },
     ];
     return (

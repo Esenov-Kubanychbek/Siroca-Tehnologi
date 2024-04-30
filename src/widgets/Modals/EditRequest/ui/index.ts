@@ -1,5 +1,4 @@
 export { ShortDescription } from "./ShortDescription/ShortDescription";
-export { CheckList } from "./CheckList/CheckList";
 export { Comments } from "./Comments/Comments";
 export { DatesContainer } from "./DatesContainer/DatesContainer";
 export { Description } from "./Description/Description";
