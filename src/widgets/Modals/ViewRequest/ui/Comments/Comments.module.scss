@@ -1,0 +1,44 @@
+@import "index.scss";
+
+.OneComment {
+    background-color: $blackf4;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    color: $black3b;
+    margin-bottom: 10px;
+    .Header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .HeaderLeft {
+            display: flex;
+            gap: 16px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
+    .Comment {
+        padding: 16px 0;
+    }
+    .Date {
+        font-size: 14px;
+        text-align: right;
+    }
+}
+
+.MoreButtons {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .Button {
+        height: 41px;
+        background: none;
+        border: none;
+        color: $blue;
+        font-weight: 700;
+        font-size: 14px;
+    }
+}

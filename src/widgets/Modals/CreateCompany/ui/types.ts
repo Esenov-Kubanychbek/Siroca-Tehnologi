@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 
 export interface ISelect {
-    dataOption: string[] | undefined;
+    dataOption: string[] | undefined | number[];
     text?: string;
     width?: number;
     value?: string | number;

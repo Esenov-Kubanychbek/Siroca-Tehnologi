@@ -1,26 +1,27 @@
 import { CloseSquare } from "iconsax-react"
-import { ChangeEvent, FC, useState } from "react"
+import { ChangeEvent, FC, useEffect, useState } from "react"
 import styles from './AddManager.module.scss'
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi"
 import { IUserGet } from "../../../shared/types/userTypes"
 import { CustomButton } from "../../../shared/ui"
 import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies"
-import { useAddManager } from "../../../shared/hooks/modalHooks"
 interface types {
     type: string,
-    addNewChangeManager?: (id:number) => void,
+    addNewChangeManager?: (id: number) => void,
+    closeModal: () => void,
 }
-export const AddManager: FC<types> = ({type, addNewChangeManager}) => {
+export const AddManager: FC<types> = ({ type, addNewChangeManager, closeModal }) => {
     const { users } = useDataStoreComponies();
-    const managers = users.filter(array => array.role_type === 'manager');
+    const managers = users.filter((array) => array.role_type === "manager");
     const [filteredManager, setFilteredManager] = useState<IUserGet[]>();
-    const [inputValue, setInputValue] = useState<string>('')
+    const [inputValue, setInputValue] = useState<string>("");
     const { addManager } = useDataInputCompaniesStore();
-    const [err, setErr] = useState<boolean>(false)
-    const modal = useAddManager();
+    const [err, setErr] = useState<boolean>(false);
+    const [object, setObject] = useState<IUserGet>();
+    const [text, setText] = useState<string>('');
 
     const filterManager = (text: string) => {
-        const filtered = managers.filter(manager => {
+        const filtered = managers.filter((manager) => {
             const inputText = text.toLowerCase();
             const nameManager = manager.first_name.toLowerCase();
             return nameManager.startsWith(inputText);
@@ -28,56 +29,68 @@ export const AddManager: FC<types> = ({type, addNewChangeManager}) => {
         return filtered;
     };
 
-
     const searchManagerChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        setInputValue(value)
+        setInputValue(value);
+        setText(value);
         const filter = filterManager(value);
         setFilteredManager(filter);
-        setErr(false)
-
-    }
+        setErr(false);
+    };
 
     const addManagers = () => {
 
         managers?.some((array) => {
-            if (inputValue === array.first_name) {
-                if (filteredManager?.length === 1) {
+            if (text === array.first_name) {
+                if (filteredManager) {
                     setErr(false);
                     filteredManager.map(array => {
-                        if(type === 'created'){
-                        addManager(array.id)
+                        if (type === 'created') {
+                            addManager(array.id);
+                            closeModal();
                         }
-                        if(type === 'changes'){
-                            array.id !== undefined && addNewChangeManager!== undefined && addNewChangeManager(array.id)
+                        if (type === 'changes') {
+                            array.id !== undefined && addNewChangeManager !== undefined && addNewChangeManager(array.id)
+                            closeModal();
+                            console.log(array.id);
                             
                         }
                     });
-                    modal.close();
-                    setInputValue('');                    
+                    setInputValue("");
                 }
                 return true;
             } else {
-                setErr(true)
+                setErr(true);
             }
         });
+    };
 
-    }
+    useEffect(() => {
+        if (object) {
+            setInputValue('');
+        }
+    }, [object])
     return (
         <div className={styles.AddManager}>
             <CloseSquare className={styles.close} onClick={() => {
-                        modal.close();
-                        setInputValue('')
-                    }}/>
+                closeModal();
+                setInputValue('')
+            }} />
 
             <div className={styles.addContainer}>
                 <p className={styles.head}>Добавить менеджера</p>
 
                 <div className={styles.searchManager}>
-                    <input onChange={searchManagerChange} value={inputValue} type="text" className={styles.searchManagers} name="searchManager" />
+                    <input
+                        onChange={searchManagerChange}
+                        value={text}
+                        type="text"
+                        className={styles.searchManagers}
+                        name="searchManager"
+                    />
                     <div
                         className={styles.results}
-                        style={{ display: `${inputValue ? 'block' : 'none'}` }}
+                        style={{ display: `${inputValue ? "block" : "none"}` }}
                     >
                         {filteredManager !== undefined &&
                             filteredManager.map((manager) => (
@@ -86,26 +99,31 @@ export const AddManager: FC<types> = ({type, addNewChangeManager}) => {
                                     key={manager.id}
                                     onClick={() => {
                                         setInputValue(manager.first_name);
-
+                                        setObject(manager);
+                                        setText(manager.first_name)
                                     }}
-                                >{manager.first_name}</p>
-
+                                >
+                                    {manager.first_name}
+                                </p>
                             ))}
                     </div>
                 </div>
             </div>
-            <p style={{
-                display: `${err ? 'block' : 'none'} `,
-                color: 'red'
-            }}>Данного менеджера не существует! Повторите попытку
-                или создайте нового менеджера.</p>
+            <p
+                style={{
+                    display: `${err ? "block" : "none"} `,
+                    color: "red",
+                }}
+            >
+                Данного менеджера не существует! Повторите попытку или создайте нового менеджера.
+            </p>
             <div className={styles.buttons}>
                 <CustomButton
                     variant="Secondary"
                     width={150}
                     text="Отмена"
                     onClick={() => {
-                        modal.close();
+                        closeModal();
                         setInputValue('')
                     }}
                 />
@@ -115,9 +133,7 @@ export const AddManager: FC<types> = ({type, addNewChangeManager}) => {
                     text="Добавить"
                     onClick={addManagers}
                 />
-
             </div>
         </div>
-    )
-}
-
+    );
+};

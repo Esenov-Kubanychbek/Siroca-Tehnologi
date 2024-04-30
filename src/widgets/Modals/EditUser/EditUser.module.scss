@@ -1,0 +1,61 @@
+@import "index.scss";
+
+.EditUser {
+    width: 560px;
+    display: flex;
+    padding: 24px 0;
+    justify-content: center;
+    flex-direction: column;
+    gap: 32px;
+    .TextTop {
+        font-size: 32px;
+        font-weight: 700;
+    }
+}
+
+.Top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Text {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.UserRole {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.Name {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.Description {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.Login {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.AddRole {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.Buttons {
+    display: flex;
+    justify-content: end;
+    gap: 16px;
+}

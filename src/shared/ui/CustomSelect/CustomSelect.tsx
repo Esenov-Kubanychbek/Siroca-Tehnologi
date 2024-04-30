@@ -1,7 +1,7 @@
 import { ArrowDown2 } from "iconsax-react";
 import styles from "./CustomSelect.module.scss";
 import { FC } from "react";
-import { ISelect } from "./model/types";
+import { ISelect } from "./types/types";
 
 export const CustomSelect: FC<ISelect> = (props) => {
     const { width, name } = props;

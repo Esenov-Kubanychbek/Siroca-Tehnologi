@@ -27,7 +27,8 @@ interface DataInputCompaniesStore {
     dataInputCompanies: DataAddCompanies;
     addManager: (manager: number | undefined)=> void;
     addMainManager: (manager: number | undefined)=> void;
-
+    addManagers: (manager: number | undefined)=> void;
+    company_code: (text: string) => void;
 }
 // Создаем хранилище Zustand
 export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) => ({
@@ -44,10 +45,9 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
         set((state) => ({
             dataInputCompanies: {
                 ...state.dataInputCompanies,
-                [e.target.name]: e.target.value
-            }
+                [e.target.name]: e.target.value,
+            },
         }));
-        
     },
     addManager: (manager) => {
         set((state) => ({
@@ -56,8 +56,8 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
                 // Добавляем проверку на undefined
                 managers: Array.isArray(state.dataInputCompanies.managers)
                     ? [...state.dataInputCompanies.managers, manager]
-                    : [manager]
-            }
+                    : [manager],
+            },
         }));
     },
     addMainManager: (manager) => {
@@ -68,6 +68,15 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
 
             }
         }));
+    },
+    addManagers: (data) => {
+        set((state) => ({
+            dataInputCompanies: {
+                ...state.dataInputCompanies,
+                managers: [...state.dataInputCompanies.managers, data]
+            }
+        }) )
+
     },
     // Новая функция сброса
     resetInput: () => {
@@ -82,6 +91,13 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
             }
         });
 
+    },
+    company_code: ( text ) => {
+        set((state) => ({
+            dataInputCompanies: {
+                ...state.dataInputCompanies,
+                company_code: text
+            }
+        }))
     }
-    
 }));

@@ -4,12 +4,12 @@ import styles from "./ReportModal.module.scss";
 import { FC, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../shared/variables/variables";
-import { useReport } from "../../../shared/hooks/modalHooks";
 import { FileExcelFilled } from "@ant-design/icons";
+import { IReportModal } from "./types/types";
 
 interface ResultsData {
-    company: string;
-    maneger: string;
+    company: (string | null)[];
+    maneger: (string | null)[];
     begin: string;
     end: string;
 }
@@ -17,10 +17,10 @@ interface ResultsData {
 interface ExcelData {
     filtered_data_size: number;
     results: { company: string }[];
-    // Добавьте другие свойства из ответа API, если это необходимо
 }
 
-export const ReportModal: FC = () => {
+export const ReportModal: FC<IReportModal> = (props) => {
+    const { setModal } = props;
     const [results, setResults] = useState<ResultsData | null>(null);
     const [excel, setExcel] = useState<ExcelData | false | null>(null);
 
@@ -28,14 +28,14 @@ export const ReportModal: FC = () => {
         setResults(e);
         try {
             const response = await axios.get(
-                `${BASE_URL}/applications/filter/?company_name=${e.company}&manager_first_name=${e.maneger}&start_date=${e.begin}&finish_date=${e.end}&week=unknown&month=unknown&all_time=unknown`,
+                `${BASE_URL}/applications/filter/?${e.company ? `company_name=${e.company.map((el) => (el === null ? "" : `${el}`))}` : ""}${e.maneger ? `&manager_first_name=${e.maneger.map((el) => (el !== null ? `${el}` : ""))}` : ""}${e.begin ? `&start_date=${e.begin}&` : ""}${e.end ? `&finish_date=${e.end}` : ""}`,
                 {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,
                     },
                 },
             );
-            console.log(response.data);
+            console.log(response);
 
             if (response.status === 200) {
                 setExcel(response.data);
@@ -50,7 +50,7 @@ export const ReportModal: FC = () => {
     const downLoad = async () => {
         try {
             const response = await axios.get(
-                `${BASE_URL}/applications/filter/export-to-excel/?company_name=${results?.company}&manager_first_name=${results?.maneger}&start_date=${results?.begin}&finish_date=${results?.end}&week=unknown&month=unknown&all_time=unknown`,
+                `${BASE_URL}/applications/filter/export-to-excel/?${results?.company ? `company_name=${results.company.map((el) => (el === null ? "" : `${el}`))}` : ""}${results?.maneger ? `&manager_first_name=${results.maneger.map((el) => (el !== null ? `${el}` : "")).join("")}` : ""}${results?.begin ? `&start_date=${results.begin}&` : ""}${results?.end ? `&finish_date=${results.end}` : ""}`,
                 {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,
@@ -80,15 +80,13 @@ export const ReportModal: FC = () => {
         }
     };
 
-    const modal = useReport();
-
     return (
         <div className={styles.RepModalWindow}>
             <div className={styles.Header1}>
                 <p>Скачать отчёт</p>
                 <CloseSquare
                     cursor={"pointer"}
-                    onClick={modal.close}
+                    onClick={() => setModal(false)}
                     color="black"
                     size={34}
                 />
@@ -112,7 +110,9 @@ export const ReportModal: FC = () => {
                             >
                                 <FileExcelFilled size={30} />
                             </div>
-                            <p className={styles.Name}>{excel.results[0].company}</p>
+                            <p className={styles.Name}>
+                                {results?.company.map((el, index) => (index === 1 ? ` ,${el}` : `${el}`))}
+                            </p>
                         </div>
                         <p className={styles.kb}>{excel.filtered_data_size / 1000} kb</p>
                     </div>

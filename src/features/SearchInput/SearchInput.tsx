@@ -1,14 +1,10 @@
 import styles from "./SearchInput.module.scss";
-import { ChangeEvent, FC } from "react";
+import { FC } from "react";
 import { CloseSquare, SearchNormal1 } from "iconsax-react";
- interface input {
-inputState?: string;
-change?:(e: ChangeEvent<HTMLInputElement>) => void;
-click?: () => void;
- }
+import { ISearchInput } from "./types/types";
 
-export const SearchInput: FC<input> = ({inputState, change, click}) => {
-    
+export const SearchInput: FC<ISearchInput> = (props) => {
+    const { value, onChange, onKeyDown, closeState, closeFunc } = props;
     return (
         <div className={styles.Search}>
             <SearchNormal1
@@ -17,16 +13,17 @@ export const SearchInput: FC<input> = ({inputState, change, click}) => {
             />
             <input
                 className={styles.Input}
-                value={inputState}
-                onChange={change}
+                value={value}
+                onChange={onChange}
+                onKeyDown={onKeyDown}
             />
             <CloseSquare
                 variant="Bold"
                 color="#3B3B3B"
                 size={24}
-                style={{ display: inputState ? "block" : "none" }}
+                style={{ display: closeState ? "block" : "none" }}
                 className={styles.Close}
-                onClick={click}
+                onClick={closeFunc}
             />
         </div>
     );

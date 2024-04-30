@@ -1,29 +1,45 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "./CreateRequest.module.scss";
-import { ICreateRequest, requestApi } from "./api/requestApi";
-import { useEditRequest, useRequest } from "../../../shared/hooks/modalHooks";
+import { ICreateRequest, createRequestApi } from "./api/createRequestApi";
 import { CloseSquare } from "iconsax-react";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { Modal } from "antd";
 import { EditRequest } from "../..";
+import { ICreateRequestModal } from "./types/types";
+import { idRoles } from "../../../pages/MainPage/api/idRoles";
 
-export const CreateRequest: FC = () => {
-    const modal = useRequest();
-    const editModal = useEditRequest();
-    const fetchData = requestApi();
+export const CreateRequest: FC<ICreateRequestModal> = (props) => {
+    const { setModal } = props;
+    const [editModal, setEditModal] = useState<boolean>(false);
+    const fetchData = createRequestApi();
     const [requestState, setRequestState] = useState<ICreateRequest>({
         title: "",
-        company: 0,
+        company: "",
     });
+    const roles = idRoles();
+    const fmRoles = roles.formatedState;
     const RequestCreateValue = (e: ChangeEvent<HTMLInputElement>) => {
         setRequestState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
     };
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        fetchData.posting(requestState);
-        modal.close();
-        editModal.open();
-        console.log("success");
+        if (Object.values(requestState).every((value) => value !== "")) {
+            fetchData.posting(requestState);
+            setModal(false);
+            if (
+                (fmRoles &&
+                    localStorage.getItem("role_type") === "client" &&
+                    fmRoles.client_can_edit_application_extra) ||
+                localStorage.getItem("role_type") === "manager" ||
+                localStorage.getItem("role_type") === ""
+            ) {
+                setEditModal(true);
+            } else {
+                return;
+            }
+        } else {
+            console.log("postTrimError");
+        }
     };
     return (
         <>
@@ -33,16 +49,11 @@ export const CreateRequest: FC = () => {
             >
                 <div className={styles.Top}>
                     <div className={styles.TextTop}>Создание заявки</div>
-                    <div
-                        onClick={modal.close}
-                        className={styles.Close}
-                    >
-                        <CloseSquare
-                            color="#5C5C5C"
-                            variant="Bold"
-                            size={34}
-                        />
-                    </div>
+                    <CloseSquare
+                        cursor={"pointer"}
+                        onClick={() => setModal(false)}
+                        size={34}
+                    />
                 </div>
                 <div className={styles.Input}>
                     Название заявки:
@@ -65,8 +76,8 @@ export const CreateRequest: FC = () => {
                 <div className={styles.Buttons}>
                     <CustomButton
                         type="button"
-                        onClick={modal.close}
-                        variant="Secondary"
+                        onClick={() => setModal(false)}
+                        variant="Without"
                         width={150}
                         text="Отменить"
                     />
@@ -81,10 +92,14 @@ export const CreateRequest: FC = () => {
             <Modal
                 width={732}
                 centered
-                open={editModal.isOpen}
-                onCancel={editModal.close}
+                open={editModal}
+                onCancel={() => setEditModal(false)}
             >
-                <EditRequest request={fetchData.oneRequest} />
+                <EditRequest
+                    request={requestState}
+                    setRequest={setRequestState}
+                    setModal={setEditModal}
+                />
             </Modal>
         </>
     );

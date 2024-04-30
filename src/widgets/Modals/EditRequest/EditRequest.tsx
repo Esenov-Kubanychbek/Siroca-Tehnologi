@@ -2,66 +2,67 @@ import { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "./EditRequest.module.scss";
 import { CloseSquare } from "iconsax-react";
 import { CustomButton } from "../../../shared/ui";
-import { useRequest, useSuccess } from "../../../shared/hooks/modalHooks";
-import { requestApi, IRequest } from "./api/requestApi";
+import { editRequestApi, IRequest } from "./api/editRequestApi";
 import { SuccessModal } from "../..";
 import { Modal } from "antd";
 import "./style.scss";
 import { Collapses } from "./ui";
-import { ICreateRequest } from "../CreateRequest/api/requestApi";
+import { createRequestApi } from "../CreateRequest/api/createRequestApi";
+import { IEditRequest } from "./types/types";
 
-export const EditRequest: FC<{ request: ICreateRequest }> = ({ request }) => {
-    const modal = useRequest();
-    const fetchData = requestApi();
-    const success = useSuccess();
+export const EditRequest: FC<IEditRequest> = (props) => {
+    const { request, setRequest, setModal } = props;
+    const fetchData = editRequestApi();
+    const [modalSuccess, setModalSuccess] = useState<boolean>(false);
+    const createRequest = createRequestApi();
     const [requestState, setRequestState] = useState<IRequest>({
-        task_number: "",
         title: request.title,
-        description: "",
+        company: request.company,
+        description: "long story",
+        short_description: "short",
         files: null,
-        jira: "",
+        jira: "https://jira.geeks.kg/secure/Dashboard.jspa",
         status: "К выполнению",
-        payment_state: "",
+        payment_state: "Не оплачено",
         priority: "Высокий",
-        application_date: "",
-        confirm_date: "",
-        offer_date: "",
-        start_date: "",
-        finish_date: "",
-        deadline_date: "",
-        company: 1,
-        main_client: null,
-        main_manager: 2,
+        application_date: "2001-02-21",
+        confirm_date: "2002-02-21",
+        offer_date: "2003-02-21",
+        start_date: "2004-02-21",
+        finish_date: "2005-02-21",
+        deadline_date: "2006-02-21",
+        main_client: "",
+        main_manager: "zub",
+        comments: [],
+        checklist: [],
     });
     const RequestCreateValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setRequestState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+        setRequest((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
         console.log(requestState);
     };
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        fetchData.editRequest(requestState, 1);
-        modal.close();
+        fetchData.editRequest(requestState, createRequest.id);
+        setModal(false);
+        setModalSuccess(true);
         console.log("success");
+        setTimeout(() => setModalSuccess(false), 1000);
     };
     return (
         <form onSubmit={postTrim}>
             <div className={styles.Container}>
                 <div className={styles.Top}>
                     <div className={styles.TextTop}>Создание заявки</div>
-                    <div
-                        onClick={modal.close}
-                        className={styles.Close}
-                    >
-                        <CloseSquare
-                            color="#5C5C5C"
-                            variant="Bold"
-                            size={34}
-                        />
-                    </div>
+                    <CloseSquare
+                        cursor={"pointer"}
+                        onClick={() => setModal(false)}
+                        size={34}
+                    />
                 </div>
                 <div className={styles.NumberRequest}>
                     <div>
-                        Номер заявки: <span>565646465</span>
+                        Номер заявки: <span>ABC-1234</span>
                     </div>
                 </div>
                 <Collapses
@@ -71,7 +72,7 @@ export const EditRequest: FC<{ request: ICreateRequest }> = ({ request }) => {
                 <div className={styles.Buttons}>
                     <CustomButton
                         type="button"
-                        onClick={modal.close}
+                        onClick={() => setModal(false)}
                         variant="Secondary"
                         width={150}
                         text="Отменить"
@@ -87,8 +88,8 @@ export const EditRequest: FC<{ request: ICreateRequest }> = ({ request }) => {
                     width={350}
                     centered
                     zIndex={11}
-                    open={success.isOpen}
-                    onCancel={success.close}
+                    open={modalSuccess}
+                    onCancel={() => setModalSuccess(false)}
                 >
                     <SuccessModal content="Заявка успешно создана!" />
                 </Modal>

@@ -1,30 +1,33 @@
 import axios from "axios";
 import { create } from "zustand";
-import { iGetUser, IUser, IUserGet } from "../../../../shared/types/userTypes";
-import { BASE_URL } from "../../../../shared/variables/variables";
+import { IUser, IUserGet } from "../../../../shared/types/userTypes";
+import { BASE_URL, authToken } from "../../../../shared/variables/variables";
 
-interface IFetch {
-    inState: IUser[];
-    oneUserGet: IUserGet;
-    oneUser: IUser;
-    userProfile: iGetUser,
-    userProfileAdded: () => void;
-    getOneUser: (id: number | undefined) => void;
-    putting: (postState: IUser, id: number | undefined) => void;
-    getting: () => void;
-    posting: (postState: IUser) => void;
+interface IUserGetDetails {
+    count: number;
+    next: null;
+    previous: null;
+    results: IUser[];
 }
 
-export const usersApi = create<IFetch>((set) => ({
-    inState: [],
-    userProfile: {
-        first_name: "",
-        job_title: 0,
-        main_company: 0,
-        password: "",
-        role_type: "",
-        surname: "",
-        username: "",
+interface IFetch {
+    usersList: IUser[];
+    usersGetDetails: IUserGetDetails;
+    oneUserGet: IUserGet;
+    oneUser: IUser;
+    getUsersList: () => void;
+    setSearchList: (searchState: string) => void;
+    getOneUser: (id: number | undefined) => void;
+    postUser: (user: FormData) => void;
+}
+
+export const usersApi = create<IFetch>((set, get) => ({
+    usersList: [],
+    usersGetDetails: {
+        count: 1,
+        next: null,
+        previous: null,
+        results: [],
     },
     oneUser: {
         first_name: "",
@@ -45,18 +48,21 @@ export const usersApi = create<IFetch>((set) => ({
         surname: "",
         username: "",
     },
-    userProfileAdded: async () => {
-        try{
-            const response = await axios.get(`${BASE_URL}/users/${localStorage.getItem('id')}/`);
-            console.log(response);
-            
-            set({
-                userProfile: response.data
-            })
-            
-        }catch(error){
-            console.log(error);
-            
+    getUsersList: async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}/users/profiles/?page=1`, authToken);
+            set({ usersGetDetails: response.data });
+            set({ usersList: response.data });
+        } catch (error) {
+            console.log(error, "getUsersListError");
+        }
+    },
+    setSearchList: async (searchState) => {
+        try {
+            const response = await axios.get(`${BASE_URL}/users/profiles/?search=${searchState}`);
+            set({ usersList: response.data });
+        } catch (error) {
+            console.log(error, "getUsersListError");
         }
     },
     getOneUser: async (id) => {
@@ -67,26 +73,11 @@ export const usersApi = create<IFetch>((set) => ({
             console.log(error, "getOneUserError");
         }
     },
-    putting: async (postState, id) => {
+    postUser: async (user) => {
         try {
-            const response = await axios.put(`${BASE_URL}/users/${id}/`, postState);
-            console.log(response.data);
-        } catch (error) {
-            console.log(error, "putOneUserError");
-        }
-    },
-    getting: async () => {
-        try {
-            const response = await axios.get(`${BASE_URL}/users/profiles/?limit=12&offset=0`);
-            set({ inState: response.data.results });
-        } catch (error) {
-            console.log(error, "getUserError");
-        }
-    },
-    posting: async (postState) => {
-        try {
-            const postResponse = await axios.post(`${BASE_URL}/users/create/`, postState);
-            console.log(postResponse);
+            const response = await axios.post(`${BASE_URL}/users/create/`, user);
+            const oldList = get().usersList;
+            set({ usersList: [...oldList, response.data] });
         } catch (error) {
             console.log(error, "postUserError");
         }

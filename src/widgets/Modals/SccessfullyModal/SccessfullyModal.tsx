@@ -10,7 +10,6 @@ interface text {
 
 
 export const SccessfullyModal: FC<text> = ({ texts, modalScc, closeModal}) => {
-
         useEffect(() => {
             if (modalScc === 'block') {
                 const timeoutId = setTimeout(() => {

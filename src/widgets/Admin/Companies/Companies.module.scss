@@ -3,13 +3,20 @@
 .Companies {
     margin-top: 20px;
     margin-right: 16px;
+    .alert{
+        color: rgba(113, 113, 113, 1);
+        font-size: 32px;
+        font-weight: 700;
+        text-align: center;
+        padding-top: 100px;
+    }
     .searchCompanies {
         display: flex;
         justify-content: space-between;
     }
-    .managerName{
+    .managerName {
         font-size: 16px;
-        display: flex   ;
+        display: flex;
         justify-content: center;
         align-items: center;
         font-weight: 700;
@@ -18,19 +25,19 @@
         font-size: 24px;
         font-weight: 700;
     }
-    .container{
+    .container {
         display: flex;
-        .table{
-            margin: 16px 0 ;
-            transition: .1s;
-            border: 1px #F4F4F4 solid;
+        .table {
+            margin: 16px 0;
+            transition: 0.1s;
+            border: 1px #f4f4f4 solid;
             ul {
                 padding: 0;
-                .datas{
+                .datas {
                     cursor: pointer;
                     display: flex;
-                    div{
-                        transition: .1s;
+                    div {
+                        transition: 0.1s;
                     }
                 }
             }

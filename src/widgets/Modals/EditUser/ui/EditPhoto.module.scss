@@ -1,0 +1,42 @@
+@import "index.scss";
+
+.EditPhoto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+    background-color: $blackf4;
+    text-align: center;
+    position: relative;
+    .Input {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        background: none;
+        color: transparent;
+        position: absolute;
+    }
+    & ::-webkit-file-upload-button {
+        visibility: hidden;
+    }
+    .Image {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        color: transparent;
+        position: absolute;
+    }
+    .Image::before {
+        content: none;
+    }
+    .Image::after {
+        content: none;
+    }
+}

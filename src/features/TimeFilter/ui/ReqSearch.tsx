@@ -1,18 +1,21 @@
-import styles from "./ReqSearch.module.scss";
 import { ChangeEvent, FC, useState } from "react";
-import { CloseSquare, SearchNormal1 } from "iconsax-react";
 import axios from "axios";
 import { getRequestApi } from "../../../widgets/RequestList/api/getRequestApi";
 import { BASE_URL } from "../../../shared/variables/variables";
+import { SearchInput } from "../../SearchInput/SearchInput";
 
 export const ReqSearch: FC = () => {
-    const [state, setState] = useState<boolean>(false);
+    const [closeState, setCloseState] = useState<boolean>(false);
     const [inputState, setInputState] = useState<string>("");
-    const change = (e: ChangeEvent<HTMLInputElement>) => {
-        setState(true);
+
+    //onChange to search input
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setCloseState(true);
         setInputState(e.target.value);
     };
     const fetchRequest = getRequestApi();
+
+    //Search func
     const search = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/?search=${inputState}`, {
@@ -20,13 +23,15 @@ export const ReqSearch: FC = () => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            fetchRequest.setState(response.data.results.results);
+            fetchRequest.setState(response.data.results);
 
             console.log(response);
         } catch (error) {
             console.log(error);
         }
     };
+
+    //To clear all searched things
     const updateSearch = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/`, {
@@ -41,39 +46,25 @@ export const ReqSearch: FC = () => {
             console.log(error);
         }
     };
+
+    //Search is work on click enter
     const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === "Enter") {
             search();
         }
     };
+    const closeFunc = () => {
+        setCloseState(false);
+        setInputState("");
+        updateSearch();
+    };
     return (
-        <div
-            className={styles.Search}
-            onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => handleKeyPress(event)}
-        >
-            <SearchNormal1
-                color="#929292"
-                size={24}
-            />
-            <input
-                className={styles.Input}
-                value={inputState}
-                onChange={change}
-            />
-
-            {/* <button onClick={search}>Search</button> */}
-            <CloseSquare
-                variant="Bold"
-                color="#3B3B3B"
-                size={24}
-                style={{ display: state ? "block" : "none" }}
-                className={styles.Close}
-                onClick={() => {
-                    setState(false);
-                    setInputState("");
-                    updateSearch();
-                }}
-            />
-        </div>
+        <SearchInput
+            value={inputState}
+            onChange={handleChange}
+            onKeyDown={handleKeyPress}
+            closeFunc={closeFunc}
+            closeState={closeState}
+        />
     );
 };

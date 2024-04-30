@@ -1,17 +1,20 @@
-import { FC, FormEvent, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
 import styles from "./CreateUser.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { CloseSquare } from "iconsax-react";
 import { RoleButton } from "./ui/RoleButton";
 import { AddButton } from "./ui/AddButton";
-import { ConfigProvider, Modal } from "antd";
-import { CreatePosition, SuccessModal } from "../..";
-import { usePosition, useSuccess, useUser } from "../../../shared/hooks/modalHooks";
+import { Modal } from "antd";
+import { CreateJobTitle, SuccessModal } from "../..";
 import { AddPhoto } from "./ui/AddPhoto";
-import axios from "axios";
-import { BASE_URL } from "../../../shared/variables/variables";
+import { ICreateUserModal } from "./types/types";
+import { usersApi } from "../../Admin/Users/api/usersApi";
 
-export const CreateUser: FC = () => {
+export const CreateUser: FC<ICreateUserModal> = (props) => {
+    const { setModal } = props;
+    const createUserApi = usersApi();
+    const [jobTitleModal, setJobTitleModal] = useState<boolean>(false);
+    const [modalSuccess, setModalSuccess] = useState<boolean>(false);
     const [formValues, setFormValue] = useState([
         { name: "role_type", value: null },
         { name: "first_name", value: null },
@@ -22,9 +25,6 @@ export const CreateUser: FC = () => {
         { name: "job_title", value: null },
         { name: "image", value: null },
     ]);
-    const positionFunc = usePosition();
-    const modal = useUser();
-    const success = useSuccess();
 
     const postTrim = async (e: FormEvent<HTMLFormElement>) => {
         try {
@@ -49,14 +49,16 @@ export const CreateUser: FC = () => {
                         }
                     }
                 });
-                const response = await axios.post(`${BASE_URL}/users/create/`, formData);
-                console.log(response);
+                createUserApi.postUser(formData);
+                setModal(false);
+                setModalSuccess(true);
+                setTimeout(() => setModalSuccess(false), 1000);
             }
         } catch (error) {
             console.log(formValues);
         }
     };
-    const addValues = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const addValues = (e: ChangeEvent<HTMLInputElement>) => {
         const state = [...formValues];
         state.map((el: { name: string; value: null | string | File }) => {
             if (el.name === e.target.name) {
@@ -77,11 +79,11 @@ export const CreateUser: FC = () => {
             onSubmit={postTrim}
         >
             <div className={styles.Top}>
-                <div className={styles.TextTop}>Создание пользователя</div>
+                <div>Создание пользователя</div>
                 <CloseSquare
                     cursor={"pointer"}
                     size={34}
-                    onClick={modal.close}
+                    onClick={() => setModal(false)}
                 />
             </div>
             <div className={styles.Description}>
@@ -135,7 +137,7 @@ export const CreateUser: FC = () => {
                 <div>
                     <div className={styles.Text}>Компания</div>
                     <CustomInput
-                        type="number"
+                        type="text"
                         name="main_company"
                         width={272}
                         placeholder="Напишите..."
@@ -147,12 +149,11 @@ export const CreateUser: FC = () => {
                     <div className={styles.AddRole}>
                         <CustomInput
                             name="job_title"
-                            type="number"
                             width={210}
                             placeholder="Напишите..."
                             change={addValues}
                         />
-                        <AddButton onClick={positionFunc.open} />
+                        <AddButton onClick={() => setJobTitleModal(true)} />
                     </div>
                 </div>
             </div>
@@ -161,7 +162,7 @@ export const CreateUser: FC = () => {
                     type="button"
                     variant="Without"
                     width={160}
-                    onClick={modal.close}
+                    onClick={() => setModal(false)}
                     text="Отменить"
                 />
                 <CustomButton
@@ -174,29 +175,24 @@ export const CreateUser: FC = () => {
             <Modal
                 width={700}
                 centered
-                open={positionFunc.isOpen}
-                onCancel={positionFunc.close}
+                open={jobTitleModal}
+                onCancel={() => setJobTitleModal(false)}
                 zIndex={10}
             >
-                <CreatePosition />
+                <CreateJobTitle
+                    setModal={setJobTitleModal}
+                    setModalSuccess={setModalSuccess}
+                />
             </Modal>
-            <ConfigProvider
-                theme={{
-                    token: {
-                        borderRadiusLG: 50,
-                    },
-                }}
+            <Modal
+                width={350}
+                centered
+                zIndex={11}
+                open={modalSuccess}
+                onCancel={() => setModalSuccess(false)}
             >
-                <Modal
-                    width={350}
-                    centered
-                    zIndex={11}
-                    open={success.isOpen}
-                    onCancel={success.close}
-                >
-                    <SuccessModal content="Пользователь Добавлен!" />
-                </Modal>
-            </ConfigProvider>
+                <SuccessModal content="Пользователь Добавлен!" />
+            </Modal>
         </form>
     );
 };

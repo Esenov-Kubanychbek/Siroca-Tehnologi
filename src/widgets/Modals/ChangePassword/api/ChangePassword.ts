@@ -18,7 +18,7 @@
 
 //     changePassword:<data> async (oldPassword: string, newPassword1: string, newPassword2: string) => {
 //         try {
-//             const response = await axios.put(`http://13.60.17.217:80/api/v1/users/change_password/${localStorage.getItem('id')}`, { 
+//             const response = await axios.put(`http://13.60.17.217:80/api/v1/users/change_password/${localStorage.getItem('id')}`, {
 //                 oldPassword: oldPassword,
 //                 newPassword1: newPassword1,
 //                 newPassword2: newPassword2
@@ -28,7 +28,7 @@
 //             return response;
 //         } catch (error) {
 //             console.error(error);
-            // set({ operationResult: { success: false, message: "Failed to change password." } });
+// set({ operationResult: { success: false, message: "Failed to change password." } });
 //         }
 //     }
 // }));

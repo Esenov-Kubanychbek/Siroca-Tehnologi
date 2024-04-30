@@ -1,0 +1,31 @@
+@import "index.scss";
+
+.RoleContainer {
+    width: 340px;
+    height: 60px;
+    background-color: $blackf4;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    input {
+        width: 28px;
+        height: 28px;
+    }
+}
+.Role {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 16px 34px;
+}
+
+.Text {
+    cursor: pointer;
+    gap: 5px;
+    display: flex;
+    font-size: 16px;
+    font-weight: 500;
+    input {
+        cursor: pointer;
+    }
+}

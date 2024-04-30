@@ -13,13 +13,47 @@
     }
 }
 
+.Header {
+    width: 580px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $blackf4;
+    border-radius: 8px;
+    gap: 340px;
+    .HeaderLeft {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 18px;
+        font-weight: 500;
+    }
+    button {
+        width: 100px;
+        height: 30px;
+        font-size: 16px;
+        font-weight: 700;
+        color: $black5c;
+        border-radius: 8px;
+        border: 1px solid $black3b;
+    }
+}
+
 .InputRelative {
     position: relative;
     .CheckAbsolute {
         position: absolute;
+        width: 24px;
+        height: 24px;
         left: 16px;
-        top: 55%;
-        transform: translateY(-50%);
+        top: 10px;
+        cursor: pointer;
+    }
+    .CloseSquare {
+        position: absolute;
+        top: 10px;
+        left: 540px;
     }
 }
 

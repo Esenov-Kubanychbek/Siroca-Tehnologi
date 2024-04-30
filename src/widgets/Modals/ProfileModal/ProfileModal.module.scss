@@ -1,62 +1,79 @@
+@import "index.scss";
+
 .ProfileModal {
-    width: 434px;
-    .block1 {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 0 50px;
+    .Header {
         display: flex;
         justify-content: space-between;
-        .h1 {
-            font-size: 32px;
-            font-weight: 700;
-        }
+        font-size: 32px;
+        width: 335px;
+        font-weight: 700;
     }
-    ul {
-        margin: 0;
-        padding: 0;
-        li {
-            list-style-type: none;
-            font-size: 18px;
+    .Inner {
+        display: flex;
+        font-size: 16px;
+        gap: 24px;
+        .Name {
             font-weight: 500;
-            height: 35px;
-            padding: 5px 0;
-            img {
-                height: 34px;
-                width: 34px;
-                border-radius: 50px;
+            color: $black5c;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            .Avatar {
+                display: flex;
+                align-items: center;
+                width: 100px;
+                height: 100px;
             }
-            input {
-                padding: 0;
-                border: none;
-                height: 25px;
-                padding: 0 7px;
-                width: 237px;
-                background-color: #f4f4f4;
-                border-radius: 4px;
-                &:active {
-                    border: none;
-                }
-            }
-            .btn {
-                height: 34px;
-                width: 100%;
-                border: none;
-                padding: 7px;
-                font-size: 18px;
-                font-weight: 500;
-                border-radius: 4px;
-                color: #1c6ab1;
+            p {
+                width: 96px;
+                height: 32px;
             }
         }
-        &:nth-child(1) {
-            text-align: right;
-            margin-right: 20px;
+        .Data {
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            color: $black;
+            .Image {
+                width: 100px;
+                height: 100px;
+                background-color: blue;
+                border-radius: 21px;
+            }
+            p {
+                height: 32px;
+            }
+            .ColorBlue {
+                color: $blue;
+            }
+            .ChangeButton {
+                font-size: 16px;
+                font-weight: 700;
+                color: $blue;
+                border: none;
+                background: none;
+                text-align: left;
+            }
         }
     }
-    .datas {
+    .Buttons {
+        gap: 24px;
         display: flex;
-        padding: 30px 0;
-        margin-left: 20px;
-    }
-    .button {
-        display: flex;
-        justify-content: center;
+        justify-content: end;
+        .EditButton {
+            width: 55px;
+            height: 55px;
+            background-color: $blue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            border-radius: 8px;
+        }
     }
 }

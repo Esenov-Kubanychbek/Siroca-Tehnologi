@@ -1,31 +1,37 @@
-import { AddSquare, CloseSquare } from "iconsax-react";
+import { AddSquare, CloseSquare, LampOn } from "iconsax-react";
 import styles from "./CreateCompany.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { ChangeEvent, FC, useState } from "react";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
-import { useAddManager, useCompany } from "../../../shared/hooks/modalHooks";
 import { Modal } from "antd";
 import { AddManager } from "../AddManager/AddManager";
 import { IUserGet } from "../../../shared/types/userTypes";
 
 interface modal {
     openModals: () => void;
+    closeCreateModal: () => void;
+    nameCreateCompany: (text: string, number: number) => void;
+    count: number;
 }
 
-export const CreateCompany: FC<modal> = ({openModals}) => {
-    const modal = useCompany();
+export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCreateCompany, count }) => {
     const [allData, setAllData] = useState<boolean>(false);
     const [hovered, setHovered] = useState<boolean>(false);
     const [inputValue, setInputValue] = useState<string>('');
     const [inputValueText, setInputValueText] = useState<string>('')
-    const { addCompany, users } = useDataStoreComponies();
-    const { changeInput, resetInput, dataInputCompanies, addMainManager } = useDataInputCompaniesStore();
+    const { addCompany, users, lamp } = useDataStoreComponies();
+    const { changeInput, resetInput, dataInputCompanies, addMainManager, addManagers, company_code } = useDataInputCompaniesStore();
     const [filteredManager, setFilteredManager] = useState<IUserGet[]>([]);
     const managers = users.filter(item => item.role_type === 'manager');
     const [err, setErr] = useState<boolean>(false)
-    const addManager = useAddManager();
-
+    const [addManagerModal, setAddManagerModal] = useState<boolean>(false);
+    const closeAddManager = () => {
+        setAddManagerModal(false)
+    };
+    const openAddManager = () => {
+        setAddManagerModal(true)
+    };
     const addNewCompany = () => {
         if (
             dataInputCompanies.name &&
@@ -37,29 +43,31 @@ export const CreateCompany: FC<modal> = ({openModals}) => {
             const managerFound = filteredManager?.some((filtered) => {
                 if (filtered.first_name === inputValue) {
                     addCompany(dataInputCompanies);
+                    const number = count + 1;
+                    nameCreateCompany(`Компания "${dataInputCompanies.name}" была создана!`, number)
                     resetInput();
                     setAllData(false);
-                    modal.close();
+                    closeCreateModal();
                     console.log(dataInputCompanies.main_manager);
                     setInputValue('');
                     setErr(false);
                     setTimeout(() => {
                         openModals();
                     }, 300)
-                    return true; // Возвращаем true, чтобы завершить поиск
+                    return true;
                 }
-                return false; // Возвращаем false, чтобы продолжить поиск
+                return false;
             });
             if (!managerFound) {
-                setErr(true); // Устанавливаем ошибку, если менеджер не найден
+                setErr(true);
             }
         } else {
             setAllData(true);
             console.log('error');
         }
     }
-    
-    
+
+
     const filterManager = (text: string) => {
         const filtered = managers.filter(manager => {
             const inputText = text.toLowerCase();
@@ -87,7 +95,7 @@ export const CreateCompany: FC<modal> = ({openModals}) => {
                 <CloseSquare
                     cursor={"pointer"}
                     size={32}
-                    onClick={modal.close}
+                    onClick={closeCreateModal}
                 />
             </div>
             <div className={styles.blockTwo}>
@@ -98,9 +106,8 @@ export const CreateCompany: FC<modal> = ({openModals}) => {
                         width={272}
                         change={changeInput}
                         name="name"
-                        allData={allData}
-                        datas={dataInputCompanies.name}
                         value={dataInputCompanies.name}
+                        error={allData}
                     />
                 </div>
                 <div>
@@ -110,24 +117,35 @@ export const CreateCompany: FC<modal> = ({openModals}) => {
                         width={272}
                         change={changeInput}
                         name="country"
-                        allData={allData}
-                        datas={dataInputCompanies.country}
                         value={dataInputCompanies.country}
+                        error={allData}
+
                     />
                 </div>
             </div>
             <div className={styles.blockTwo}>
                 <div>
                     <label htmlFor="">Краткий код</label>
-                    <CustomInput
-                        placeholder="Ввести код "
-                        width={272}
-                        change={changeInput}
-                        name="company_code"
-                        allData={allData}
-                        datas={dataInputCompanies.company_code}
-                        value={dataInputCompanies.company_code}
-                    />
+                    <div className={styles.lamp} >
+                        <CustomInput
+                            placeholder="Ввести код "
+                            width={272}
+                            change={changeInput}
+                            name="company_code"
+                            value={dataInputCompanies.company_code}
+                            maxLenght={3}
+                            error={allData}
+
+                        />
+                        <div onClick={async () => {
+                            const respose = await lamp(dataInputCompanies.name);
+                            if(typeof respose === 'string'){
+                                company_code(respose)
+                            }  
+                        }}><LampOn variant="Bold" color="#1c6ab1" /></div>
+                       
+                    </div>
+
                 </div>
                 <div>
                     <label htmlFor="">Домен</label>
@@ -136,9 +154,9 @@ export const CreateCompany: FC<modal> = ({openModals}) => {
                         width={272}
                         name="domain"
                         change={changeInput}
-                        allData={allData}
-                        datas={dataInputCompanies.domain}
                         value={dataInputCompanies.domain}
+                        error={allData}
+
                     />
                 </div>
             </div>
@@ -156,6 +174,8 @@ export const CreateCompany: FC<modal> = ({openModals}) => {
                                         addMainManager(manager.id);
                                         setInputValue(manager.first_name);
                                         setInputValueText('');
+                                        addManagers(manager.id)
+
                                     }} className={styles.manager}>{manager.first_name} </div>
                                 ))}
                             </div>
@@ -179,9 +199,7 @@ export const CreateCompany: FC<modal> = ({openModals}) => {
                                 color="white"
                                 onMouseEnter={() => setHovered(true)}
                                 onMouseLeave={() => setHovered(false)}
-                                onClick={() => {
-                                    addManager.open();
-                                }}
+                                onClick={openAddManager}
                             />
                         </div>
                     </div>
@@ -193,7 +211,7 @@ export const CreateCompany: FC<modal> = ({openModals}) => {
             <p style={{ display: `${allData ? 'block' : 'none'}` }}>Все поля должны быть обязательно заполнены*</p>
             <p style={{ display: `${err ? 'block' : 'none'}` }}>Такого менеджера не существует*</p>
             <div className={styles.buttons}>
-                <div onClick={modal.close}>
+                <div onClick={closeCreateModal}>
                     <CustomButton
                         variant="Without"
                         width={150}
@@ -216,12 +234,12 @@ export const CreateCompany: FC<modal> = ({openModals}) => {
                 </div>
             </div>
             <Modal
-                open={addManager.isOpen}
-                onCancel={addManager.close}
+                open={addManagerModal}
+                onCancel={closeAddManager}
                 width={500}
                 centered
             >
-                <AddManager type='created'/>
+                <AddManager type='created' closeModal={closeAddManager} />
             </Modal>
 
         </div>

@@ -2,8 +2,6 @@
     position: absolute;
     top: -20px;
     right: 20px;
-    width: 420px;
-    height: 80px;
     box-sizing: border-box;
     transition:  0.3s ease;
     padding: 24px 32px;
@@ -13,6 +11,7 @@
     p{
         font-size: 20px;
         font-weight: 700;
+        margin: 0 16px;
     }
     div{
         display: flex;

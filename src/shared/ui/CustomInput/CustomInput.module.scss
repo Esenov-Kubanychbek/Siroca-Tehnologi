@@ -14,10 +14,14 @@
     align-items: center;
     font-weight: 700;
 }
+
 .blackPlaceholder::placeholder {
-    color: black; // устанавливаем черный цвет для placeholder
+    color: black;
 }
 
 .redPlaceholder::placeholder {
-    color: red; // устанавливаем красный цвет для placeholder
+    color: red;
+}
+.placeholder-error::placeholder{
+    color: #e51616;
 }

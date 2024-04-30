@@ -2,8 +2,6 @@
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 721px;
-    // height: 406px;
     padding: 30px 70px;
     background-color: white;
 
@@ -108,5 +106,6 @@
         flex-direction: column;
         align-items: end;
         gap: 16px;
+        margin-top: 20px;
     }
 }

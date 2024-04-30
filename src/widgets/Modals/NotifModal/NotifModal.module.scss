@@ -10,8 +10,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding: 10px 50px;
+        justify-content: start;
+        padding: 10px 40px;
         width: 540px;
         height: 470px;
         background-color: white;
@@ -20,17 +20,25 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 530px;
+            width: 520px;
             height: 40px;
             .NotifH3 {
                 display: flex;
                 align-items: center;
                 color: #252525e5;
                 font-weight: 700;
-                font-size: 32px;
+                font-size: 35px;
                 height: 80px;
                 background-color: white;
                 text-align: left;
+            }
+            .ClearBtn {
+                border: none;
+                background: none;
+                font-size: 22px;
+                color: $blue;
+                font-weight: 700;
+                margin-bottom: -10.5px;
             }
         }
         .ContentBlock {

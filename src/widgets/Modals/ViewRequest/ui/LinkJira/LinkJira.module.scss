@@ -1,0 +1,10 @@
+@import "index.scss";
+
+.LinkJira {
+    display: flex;
+    align-items: center;
+    color: $blue;
+    gap: 16px;
+    font-size: 16px;
+    font-weight: 500;
+}

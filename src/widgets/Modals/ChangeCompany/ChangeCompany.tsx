@@ -1,27 +1,45 @@
 import { CloseSquare, MoreSquare } from 'iconsax-react';
 import styles from './ChangeCompany.module.scss';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useDataStoreComponies } from '../../Admin/Companies/api/componiesApi';
 import { Modal } from 'antd';
 import { ViewCompany } from '../ViewCompany/ViewCompany';
-import { useViewCompany } from '../../../shared/hooks/modalHooks/useViewCompany';
 import { useDataInputCompaniesStore } from '../ViewCompany/api/dataInputCompanies';
+import { CreateUser } from '../CreateUser/CreateUser';
 
-export const ChangeCompany = () => {
-    const { open, isOpen, close } = useViewCompany();
+
+interface props {
+    message: (text: string, number: number) => void;
+    count: number;
+}
+export const ChangeCompany: FC <props> = ({ message, count }) => {
     const [modalButtons, setModalButtons] = useState<boolean>(false);
-    const { deleteCompany, data, idCompany, closeModalView, modalViewCompany, selectedCompanyData } = useDataStoreComponies();
+    const { deleteCompany, data, idCompany, closeModalView, modalViewCompany, selectedCompanyData, users } = useDataStoreComponies();
     const { resetInput } = useDataInputCompaniesStore();
-    const modal = useViewCompany();
+    const [modalCreateUser,setModalCreateUser] = useState<boolean>(false);
+    const [viewModal, setViewModal] = useState<boolean>(false);
+    const closeView = () => {
+        setViewModal(false);
+    };
+    const openView = () => {
+        setViewModal(true);
+    };
+    
+    
 
     const deleteComp = () => {
+        
         deleteCompany(idCompany);
         console.log(data);
-        modal.close();
+        const number = count + 1;
+        message(`Компания "${selectedCompanyData.name}" была удалена!`, number );
+        closeView();
         closeModalView();
-
-
     }
+    const names = (id: number | undefined): string => {
+        const manager = users.find(manager => manager.id === id);
+        return manager ? manager.first_name : '';
+    };
 
     return (
         <>
@@ -31,9 +49,10 @@ export const ChangeCompany = () => {
                         <MoreSquare onClick={() => setModalButtons(prevState => !prevState)} size={34} />
                         <div style={{ display: `${modalButtons ? 'block' : 'none'}` }} className={styles.moreClick}>
                             <p onClick={() => {
-                                open();
+                                openView();
 
                             }}>Редактировать</p>
+                            <p onClick={() => setModalCreateUser(true)}>Создать пользователя</p>
                             <p onClick={deleteComp}>Удалить</p>
                         </div>
                         <div onClick={() => setModalButtons(false)} style={{ display: `${modalButtons ? 'block' : 'none'}` }} className={styles.blackBagr}></div>
@@ -68,7 +87,7 @@ export const ChangeCompany = () => {
 
                     <div className={styles.main_manager}>
                         <span>Ответственный менеджер:</span>
-                        <div>{selectedCompanyData?.main_manager}</div>
+                        <div>{names(selectedCompanyData?.main_manager)}</div>
                     </div>
                     <div className={styles.miniContainer}>
                         <span>Количество заявок:</span>
@@ -93,13 +112,22 @@ export const ChangeCompany = () => {
             <Modal
                 centered
                 width={700}
-                open={isOpen}
+                open={viewModal}
                 onCancel={() => {
-                    close();
+                    closeView();
                     resetInput()
                 }}
             >
-                <ViewCompany />
+                <ViewCompany closeModalView={closeView} message={message} count={count} viewModal={viewModal}/>
+            </Modal>
+            <Modal
+                centered
+                width={700}
+                open={modalCreateUser}
+                onCancel={() => setModalCreateUser(false)}
+                zIndex={5}
+            >
+                <CreateUser setModal={setModalCreateUser} />
             </Modal>
         </>
     )
