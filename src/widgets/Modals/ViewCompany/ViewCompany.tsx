@@ -11,10 +11,11 @@ interface props {
     closeModalView: () => void;
     message: (text: string, number: number) => void;
     count: number;
-    viewModal: boolean
+    viewModal: boolean,
+    page: number,
 }
 
-export const ViewCompany: FC<props> = ({ closeModalView, message, count, }) => {
+export const ViewCompany: FC<props> = ({ closeModalView, message, count, page }) => {
     interface managers {
         id: number | undefined,
         main: boolean,
@@ -37,10 +38,11 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, }) => {
         await changeInputOne(dataInputCompanies, selectedCompanyData, idCompany, idMainManager, filteredNewIdManagers);
         const number = count + 1;
         message(`Изменение были сохранены!`, number)
-        fetchDatas();
+        fetchDatas(page);
     }
 
     useEffect(() => {
+        
         const otherManagers = selectedCompanyData.managers.map((manager, index) => ({
             id: manager,
             main: manager === selectedCompanyData.main_manager,
@@ -67,7 +69,7 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, }) => {
         zIndex: `${managersModal ? "10" : '-50'}`
     }
     const stylesArrow = {
-        transform: `rotate(${managersMain ? '180deg' : '0'})`
+        transform: ` ${managersMain ? 'rotate( 180deg)' : 'none'}`
     }
     const addNewChangeManager = (id: number) => {
         const managers = [...selectedCompanyData.managers, id];
@@ -134,7 +136,10 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, }) => {
             <div className={styles.blockTwo}>
                 <div>
                     <br />
-                    <div className={styles.mainManager}>Ответственный менеджер <div style={stylesArrow} onClick={() => setManagersModal(!managersModal)}><ArrowDown2 /></div></div>
+                    <div className={styles.mainManager}>Ответственный менеджер <div onClick={() => {setManagersModal(!managersModal);
+        console.log(managersModal);
+
+                    }}><ArrowDown2  style={stylesArrow}/></div></div>
                     {managersMain.map((managerId) => (
                         <div className={styles.managers} key={managerId.id} style={style}>
                             <p className={styles.manager}>{names(managerId.id)}</p>

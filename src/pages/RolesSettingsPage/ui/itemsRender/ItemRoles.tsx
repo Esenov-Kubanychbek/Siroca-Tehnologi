@@ -24,11 +24,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
     inBoxList,
     genRoles,
 }) => {
-<<<<<<< HEAD
-    const [boxes, setBoxes] = useState<{ [key: string]: boolean }>({
-=======
     const [boxes, setBoxes] = useState<{ [key: string]: number | string | boolean | FileList | File | undefined | null }>({
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
         client_can_edit_comments_extra: false,
         client_can_get_reports_extra: false,
         client_can_view_logs_extra: false,
@@ -87,12 +83,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
             {checkBoxList.map((el, index: number) => {
                 if (boxes && Object.entries(boxes)[index] && Object.entries(boxes)[index][1] == null) {
                     console.log(el);
-<<<<<<< HEAD
-                    const isChecked =
-                        genBoxes && Object.entries(genBoxes)[index] ? Object.entries(genBoxes)[index][1] : false;
-=======
                     const isChecked = genBoxes && Object.entries(genBoxes)[index] ? Object.entries(genBoxes)[index][1] : false;
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                     return (
                         <div
                             className={styles.el}
@@ -117,11 +108,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
                                 type="checkbox"
                                 onChange={getCheckBoxVal}
                                 name={`${index}`}
-<<<<<<< HEAD
-                                checked={isChecked}
-=======
                                 checked={typeof(isChecked) === "boolean" ? isChecked : false}
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                             />
                         </div>
                     );

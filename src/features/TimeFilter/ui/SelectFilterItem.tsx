@@ -38,15 +38,6 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
             className={styles.FilterItem}
             style={{ left: `${el.pos}px` }}
         >
-<<<<<<< HEAD
-            <button
-                className={styles.add}
-                onClick={onUseSelects}
-            >
-                Применить
-            </button>
-=======
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
             {el.values && //checking if values is already true
                 el.values.map((elem: string | number | boolean, index) => {
                     const displayedText = String(elem).length > 10 ? String(elem).substring(0, 10) + "..." : elem;

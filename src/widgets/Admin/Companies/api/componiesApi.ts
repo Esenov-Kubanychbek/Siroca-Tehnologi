@@ -39,11 +39,11 @@ interface Data {
 }
 
 interface DataStore extends Data {
-    fetchDatas: () => Promise<void>;
-    addCompany: (company: dataAddCompanies) => Promise<void>;
+    fetchDatas: (page: number) => Promise<void>;
+    addCompany: (company: dataAddCompanies, page: number) => Promise<void>;
     selectedIdCompany: (id: number) => Promise<void>;
     selectedCompanyData: DataAddCompanies;
-    deleteCompany: (id: number) => Promise<void>;
+    deleteCompany: (id: number, page: number) => Promise<void>;
     newSelectedCompany: (data: DataAddCompanies) => void;
     idCompany: number;
     modalViewCompany: boolean;
@@ -57,11 +57,14 @@ interface DataStore extends Data {
     searchReset: (data: dataCompanies[]) => void;
     addedNewManagers: (comopanies: DataAddCompanies, data: (number | undefined)[]) => Promise<void>;
     lamp: (text: string) => Promise<void>;
+    page: number,
 }
 
-const fetchData = async () => {
+const fetchData = async (page?: number) => {
+    console.log(page);
+    
     try {
-        const response = await axios.get('http://13.51.161.14:80/api/v1/company/list/', {
+        const response = await axios.get( `http://13.51.161.14:80/api/v1/company/list/?page=${page}`, {
             headers: {
                 Authorization: `JWT ${localStorage.getItem("access")}`,
             },
@@ -126,6 +129,7 @@ const selectedId = async (id: number | undefined) => {
 
 const useDataStoreComponies = create<DataStore>((set) => ({
     data: [],
+    page: 1,
     modalViewCompany: false,
     selectedCompanyData: {
         name: '',
@@ -144,16 +148,16 @@ const useDataStoreComponies = create<DataStore>((set) => ({
     closeModalView: () => {
         set({ modalViewCompany: false })
     },
-    fetchDatas: async () => {
-        const datas = await fetchData();
+    fetchDatas: async (page: number) => {
+        const datas = await fetchData(page);
         if (datas !== null) {
             set({ data: datas });
             console.log(datas);
         }
     },
-    addCompany: async (company) => {
+    addCompany: async (company, page) => {
         await addCompanies(company);
-        const newData = await fetchData();
+        const newData = await fetchData(page);
         if (newData !== null) {
             set({ data: newData });
         }
@@ -173,9 +177,9 @@ const useDataStoreComponies = create<DataStore>((set) => ({
         });
 
     },
-    deleteCompany: async (id: number) => {
+    deleteCompany: async (id, page) => {
         await deleteCompanies(id);
-        const newData = await fetchData();
+        const newData = await fetchData(page);
         if (newData !== null) {
             set({ data: newData });
             console.log(newData);

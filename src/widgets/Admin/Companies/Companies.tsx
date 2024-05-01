@@ -8,6 +8,7 @@ import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from "react";
 import { ListTopName, ListTop, ItemInner } from "../../../shared/ui";
 import { ChangeCompany } from "../../Modals/ChangeCompany/ChangeCompany";
 import { SccessfullyModal } from "../../Modals/SccessfullyModal/SccessfullyModal";
+import { Pagination } from "../../../shared/ui/Pagination/Pagination";
 
 export const Companies: FC = () => {
     const { fetchDatas, getUsers, data, selectedIdCompany,searchReset, openModalView, closeModalView, modalViewCompany, searchCompanies } = useDataStoreComponies();
@@ -18,6 +19,7 @@ export const Companies: FC = () => {
     const [searchText, setSearchText] = useState<string>('');
     const [createCompanyName, setCreateCompanyName] = useState<string>('');
     const [count, setCount] = useState<number>(0);
+    const [page, setPage] = useState<number>(1)
     const openModalCreateCompany = () => {
         setCreateCompany(true);
     }
@@ -39,8 +41,8 @@ export const Companies: FC = () => {
     }
     useEffect(() => {
         getUsers();
-        fetchDatas();
-    }, [getUsers, fetchDatas]);
+        fetchDatas(page);
+    }, [getUsers, fetchDatas, page]);
 
     const handleKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === "Enter") {
@@ -59,7 +61,7 @@ export const Companies: FC = () => {
     }
     useEffect(() => {
         if (searchText === '') {
-            fetchDatas();
+            fetchDatas(page);
             companyList !== undefined && searchReset(companyList);
             setCompanyList(undefined);
         }
@@ -90,15 +92,15 @@ export const Companies: FC = () => {
                 </div>
             </div>
             <div className={styles.container}>
-                <div style={{ width: modalViewCompany ? '1092px' : "100%" }} className={styles.table}>
+                <div style={{ width: modalViewCompany ? '1092px' : "1718px" }} className={styles.table}>
                     <ListTop>
-                        <ListTopName name="Компания" width={modalViewCompany ? 160 : 206} />
-                        <ListTopName name={modalViewCompany ? 'Страна ком...' : 'Страна компании'} width={modalViewCompany ? 160 : 210} />
-                        <ListTopName name={modalViewCompany ? 'Количес...' : 'Количество пользователей'} width={modalViewCompany ? 160 : 306} />
-                        <ListTopName name={modalViewCompany ? 'Количес...' : 'Количество заявок'} width={modalViewCompany ? 160 : 286} />
-                        <ListTopName name="Менеджер" width={modalViewCompany ? 160 : 208} />
-                        <ListTopName name={modalViewCompany ? 'Дата созд...' : 'Дата создания'} width={modalViewCompany ? 160 : 206} />
-                        <ListTopName name={modalViewCompany ? 'Дата пос...' : 'Дата последнего редактирование'} width={modalViewCompany ? 160 : 296} />
+                        <ListTopName name="Компания" width={modalViewCompany ? 160 : 204} />
+                        <ListTopName name={modalViewCompany ? 'Страна ком...' : 'Страна компании'} width={modalViewCompany ? 160 : 206} />
+                        <ListTopName name={modalViewCompany ? 'Количес...' : 'Количество пользователей'} width={modalViewCompany ? 160 : 302} />
+                        <ListTopName name={modalViewCompany ? 'Количес...' : 'Количество заявок'} width={modalViewCompany ? 160 : 281} />
+                        <ListTopName name="Менеджер" width={modalViewCompany ? 160 : 204} />
+                        <ListTopName name={modalViewCompany ? 'Дата созд...' : 'Дата создания'} width={modalViewCompany ? 160 : 202} />
+                        <ListTopName name={modalViewCompany ? 'Дата пос...' : 'Дата последнего редактирования'} width={modalViewCompany ? 160 : 292} />
 
                     </ListTop>
                     {data.length !== 0 ? <ul>
@@ -107,21 +109,24 @@ export const Companies: FC = () => {
                                 selectedIdCompany(dataCompany.id);
                                 openModalView();
                             }} key={dataCompany.id}>
-                                <ItemInner width={modalViewCompany ? 160 : 206} content={dataCompany.name} />
-                                <ItemInner width={modalViewCompany ? 160 : 210} content={dataCompany.country} />
-                                <ItemInner width={modalViewCompany ? 160 : 306} content={dataCompany.count_users} />
-                                <ItemInner width={modalViewCompany ? 160 : 286} content={dataCompany.count_applications} />
-                                <div className={styles.managerName} style={{ width: `${modalViewCompany ? '160px' : '225px'}` }}>
+                                <ItemInner width={modalViewCompany ? 160 : 201} content={dataCompany.name} />
+                                <ItemInner width={modalViewCompany ? 160 : 206} content={dataCompany.country} />
+                                <ItemInner width={modalViewCompany ? 160 : 301} content={dataCompany.count_users} />
+                                <ItemInner width={modalViewCompany ? 160 : 284} content={dataCompany.count_applications} />
+                                <div className={styles.managerName} style={{ width: `${modalViewCompany ? '160px' : '221px'}` }}>
                                     {dataCompany.main_manager}
                                 </div>
-                                <ItemInner width={modalViewCompany ? 160 : 230} content={dataCompany.created_at} />
-                                <ItemInner width={modalViewCompany ? 160 : 310} content={dataCompany.last_updated_at} />
+                                <ItemInner width={modalViewCompany ? 160 : 226} content={dataCompany.created_at} />
+                                <ItemInner width={modalViewCompany ? 160 : 306} content={dataCompany.last_updated_at} />
                             </li>
                         )) }
                     </ul> : 
                     <p className={styles.alert}>По вашему запросу не чего не найдено!</p>}
                 </div>
-                <ChangeCompany message={message} count={count}/>
+                <ChangeCompany message={message} count={count} page={page}/>
+            </div>
+            <div className={styles.pogin}>
+            <Pagination count={50} page={page} setPage={setPage} />
             </div>
             {modalScc === 'block' ? <SccessfullyModal closeModal={closeModal} modalScc={modalScc} texts={createCompanyName} /> : null}
             <Modal
@@ -132,7 +137,7 @@ export const Companies: FC = () => {
                     closeModalCreateCompany();
                 }}
             >
-                <CreateCompany nameCreateCompany={message} count={count} openModals={openModal} closeCreateModal={closeModalCreateCompany}/>
+                <CreateCompany nameCreateCompany={message} count={count} openModals={openModal} closeCreateModal={closeModalCreateCompany} page={page}/>
             </Modal>
         </div>
     );

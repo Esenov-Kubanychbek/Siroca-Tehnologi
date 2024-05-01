@@ -11,8 +11,9 @@ import { CreateUser } from '../CreateUser/CreateUser';
 interface props {
     message: (text: string, number: number) => void;
     count: number;
+    page: number
 }
-export const ChangeCompany: FC <props> = ({ message, count }) => {
+export const ChangeCompany: FC <props> = ({ message, count, page }) => {
     const [modalButtons, setModalButtons] = useState<boolean>(false);
     const { deleteCompany, data, idCompany, closeModalView, modalViewCompany, selectedCompanyData, users } = useDataStoreComponies();
     const { resetInput } = useDataInputCompaniesStore();
@@ -29,7 +30,7 @@ export const ChangeCompany: FC <props> = ({ message, count }) => {
 
     const deleteComp = () => {
         
-        deleteCompany(idCompany);
+        deleteCompany(idCompany, page);
         console.log(data);
         const number = count + 1;
         message(`Компания "${selectedCompanyData.name}" была удалена!`, number );
@@ -120,7 +121,7 @@ export const ChangeCompany: FC <props> = ({ message, count }) => {
                     resetInput()
                 }}
             >
-                <ViewCompany closeModalView={closeView} message={message} count={count} viewModal={viewModal}/>
+                <ViewCompany closeModalView={closeView} message={message} count={count} viewModal={viewModal} page={page}/>
             </Modal>
             <Modal
                 centered

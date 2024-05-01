@@ -13,9 +13,10 @@ interface modal {
     closeCreateModal: () => void;
     nameCreateCompany: (text: string, number: number) => void;
     count: number;
+    page:number;
 }
 
-export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCreateCompany, count }) => {
+export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCreateCompany, count, page }) => {
     const [allData, setAllData] = useState<boolean>(false);
     const [hovered, setHovered] = useState<boolean>(false);
     const [inputValue, setInputValue] = useState<string>('');
@@ -42,7 +43,7 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
         ) {
             const managerFound = filteredManager?.some((filtered) => {
                 if (filtered.first_name === inputValue) {
-                    addCompany(dataInputCompanies);
+                    addCompany(dataInputCompanies, page);
                     const number = count + 1;
                     nameCreateCompany(`Компания "${dataInputCompanies.name}" была создана!`, number)
                     resetInput();

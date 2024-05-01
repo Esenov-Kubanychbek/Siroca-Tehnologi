@@ -12,12 +12,8 @@ import { IUser } from "../../shared/types/userTypes";
 
 export const RolesSettingsPage: FC = () => {
     const [boxesReg, setBoxesReg] = useState<IUser[]>([]);
-<<<<<<< HEAD
-    const [navtype, setNavtype] = useState<string>("client");
-=======
     const [navtype, setNavtype] = useState<string>("Клиент");
     const [users, setUsers] = useState<IUser[]>([]);
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
     const headerSettingsList: string[] = [
         "Добавление/удаление комментария к заявке",
         "Скачивание отчета по заявкам",
@@ -59,12 +55,6 @@ export const RolesSettingsPage: FC = () => {
         ],
     ];
     const fetchData = usersApi();
-<<<<<<< HEAD
-    useEffect(() => {
-        fetchData.getUsersList();
-    }, []);
-=======
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
 
     const navigate = useNavigate();
 
@@ -91,19 +81,11 @@ export const RolesSettingsPage: FC = () => {
     }, []);
 
     //puting changes
-<<<<<<< HEAD
-    const reqRoles = async (data: IUser) => {
-        try {
-            if (data.role_type === "client") {
-                const sendingData = {
-                    users_data: [data],
-=======
     const reqRoles = async (props: {data: IUser[], role: string}) => {
         try {
             if (props.role === "client") {
                 const sendingData = {
                     users_data: props.data,
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                 };
                 const response = await axios.put(`${BASE_URL}/users/clientpermissions/detail/`, sendingData, {
                     headers: {
@@ -111,30 +93,19 @@ export const RolesSettingsPage: FC = () => {
                     },
                 });
                 console.log(response);
-<<<<<<< HEAD
-            } else if (data.role_type === "manager") {
-                const sendingData = {
-                    users_data: [data],
-                };
-=======
             } else if (props.role === "manager") {
                 const sendingData = {
                     users_data: props.data,
                 };
                 console.log(sendingData);
                 
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                 const response = await axios.put(`${BASE_URL}/users/managerpermissions/detail/`, sendingData, {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,
                     },
                 });
                 console.log(response);
-<<<<<<< HEAD
-            } else if (data.role_type === "") {
-=======
             } else if (props.role === "") {
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                 return;
             }
         } catch (error) {
@@ -179,8 +150,6 @@ export const RolesSettingsPage: FC = () => {
         const id = (e.target as HTMLButtonElement).innerText;
         setNavtype(id);
     };
-<<<<<<< HEAD
-=======
     const onSearch = (event: ChangeEvent<HTMLInputElement>) => {
         const filterUsers = fetchData.usersList.filter((el) => {
             if (el.username?.includes(event.target.value)) {
@@ -195,7 +164,6 @@ export const RolesSettingsPage: FC = () => {
     useEffect(() => {
         setUsers(fetchData.usersList);
     }, [fetchData.usersList]);
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
     return (
         <div className={styles.Settings}>
             <div
@@ -221,15 +189,11 @@ export const RolesSettingsPage: FC = () => {
                         </div>
 
                         <div className={styles.Search}>
-<<<<<<< HEAD
-                            <SearchInput />
-=======
                             <SearchInput
                                 onChange={(event) => {
                                     onSearch(event);
                                 }}
                             />
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                             <button
                                 onClick={saveRoles}
                                 className={styles.Save}
@@ -242,22 +206,14 @@ export const RolesSettingsPage: FC = () => {
                         <button
                             onClick={changeNav}
                             id="client"
-<<<<<<< HEAD
-                            className={navtype === "client" ? styles.topNavActive : styles.topNavAnActive}
-=======
                             className={navtype === "Клиент" ? styles.topNavActive : styles.topNavAnActive}
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                         >
                             Клиент
                         </button>
                         <button
                             onClick={changeNav}
                             id="manager"
-<<<<<<< HEAD
-                            className={navtype === "manager" ? styles.topNavActive : styles.topNavAnActive}
-=======
                             className={navtype === "Менеджер" ? styles.topNavActive : styles.topNavAnActive}
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                         >
                             Менеджер
                         </button>
@@ -265,19 +221,11 @@ export const RolesSettingsPage: FC = () => {
                 </div>
                 <HeaderSettings
                     name="Имя пользователя"
-<<<<<<< HEAD
-                    list={navtype === "client" ? headerSettingsList : headerSettingsListManager}
-                />
-                <RolesRender
-                    users={fetchData.usersList ? fetchData.usersList : []}
-                    list={navtype === "client" ? renderSettingsList[0] : renderSettingsList[1]}
-=======
                     list={navtype === "Клиент" ? headerSettingsList : headerSettingsListManager}
                 />
                 <RolesRender
                     users={users ? users : []}
                     list={navtype === "Клиент" ? renderSettingsList[0] : renderSettingsList[1]}
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                     getChanges={(e: IUser[]) => setBoxesReg(e)}
                     navType={navtype}
                 />

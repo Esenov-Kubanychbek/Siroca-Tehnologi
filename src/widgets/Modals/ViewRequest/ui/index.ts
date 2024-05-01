@@ -1,4 +1,3 @@
-export { CheckList } from "./CheckList/CheckList";
 export { Collapses } from "./Collapses/Collapses";
 export { Comments } from "./Comments/Comments";
 export { Date } from "./Date/Date";

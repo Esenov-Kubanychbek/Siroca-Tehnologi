@@ -1,20 +1,32 @@
 import { TickSquare, Timer1 } from "iconsax-react";
 import { FC } from "react";
-import styles from "./SubTaskList.module.scss";
-import { getOneRequestApi } from "../../../../api/getOneRequestApi";
+import styles from "./OneCheckList.module.scss";
+import { ICheckList } from "../../api/checkListApi";
+import { deleteCheckListApi } from "../../api/deleteCheckListApi";
+import { getOneRequestApi } from "../../../../widgets/Modals/ViewRequest/api/getOneRequestApi";
 
-export const SubTaskList: FC = () => {
-    const fetchRequest = getOneRequestApi();
+interface IOneCheckList {
+    checkList: ICheckList
+}
+
+export const OneCheckList: FC<IOneCheckList> = (props) => {
+    const {checkList} = props
+    const {oneRequest, getOneRequest} = getOneRequestApi()
+    const {deleteCheckList} = deleteCheckListApi()
+    const deleteFunc = () => {
+        deleteCheckList(checkList.id)
+        getOneRequest(oneRequest.id)
+    }
     return (
         <div className={styles.SubTaskList}>
             <div className={styles.Header}>
                 <div className={styles.HeaderLeft}>
                     <TickSquare color="#5C5C5C" />
-                    Чек-лист
+                    {checkList.name}
                 </div>
-                <button>Удалить</button>
+                <button onClick={deleteFunc}>Удалить</button>
             </div>
-            {fetchRequest.oneRequest.checklists.map((card, i) => (
+            {checkList.subtasks !== undefined ? checkList.subtasks.map((card, i) => (
                 <div
                     className={card.completed ? styles.SubTaskChecked : styles.SubTask}
                     key={i}
@@ -41,7 +53,7 @@ export const SubTaskList: FC = () => {
                     </div>
                     <div className={styles.Line} />
                 </div>
-            ))}
+            )) : null }
         </div>
     );
 };

@@ -5,6 +5,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 10px;
+    width: 580px;
 }
 
 .NotChecked {
@@ -16,7 +17,7 @@
     justify-content: center;
     position: absolute;
     left: 16px;
-    top: 10px;
+    top: 16px;
     border-radius: 8px;
     border: 2px solid $blackde;
 }
@@ -44,7 +45,7 @@
     gap: 16px;
     input {
         width: 130px;
-        height: 44px;
+        height: 56px;
         padding-left: 16px;
         font-size: 16px;
         font-weight: 500;

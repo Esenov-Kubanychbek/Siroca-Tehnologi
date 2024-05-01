@@ -1,8 +1,14 @@
 import { Collapse, CollapseProps } from "antd";
 import { FC } from "react";
-import { CheckList, Comments, Date, Description, Details, LinkJira, RequestLogs, People, ShortDescription } from "..";
+import { Comments, Date, Description, Details, LinkJira, RequestLogs, People, ShortDescription } from "..";
+import { AddSquare } from "iconsax-react";
+import { CheckLists } from "../../../../../features";
+import { checkListApi } from "../../../../../features/CheckLists/api/checkListApi";
+import { getOneRequestApi } from "../../api/getOneRequestApi";
 
 export const Collapses: FC = () => {
+    const {createCheckList} = checkListApi()
+    const {oneRequest, getOneRequest} = getOneRequestApi()
     const items: CollapseProps["items"] = [
         {
             key: "1",
@@ -47,15 +53,19 @@ export const Collapses: FC = () => {
         {
             key: "9",
             label: "Чек-листы",
-            children: <CheckList />,
+            children: <CheckLists />,
+            extra: <AddSquare onClick={(e)=>{createCheckList({
+                name: "CheckList",
+                application: 1
+            })
+        e.stopPropagation()
+        getOneRequest(oneRequest.id)
+        }}/>
         },
     ];
     return (
         <Collapse
-<<<<<<< HEAD
-=======
             ghost
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
             defaultActiveKey={[2, 3, 4, 5, 6, 7, 8, 9]}
             items={items}
         />

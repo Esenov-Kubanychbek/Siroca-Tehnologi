@@ -1,8 +1,13 @@
 @import "index.scss";
+@import "../../../app/styles/variables.scss";
 
 .Companies {
     margin-top: 20px;
     margin-right: 16px;
+    height: 850px;
+    .Buttons{
+        margin-right: 30px;
+    }
     .alert{
         color: rgba(113, 113, 113, 1);
         font-size: 32px;
@@ -33,12 +38,18 @@
             border: 1px #f4f4f4 solid;
             ul {
                 padding: 0;
+                margin: 0;
                 .datas {
+                    border-bottom: 1px solid rgba(146, 146, 146, 1);
                     cursor: pointer;
                     display: flex;
+                    
                     div {
                         transition: 0.1s;
                     }
+                }
+                .datas:hover{
+                    background-color: $hover;
                 }
             }
         }

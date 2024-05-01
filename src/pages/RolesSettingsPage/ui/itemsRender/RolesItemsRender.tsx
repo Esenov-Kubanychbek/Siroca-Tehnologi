@@ -43,12 +43,7 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType 
         try {
             const responseC = await axios.get(`${BASE_URL}/users/clientpermissions/detail/`);
             const responseM = await axios.get(`${BASE_URL}/users/managerpermissions/detail/`);
-<<<<<<< HEAD
-            const update = [...responseC.data.results, ...responseM.data.results];
-            console.log(responseC);
-=======
             const update = [...responseC.data, ...responseM.data];
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
             setGetInBoxes(update);
         } catch (error) {
             console.log(error);
@@ -76,16 +71,10 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType 
 
     const filteredUsersClient = users.filter((el: IUser) => el.role_type === "client"); //filter to client
     const filteredUsersManager = users.filter((el: IUser) => el.role_type === "manager"); //filter to manager
-<<<<<<< HEAD
-    return (
-        <div className={styles.Container}>
-            {navType === "client"
-=======
 
     return (
         <div className={styles.Container}>
             {navType === "Клиент"
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                 ? filteredUsersClient.map((el: IUser, index: number) => (
                       <ItemSettingRoles
                           key={el.username}

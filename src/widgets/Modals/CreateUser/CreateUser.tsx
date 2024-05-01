@@ -1,80 +1,5 @@
-import { ChangeEvent, FC, FormEvent, useState } from "react";
+import {  FC, FormEvent, useState } from "react";
 import styles from "./CreateUser.module.scss";
-<<<<<<< HEAD
-import { CustomButton, CustomInput } from "../../../shared/ui";
-import { CloseSquare } from "iconsax-react";
-import { RoleButton } from "./ui/RoleButton";
-import { AddButton } from "./ui/AddButton";
-import { Modal } from "antd";
-import { CreateJobTitle, SuccessModal } from "../..";
-import { AddPhoto } from "./ui/AddPhoto";
-import { ICreateUserModal } from "./types/types";
-import { usersApi } from "../../Admin/Users/api/usersApi";
-
-export const CreateUser: FC<ICreateUserModal> = (props) => {
-    const { setModal } = props;
-    const createUserApi = usersApi();
-    const [jobTitleModal, setJobTitleModal] = useState<boolean>(false);
-    const [modalSuccess, setModalSuccess] = useState<boolean>(false);
-    const [formValues, setFormValue] = useState([
-        { name: "role_type", value: null },
-        { name: "first_name", value: null },
-        { name: "surname", value: null },
-        { name: "username", value: null },
-        { name: "password", value: null },
-        { name: "main_company", value: null },
-        { name: "job_title", value: null },
-        { name: "image", value: null },
-    ]);
-
-    const postTrim = async (e: FormEvent<HTMLFormElement>) => {
-        try {
-            e.preventDefault();
-            const fl = await formValues.filter((el) => {
-                if (el.value === null) {
-                    return el;
-                } else {
-                    return;
-                }
-            });
-            const formData = new FormData();
-            if (fl[0]) {
-                console.log("postrim err");
-            } else if (!fl[0]) {
-                formValues.forEach((el) => {
-                    if (el.value !== null) {
-                        if (el.name === "image") {
-                            formData.append(el.name, el.value);
-                        } else {
-                            formData.append(el.name, el.value);
-                        }
-                    }
-                });
-                createUserApi.postUser(formData);
-                setModal(false);
-                setModalSuccess(true);
-                setTimeout(() => setModalSuccess(false), 1000);
-            }
-        } catch (error) {
-            console.log(formValues);
-        }
-    };
-    const addValues = (e: ChangeEvent<HTMLInputElement>) => {
-        const state = [...formValues];
-        state.map((el: { name: string; value: null | string | File }) => {
-            if (el.name === e.target.name) {
-                if (el.name === "image") {
-                    el.value = e.target.files ? e.target.files[0] : null;
-                } else {
-                    el.value = e.target.value;
-                }
-            }
-            return el;
-        });
-        setFormValue(state);
-    };
-
-=======
 import { ButtonCreate, CustomButton, CustomInput } from "../../../shared/ui";
 import { CloseSquare, InfoCircle, TickCircle } from "iconsax-react";
 import { Modal } from "antd";
@@ -116,7 +41,6 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
             console.log("trimUserError");
         }
     };
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
     return (
         <form
             className={styles.CreateUser}
@@ -183,15 +107,6 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
             <div className={styles.Login}>
                 <div className={styles.Bottom}>
                     <div className={styles.Text}>Компания</div>
-<<<<<<< HEAD
-                    <CustomInput
-                        type="text"
-                        name="main_company"
-                        width={272}
-                        placeholder="Напишите..."
-                        change={addValues}
-                    />
-=======
                     <div className={styles.Input}>
                         <input
                             type="text"
@@ -213,20 +128,10 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                             Компании с таким названием не существует! Повторите попытку, или создайте новую компанию.
                         </p>
                     )}
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                 </div>
                 <div className={styles.Bottom}>
                     <div className={styles.Text}>Должность в компании</div>
                     <div className={styles.AddRole}>
-<<<<<<< HEAD
-                        <CustomInput
-                            name="job_title"
-                            width={210}
-                            placeholder="Напишите..."
-                            change={addValues}
-                        />
-                        <AddButton onClick={() => setJobTitleModal(true)} />
-=======
                         <div className={styles.Input}>
                             <input
                                 name="job_title"
@@ -243,7 +148,6 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                             )}
                         </div>
                         <ButtonCreate onClick={() => setJobTitleModal(true)} />
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                     </div>
                     {hasJobTitle === true || createUserState.job_title === "" ? null : (
                         <p className={styles.NotExist}>

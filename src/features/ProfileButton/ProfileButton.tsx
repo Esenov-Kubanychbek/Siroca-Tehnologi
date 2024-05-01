@@ -16,11 +16,7 @@ export const ProfileButton: FC = () => {
             >
                 <img
                     alt="profile"
-<<<<<<< HEAD
-                    src={fetchUsers.oneUserGet.image}
-=======
                     src={String(fetchUsers.oneUserGet.image)}
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                 />
                 <p>Мой профиль</p>
             </button>

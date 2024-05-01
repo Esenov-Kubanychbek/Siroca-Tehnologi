@@ -30,11 +30,7 @@ export const Request: FC<IRequest> = (props) => {
                 width={role === "admin" ? 249 : 260}
             />
             <ItemInner
-<<<<<<< HEAD
-                content={request.short_description}
-=======
                 content={request.short_description !== null && request.short_description !== ''? request.short_description : "------------"}
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                 width={role === "admin" ? 230 : 220}
             />
             <ItemInner
@@ -53,27 +49,6 @@ export const Request: FC<IRequest> = (props) => {
                 content={request.finish_date !== null && request.finish_date !== '' ? request.finish_date : "-----------"}
                 width={role === "admin" ? 194 : 180}
             />
-<<<<<<< HEAD
-            <div
-                className={styles.Prioritet}
-                style={role === "admin" ? { width: "136px" } : { width: "150px" }}
-            >
-                <div
-                    style={{
-                        border: `1px solid ${priorityColor(request.priority)}`,
-                        color: `${priorityColor(request.priority)}`,
-                    }}
-                >
-                    {request.priority}
-                </div>
-            </div>
-            <div
-                className={styles.Status}
-                style={role === "admin" ? { width: "114px" } : { width: "140px" }}
-            >
-                <div
-                    style={{
-=======
             <div
                 className={styles.Prioritet}
                 style={{ width: role === "admin" ? "136px" :"150px" }}
@@ -93,7 +68,6 @@ export const Request: FC<IRequest> = (props) => {
             >
                 <div
                     style={{
->>>>>>> ced31a6d8c3e35c1f8e310ee2026f58a7f9b5acc
                         border: `1px solid ${statusColor(request.status)}`,
                         color: `${statusColor(request.status)}`,
                     }}
