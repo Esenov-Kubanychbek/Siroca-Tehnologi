@@ -1,36 +1,55 @@
-import { CloseSquare } from "iconsax-react";
 import styles from "./EditUser.module.scss";
 import { FC, FormEvent, useEffect, useState } from "react";
+import { CloseSquare, InfoCircle, TickCircle } from "iconsax-react";
 import { ButtonCreate, CustomButton, CustomInput } from "../../../shared/ui";
-import { RoleButton } from "./ui/RoleButton";
-import { EditPhoto } from "./ui/EditPhoto";
-import { usersApi } from "../../Admin/Users/api/usersApi";
-import { deleteUserApi } from "./api/deleteUserApi";
 import { IEditUserModal } from "./types/types";
-import { Modals } from "./ui";
 import { editUserApi } from "./api/editUserApi";
+import { EditImage, Modals, RoleButton } from "./ui";
+import { deleteUserApi } from "./api/deleteUserApi";
+import { usersApi } from "../../Admin/Users/api/usersApi";
+import { jobTitleApi } from "../../Admin/JobTitles/api/jobTitleApi";
+import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
+import { IAddUser } from "../../../shared/types/userTypes";
 
 export const EditUser: FC<IEditUserModal> = (props) => {
-    const { setModal } = props;
-    const [jobTitleModal, setJobTitleModal] = useState<boolean>(false);
     const fetchData = usersApi();
     const deleting = deleteUserApi();
     const [passwordModal, setPasswordModal] = useState<boolean>(false);
+    const [jobTitleModal, setJobTitleModal] = useState<boolean>(false);
     const [modalSuccess, setModalSuccess] = useState<boolean>(false);
     const { editUser, setEditState, editUserState, editUserChange } = editUserApi();
+    const { setModal } = props;
+    const { jobTitleList } = jobTitleApi();
+    const { data } = useDataStoreComponies();
+    const [added, setAdded] = useState<IAddUser>({
+        first_name: true,
+        surname: true,
+        role_type: true,
+        image: true,
+        username: true,
+        job_title: true,
+        main_company: true,
+        password: true,
+    });
+    const hasJobTitle = jobTitleList.some((jobTitle) => {
+        return editUserState.job_title === jobTitle.title;
+    });
+    const hasCompany = data.some((company) => {
+        return editUserState.main_company === company.name;
+    });
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (Object.values(editUserState).every((value) => value === "")) {
-            setModal(false);
-            setModalSuccess(true);
-            console.log(fetchData.oneUserGet, "postTrimError");
-            setTimeout(() => setModalSuccess(false), 1000);
-        } else {
-            setModal(false);
-            setModalSuccess(true);
+        const updatedAdded: IAddUser = { ...added };
+        Object.keys(editUserState).forEach((key) => {
+            updatedAdded[key] = editUserState[key] !== "";
+        });
+        console.log(added);
+        setAdded(updatedAdded);
+        if (Object.values(editUserState).every((value) => value !== "") && hasJobTitle && hasCompany) {
             editUser(fetchData.oneUserGet.id);
-            console.log(fetchData.oneUserGet, "something changed");
-            setTimeout(() => setModalSuccess(false), 1000);
+            setModal(false);
+        } else {
+            console.log("trimUserError");
         }
     };
     const deleteUser = () => {
@@ -56,11 +75,15 @@ export const EditUser: FC<IEditUserModal> = (props) => {
                 />
             </div>
             <div className={styles.Description}>
-                <EditPhoto />
+                <EditImage
+                    added={added.image}
+                    onChange={editUserChange}
+                />
                 <div className={styles.UserRole}>
                     <div className={styles.Name}>
                         <div className={styles.Text}>Имя</div>
                         <CustomInput
+                            trim={added.first_name}
                             name="first_name"
                             change={editUserChange}
                             value={editUserState.first_name}
@@ -70,6 +93,7 @@ export const EditUser: FC<IEditUserModal> = (props) => {
                         <div>
                             <div className={styles.Text}>Фамилия</div>
                             <CustomInput
+                                trim={added.surname}
                                 change={editUserChange}
                                 name="surname"
                                 value={editUserState.surname}
@@ -78,19 +102,18 @@ export const EditUser: FC<IEditUserModal> = (props) => {
                             />
                         </div>
                     </div>
-                    <div>
-                        <div className={styles.Text}>Тип роли</div>
-                        <RoleButton
-                            role={editUserState.role_type}
-                            change={editUserChange}
-                        />
-                    </div>
+                    <RoleButton
+                        trim={added.role_type}
+                        role={editUserState.role_type}
+                        onChange={editUserChange}
+                    />
                 </div>
             </div>
             <div className={styles.Login}>
                 <div>
                     <div className={styles.Text}>Логин</div>
                     <CustomInput
+                        trim={added.username}
                         change={editUserChange}
                         name="username"
                         value={editUserState.username}
@@ -110,32 +133,80 @@ export const EditUser: FC<IEditUserModal> = (props) => {
                 </div>
             </div>
             <div className={styles.Login}>
-                <div>
+                <div className={styles.Bottom}>
                     <div className={styles.Text}>Компания</div>
-                    <CustomInput
-                        change={editUserChange}
-                        value={editUserState.main_company}
-                        type="text"
-                        name="main_company"
-                        width={272}
-                        placeholder="Напишите..."
-                    />
+                    <div className={styles.Input}>
+                        <input
+                            value={editUserState.main_company}
+                            type="text"
+                            name="main_company"
+                            style={{
+                                width: "222px",
+                                border:
+                                    hasCompany || added.main_company
+                                        ? hasCompany
+                                            ? "2px solid #00A91B"
+                                            : "none"
+                                        : "2px solid #E51616",
+                            }}
+                            placeholder="Напишите..."
+                            onChange={editUserChange}
+                        />
+                        {hasCompany || editUserState.main_company === "" ? (
+                            hasCompany ? (
+                                <TickCircle color="#00A91B" />
+                            ) : null
+                        ) : (
+                            <InfoCircle color="#E51616" />
+                        )}
+                    </div>
+                    {hasCompany || editUserState.main_company === "" ? null : (
+                        <p className={styles.NotExist}>
+                            Компании с таким названием не существует! Повторите попытку, или создайте новую компанию.
+                        </p>
+                    )}
                 </div>
-                <div>
+                <div className={styles.Bottom}>
                     <div className={styles.Text}>Должность в компании</div>
                     <div className={styles.AddRole}>
-                        <CustomInput
-                            change={editUserChange}
-                            value={editUserState.job_title}
-                            name="job_title"
-                            type="text"
-                            width={210}
-                            placeholder="Напишите..."
-                        />
-                        <ButtonCreate onClick={() => setJobTitleModal(true)}/>
+                        <div className={styles.Input}>
+                            <input
+                                value={editUserState.job_title}
+                                name="job_title"
+                                style={{
+                                    width: "160px",
+                                    border:
+                                        hasJobTitle || added.job_title
+                                            ? hasJobTitle
+                                                ? "2px solid #00A91B"
+                                                : "none"
+                                            : "2px solid #E51616",
+                                }}
+                                placeholder="Напишите..."
+                                onChange={editUserChange}
+                            />
+                            {hasJobTitle || editUserState.job_title === "" ? (
+                                hasJobTitle ? (
+                                    <TickCircle color="#00A91B" />
+                                ) : null
+                            ) : (
+                                <InfoCircle color="#E51616" />
+                            )}
+                        </div>
+                        <ButtonCreate onClick={() => setJobTitleModal(true)} />
                     </div>
+                    {hasJobTitle || editUserState.job_title === "" ? null : (
+                        <p className={styles.NotExist}>
+                            Данной должности не существует! Повторите попытку, или создайте новую должность.
+                        </p>
+                    )}
                 </div>
             </div>
+            {Object.values(added).every((value) => value === true) ? null : (
+                <div className={styles.MustTrim}>
+                    <p>Все поля должны быть обязательно заполнены*</p>
+                </div>
+            )}
             <div className={styles.Buttons}>
                 <CustomButton
                     type="button"
