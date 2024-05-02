@@ -85,7 +85,7 @@ const deleteCompanies = async (id: number) => {
 const getUser = async () => {
     try {
         const response = await axios.get(`${BASE_URL}/users/profiles/?page=1`, authToken);
-        return response.data.data
+        return response.data.data;
     } catch (error) {
         console.log(error, "getUserError");
     }

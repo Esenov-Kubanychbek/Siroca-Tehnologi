@@ -42,7 +42,7 @@ export const createRequestApi = create<IFetch>((set, get) => ({
                 [e.target.name]: e.target.value,
             },
         }));
-        const state = get().oneRequest
+        const state = get().oneRequest;
         console.log(state, "oneRequest");
     },
     createRequest: async () => {

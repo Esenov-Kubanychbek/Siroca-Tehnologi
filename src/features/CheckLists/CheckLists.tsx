@@ -11,8 +11,11 @@ export const CheckLists: FC = () => {
     return (
         <div className={styles.CheckLists}>
             {oneRequest.checklists.map((checklist, i) => (
-                <div key={i} className={styles.OneCheckList}>
-                    <OneCheckList checkList={checklist}/>
+                <div
+                    key={i}
+                    className={styles.OneCheckList}
+                >
+                    <OneCheckList checkList={checklist} />
                     {display && <CreateSubTask setDisplay={setDisplay} />}
                     <CustomButton
                         onClick={() => setDisplay(true)}

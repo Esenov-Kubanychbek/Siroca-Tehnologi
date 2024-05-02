@@ -24,9 +24,9 @@ export const CreateRequest: FC<ICreateRequestModal> = (props) => {
         return oneRequest.company === company.name;
     });
     const cancelFunc = () => {
-        setEditModal(false)
-        resetOneRequest()
-    }
+        setEditModal(false);
+        resetOneRequest();
+    };
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const updatedAdded: IAddedCreateRequest = { ...added };
@@ -110,7 +110,7 @@ export const CreateRequest: FC<ICreateRequestModal> = (props) => {
                         </p>
                     )}
                 </div>
-                {(added.title && added.company) ? null : (
+                {added.title && added.company ? null : (
                     <div className={styles.MustTrim}>
                         <p>Все поля должны быть обязательно заполнены*</p>
                     </div>

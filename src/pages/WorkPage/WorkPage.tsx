@@ -6,12 +6,12 @@ import styles from "./WorkPage.module.scss";
 import { FC, useEffect } from "react";
 
 export const WorkPage: FC = () => {
-    const {getJobTitleList} = jobTitleApi()
-    const {fetchDatas} = useDataStoreComponies()
-    useEffect(()=> {
-        getJobTitleList()
-        fetchDatas()
-    },[])
+    const { getJobTitleList } = jobTitleApi();
+    const { fetchDatas } = useDataStoreComponies();
+    useEffect(() => {
+        getJobTitleList();
+        fetchDatas();
+    }, []);
     return (
         <div className={styles.WorkPage}>
             <Dashboard />

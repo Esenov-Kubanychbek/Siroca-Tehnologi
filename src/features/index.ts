@@ -7,4 +7,4 @@ export { ReportButton } from "./ReportButton/ReportButton";
 export { SearchInput } from "./SearchInput/SearchInput";
 export { StatusNumber } from "./StatusNumber/StatusNumber";
 export { TimeFilter } from "./TimeFilter/TimeFilter";
-export {CheckLists} from "./CheckLists/CheckLists"
+export { CheckLists } from "./CheckLists/CheckLists";

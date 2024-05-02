@@ -41,8 +41,8 @@ export const HeaderBottom: FC<{ role: string | null }> = ({ role }) => {
                                     color="white"
                                 />
                             </button>
-                            <div style={{ position: "relative", display: "flex", alignItems: "center"}}>
-                                <ReportButton  />
+                            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+                                <ReportButton />
                             </div>
                         </div>
                     )}

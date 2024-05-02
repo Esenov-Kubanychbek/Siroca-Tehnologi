@@ -1,19 +1,32 @@
 import { Collapse, CollapseProps } from "antd";
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { Comments, Date, Description, Details, LinkJira, RequestLogs, People, ShortDescription } from "..";
-import { AddSquare } from "iconsax-react";
+import { AddSquare, Maximize4 } from "iconsax-react";
 import { CheckLists } from "../../../../../features";
 import { checkListApi } from "../../../../../features/CheckLists/api/checkListApi";
 import { getOneRequestApi } from "../../api/getOneRequestApi";
 
-export const Collapses: FC = () => {
-    const {createCheckList} = checkListApi()
-    const {oneRequest, getOneRequest} = getOneRequestApi()
+interface ICollapses {
+    setViewLogs: Dispatch<SetStateAction<boolean>>;
+}
+
+export const Collapses: FC<ICollapses> = (props) => {
+    const { createCheckList } = checkListApi();
+    const { oneRequest, setChecklist } = getOneRequestApi();
+    const { oneCheckList } = checkListApi();
+    const { setViewLogs } = props;
     const items: CollapseProps["items"] = [
         {
             key: "1",
             label: "Logs",
             children: <RequestLogs />,
+            extra: (
+                <Maximize4
+                    onClick={() => setViewLogs(true)}
+                    size={24}
+                    style={{ marginTop: "6px", marginRight: "6px" }}
+                />
+            ),
         },
         {
             key: "2",
@@ -54,13 +67,18 @@ export const Collapses: FC = () => {
             key: "9",
             label: "Чек-листы",
             children: <CheckLists />,
-            extra: <AddSquare onClick={(e)=>{createCheckList({
-                name: "CheckList",
-                application: 1
-            })
-        e.stopPropagation()
-        getOneRequest(oneRequest.id)
-        }}/>
+            extra: (
+                <AddSquare
+                    onClick={(e) => {
+                        createCheckList({
+                            name: "CheckList",
+                            application: oneRequest.id,
+                        });
+                        e.stopPropagation();
+                        setChecklist(oneCheckList);
+                    }}
+                />
+            ),
         },
     ];
     return (

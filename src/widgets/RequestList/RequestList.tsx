@@ -10,6 +10,7 @@ import { BASE_URL } from "../../shared/variables/variables";
 import { AddComment } from "../Modals/ViewRequest/ui";
 import { Pagination } from "../../shared/ui/Pagination/Pagination";
 import { ItemCount } from "../../shared/ui/ItemCount/ItemCount";
+import { idRoles } from "../../pages/MainPage/api/idRoles";
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
     const [page, setPage] = useState<number>(1);
@@ -17,6 +18,8 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     const [modal, setModal] = useState<boolean>(false);
     const fetchRequest = getRequestApi();
     const apiLength = fetchRequest.getState;
+    const roles = idRoles();
+    const role_type = localStorage.getItem("role_type");
     const reqPage = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/?page=${page}&${api}`, {
@@ -35,7 +38,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     };
 
     useEffect(() => {
-        reqPage();  
+        reqPage();
     }, [page]);
     return (
         <div style={role === "admin" ? { width: "1724px" } : { width: "1820px" }}>
@@ -58,9 +61,16 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 )}
             </div>
             {apiLength ? (
-                <Pagination page={page} setPage={setPage} count={reqCount}/>
+                <Pagination
+                    page={page}
+                    setPage={setPage}
+                    count={reqCount}
+                />
             ) : null}
-            <ItemCount count={reqCount} page={page}/>
+            <ItemCount
+                count={reqCount}
+                page={page}
+            />
 
             <Modal
                 centered
@@ -70,7 +80,9 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 zIndex={5}
             >
                 <ViewRequest setModal={setModal} />
-                <AddComment />
+                {roles.formatedState?.client_can_edit_comments_extra || role_type === "manager" || role_type === "" ? (
+                    <AddComment />
+                ) : null}
             </Modal>
         </div>
     );

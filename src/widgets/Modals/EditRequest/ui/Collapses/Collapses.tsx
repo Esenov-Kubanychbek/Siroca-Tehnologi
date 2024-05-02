@@ -3,8 +3,11 @@ import { FC } from "react";
 import { Comments, DatesContainer, Description, Details, People, LinkJira, ShortDescription } from "..";
 import { AddSquare } from "iconsax-react";
 import { CheckLists } from "../../../../../features";
+import { idRoles } from "../../../../../pages/MainPage/api/idRoles";
 
 export const Collapses: FC = () => {
+    const roles = idRoles();
+    const role_type = localStorage.getItem("role_type");
     const items: CollapseProps["items"] = [
         {
             key: "1",
@@ -36,16 +39,21 @@ export const Collapses: FC = () => {
             label: "Краткое описание",
             children: <ShortDescription />,
         },
-        {
-            key: "7",
-            label: "Комментарии",
-            children: <Comments />,
-        },
+        ...(roles.formatedState?.client_can_edit_comments_extra || role_type === "manager" || role_type === ""
+            ? [
+                  {
+                      key: "8",
+                      label: "Комментарии",
+                      children: <Comments />,
+                  },
+              ]
+            : []),
+
         {
             key: "8",
             label: "Чек-листы",
             children: <CheckLists />,
-            extra: <AddSquare/>
+            extra: <AddSquare />,
         },
     ];
     return (

@@ -83,11 +83,11 @@ export const editRequestApi = create<IFetch>((set, get) => ({
         try {
             const state = get().requestState;
             const formData = new FormData();
-            const filesFormData = new FormData()            
+            const filesFormData = new FormData();
             if (Array.isArray(state.files)) {
                 state.files.map((file) => {
-                    filesFormData.append("files", file)
-                })
+                    filesFormData.append("files", file);
+                });
             }
             Object.entries(state).forEach(([key, value]) => {
                 if (value !== null && value !== undefined && !Array.isArray(value)) {

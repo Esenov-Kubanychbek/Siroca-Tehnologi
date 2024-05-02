@@ -10,16 +10,16 @@ export const MainPage: FC = () => {
     const fetchRoleTypes = usersRoleTypeApi();
     const role = localStorage.getItem("role_type");
     const id = localStorage.getItem("id");
+
     useEffect(() => {
         roles.getting();
+        fetchUsers.getOneUser(Number(id));
+        fetchUsers.getUsersList(1);
     }, []);
     useEffect(() => {
         roles.formateState();
     }, [roles.rolesState, roles.genRolesState]);
-    useEffect(() => {
-        fetchUsers.getOneUser(Number(id));
-        fetchUsers.getUsersList(1);
-    }, []);
+
     useEffect(() => {
         fetchRoleTypes.setClients(fetchUsers.usersList);
         fetchRoleTypes.setManagers(fetchUsers.usersList);
@@ -35,7 +35,10 @@ export const MainPage: FC = () => {
                 <>
                     <Dashboard />
                     <header style={{ width: "1820px", marginLeft: "120px" }}>
-                        <HeaderTop role={role} />
+                        <HeaderTop
+                            role={role}
+                            isAdminManager={true}
+                        />
                         <HeaderBottom role={role} />
                     </header>
                 </>
@@ -43,7 +46,10 @@ export const MainPage: FC = () => {
         } else {
             return (
                 <>
-                    <HeaderTop role={role} />
+                    <HeaderTop
+                        role={role}
+                        isAdminManager={false}
+                    />
                     <HeaderBottom role={role} />
                 </>
             );

@@ -66,12 +66,12 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
                         );
                     }
                 })}
-                <button
-                    className={styles.add}
-                    onClick={onUseSelects}
-                >
-                    Применить
-                </button>
+            <button
+                className={styles.add}
+                onClick={onUseSelects}
+            >
+                Применить
+            </button>
         </div>
     );
 };

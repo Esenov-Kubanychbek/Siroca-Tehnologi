@@ -27,6 +27,8 @@ export const Authorization: FC = () => {
             console.log(response);
             if (response.status === 200) {
                 const access = response.data.access;
+                console.log(response);
+
                 localStorage.setItem("access", access);
                 localStorage.setItem("role_type", response.data.role_type);
                 localStorage.setItem("id", response.data.id);

@@ -6,5 +6,5 @@ export interface ICreateRequestModal {
 export interface IAddedCreateRequest {
     [key: string]: string | null | undefined | boolean;
     title: boolean;
-    company: boolean
+    company: boolean;
 }
