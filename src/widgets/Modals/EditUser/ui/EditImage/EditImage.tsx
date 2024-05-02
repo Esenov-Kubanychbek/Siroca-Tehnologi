@@ -1,15 +1,13 @@
 import { GalleryAdd } from "iconsax-react";
-import styles from "./AddImage.module.scss";
+import styles from "./EditImage.module.scss";
 import { ChangeEvent, FC, useState } from "react";
+import { IEditImage } from "../../types/types";
+import { editUserApi } from "../../api/editUserApi";
 
-interface IAddImage {
-    added: boolean | undefined;
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
-
-export const AddImage: FC<IAddImage> = (props) => {
+export const EditImage: FC<IEditImage> = (props) => {
     const { added, onChange } = props;
-    const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+    const { editUserState } = editUserApi();
+    const [imageUrl, setImageUrl] = useState<string | undefined>(String(editUserState.image));
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -19,10 +17,14 @@ export const AddImage: FC<IAddImage> = (props) => {
         }
     };
     return (
-        <div className={styles.AddImage} style={{ border: added ? "none" : "1px solid red" }}>
+        <div className={styles.EditImage} style={{ border: added ? "none" : "1px solid red" }}>
             <GalleryAdd size={50} color="#252525" />
             <p>Добавьте фотографию пользователя</p>
-            {imageUrl && <img src={imageUrl} alt="ChosenImage" />}
+            {imageUrl ? (
+                <img src={imageUrl} alt="ChosenImage" />
+            ) : (
+                <img src={String(editUserState.image)} alt="UserImage" />
+            )}
             <input
                 name="image"
                 onChange={handleImageChange}

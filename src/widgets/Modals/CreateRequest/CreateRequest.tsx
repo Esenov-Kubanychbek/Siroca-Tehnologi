@@ -1,23 +1,42 @@
 import { FC, FormEvent, useState } from "react";
 import styles from "./CreateRequest.module.scss";
 import { createRequestApi } from "./api/createRequestApi";
-import { CloseSquare } from "iconsax-react";
+import { CloseSquare, InfoCircle, TickCircle } from "iconsax-react";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { Modal } from "antd";
 import { EditRequest } from "../..";
-import { ICreateRequestModal } from "./types/types";
+import { IAddedCreateRequest, ICreateRequestModal } from "./types/types";
 import { idRoles } from "../../../pages/MainPage/api/idRoles";
+import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 
 export const CreateRequest: FC<ICreateRequestModal> = (props) => {
     const { setModal } = props;
     const [editModal, setEditModal] = useState<boolean>(false);
-    const { oneRequest, postRequest, requestChange } = createRequestApi();
+    const { oneRequest, createRequest, resetOneRequest, createRequestChange } = createRequestApi();
+    const { data } = useDataStoreComponies();
     const roles = idRoles();
     const fmRoles = roles.formatedState;
+    const [added, setAdded] = useState<IAddedCreateRequest>({
+        title: true,
+        company: true,
+    });
+    const hasCompany = data.some((company) => {
+        return oneRequest.company === company.name;
+    });
+    const cancelFunc = () => {
+        setEditModal(false)
+        resetOneRequest()
+    }
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (oneRequest.title && oneRequest.company !== "") {
-            postRequest(oneRequest);
+        const updatedAdded: IAddedCreateRequest = { ...added };
+        Object.keys(oneRequest).forEach((key) => {
+            updatedAdded[key] = oneRequest[key] !== "";
+        });
+        console.log(added);
+        setAdded(updatedAdded);
+        if (oneRequest.title !== "" && oneRequest.company !== "" && hasCompany) {
+            createRequest();
             setModal(false);
             if (
                 (fmRoles &&
@@ -51,23 +70,51 @@ export const CreateRequest: FC<ICreateRequestModal> = (props) => {
                 <div className={styles.Input}>
                     Название заявки:
                     <CustomInput
+                        trim={added.title}
                         placeholder="Напишите..."
                         width={400}
                         name="title"
                         value={oneRequest.title}
-                        change={requestChange}
+                        change={createRequestChange}
                     />
                 </div>
                 <div className={styles.Input}>
                     Название компании:
-                    <CustomInput
-                        placeholder="Напишите..."
-                        width={400}
-                        name="company"
-                        value={oneRequest.company}
-                        change={requestChange}
-                    />
+                    <div className={styles.Company}>
+                        <input
+                            type="text"
+                            name="company"
+                            value={oneRequest.company}
+                            style={{
+                                border:
+                                    hasCompany || added.company
+                                        ? hasCompany
+                                            ? "2px solid #00A91B"
+                                            : "none"
+                                        : "2px solid #E51616",
+                            }}
+                            placeholder="Напишите..."
+                            onChange={createRequestChange}
+                        />
+                        {hasCompany || oneRequest.company === "" ? (
+                            hasCompany ? (
+                                <TickCircle color="#00A91B" />
+                            ) : null
+                        ) : (
+                            <InfoCircle color="#E51616" />
+                        )}
+                    </div>
+                    {hasCompany || oneRequest.company === "" ? null : (
+                        <p className={styles.NotExist}>
+                            Компании с таким названием не существует! Повторите попытку, или создайте новую компанию.
+                        </p>
+                    )}
                 </div>
+                {(added.title && added.company) ? null : (
+                    <div className={styles.MustTrim}>
+                        <p>Все поля должны быть обязательно заполнены*</p>
+                    </div>
+                )}
                 <div className={styles.Buttons}>
                     <CustomButton
                         type="button"
@@ -88,7 +135,7 @@ export const CreateRequest: FC<ICreateRequestModal> = (props) => {
                 width={732}
                 centered
                 open={editModal}
-                onCancel={() => setEditModal(false)}
+                onCancel={cancelFunc}
             >
                 <EditRequest
                     setModal={setEditModal}

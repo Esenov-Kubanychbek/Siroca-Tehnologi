@@ -1,5 +1,11 @@
 @import "index.scss";
 
+.RoleButton {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
 .RoleContainer {
     width: 340px;
     height: 60px;
@@ -12,6 +18,12 @@
         height: 28px;
     }
 }
+
+.Name {
+    font-size: 18px;
+    font-weight: 700;
+}
+
 .Role {
     display: flex;
     align-items: center;
@@ -29,3 +41,4 @@
         cursor: pointer;
     }
 }
+

@@ -26,7 +26,7 @@ export interface IRequest {
     title?: string;
     description?: string;
     short_description?: string;
-    files?: string | null | File | FileList;
+    files?: string | null | File | FileList | string|File[];
     jira?: string;
     status?: string;
     payment_state?: string;
