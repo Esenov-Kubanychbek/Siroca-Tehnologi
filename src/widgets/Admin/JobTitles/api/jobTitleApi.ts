@@ -38,8 +38,9 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
             const response = await axios.get(`${BASE_URL}/company/list_job-title/?limit=12&offset=0`, authToken);
             set({ jobTitleList: response.data });
             set({ searchList: response.data });
+            console.log(response, "getJobTitlesListSuccess");
         } catch (error) {
-            console.log(error, "getJobTitleError");
+            console.log(error, "getJobTitleListError");
         }
     },
     setSearchList: (searchState) => {

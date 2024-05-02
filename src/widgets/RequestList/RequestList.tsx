@@ -24,9 +24,10 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            setReqCount(response.data.created_count);
-            fetchRequest.setState(response.data.results);
-            fetchRequest.setFilterState(response.data.results);
+            setReqCount(response.data.data.created_count);
+            fetchRequest.setState(response.data.data.results);
+            fetchRequest.setFilterState(response.data.data.results);
+            console.log(response, "getRequestsListSuccess");
             fetchRequest.setNow(page);
         } catch (error) {
             console.log(error);

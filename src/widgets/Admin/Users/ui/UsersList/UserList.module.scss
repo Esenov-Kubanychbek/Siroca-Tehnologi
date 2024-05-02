@@ -18,6 +18,23 @@
     }
 }
 
+.Bottom {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+.ItemCount {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 100%;
+}
+
 .Nothing {
     width: 1718px;
     height: 500px;
