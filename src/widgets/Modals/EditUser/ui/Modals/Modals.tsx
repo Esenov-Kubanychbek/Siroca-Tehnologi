@@ -22,9 +22,7 @@ export const Modals: FC<IEdituserModals> = (props) => {
                 onCancel={() => setJobTitleModal(false)}
                 zIndex={10}
             >
-                <CreateJobTitle
-                    setModal={setJobTitleModal}
-                />
+                <CreateJobTitle setModal={setJobTitleModal} />
             </Modal>
             <Modal
                 width={350}

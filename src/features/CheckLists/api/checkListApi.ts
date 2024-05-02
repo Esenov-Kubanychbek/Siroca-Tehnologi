@@ -29,12 +29,12 @@ export const checkListApi = create<IFetch>((set) => ({
     checkLists: [],
     oneCheckList: {
         name: "",
-        application: 0
+        application: 0,
     },
     createCheckList: async (checkList) => {
         try {
             const postResponse = await axios.post(`${BASE_URL}/applications/checklist/`, checkList, authToken);
-            set({oneCheckList: postResponse.data})
+            set({ oneCheckList: postResponse.data });
             console.log(postResponse, "postCheckListSuccess");
         } catch (error) {
             console.log(error, "postCheckListError");

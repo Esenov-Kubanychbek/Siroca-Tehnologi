@@ -31,7 +31,6 @@ export const idRoles = create<IFetch>((set, get) => ({
                 })
                 .then((data) => {
                     set({ rolesState: data });
-                    
                 });
 
             await fetch(`${BASE_URL}/users/${localStorage.getItem("role_type")}permissions/general/`, {

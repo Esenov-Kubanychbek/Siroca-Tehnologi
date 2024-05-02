@@ -2,7 +2,7 @@ import { FC } from "react";
 import { ListTopName } from "../../../../../shared/ui/ListTop/ListTopName";
 import { ListTop } from "../../../../../shared/ui";
 
-export const UsersTop: FC<{view: boolean}> = ({view}) => {
+export const UsersTop: FC<{ view: boolean }> = ({ view }) => {
     return (
         <ListTop width={view ? 1221 : 1718}>
             <ListTopName

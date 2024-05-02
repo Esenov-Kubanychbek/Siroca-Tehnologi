@@ -18,9 +18,7 @@ export const Modals: FC<IModalTypes> = (props) => {
                 onCancel={() => setModal(false)}
                 zIndex={10}
             >
-                <CreateJobTitle
-                    setModal={setModal}
-                />
+                <CreateJobTitle setModal={setModal} />
             </Modal>
             <Modal
                 centered

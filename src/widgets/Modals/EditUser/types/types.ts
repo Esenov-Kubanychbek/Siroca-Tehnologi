@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 import { Dispatch, SetStateAction } from "react";
 
 export interface IRole {
-    trim: boolean | undefined
+    trim: boolean | undefined;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     role?: string | null;
 }

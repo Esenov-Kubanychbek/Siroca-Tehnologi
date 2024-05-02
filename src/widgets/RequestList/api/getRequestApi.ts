@@ -1,6 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL } from "../../../shared/variables/variables";
+import { BASE_URL, authToken } from "../../../shared/variables/variables";
 
 export interface IGetRequest {
     [key: string]: string | number;
@@ -37,12 +37,9 @@ export const getRequestApi = create<IFetchGet>((set, get) => ({
     isFilterOpen: false,
     getting: async (now: number) => {
         try {
-            const getResponse = await axios.get(`${BASE_URL}/applications/form/?page=${now}`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
-            set({ getState: getResponse.data.results });
+            const response = await axios.get(`${BASE_URL}/applications/form/?page=${now}`, authToken);
+            console.log(response, "getRequestsListSuccess");
+            set({ getState: response.data.results });
         } catch (error) {
             console.log(error, "GetRequestError");
         }

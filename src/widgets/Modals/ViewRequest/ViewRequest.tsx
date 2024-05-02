@@ -13,7 +13,7 @@ export const ViewRequest: FC<IViewRequestModal> = (props) => {
     const [open, setOpen] = useState<boolean>(false);
     const fetchData = getOneRequestApi();
     const deleteRequest = deleteRequestApi();
-    const [viewLogs, setViewLogs] = useState<boolean>(false)
+    const [viewLogs, setViewLogs] = useState<boolean>(false);
     const deleteFunc = () => {
         deleteRequest.deleteRequest(fetchData.oneRequest.id);
         setModal(false);
@@ -31,7 +31,7 @@ export const ViewRequest: FC<IViewRequestModal> = (props) => {
                         Заявка - {fetchData.oneRequest.company} /&nbsp;
                         <div className={styles.Number}>{fetchData.oneRequest.task_number}</div>
                     </div>
-                    <div>   
+                    <div>
                         <Popover
                             placement="bottomRight"
                             content={
@@ -63,7 +63,7 @@ export const ViewRequest: FC<IViewRequestModal> = (props) => {
                         />
                     </div>
                 </div>
-                <Collapses setViewLogs={setViewLogs}/>
+                <Collapses setViewLogs={setViewLogs} />
             </div>
             <Modal
                 centered
@@ -71,7 +71,7 @@ export const ViewRequest: FC<IViewRequestModal> = (props) => {
                 open={viewLogs}
                 onCancel={() => setViewLogs(false)}
             >
-                <ViewLogs/>
+                <ViewLogs />
             </Modal>
         </div>
     );

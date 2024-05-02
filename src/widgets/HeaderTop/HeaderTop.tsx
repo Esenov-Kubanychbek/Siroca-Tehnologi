@@ -5,7 +5,7 @@ import { NotifButton } from "./ui/NotifButton/NotifButton";
 import { Popover } from "antd";
 import { NotifModal } from "../Modals/NotifModal/NotifModal";
 
-export const HeaderTop: FC<{ role: string | null, isAdminManager?: boolean }> = ({ role, isAdminManager }) => {
+export const HeaderTop: FC<{ role: string | null; isAdminManager?: boolean }> = ({ role, isAdminManager }) => {
     const [notifOpen, setNotifOpen] = useState<boolean>(false);
 
     return (

@@ -12,19 +12,19 @@ export const ViewUser: FC<IViewUser> = (props) => {
     const [open, setOpen] = useState<boolean>(false);
     const { view, setView } = props;
     const { oneUserGet } = usersApi();
-    const {deleteUser} = deleteUserApi()
+    const { deleteUser } = deleteUserApi();
     const handleOpenChange = (newOpen: boolean) => {
         setOpen(newOpen);
     };
     const deleteFunc = () => {
         deleteUser(oneUserGet.id);
-        setView(false)
-        setOpen(false)
+        setView(false);
+        setOpen(false);
     };
     const openEdit = () => {
-        setOpen(false)
-        setModal(true)
-    }
+        setOpen(false);
+        setModal(true);
+    };
     return (
         <div
             style={{ display: view ? "flex" : "none" }}
@@ -45,8 +45,18 @@ export const ViewUser: FC<IViewUser> = (props) => {
                         placement="bottomRight"
                         content={
                             <div className={styles.MoreButtons}>
-                                <button className={styles.Button} onClick={openEdit}>Редактировать</button>
-                                <button className={styles.Button} onClick={deleteFunc}>Удалить</button>
+                                <button
+                                    className={styles.Button}
+                                    onClick={openEdit}
+                                >
+                                    Редактировать
+                                </button>
+                                <button
+                                    className={styles.Button}
+                                    onClick={deleteFunc}
+                                >
+                                    Удалить
+                                </button>
                             </div>
                         }
                         onOpenChange={handleOpenChange}

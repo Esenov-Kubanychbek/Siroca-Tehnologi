@@ -81,7 +81,7 @@ export const RolesSettingsPage: FC = () => {
     }, []);
 
     //puting changes
-    const reqRoles = async (props: {data: IUser[], role: string}) => {
+    const reqRoles = async (props: { data: IUser[]; role: string }) => {
         try {
             if (props.role === "client") {
                 const sendingData = {
@@ -98,7 +98,7 @@ export const RolesSettingsPage: FC = () => {
                     users_data: props.data,
                 };
                 console.log(sendingData);
-                
+
                 const response = await axios.put(`${BASE_URL}/users/managerpermissions/detail/`, sendingData, {
                     headers: {
                         Authorization: `JWT ${localStorage.getItem("access")}`,
@@ -116,34 +116,33 @@ export const RolesSettingsPage: FC = () => {
     //on click save im doing put to save all changes
     const saveRoles = () => {
         const propertiesToDelete: string[] = [
-            'first_name',
-            'image',
-            'created_at',
-            'job_title',
-            'main_company',
-            'surname',
-            'username'
+            "first_name",
+            "image",
+            "created_at",
+            "job_title",
+            "main_company",
+            "surname",
+            "username",
         ];
-    
+
         const managers: IUser[] = [];
         const clients: IUser[] = [];
-    
+
         boxesReg.forEach((el: IUser) => {
-            propertiesToDelete.forEach(property => {
+            propertiesToDelete.forEach((property) => {
                 delete el[property];
             });
-    
+
             if (el.role_type === "manager") {
                 managers.push(el);
             } else if (el.role_type === "client") {
                 clients.push(el);
             }
         });
-    
+
         reqRoles({ data: managers, role: "manager" });
         reqRoles({ data: clients, role: "client" });
     };
-    
 
     //just nav to client ot manager
     const changeNav = (e: React.MouseEvent<HTMLButtonElement>) => {

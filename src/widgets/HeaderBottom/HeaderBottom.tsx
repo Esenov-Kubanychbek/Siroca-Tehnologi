@@ -8,7 +8,7 @@ import { ReqSearch } from "../../features/TimeFilter/ui/ReqSearch";
 import { idRoles } from "../../pages/MainPage/api/idRoles";
 
 export const HeaderBottom: FC<{ role: string | null }> = ({ role }) => {
-    const [modal, setModal] = useState<boolean>(false); 
+    const [modal, setModal] = useState<boolean>(false);
     const [isFilter, setIsFilter] = useState(false);
     const roles = idRoles().formatedState;
     const onFilter = () => {
@@ -41,8 +41,8 @@ export const HeaderBottom: FC<{ role: string | null }> = ({ role }) => {
                                     color="white"
                                 />
                             </button>
-                            <div style={{ position: "relative", display: "flex", alignItems: "center"}}>
-                                <ReportButton  />
+                            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+                                <ReportButton />
                             </div>
                         </div>
                     )}

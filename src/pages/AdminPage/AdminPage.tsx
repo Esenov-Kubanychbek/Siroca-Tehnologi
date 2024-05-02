@@ -9,14 +9,14 @@ import { useDataStoreComponies } from "../../widgets/Admin/Companies/api/componi
 export const AdminPage: FC = () => {
     const id = localStorage.getItem("id");
     const fetchUsers = usersApi();
-    const fetchJobTitle = jobTitleApi()
-    const fetchCompanies = useDataStoreComponies()
+    const fetchJobTitle = jobTitleApi();
+    const fetchCompanies = useDataStoreComponies();
     const fetchRoleTypes = usersRoleTypeApi();
     useEffect(() => {
         fetchUsers.getOneUser(Number(id));
         fetchUsers.getUsersList(1);
-        fetchJobTitle.getJobTitleList()
-        fetchCompanies.fetchDatas()
+        fetchJobTitle.getJobTitleList();
+        fetchCompanies.fetchDatas();
     }, []);
     useEffect(() => {
         fetchRoleTypes.setClients(fetchUsers.usersList);

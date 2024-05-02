@@ -17,13 +17,25 @@ export const EditImage: FC<IEditImage> = (props) => {
         }
     };
     return (
-        <div className={styles.EditImage} style={{ border: added ? "none" : "1px solid red" }}>
-            <GalleryAdd size={50} color="#252525" />
+        <div
+            className={styles.EditImage}
+            style={{ border: added ? "none" : "1px solid red" }}
+        >
+            <GalleryAdd
+                size={50}
+                color="#252525"
+            />
             <p>Добавьте фотографию пользователя</p>
             {imageUrl ? (
-                <img src={imageUrl} alt="ChosenImage" />
+                <img
+                    src={imageUrl}
+                    alt="ChosenImage"
+                />
             ) : (
-                <img src={String(editUserState.image)} alt="UserImage" />
+                <img
+                    src={String(editUserState.image)}
+                    alt="UserImage"
+                />
             )}
             <input
                 name="image"

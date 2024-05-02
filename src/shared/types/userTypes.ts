@@ -1,5 +1,5 @@
 export interface IUser {
-    [key: string]: number | string | boolean | FileList | File | undefined | null,
+    [key: string]: number | string | boolean | FileList | File | undefined | null;
     id?: number;
     first_name: string;
     image?: File | FileList | string;
@@ -12,7 +12,7 @@ export interface IUser {
 }
 
 export interface ISendUser {
-    [key: string]: number | string | boolean | FileList | File | undefined | null,
+    [key: string]: number | string | boolean | FileList | File | undefined | null;
     first_name: string;
     image?: File | FileList | string;
     job_title: string;
@@ -20,11 +20,11 @@ export interface ISendUser {
     role_type: string;
     surname?: string;
     username: string;
-    password?: string
+    password?: string;
 }
 
 export interface IAddUser {
-    [key: string]: number | string | boolean | FileList | File | undefined | null,
+    [key: string]: number | string | boolean | FileList | File | undefined | null;
     first_name?: boolean;
     image?: boolean;
     job_title?: boolean;
@@ -32,11 +32,11 @@ export interface IAddUser {
     role_type?: boolean;
     surname?: boolean;
     username?: boolean;
-    password?: boolean
+    password?: boolean;
 }
 
 export interface IUserGet {
-    [key: string]: number | string | boolean | FileList | File | undefined | null,
+    [key: string]: number | string | boolean | FileList | File | undefined | null;
     id?: number;
     first_name: string;
     image?: File | FileList | string | undefined;

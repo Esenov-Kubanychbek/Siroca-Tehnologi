@@ -7,8 +7,9 @@ export const RoleButton: FC<IRole> = (props) => {
     return (
         <div className={styles.RoleButton}>
             <div className={styles.Name}>Тип роли</div>
-            <div className={styles.RoleContainer}
-            style={{border: trim ? "none" : "2px solid #E51616"}}
+            <div
+                className={styles.RoleContainer}
+                style={{ border: trim ? "none" : "2px solid #E51616" }}
             >
                 <div className={styles.Role}>
                     <label className={styles.Text}>

@@ -27,20 +27,18 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            console.log(response);
-            
-            setReqCount(response.data.count);
+            setReqCount(response.data.data.created_count);
             fetchRequest.setState(response.data.data.results);
             fetchRequest.setFilterState(response.data.data.results);
+            console.log(response, "getRequestsListSuccess");
             fetchRequest.setNow(page);
         } catch (error) {
             console.log(error);
         }
     };
 
-    
     useEffect(() => {
-        reqPage();  
+        reqPage();
     }, [page]);
     return (
         <div style={role === "admin" ? { width: "1724px" } : { width: "1820px" }}>
@@ -63,9 +61,16 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 )}
             </div>
             {apiLength ? (
-                <Pagination page={page} setPage={setPage} count={reqCount}/>
+                <Pagination
+                    page={page}
+                    setPage={setPage}
+                    count={reqCount}
+                />
             ) : null}
-            <ItemCount count={reqCount} page={page}/>
+            <ItemCount
+                count={reqCount}
+                page={page}
+            />
 
             <Modal
                 centered
@@ -75,9 +80,9 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 zIndex={5}
             >
                 <ViewRequest setModal={setModal} />
-                {roles.formatedState?.client_can_edit_comments_extra || role_type === "manager" || role_type === ""?
-                <AddComment /> : null}
-                
+                {roles.formatedState?.client_can_edit_comments_extra || role_type === "manager" || role_type === "" ? (
+                    <AddComment />
+                ) : null}
             </Modal>
         </div>
     );

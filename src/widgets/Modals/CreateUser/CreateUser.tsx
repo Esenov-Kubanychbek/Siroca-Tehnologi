@@ -208,9 +208,7 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                 onCancel={() => setJobTitleModal(false)}
                 zIndex={10}
             >
-                <CreateJobTitle
-                    setModal={setJobTitleModal}
-                />
+                <CreateJobTitle setModal={setJobTitleModal} />
             </Modal>
         </form>
     );

@@ -19,10 +19,21 @@ export const AddImage: FC<IAddImage> = (props) => {
         }
     };
     return (
-        <div className={styles.AddImage} style={{ border: added ? "none" : "1px solid red" }}>
-            <GalleryAdd size={50} color="#252525" />
+        <div
+            className={styles.AddImage}
+            style={{ border: added ? "none" : "1px solid red" }}
+        >
+            <GalleryAdd
+                size={50}
+                color="#252525"
+            />
             <p>Добавьте фотографию пользователя</p>
-            {imageUrl && <img src={imageUrl} alt="ChosenImage" />}
+            {imageUrl && (
+                <img
+                    src={imageUrl}
+                    alt="ChosenImage"
+                />
+            )}
             <input
                 name="image"
                 onChange={handleImageChange}

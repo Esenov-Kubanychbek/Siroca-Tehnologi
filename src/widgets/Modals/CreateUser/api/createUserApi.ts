@@ -19,7 +19,7 @@ export const createUserApi = create<IFetch>((set, get) => ({
         role_type: "",
         surname: "",
         username: "",
-        password: ""
+        password: "",
     },
     createUserChange: (e) => {
         set((prevState) => ({

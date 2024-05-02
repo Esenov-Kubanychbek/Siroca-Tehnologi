@@ -6,21 +6,27 @@ import { CheckLists } from "../../../../../features";
 import { checkListApi } from "../../../../../features/CheckLists/api/checkListApi";
 import { getOneRequestApi } from "../../api/getOneRequestApi";
 
-interface ICollapses{
-    setViewLogs: Dispatch<SetStateAction<boolean>>
+interface ICollapses {
+    setViewLogs: Dispatch<SetStateAction<boolean>>;
 }
 
 export const Collapses: FC<ICollapses> = (props) => {
-    const {createCheckList} = checkListApi()
-    const {oneRequest, setChecklist} = getOneRequestApi()
-    const {oneCheckList} = checkListApi()
-    const { setViewLogs } = props
+    const { createCheckList } = checkListApi();
+    const { oneRequest, setChecklist } = getOneRequestApi();
+    const { oneCheckList } = checkListApi();
+    const { setViewLogs } = props;
     const items: CollapseProps["items"] = [
         {
             key: "1",
             label: "Logs",
-            children: <RequestLogs />,  
-            extra: <Maximize4 onClick={() => setViewLogs(true)} size={24} style={{marginTop: "6px",marginRight: "6px"}}/>
+            children: <RequestLogs />,
+            extra: (
+                <Maximize4
+                    onClick={() => setViewLogs(true)}
+                    size={24}
+                    style={{ marginTop: "6px", marginRight: "6px" }}
+                />
+            ),
         },
         {
             key: "2",
@@ -61,13 +67,18 @@ export const Collapses: FC<ICollapses> = (props) => {
             key: "9",
             label: "Чек-листы",
             children: <CheckLists />,
-            extra: <AddSquare onClick={(e)=>{createCheckList({
-                name: "CheckList",
-                application: oneRequest.id
-            })
-        e.stopPropagation()
-        setChecklist(oneCheckList)
-        }}/>
+            extra: (
+                <AddSquare
+                    onClick={(e) => {
+                        createCheckList({
+                            name: "CheckList",
+                            application: oneRequest.id,
+                        });
+                        e.stopPropagation();
+                        setChecklist(oneCheckList);
+                    }}
+                />
+            ),
         },
     ];
     return (
