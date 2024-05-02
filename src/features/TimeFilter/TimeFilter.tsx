@@ -100,7 +100,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            fetchRequest.setFilterState(response.data.results);
+            fetchRequest.setFilterState(response.data.data.results);
         } catch (error) {
             console.log(error);
         }

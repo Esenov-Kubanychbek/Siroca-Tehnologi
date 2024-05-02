@@ -66,6 +66,7 @@ interface IObject {
 
 interface IFetch {
     oneRequest: IObject;
+    setChecklist: (data: ICheckList) => void;
     getOneRequest: (id: number | undefined) => void;
 }
 
@@ -93,6 +94,14 @@ export const getOneRequestApi = create<IFetch>((set) => ({
         start_date: "",
         finish_date: "",
         deadline_date: "",
+    },
+    setChecklist: (data) => {
+        set((prev) => ({
+            oneRequest: {
+                ...prev.oneRequest,
+                checklists: [...prev.oneRequest.checklists, data]
+            }
+        }))
     },
     getOneRequest: async (id) => {
         try {
