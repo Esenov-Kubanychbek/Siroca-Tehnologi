@@ -10,6 +10,7 @@ export const RequestLogs: FC = () => {
         <div className={styles.Logs}>
             {fetchRequest.oneRequest.logs.map((card, i) => (
                 <div
+                    id={card.task_number}
                     key={i}
                     className={styles.Log}
                 >

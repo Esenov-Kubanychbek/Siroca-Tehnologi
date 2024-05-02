@@ -24,7 +24,6 @@ export const Modals: FC<IEdituserModals> = (props) => {
             >
                 <CreateJobTitle
                     setModal={setJobTitleModal}
-                    setModalSuccess={setModalSuccess}
                 />
             </Modal>
             <Modal

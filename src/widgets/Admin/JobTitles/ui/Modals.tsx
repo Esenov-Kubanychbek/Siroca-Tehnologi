@@ -20,7 +20,6 @@ export const Modals: FC<IModalTypes> = (props) => {
             >
                 <CreateJobTitle
                     setModal={setModal}
-                    setModalSuccess={setModalSuccess}
                 />
             </Modal>
             <Modal
