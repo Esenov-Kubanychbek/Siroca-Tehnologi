@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ItemSettingRoles from "./ItemRoles";
 import styles from "./RolesItemsRender.module.scss";
 import axios from "axios";
-import { BASE_URL } from "../../../../shared/variables/variables";
+import { BASE_URL, authToken } from "../../../../shared/variables/variables";
 import { IUser } from "../../../../shared/types/userTypes";
 
 interface IRolesRender {
@@ -41,9 +41,9 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType 
     //just get all roles from server
     const getRoles = async () => {
         try {
-            const responseC = await axios.get(`${BASE_URL}/users/clientpermissions/detail/`);
-            const responseM = await axios.get(`${BASE_URL}/users/managerpermissions/detail/`);
-            const update = [...responseC.data, ...responseM.data];
+            const responseC = await axios.get(`${BASE_URL}/users/clientpermissions/detail/`, authToken);
+            const responseM = await axios.get(`${BASE_URL}/users/managerpermissions/detail/`, authToken);
+            const update = [...responseC.data.data, ...responseM.data.data];
             setGetInBoxes(update);
         } catch (error) {
             console.log(error);
@@ -51,8 +51,8 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType 
     };
     const getGeneralRoles = async () => {
         try {
-            const responseC = await axios.get(`${BASE_URL}/users/clientpermissions/general/`);
-            const responseM = await axios.get(`${BASE_URL}/users/managerpermissions/general/`);
+            const responseC = await axios.get(`${BASE_URL}/users/clientpermissions/general/`, authToken);
+            const responseM = await axios.get(`${BASE_URL}/users/managerpermissions/general/`, authToken);
             setGeneralManager(responseM.data);
             setGeneralClient(responseC.data);
         } catch (error) {

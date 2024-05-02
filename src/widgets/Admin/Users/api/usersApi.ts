@@ -51,7 +51,8 @@ export const usersApi = create<IFetch>((set) => ({
         try {
             const response = await axios.get(`${BASE_URL}/users/profiles/?page=${page}`, authToken);
             set({ usersGetDetails: response.data });
-            set({ usersList: response.data });
+            set({ usersList: response.data.data });
+        
             console.log(response, "getUsersListSuccess");
         } catch (error) {
             console.log(error, "getUsersListError");
@@ -69,6 +70,7 @@ export const usersApi = create<IFetch>((set) => ({
         try {
             const response = await axios.get(`${BASE_URL}/users/${id}/`, authToken);
             set({ oneUserGet: response.data });
+            
         } catch (error) {
             console.log(error, "getOneUserError");
         }

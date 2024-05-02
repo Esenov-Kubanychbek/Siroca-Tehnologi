@@ -4,14 +4,16 @@ import styles from "./ViewRequest.module.scss";
 import { Collapses, MenuRequest } from "./ui";
 import { getOneRequestApi } from "./api/getOneRequestApi";
 import { IViewRequestModal } from "./types/types";
-import { Popover } from "antd";
+import { Modal, Popover } from "antd";
 import { deleteRequestApi } from "./api/deleteRequestApi";
+import { ViewLogs } from "../ViewLogs/ViewLogs";
 
 export const ViewRequest: FC<IViewRequestModal> = (props) => {
     const { setModal } = props;
     const [open, setOpen] = useState<boolean>(false);
     const fetchData = getOneRequestApi();
     const deleteRequest = deleteRequestApi();
+    const [viewLogs, setViewLogs] = useState<boolean>(false)
     const deleteFunc = () => {
         deleteRequest.deleteRequest(fetchData.oneRequest.id);
         setModal(false);
@@ -29,7 +31,7 @@ export const ViewRequest: FC<IViewRequestModal> = (props) => {
                         Заявка - {fetchData.oneRequest.company} /&nbsp;
                         <div className={styles.Number}>{fetchData.oneRequest.task_number}</div>
                     </div>
-                    <div>
+                    <div>   
                         <Popover
                             placement="bottomRight"
                             content={
@@ -61,8 +63,16 @@ export const ViewRequest: FC<IViewRequestModal> = (props) => {
                         />
                     </div>
                 </div>
-                <Collapses />
+                <Collapses setViewLogs={setViewLogs}/>
             </div>
+            <Modal
+                centered
+                width={1066}
+                open={viewLogs}
+                onCancel={() => setViewLogs(false)}
+            >
+                <ViewLogs/>
+            </Modal>
         </div>
     );
 };
