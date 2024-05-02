@@ -78,7 +78,7 @@ export const Companies: FC = () => {
 
     return (
         <div className={styles.Companies}>
-            <h3 onClick={closeModalView}>Поиск по компаниям</h3>
+            <div className={styles.h3} onClick={closeModalView}>Поиск по компаниям</div>
             <div className={styles.searchCompanies}>
                 <SearchInput
                     value={searchText}

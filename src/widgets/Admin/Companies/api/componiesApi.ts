@@ -70,7 +70,7 @@ const fetchData = async (page?: number) => {
             },
         });
 
-        return response.data
+        return response.data.data
 
     } catch (error) {
         console.error("Ошибка при получении данных:", error);
@@ -109,7 +109,7 @@ const getUser = async () => {
     try {
         const response = await axios.get('http://13.51.161.14:80/api/v1/users/profiles/', authToken);
         console.log(response)
-        return response.data
+        return response.data.data
     } catch (error) {
         console.log(error, "getUserError");
     }

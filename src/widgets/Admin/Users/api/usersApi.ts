@@ -51,7 +51,7 @@ export const usersApi = create<IFetch>((set) => ({
         try {
             const response = await axios.get(`${BASE_URL}/users/profiles/?page=${page}`, authToken);
             set({ usersGetDetails: response.data });
-            set({ usersList: response.data });
+            set({ usersList: response.data.data });
             console.log(response, "getUsersListSuccess");
         } catch (error) {
             console.log(error, "getUsersListError");
