@@ -24,7 +24,7 @@ export const EditRequest: FC<IEditRequest> = (props) => {
     }, [oneRequest]);
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        fetchEdit.editRequest(fetchEdit.requestState.id);
+        fetchEdit.editRequest();
         setModal(false);
         fetchCreate.resetOneRequest();
     };

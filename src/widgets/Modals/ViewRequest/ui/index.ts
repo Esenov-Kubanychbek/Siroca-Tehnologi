@@ -9,3 +9,4 @@ export { MenuRequest } from "./MenuRequest/MenuRequest";
 export { People } from "./People/People";
 export { ShortDescription } from "./ShortDescription/ShortDescription";
 export { AddComment } from "./AddComment/AddComment";
+export {AddDescription} from "./AddDescription/AddDescription"

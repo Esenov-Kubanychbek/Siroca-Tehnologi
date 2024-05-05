@@ -4,12 +4,18 @@ import { BASE_URL, authToken } from "../../../../shared/variables/variables";
 import { IRequest } from "../types/types";
 import { ChangeEvent } from "react";
 
+interface IFile {
+    id?: number
+    file: string
+    application: number
+}
+
 interface IFetch {
     requestState: IRequest;
     setRequestData: (request: IRequest) => void;
+    setFile: (file: IFile) => void
     requestChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-    requestFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    editRequest: (id: number | undefined) => void;
+    editRequest: () => void;
 }
 
 export const editRequestApi = create<IFetch>((set, get) => ({
@@ -32,7 +38,7 @@ export const editRequestApi = create<IFetch>((set, get) => ({
         deadline_date: "",
         main_client: "",
         main_manager: "",
-        files: [],
+        files: []
     },
     setRequestData: (request) => {
         set({
@@ -44,20 +50,28 @@ export const editRequestApi = create<IFetch>((set, get) => ({
                 status: request.status,
                 priority: request.priority,
                 payment_state: request.payment_state,
-                jira: request.jira === null ? "" : request.jira,
-                files: request.files === null ? [] : request.files,
-                main_client: request.main_client === null ? "" : request.main_client,
-                main_manager: request.main_manager === null ? "" : request.main_manager,
-                description: request.description === null ? "" : request.description,
-                short_description: request.short_description === null ? "" : request.short_description,
-                application_date: request.application_date === null ? "" : request.application_date,
-                confirm_date: request.confirm_date === null ? "" : request.confirm_date,
-                offer_date: request.offer_date === null ? "" : request.offer_date,
-                start_date: request.start_date === null ? "" : request.start_date,
-                finish_date: request.finish_date === null ? "" : request.finish_date,
-                deadline_date: request.deadline_date === null ? "" : request.deadline_date,
+                jira: request.jira,
+                main_client: request.main_client,
+                main_manager: request.main_manager,
+                description: request.description,
+                short_description: request.short_description,
+                application_date: request.application_date,
+                confirm_date: request.confirm_date,
+                offer_date: request.offer_date,
+                start_date: request.start_date,
+                finish_date: request.finish_date,
+                deadline_date: request.deadline_date,
+                files: request.files
             },
         });
+    },
+    setFile: (file) => {
+        set((prevState) => ({
+            requestState: {
+                ...prevState.requestState,
+                files: [...prevState.requestState.files, file],
+            },
+        }));
     },
     requestChange: (e) => {
         set((prevState) => ({
@@ -69,33 +83,11 @@ export const editRequestApi = create<IFetch>((set, get) => ({
         const state = get().requestState;
         console.log(state, "requestState");
     },
-    requestFileChange: (e: ChangeEvent<HTMLInputElement>) => {
-        set((prevState) => ({
-            requestState: {
-                ...prevState.requestState,
-                files: e.target.files ? e.target.files : null,
-            },
-        }));
-        const state = get().requestState;
-        console.log(state, "requestState");
-    },
-    editRequest: async (id) => {
+    editRequest: async () => {
         try {
-            const state = get().requestState;
-            const formData = new FormData();
-            const filesFormData = new FormData();
-            if (Array.isArray(state.files)) {
-                state.files.map((file) => {
-                    filesFormData.append("files", file);
-                });
-            }
-            Object.entries(state).forEach(([key, value]) => {
-                if (value !== null && value !== undefined && !Array.isArray(value)) {
-                    formData.append(key, value);
-                }
-            });
-            console.log(state);
-            const editResponse = await axios.put(`${BASE_URL}/applications/form_edit/${id}/`, filesFormData, authToken);
+            const requestState = get().requestState;
+            console.log(requestState, "requestState");
+            const editResponse = await axios.put(`${BASE_URL}/applications/form_edit/${requestState.id}/`, requestState, authToken);
             console.log(editResponse, "editRequestSuccess");
         } catch (error) {
             console.log(error, "editRequestError");

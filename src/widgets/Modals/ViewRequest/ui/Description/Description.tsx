@@ -1,33 +1,73 @@
 import styles from "./Description.module.scss";
-import { FolderAdd } from "iconsax-react";
-import { FC } from "react";
+import { FolderAdd, MoreSquare } from "iconsax-react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { getOneRequestApi } from "../../api/getOneRequestApi";
-import { CustomTextArea } from "../../../../../shared/ui";
+import { FilesList } from "../../../EditRequest/ui/Description/ui/FilesList";
+import { Popover } from "antd";
+import { createFileApi } from "../../../EditRequest/api/createFileApi";
+import { descriptionApi } from "../../api/descriptionApi";
 
 export const Description: FC = () => {
-    const fetchRequest = getOneRequestApi();
+    const [open, setOpen] = useState<boolean>(false);
+    const { oneRequest, setFile } = getOneRequestApi();
+    const handleOpenChange = (newOpen: boolean) => {
+        setOpen(newOpen);
+    };
+    const { setOpened, clearDescription, setDescriptionState, descriptionState } = descriptionApi();
+    const { oneFile, createFile } = createFileApi();
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        createFile({
+            file: e.target.files ? e.target.files[0] : "",
+            application: oneRequest.id,
+        });
+    };
+    useEffect(() => {
+        setFile({
+            file: String(oneFile.file),
+            application: oneFile.application !== undefined ? oneFile.application : 0,
+        });
+    }, [oneFile]);
+    useEffect(() => {
+        setDescriptionState(oneRequest.description);
+    }, [oneRequest.description]);
     return (
         <div className={styles.Description}>
-            <CustomTextArea
-                name="description"
-                placeholder="Напишите..."
-                height={100}
-                width={580}
-                variant="TextArea"
-                readOnly={true}
-                value={fetchRequest.oneRequest.description === null ? "" : fetchRequest.oneRequest.description}
-            />
-            <FolderAdd
-                className={styles.Icon}
-                size={24}
-                color="#5C5C5C"
-            />
-            {fetchRequest.oneRequest.files !== null && (
-                <img
-                    src={fetchRequest.oneRequest.files}
-                    alt="description"
-                />
-            )}
+            <div className={styles.Text}>
+                <div className={styles.Buttons}>
+                    <FolderAdd
+                        cursor={"pointer"}
+                        size={28}
+                        color="#5C5C5C"
+                    />
+                    <input
+                        type="file"
+                        name="files"
+                        onChange={handleChange}
+                    />
+                    <Popover
+                        placement="bottomRight"
+                        content={
+                            <div className={styles.MoreButtons}>
+                                <button onClick={() => setOpened(true)}>Редактировать</button>
+                                <button onClick={() => clearDescription(oneRequest.id)}>Очистить всё</button>
+                            </div>
+                        }
+                        onOpenChange={handleOpenChange}
+                        trigger={"click"}
+                        open={open}
+                        zIndex={5}
+                    >
+                        <MoreSquare
+                            cursor={"pointer"}
+                            variant="Bulk"
+                            color="#929292"
+                            size={34}
+                        />
+                    </Popover>
+                </div>
+                <p>{!descriptionState.description ? "Добавьте описание..." : descriptionState.description}</p>
+            </div>
+            <FilesList />
         </div>
     );
 };

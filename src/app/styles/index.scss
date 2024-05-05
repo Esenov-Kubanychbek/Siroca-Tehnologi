@@ -22,6 +22,10 @@ button {
     cursor: pointer;
 }
 
+img {
+    object-fit: cover
+}
+
 *::-webkit-scrollbar {
     background-color: $blackf4;
     width: 15px;

@@ -42,7 +42,7 @@ export const Collapses: FC = () => {
         ...(roles.formatedState?.client_can_edit_comments_extra || role_type === "manager" || role_type === ""
             ? [
                   {
-                      key: "8",
+                      key: "7",
                       label: "Комментарии",
                       children: <Comments />,
                   },

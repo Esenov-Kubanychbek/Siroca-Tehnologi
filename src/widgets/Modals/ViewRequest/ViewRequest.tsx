@@ -7,10 +7,12 @@ import { IViewRequestModal } from "./types/types";
 import { Modal, Popover } from "antd";
 import { deleteRequestApi } from "./api/deleteRequestApi";
 import { ViewLogs } from "../ViewLogs/ViewLogs";
+import { EditRequest } from "../EditRequest/EditRequest";
 
 export const ViewRequest: FC<IViewRequestModal> = (props) => {
     const { setModal } = props;
     const [open, setOpen] = useState<boolean>(false);
+    const [editOpen, setEditOpen] = useState<boolean>(false);
     const fetchData = getOneRequestApi();
     const deleteRequest = deleteRequestApi();
     const [viewLogs, setViewLogs] = useState<boolean>(false);
@@ -21,6 +23,11 @@ export const ViewRequest: FC<IViewRequestModal> = (props) => {
     };
     const handleOpenChange = (newOpen: boolean) => {
         setOpen(newOpen);
+    };
+    const openEditModal = () => {
+        setOpen(false);
+        setModal(false);
+        setEditOpen(true);
     };
     return (
         <div className={styles.ViewRequest}>
@@ -36,13 +43,8 @@ export const ViewRequest: FC<IViewRequestModal> = (props) => {
                             placement="bottomRight"
                             content={
                                 <div className={styles.MoreButtons}>
-                                    <button className={styles.Button}>Редактировать</button>
-                                    <button
-                                        className={styles.Button}
-                                        onClick={deleteFunc}
-                                    >
-                                        Удалить
-                                    </button>
+                                    <button onClick={openEditModal}>Редактировать</button>
+                                    <button onClick={deleteFunc}>Удалить</button>
                                 </div>
                             }
                             onOpenChange={handleOpenChange}
@@ -72,6 +74,17 @@ export const ViewRequest: FC<IViewRequestModal> = (props) => {
                 onCancel={() => setViewLogs(false)}
             >
                 <ViewLogs />
+            </Modal>
+            <Modal
+                width={732}
+                centered
+                open={editOpen}
+                onCancel={() => setEditOpen(false)}
+            >
+                <EditRequest
+                    setModal={setEditOpen}
+                    requestFrom="ViewRequest"
+                />
             </Modal>
         </div>
     );

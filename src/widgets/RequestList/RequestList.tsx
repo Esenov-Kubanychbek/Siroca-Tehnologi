@@ -7,10 +7,11 @@ import { getRequestApi } from "./api/getRequestApi";
 import { IRequest } from "./types/types";
 import axios from "axios";
 import { BASE_URL } from "../../shared/variables/variables";
-import { AddComment } from "../Modals/ViewRequest/ui";
+import { AddComment, AddDescription } from "../Modals/ViewRequest/ui";
 import { Pagination } from "../../shared/ui/Pagination/Pagination";
 import { ItemCount } from "../../shared/ui/ItemCount/ItemCount";
 import { idRoles } from "../../pages/MainPage/api/idRoles";
+import { descriptionApi } from "../Modals/ViewRequest/api/descriptionApi";
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
     const [page, setPage] = useState<number>(1);
@@ -19,6 +20,7 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     const fetchRequest = getRequestApi();
     const apiLength = fetchRequest.getState;
     const roles = idRoles();
+    const {opened, setOpened} = descriptionApi()
     const role_type = localStorage.getItem("role_type");
     const reqPage = async () => {
         try {
@@ -36,6 +38,10 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
             console.log(error);
         }
     };
+    const closeModal = () => {
+        setModal(false)
+        setOpened(false)
+    }
 
     useEffect(() => {
         reqPage();
@@ -76,13 +82,14 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 centered
                 width={750}
                 open={modal}
-                onCancel={() => setModal(false)}
+                onCancel={closeModal}
                 zIndex={5}
             >
                 <ViewRequest setModal={setModal} />
                 {roles.formatedState?.client_can_edit_comments_extra || role_type === "manager" || role_type === "" ? (
                     <AddComment />
                 ) : null}
+                {opened && <AddDescription/>}
             </Modal>
         </div>
     );
