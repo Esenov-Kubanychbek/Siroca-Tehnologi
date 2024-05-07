@@ -50,7 +50,6 @@ const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
             end: openEnd,
         };
         onSub(formData);
-        console.log(choosedFilters);
     };
 
     const handleInputChange = (

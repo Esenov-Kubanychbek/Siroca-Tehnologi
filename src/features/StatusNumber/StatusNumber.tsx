@@ -2,18 +2,14 @@ import { FC, useEffect, useState } from "react";
 import { StatusInner } from "../../entities";
 import styles from "./StatusNumber.module.scss";
 import axios from "axios";
-import { BASE_URL } from "../../shared/variables/variables";
+import { BASE_URL, authToken } from "../../shared/variables/variables";
 
 export const StatusNumber: FC = () => {
     const [count, setCount] = useState<number[]>([]);
     const getCounts = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/applications/form/`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
-            setCount([response.data.closed_count, response.data.created_count, response.data.in_progress_count]);
+            const response = await axios.get(`${BASE_URL}/applications/form/`, authToken);
+            setCount([response.data.data.closed_count, response.data.data.created_count, response.data.data.in_progress_count]);
         } catch (error) {
             console.log(error);
         }

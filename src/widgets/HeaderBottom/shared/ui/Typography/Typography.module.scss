@@ -1,0 +1,70 @@
+@import "../../../app/styles/variables.scss";
+
+.medium {
+    font-weight: 500;
+}
+
+.blue {
+    color: $blue;
+}
+
+.white {
+    color: white;
+}
+
+.black {
+    color: $black;
+}
+
+.error {
+    color: $highest;
+}
+
+.h1,
+.h2,
+.h3,
+.h4 {
+    font-weight: 700;
+}
+
+.h1 {
+    font-size: 48px;
+    @include lg {
+        font-size: 38px;
+    }
+}
+
+.h2 {
+    font-size: 40px;
+    @include lg {
+        font-size: 30px;
+    }
+}
+
+.h3 {
+    font-size: 32px;
+    @include lg {
+        font-size: 24px;
+    }
+}
+
+.h4 {
+    font-size: 24px;
+    @include lg {
+        font-size: 20px;
+    }
+}
+
+.button {
+    font-size: 24px;
+    @include lg {
+        font-size: 14px;
+    }
+}
+
+.body {
+    font-size: 20px;
+    @include lg {
+        font-size: 14px;
+    }
+}

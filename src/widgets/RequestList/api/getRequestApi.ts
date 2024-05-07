@@ -64,7 +64,7 @@ export const getRequestApi = create<IFetchGet>((set, get) => ({
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            set({ getState: response.data.results });
+            set({ getState: response.data.data.results });
         } catch (error) {
             console.log(error);
         }

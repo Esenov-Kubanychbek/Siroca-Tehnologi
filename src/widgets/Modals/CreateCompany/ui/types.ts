@@ -7,5 +7,6 @@ export interface ISelect {
     value?: string | number;
     name?: string;
     type?: string;
+    id?: string;
     change?: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
