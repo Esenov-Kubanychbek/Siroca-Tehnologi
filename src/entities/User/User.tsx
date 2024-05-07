@@ -22,7 +22,7 @@ export const User: FC<IUserTypes> = (props) => {
                     : () => console.log("no roles")
             }
             className={styles.User}
-            style={{width: view ? "1221px" : "1718px"}}
+            style={{ width: view ? "1221px" : "1718px" }}
         >
             <ItemInner
                 content={user.first_name + " " + user.surname}

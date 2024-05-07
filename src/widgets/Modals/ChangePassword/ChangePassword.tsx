@@ -7,37 +7,37 @@ import axios from "axios";
 import { BASE_URL, authToken } from "../../../shared/variables/variables";
 
 export const ChangePassword: FC<IChangeModal> = (props) => {
-    const [inputStates, setInputStates] = useState<{[key: string]: {[key: string]:string | boolean}}>({
-        prev: {value: ''},
-        new1: {value: ''},
-        new2: {value: ''}
-    })
-    const [err, setErr] = useState<boolean>(false)
+    const [inputStates, setInputStates] = useState<{ [key: string]: { [key: string]: string | boolean } }>({
+        prev: { value: "" },
+        new1: { value: "" },
+        new2: { value: "" },
+    });
+    const [err, setErr] = useState<boolean>(false);
     console.log(err);
-    
+
     const { setModal } = props;
     const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const timeState = inputStates
-        timeState[event.target.id].value = event.target.value
-        setInputStates(timeState)
-    } 
-    const onSend = async() => {
+        const timeState = inputStates;
+        timeState[event.target.id].value = event.target.value;
+        setInputStates(timeState);
+    };
+    const onSend = async () => {
         try {
-            if(inputStates.new1.value === inputStates.new2.value){
+            if (inputStates.new1.value === inputStates.new2.value) {
                 const data = {
                     old_password: inputStates.prev.value,
                     new_password1: inputStates.new1.value,
-                    new_password2: inputStates.new2.value
-                }
-               const response = await axios.put(`${BASE_URL}/users/change_password/`,data, authToken) 
+                    new_password2: inputStates.new2.value,
+                };
+                const response = await axios.put(`${BASE_URL}/users/change_password/`, data, authToken);
                 console.log(response);
-            }else{
-                setErr(true)
+            } else {
+                setErr(true);
             }
         } catch (error) {
             console.log(error);
         }
-    }
+    };
     return (
         <div className={styles.ChangePassword}>
             <div className={styles.block}>
@@ -63,7 +63,7 @@ export const ChangePassword: FC<IChangeModal> = (props) => {
                                 width={167}
                                 change={onChange}
                             />
-                              <EyeSlash className={styles.img}/>  
+                            <EyeSlash className={styles.img} />
                         </div>
                         <div className={styles.inputs}>
                             <CustomInput
@@ -72,7 +72,7 @@ export const ChangePassword: FC<IChangeModal> = (props) => {
                                 width={167}
                                 change={onChange}
                             />
-                            <EyeSlash className={styles.img}/>
+                            <EyeSlash className={styles.img} />
                         </div>
                         <div className={styles.inputs}>
                             <CustomInput
@@ -81,7 +81,7 @@ export const ChangePassword: FC<IChangeModal> = (props) => {
                                 width={167}
                                 change={onChange}
                             />
-                            <EyeSlash className={styles.img}/>
+                            <EyeSlash className={styles.img} />
                         </div>
                     </div>
                 </div>

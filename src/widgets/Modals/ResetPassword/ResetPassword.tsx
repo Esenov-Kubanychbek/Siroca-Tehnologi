@@ -12,9 +12,9 @@ export const ResetPassword: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> 
     const { resetPassword, passwordChange, passwordState } = resetPasswordApi();
     const { oneUserGet } = usersApi();
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        e.preventDefault();
         if (Object.values(passwordState).every((value) => value !== "")) {
-            setModal(false)
+            setModal(false);
             resetPassword(oneUserGet.id, passwordState);
         } else {
             console.log("postTrimError");

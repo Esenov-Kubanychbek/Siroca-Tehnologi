@@ -3,16 +3,9 @@ import { create } from "zustand";
 import { IUser, IUserGet } from "../../../../shared/types/userTypes";
 import { BASE_URL, authToken } from "../../../../shared/variables/variables";
 
-interface IUserGetDetails {
-    count: number;
-    next: null;
-    previous: null;
-    results: IUser[];
-}
-
 interface IFetch {
+    count: number;
     usersList: IUser[];
-    usersGetDetails: IUserGetDetails;
     oneUserGet: IUserGet;
     oneUser: IUser;
     getUsersList: (page: number) => void;
@@ -21,13 +14,8 @@ interface IFetch {
 }
 
 export const usersApi = create<IFetch>((set) => ({
+    count: 1,
     usersList: [],
-    usersGetDetails: {
-        count: 1,
-        next: null,
-        previous: null,
-        results: [],
-    },
     oneUser: {
         first_name: "",
         job_title: 3,
@@ -50,9 +38,7 @@ export const usersApi = create<IFetch>((set) => ({
     getUsersList: async (page) => {
         try {
             const response = await axios.get(`${BASE_URL}/users/profiles/?page=${page}`, authToken);
-            set({ usersGetDetails: response.data });
-            set({ usersList: response.data.data });
-        
+            set({ usersList: response.data.data, count: response.data.count });
             console.log(response, "getUsersListSuccess");
         } catch (error) {
             console.log(error, "getUsersListError");
@@ -70,7 +56,6 @@ export const usersApi = create<IFetch>((set) => ({
         try {
             const response = await axios.get(`${BASE_URL}/users/${id}/`, authToken);
             set({ oneUserGet: response.data });
-            
         } catch (error) {
             console.log(error, "getOneUserError");
         }

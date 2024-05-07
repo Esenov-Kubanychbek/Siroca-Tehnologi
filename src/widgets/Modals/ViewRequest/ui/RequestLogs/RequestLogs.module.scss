@@ -1,6 +1,5 @@
 @import "index.scss";
 
-
 .Log {
     display: flex;
     width: 546px;
@@ -8,8 +7,8 @@
     flex-direction: column;
     align-items: flex-start;
     border-radius: 8px;
-    border: 2px solid var(---200, #DEDEDE);
-    background: var(---White, #FFF);
+    border: 2px solid var(---200, #dedede);
+    background: var(---White, #fff);
     margin-top: 15px;
     .LogHeader {
         display: flex;
@@ -24,7 +23,7 @@
         }
 
         .Name {
-            color: var(---800, #1C6AB1);
+            color: var(---800, #1c6ab1);
             font-size: 18px;
             font-style: normal;
             font-weight: 500;
@@ -44,7 +43,7 @@
         display: flex;
         gap: 50px;
         .TypeOf {
-            color: var(---600, #5C5C5C);
+            color: var(---600, #5c5c5c);
             font-size: 18px;
             font-style: normal;
             font-weight: 500;
@@ -62,7 +61,7 @@
             display: flex;
             flex-direction: column;
             p {
-                color: var(---600, #5C5C5C);
+                color: var(---600, #5c5c5c);
                 width: 86px;
                 font-size: 18px;
                 font-style: normal;

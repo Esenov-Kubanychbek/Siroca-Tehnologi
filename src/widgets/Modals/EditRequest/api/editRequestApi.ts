@@ -32,6 +32,7 @@ export const editRequestApi = create<IFetch>((set, get) => ({
         deadline_date: "",
         main_client: "",
         main_manager: "",
+        files: [],
     },
     setRequestData: (request) => {
         set({
@@ -40,21 +41,21 @@ export const editRequestApi = create<IFetch>((set, get) => ({
                 title: request.title,
                 company: request.company,
                 task_number: request.task_number,
-                description: request.description,
-                short_description: request.short_description,
-                jira: request.jira,
-                files: request.files,
                 status: request.status,
-                payment_state: request.payment_state,
                 priority: request.priority,
-                application_date: request.application_date,
-                confirm_date: request.confirm_date,
-                offer_date: request.offer_date,
-                start_date: request.start_date,
-                finish_date: request.finish_date,
-                deadline_date: request.deadline_date,
-                main_client: request.main_client,
-                main_manager: request.main_manager,
+                payment_state: request.payment_state,
+                jira: request.jira === null ? "" : request.jira,
+                files: request.files === null ? [] : request.files,
+                main_client: request.main_client === null ? "" : request.main_client,
+                main_manager: request.main_manager === null ? "" : request.main_manager,
+                description: request.description === null ? "" : request.description,
+                short_description: request.short_description === null ? "" : request.short_description,
+                application_date: request.application_date === null ? "" : request.application_date,
+                confirm_date: request.confirm_date === null ? "" : request.confirm_date,
+                offer_date: request.offer_date === null ? "" : request.offer_date,
+                start_date: request.start_date === null ? "" : request.start_date,
+                finish_date: request.finish_date === null ? "" : request.finish_date,
+                deadline_date: request.deadline_date === null ? "" : request.deadline_date,
             },
         });
     },
@@ -82,11 +83,19 @@ export const editRequestApi = create<IFetch>((set, get) => ({
         try {
             const state = get().requestState;
             const formData = new FormData();
+            const filesFormData = new FormData();
+            if (Array.isArray(state.files)) {
+                state.files.map((file) => {
+                    filesFormData.append("files", file);
+                });
+            }
             Object.entries(state).forEach(([key, value]) => {
-                formData.append(key, value as string);
+                if (value !== null && value !== undefined && !Array.isArray(value)) {
+                    formData.append(key, value);
+                }
             });
-            console.log(formData);
-            const editResponse = await axios.put(`${BASE_URL}/applications/form_edit/${id}/`, formData, authToken);
+            console.log(state);
+            const editResponse = await axios.put(`${BASE_URL}/applications/form_edit/${id}/`, filesFormData, authToken);
             console.log(editResponse, "editRequestSuccess");
         } catch (error) {
             console.log(error, "editRequestError");

@@ -4,16 +4,16 @@
     width: 560px;
     display: flex;
     padding: 24px 0;
+    align-items: end;
     justify-content: center;
     flex-direction: column;
     gap: 32px;
-    .TextTop {
-        font-size: 32px;
-        font-weight: 700;
-    }
 }
 
 .Top {
+    font-size: 32px;
+    font-weight: 700;
+    width: 560px;
     display: flex;
     justify-content: space-between;
 }
@@ -21,6 +21,12 @@
 .Text {
     font-size: 18px;
     font-weight: 700;
+}
+
+.Text2 {
+    font-size: 16px;
+    font-weight: 500;
+    color: $black;
 }
 
 .UserRole {
@@ -39,7 +45,7 @@
 .Description {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    gap: 20px;
 }
 
 .Login {
@@ -48,14 +54,70 @@
     gap: 16px;
 }
 
+.Bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.Input {
+    position: relative;
+    input {
+        padding-right: 25px;
+        padding-left: 25px;
+        color: $black5c;
+        font-size: 18px;
+        font-weight: 500;
+        border-radius: 8px;
+        background-color: $blackf4;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+    }
+    input:focus {
+        border: none;
+    }
+    svg {
+        position: absolute;
+        top: 16px;
+        right: 24px;
+    }
+}
+
 .AddRole {
     display: flex;
     justify-content: center;
     gap: 6px;
 }
 
+.MustTrim {
+    width: 100%;
+    p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        background-color: $blackf4;
+        width: 400px;
+        height: 40px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #e51616;
+    }
+}
+
 .Buttons {
     display: flex;
-    justify-content: end;
+    justify-content: start;
     gap: 16px;
+}
+
+.NotExist {
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 8px;
+    background-color: $blackf4;
+    padding: 10px 5px;
+    color: #e51616;
 }

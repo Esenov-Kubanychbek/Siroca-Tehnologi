@@ -5,11 +5,12 @@ import styles from "./RequestLogs.module.scss";
 export const RequestLogs: FC = () => {
     const fetchRequest = getOneRequestApi();
     console.log(fetchRequest.oneRequest.logs);
-    
+
     return (
         <div className={styles.Logs}>
             {fetchRequest.oneRequest.logs.map((card, i) => (
                 <div
+                    id={card.task_number}
                     key={i}
                     className={styles.Log}
                 >

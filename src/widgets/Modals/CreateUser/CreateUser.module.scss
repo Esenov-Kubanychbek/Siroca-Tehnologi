@@ -45,7 +45,7 @@
 .Description {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    gap: 20px;
 }
 
 .Login {
@@ -89,6 +89,22 @@
     display: flex;
     justify-content: center;
     gap: 6px;
+}
+
+.MustTrim {
+    width: 100%;
+    p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        background-color: $blackf4;
+        width: 400px;
+        height: 40px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #e51616;
+    }
 }
 
 .Buttons {

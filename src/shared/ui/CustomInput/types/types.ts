@@ -14,4 +14,5 @@ export interface IInput {
     change?: (e: ChangeEvent<HTMLInputElement>) => void;
     onClick?: () => void;
     readOnly?: boolean;
+    trim?: boolean;
 }

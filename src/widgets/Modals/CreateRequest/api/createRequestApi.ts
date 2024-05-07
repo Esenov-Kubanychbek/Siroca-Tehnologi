@@ -4,6 +4,7 @@ import { BASE_URL, authToken } from "../../../../shared/variables/variables";
 import { ChangeEvent } from "react";
 
 export interface ICreateRequest {
+    [key: string]: string | number | null | boolean | undefined;
     id?: number;
     title: string;
     company: string;
@@ -12,32 +13,46 @@ export interface ICreateRequest {
 
 interface IFetch {
     oneRequest: ICreateRequest;
-    requestChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    postRequest: (postState: ICreateRequest) => void;
+    resetOneRequest: () => void;
+    createRequestChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    createRequest: () => void;
 }
 
-export const createRequestApi = create<IFetch>((set) => ({
+export const createRequestApi = create<IFetch>((set, get) => ({
     oneRequest: {
         id: 0,
         title: "",
         company: "",
         task_number: "",
     },
-    requestChange: (e) => {
+    resetOneRequest: () => {
+        set({
+            oneRequest: {
+                id: 0,
+                title: "",
+                company: "",
+                task_number: "",
+            },
+        });
+    },
+    createRequestChange: (e) => {
         set((prevState) => ({
             oneRequest: {
                 ...prevState.oneRequest,
                 [e.target.name]: e.target.value,
             },
         }));
+        const state = get().oneRequest;
+        console.log(state, "oneRequest");
     },
-    postRequest: async (postState) => {
+    createRequest: async () => {
         try {
-            const response = await axios.post(`${BASE_URL}/applications/create/`, postState, authToken);
+            const state = get().oneRequest;
+            const response = await axios.post(`${BASE_URL}/applications/create/`, state, authToken);
             set({ oneRequest: response.data });
-            console.log(response, "postRequestSuccess");
+            console.log(response, "createRequestSuccess");
         } catch (error) {
-            console.log(error, "postRequestError");
+            console.log(error, "createRequestError");
         }
     },
 }));

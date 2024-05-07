@@ -16,7 +16,8 @@ export const CustomInput: FC<IInput> = (props) => {
         defaultValue,
         onClick,
         readOnly,
-        id
+        id,
+        trim,
     } = props;
 
     return (
@@ -32,6 +33,7 @@ export const CustomInput: FC<IInput> = (props) => {
                 height: `${height}px`,
                 background: `${background}`,
                 paddingLeft: `${paddingLeft}px`,
+                border: trim || trim === undefined ? "none" : "2px solid #E51616",
             }}
             placeholder={placeholder}
             className={styles.Input}

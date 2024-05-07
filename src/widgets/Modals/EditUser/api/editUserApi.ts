@@ -13,17 +13,19 @@ interface IFetch {
 
 export const editUserApi = create<IFetch>((set, get) => ({
     editUserState: {
+        image: "",
         first_name: "",
+        surname: "",
+        role_type: "",
+        username: "",
         job_title: "",
         main_company: "",
-        role_type: "",
-        surname: "",
-        username: "",
     },
     setEditState: (user) => {
         set({
             editUserState: {
                 first_name: user.first_name,
+                image: user.image,
                 job_title: user.job_title,
                 main_company: user.main_company,
                 role_type: user.role_type,
@@ -36,7 +38,7 @@ export const editUserApi = create<IFetch>((set, get) => ({
         set((prevState) => ({
             editUserState: {
                 ...prevState.editUserState,
-                [e.target.name]: e.target.value,
+                [e.target.name]: e.target.name === "image" && e.target.files ? e.target.files[0] : e.target.value,
             },
         }));
         const state = get().editUserState;
@@ -45,12 +47,14 @@ export const editUserApi = create<IFetch>((set, get) => ({
     editUser: async (id) => {
         try {
             const state = get().editUserState;
+            if (typeof state.image === "string") {
+                delete state.image;
+            }
             const formData = new FormData();
             Object.entries(state).forEach(([key, value]) => {
                 formData.append(key, value as string);
             });
-            console.log(formData);
-            const response = await axios.put(`${BASE_URL}/users/${id}/`, formData, authToken);
+            const response = await axios.put(`${BASE_URL}/users/edit/${id}/`, formData, authToken);
             console.log(response, "editRequestSuccess");
         } catch (error) {
             console.log(error, "editUserError");

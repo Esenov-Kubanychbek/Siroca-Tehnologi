@@ -1,10 +1,8 @@
-import { FC, FormEvent, useEffect, useState } from "react";
+import { FC, FormEvent, useEffect } from "react";
 import styles from "./EditRequest.module.scss";
 import { CloseSquare } from "iconsax-react";
 import { CustomButton } from "../../../shared/ui";
 import { editRequestApi } from "./api/editRequestApi";
-import { SuccessModal } from "../..";
-import { Modal } from "antd";
 import { Collapses } from "./ui";
 import { IEditRequest } from "./types/types";
 import { getOneRequestApi } from "../ViewRequest/api/getOneRequestApi";
@@ -15,7 +13,6 @@ export const EditRequest: FC<IEditRequest> = (props) => {
     const { oneRequest, getOneRequest } = getOneRequestApi();
     const fetchEdit = editRequestApi();
     const fetchCreate = createRequestApi();
-    const [modalSuccess, setModalSuccess] = useState<boolean>(false);
     useEffect(() => {
         if (fetchCreate.oneRequest.id !== 0) {
             getOneRequest(fetchCreate.oneRequest.id);
@@ -29,8 +26,7 @@ export const EditRequest: FC<IEditRequest> = (props) => {
         e.preventDefault();
         fetchEdit.editRequest(fetchEdit.requestState.id);
         setModal(false);
-        setModalSuccess(true);
-        setTimeout(() => setModalSuccess(false), 1000);
+        fetchCreate.resetOneRequest();
     };
     return (
         <form onSubmit={postTrim}>
@@ -67,15 +63,6 @@ export const EditRequest: FC<IEditRequest> = (props) => {
                         text="Создать"
                     />
                 </div>
-                <Modal
-                    width={350}
-                    centered
-                    zIndex={11}
-                    open={modalSuccess}
-                    onCancel={() => setModalSuccess(false)}
-                >
-                    <SuccessModal content="Заявка успешно создана!" />
-                </Modal>
             </div>
         </form>
     );

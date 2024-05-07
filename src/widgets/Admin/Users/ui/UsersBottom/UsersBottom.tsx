@@ -3,7 +3,7 @@ import styles from "./UsersBottom.module.scss";
 import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
 import { usersApi } from "../../api/usersApi";
 
-export const UsersBottom: FC<{view: boolean}> = ({view}) => {
+export const UsersBottom: FC<{ view: boolean }> = ({ view }) => {
     const [page, setPage] = useState<number>(1);
     const [pageArray, setPageArray] = useState<number[]>([]);
     const [middleArray, setMiddleArray] = useState<number[]>([]);
@@ -44,7 +44,10 @@ export const UsersBottom: FC<{view: boolean}> = ({view}) => {
         getUsersList(1);
     }, []);
     return (
-        <div className={styles.UsersBottom} style={{width: view ? "1221px" : "1718px"}}>
+        <div
+            className={styles.UsersBottom}
+            style={{ width: view ? "1221px" : "1718px" }}
+        >
             <div className={styles.Pagination}>
                 <div className={styles.PaginationButton}>
                     <ArrowLeft2
@@ -96,7 +99,9 @@ export const UsersBottom: FC<{view: boolean}> = ({view}) => {
                     />
                 </div>
             </div>
-            <div className={styles.BottomRight}>{view ? "Кол...50/200" : "Количество пользователей с 1 по 50 из 200"}</div>
+            <div className={styles.BottomRight}>
+                {view ? "Кол...50/200" : "Количество пользователей с 1 по 50 из 200"}
+            </div>
         </div>
     );
 };

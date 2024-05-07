@@ -9,6 +9,7 @@ interface ILog {
     initially: string;
     new: string;
     user: string;
+    task_number: string;
 }
 
 interface ISubtask {
@@ -99,9 +100,9 @@ export const getOneRequestApi = create<IFetch>((set) => ({
         set((prev) => ({
             oneRequest: {
                 ...prev.oneRequest,
-                checklists: [...prev.oneRequest.checklists, data]
-            }
-        }))
+                checklists: [...prev.oneRequest.checklists, data],
+            },
+        }));
     },
     getOneRequest: async (id) => {
         try {

@@ -6,7 +6,7 @@ import { deleteCheckListApi } from "../../api/deleteCheckListApi";
 import { getOneRequestApi } from "../../../../widgets/Modals/ViewRequest/api/getOneRequestApi";
 
 interface IOneCheckList {
-    checkList: ICheckList
+    checkList: ICheckList;
 }
 
 export const OneCheckList: FC<IOneCheckList> = (props) => {

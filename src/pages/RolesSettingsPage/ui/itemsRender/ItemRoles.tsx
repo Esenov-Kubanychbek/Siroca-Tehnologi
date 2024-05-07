@@ -19,7 +19,9 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
     inBoxList,
     genRoles,
 }) => {
-    const [boxes, setBoxes] = useState<{ [key: string]: number | string | boolean | FileList | File | undefined | null }>({
+    const [boxes, setBoxes] = useState<{
+        [key: string]: number | string | boolean | FileList | File | undefined | null;
+    }>({
         client_can_edit_comments_extra: false,
         client_can_get_reports_extra: false,
         client_can_view_logs_extra: false,
@@ -103,7 +105,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
                                 type="checkbox"
                                 onChange={getCheckBoxVal}
                                 name={`${index}`}
-                                checked={typeof(isChecked) === "boolean" ? isChecked : false}
+                                checked={typeof isChecked === "boolean" ? isChecked : false}
                             />
                         </div>
                     );
