@@ -1,0 +1,46 @@
+@import "index.scss";
+
+.Primary,
+.Secondary,
+.Without,
+.ColorBlue,
+.ColorRed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 18px;
+    border-radius: 8px;
+    height: 56px;
+    cursor: pointer;
+}
+
+.Primary {
+    background-color: $blue;
+    color: white;
+    border: none;
+}
+
+.Secondary {
+    background-color: white;
+    color: $blue;
+    border: 2px solid $blue;
+}
+
+.Without {
+    background-color: white;
+    color: $blue;
+    border: none;
+}
+
+.ColorBlue {
+    background-color: $blackf4;
+    color: $blue;
+    border: none;
+}
+
+.ColorRed {
+    background: none;
+    color: $highest;
+    border: none;
+}

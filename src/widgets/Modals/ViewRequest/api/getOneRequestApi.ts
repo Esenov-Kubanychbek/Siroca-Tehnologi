@@ -3,12 +3,12 @@ import { create } from "zustand";
 import { BASE_URL, authToken } from "../../../../shared/variables/variables";
 
 interface ILog {
-    id: number;
-    username: string;
-    task_number: string;
-    text: string;
-    created_at: string;
+    field: string,
     formatted_created_at: string;
+    id: number;
+    initially: string;
+    new: string;
+    user: string;
 }
 
 interface ISubtask {

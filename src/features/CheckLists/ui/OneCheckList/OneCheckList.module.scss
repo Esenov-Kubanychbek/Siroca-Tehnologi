@@ -4,6 +4,7 @@
     border-radius: 8px;
     background-color: $blackf4;
 }
+
 .Header {
     width: 560px;
     height: 44px;
@@ -13,13 +14,22 @@
     align-items: center;
     background-color: $blackf4;
     border-radius: 8px 8px 0 0;
+
     .HeaderLeft {
         display: flex;
-        align-items: center;
-        gap: 16px;
+        gap: 10px;
+        color: var(---600, #5C5C5C);
         font-size: 18px;
+        font-style: normal;
         font-weight: 500;
+        line-height: normal;
+        input[type="checkbox"] {
+            display: flex;
+            align-items: center;
+            width: 20px;
+        }
     }
+
     button {
         width: 100px;
         height: 30px;
@@ -29,82 +39,58 @@
         border-radius: 8px;
         border: 1px solid $black3b;
     }
+    
 }
-.SubTaskChecked,
+
 .SubTask {
-    height: 54px;
-    display: flex;
-    padding: 5px 8px;
-    justify-content: space-between;
-}
-
-.SubTaskChecked {
-    color: $blacka8;
-    height: 54px;
-    display: flex;
-    padding: 5px 8px;
-    position: relative;
-    justify-content: space-between;
-    .Right {
-        div {
-            background: none;
-        }
-        span {
-            color: $blacka8;
-        }
-    }
-    .Line {
-        position: absolute;
-        top: 32px;
-        left: 55px;
-        width: 500px;
-        height: 2px;
-        background-color: $blackde;
-    }
-}
-
-.NotChecked {
-    width: 20px;
-    height: 20px;
-    border-radius: 8px;
-    border: 2px solid $blackde;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    left: 16px;
-    top: 10px;
-    cursor: pointer;
-}
-
-.Left {
-    align-items: center;
-    display: flex;
-    width: 280px;
     padding: 8px;
-    p {
-        padding-left: 12px;
-        font-size: 16px;
-        font-weight: 500;
-    }
-}
-.Right {
-    align-items: center;
     display: flex;
-    span {
-        font-size: 14px;
-        font-weight: 500;
-        color: $blue;
+    justify-content: space-between;
+    align-items: center;
+
+    .Left {
+        display: flex;
+        gap: 20px;
+
+        p {
+            color: var(---800, #252525);
+            font-size: 17px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            
+        }
+
+        input[type="checkbox"] {
+            display: flex;
+            align-items: center;
+            width: 20px;
+        }
     }
-    div {
+
+
+    .Right {
         align-items: center;
         display: flex;
-        background-color: white;
-        padding: 8px 16px;
-        border-radius: 6px;
-        margin-left: 10px;
-        p {
+
+        span {
+            font-size: 14px;
             font-weight: 500;
-            font-size: 16px;
+            color: $blue;
+        }
+
+        div {
+            align-items: center;
+            display: flex;
+            background-color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            margin-left: 10px;
+
+            p {
+                font-weight: 500;
+                font-size: 16px;
+            }
         }
     }
 }

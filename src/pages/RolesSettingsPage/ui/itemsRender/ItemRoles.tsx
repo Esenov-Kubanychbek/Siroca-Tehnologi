@@ -2,11 +2,6 @@ import { useEffect, useState } from "react";
 import styles from "./ItemRoles.module.scss";
 import { IUser } from "../../../../shared/types/userTypes";
 
-// interface IUser {
-//     username: string;
-//     role_type: string;
-// }
-
 interface IItemSettingRoles {
     user: IUser;
     index: number;
@@ -30,7 +25,6 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
         client_can_view_logs_extra: false,
         client_can_add_files_extra: false,
         client_can_add_checklist_extra: false,
-        client_can_view_profiles_extra: false,
     });
     const [genBoxes, setGenBoxes] = useState<{ [key: string]: boolean } | undefined>();
     useEffect(() => {
@@ -83,6 +77,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
             {checkBoxList.map((el, index: number) => {
                 if (boxes && Object.entries(boxes)[index] && Object.entries(boxes)[index][1] == null) {
                     console.log(el);
+                    
                     const isChecked = genBoxes && Object.entries(genBoxes)[index] ? Object.entries(genBoxes)[index][1] : false;
                     return (
                         <div
