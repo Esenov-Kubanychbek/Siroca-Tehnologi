@@ -28,6 +28,8 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 },
             });
             setReqCount(response.data.data.created_count);
+            console.log(response.data.data.created_count);
+            
             fetchRequest.setState(response.data.data.results);
             fetchRequest.setFilterState(response.data.data.results);
             console.log(response, "getRequestsListSuccess");
