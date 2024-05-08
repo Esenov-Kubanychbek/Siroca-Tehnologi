@@ -48,6 +48,8 @@
             font-style: normal;
             font-weight: 500;
             line-height: normal;
+            display: flex;
+            flex-direction: column;
         }
 
         .Prev {
@@ -57,6 +59,7 @@
             font-weight: 500;
             line-height: normal;
             display: flex;
+            flex-direction: column;
             p {
                 color: var(---600, #5c5c5c);
                 width: 86px;

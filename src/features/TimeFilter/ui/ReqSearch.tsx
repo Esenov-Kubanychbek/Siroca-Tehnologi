@@ -23,7 +23,7 @@ export const ReqSearch: FC = () => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            fetchRequest.setState(response.data.results);
+            fetchRequest.setState(response.data.data.results);
 
             console.log(response);
         } catch (error) {
@@ -39,7 +39,8 @@ export const ReqSearch: FC = () => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            fetchRequest.setState(response.data.results);
+            fetchRequest.setState(response.data.data.results);
+            
 
             console.log(response);
         } catch (error) {

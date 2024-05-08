@@ -1,10 +1,11 @@
 interface ILog {
-    id: number;
-    username: string;
-    task_number: string;
-    text: string;
-    created_at: string;
+    field: string,
     formatted_created_at: string;
+    id: number;
+    initially: string;
+    new: string;
+    user: string;
+    task_number: string;
 }
 
 interface ISubtask {
