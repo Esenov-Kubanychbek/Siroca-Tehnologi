@@ -44,6 +44,14 @@ export const getOneRequestApi = create<IGetOneRequestApi>((set) => ({
             },
         }));
     },
+    deleteFileFromFiles: (id) => {
+        set((prevState) => ({
+            oneRequest: {
+                ...prevState.oneRequest,
+                files: prevState.oneRequest.files.filter(file => file.id !== id),
+            },
+        }));
+    },
     getOneRequest: async (id) => {
         try {
             const getOneResponse = await axios.get(`${BASE_URL}/applications/form_view/${id}/`, authToken);

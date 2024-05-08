@@ -11,7 +11,7 @@ export const ItemCount: FC<IItemCount> = ({ count, page }) => {
         const all = 50 * Math.floor(count / 50);
         const f = count - 50 * Math.floor(count / 50);
         const now = 50 * (page - 1);
-        if (count > now) {
+        if (count >= now) {
             setCounter([now, count > 50 ? (now + 50 > count ? all + f : now + 50) : now + f, count]);
         } else {
             setCounter([now, all + f, count]);
@@ -19,7 +19,7 @@ export const ItemCount: FC<IItemCount> = ({ count, page }) => {
     };
     useEffect(() => {
         setingCounter();
-    }, [page]);
+    }, [page, count]);
     return (
         <p className={styles.p}>
             Количество заявок c {counter[0]} по {counter[1]} из {counter[2]}.

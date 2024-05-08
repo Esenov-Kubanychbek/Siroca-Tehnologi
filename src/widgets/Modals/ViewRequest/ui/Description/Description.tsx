@@ -22,10 +22,14 @@ export const Description: FC = () => {
         });
     };
     useEffect(() => {
-        setFile({
-            file: String(oneFile.file),
-            application: oneFile.application !== undefined ? oneFile.application : 0,
-        });
+        if (oneFile.application !== 0) {
+            setFile({
+                id: oneFile.id,
+                file: String(oneFile.file),
+                application: oneFile.application !== undefined ? oneFile.application : 0,
+                file_name: oneFile.file_name
+            });
+        }
     }, [oneFile]);
     useEffect(() => {
         setDescriptionState(oneRequest.description);

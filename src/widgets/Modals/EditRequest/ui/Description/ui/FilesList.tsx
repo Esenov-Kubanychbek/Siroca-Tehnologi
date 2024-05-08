@@ -1,32 +1,37 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import styles from "./FilesList.module.scss";
-import xlsx from "../../../../../../shared/assets/excel.svg";
 import { filesApi } from "../../../../ViewRequest/api/filesApi";
 import { getOneRequestApi } from "../../../../ViewRequest/api/getOneRequestApi";
+import { CloseSquare, Document, Trash } from "iconsax-react";
+import { deleteFileApi } from "../../../api/deleteFileApi";
 
 export const FilesList: FC = () => {
-    const { oneRequest } = getOneRequestApi();
-    const { setImagesList, setOtherFilesList, imagesList, otherFilesList, findTypeOfFile } = filesApi();
-    const [added, setAdded] = useState<boolean>(false);
+    const { oneRequest, deleteFileFromFiles } = getOneRequestApi();
+    const { imagesList, otherFilesList, findTypeOfFile, deleteFromImagesList, deleteFromOtherFilesList } = filesApi();
+    const { deleteFile } = deleteFileApi();
+    const deleteFileFromList = (id?: number) => {
+        deleteFile(id);
+        deleteFileFromFiles(id);
+        deleteFromImagesList(id);
+        deleteFromOtherFilesList(id);
+    };
+    const downloadFile = (url: string, fileName: string) => {
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", fileName);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
     useEffect(() => {
-        if (oneRequest.files.length > 0 && added === false) {
-            const files = oneRequest.files;
-            findTypeOfFile(files);
-            if(imagesList.length > 0 || otherFilesList.length > 0){
-                setAdded(true);
-                console.log(imagesList, "images");
-                console.log(otherFilesList, "others");
-            }
-        }else if (oneRequest.files.length > 0 && added) {
-            setAdded(false);
-            setImagesList([]);
-            setOtherFilesList([]);
+        if (oneRequest.files.length > 0) {
+            findTypeOfFile(oneRequest.files);
         }
     }, [oneRequest.files]);
     return (
         <div
             className={styles.FilesList}
-            style={{ display: added ? "flex" : "none" }}
+            style={{ display: oneRequest.files.length > 0 ? "flex" : "none" }}
         >
             <div className={styles.OtherFiles}>
                 {otherFilesList !== undefined || null
@@ -35,11 +40,14 @@ export const FilesList: FC = () => {
                               key={i}
                               className={styles.OtherFile}
                           >
-                              <img
-                                  src={xlsx}
-                                  alt="image"
+                              <div onClick={() => downloadFile(file.file, String(file.file_name))}>
+                                  <Document />
+                                  <p>{file.file_name}</p>
+                              </div>
+                              <Trash
+                                  cursor={"pointer"}
+                                  onClick={() => deleteFileFromList(file.id)}
                               />
-                              <p>{file.file.slice(0, 70)}</p>
                           </div>
                       ))
                     : null}
@@ -47,11 +55,19 @@ export const FilesList: FC = () => {
             <div className={styles.Images}>
                 {imagesList !== undefined || null
                     ? imagesList.map((image, i) => (
-                          <img
-                              key={i}
-                              src={image.file}
-                              alt="image"
-                          />
+                          <div key={i}>
+                              <img
+                                  src={image.file}
+                                  alt="image"
+                              />
+                              <div>
+                                  <CloseSquare
+                                      onClick={() => deleteFileFromList(image.id)}
+                                      size={20}
+                                      cursor={"pointer"}
+                                  />
+                              </div>
+                          </div>
                       ))
                     : null}
             </div>

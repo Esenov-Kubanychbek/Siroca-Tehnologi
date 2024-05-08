@@ -16,7 +16,7 @@ export const AddDescription: FC = () => {
             <textarea
                 placeholder="Добавьте описание"
                 onChange={descriptionChange}
-                value={descriptionState.description}
+                value={descriptionState.description === null || undefined ? "" : descriptionState.description}
             ></textarea>
             <div className={styles.Buttons}>
                 <CustomButton

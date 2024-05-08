@@ -8,6 +8,7 @@ interface IFile {
     id?: number
     file: string
     application: number
+    file_name?: string
 }
 
 interface IFetch {

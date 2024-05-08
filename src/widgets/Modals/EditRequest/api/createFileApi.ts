@@ -6,6 +6,7 @@ interface IFile {
     id?: number;
     file: string | File;
     application: number | undefined
+    file_name?: string
 }
 
 interface ICreateFileApi {
@@ -17,7 +18,8 @@ export const createFileApi = create<ICreateFileApi>((set) => ({
     oneFile: {
         id: 0,
         file: "",
-        application: 0
+        application: 0,
+        file_name: ""
     },
     createFile: async (file) => {
         try {

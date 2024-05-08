@@ -12,11 +12,13 @@ import { Pagination } from "../../shared/ui/Pagination/Pagination";
 import { ItemCount } from "../../shared/ui/ItemCount/ItemCount";
 import { idRoles } from "../../pages/MainPage/api/idRoles";
 import { descriptionApi } from "../Modals/ViewRequest/api/descriptionApi";
+import { filesApi } from "../Modals/ViewRequest/api/filesApi";
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
     const [page, setPage] = useState<number>(1);
     const [reqCount, setReqCount] = useState<number>(0);
     const [modal, setModal] = useState<boolean>(false);
+    const {setImagesList, setOtherFilesList} = filesApi()
     const fetchRequest = getRequestApi();
     const apiLength = fetchRequest.getState;
     const roles = idRoles();
@@ -41,6 +43,8 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
     const closeModal = () => {
         setModal(false)
         setOpened(false)
+        setImagesList([]),
+        setOtherFilesList([])
     }
 
     useEffect(() => {

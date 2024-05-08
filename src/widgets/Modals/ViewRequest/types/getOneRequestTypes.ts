@@ -39,6 +39,7 @@ interface IFile {
     id?: number
     file: string
     application: number
+    file_name?: string
 }
 
 interface IOneRequest {
@@ -70,5 +71,6 @@ export interface IGetOneRequestApi {
     oneRequest: IOneRequest;
     setChecklist: (data: ICheckList) => void;
     setFile: (file: IFile) => void
+    deleteFileFromFiles: (id?: number) => void
     getOneRequest: (id: number | undefined) => void;
 }

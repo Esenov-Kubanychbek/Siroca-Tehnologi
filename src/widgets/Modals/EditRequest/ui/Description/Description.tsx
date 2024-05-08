@@ -15,12 +15,16 @@ export const Description: FC = () => {
             application: requestState.id,
         });
     };
-    useEffect(()=> {
-        setFile({
-            file: String(oneFile.file),
-            application: oneFile.application !== undefined ? oneFile.application : 0
-        })
-    },[oneFile])
+    useEffect(() => {
+        if (oneFile.application !== 0) {
+            setFile({
+                id: oneFile.id,
+                file: String(oneFile.file),
+                application: oneFile.application !== undefined ? oneFile.application : 0,
+                file_name: oneFile.file_name
+            });
+        }
+    }, [oneFile]);
     return (
         <div className={styles.Description}>
             <div className={styles.TextArea}>
