@@ -17,5 +17,6 @@ export interface IObject {
 export interface IRequest {
     request: IObject;
     role: string | null;
-    setModal: Dispatch<SetStateAction<boolean>>;
+    view: boolean;
+    setView: Dispatch<SetStateAction<boolean>>;
 }

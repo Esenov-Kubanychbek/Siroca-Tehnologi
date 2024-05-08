@@ -1,48 +1,54 @@
 import { FC } from "react";
 import { ListTop, ListTopName } from "../../../shared/ui";
 
-export const RequestTop: FC<{ role: string | null }> = ({ role }) => {
+interface IRequestTop {
+    role: string | null
+    view: boolean
+}
+
+export const RequestTop: FC<IRequestTop> = (props) => {
+    const {role, view} = props
     return (
-        <ListTop width={role === "admin" ? 1724 : 1820}>
+        <ListTop width={role === "admin" ? view ? 1012 : 1724 : 1820}>
             <ListTopName
-                name="Номер заявки"
-                width={role === "admin" ? 169 : 180}
+                name={view ? "Номе..." : "Номер заявки"}
+                width={role === "admin" ? view ? 98.28 : 169 : 180}
             />
             <ListTopName
-                name="Компания"
-                width={role === "admin" ? 138 : 150}
+                name={view ? "Комп..." : "Компания"}
+                width={role === "admin" ? view ? 98.28 : 138 : 150}
             />
             <ListTopName
-                name="Название заявки"
-                width={role === "admin" ? 249 : 260}
+                name={view ? "Назв..." : "Название заявки"}
+                width={role === "admin" ? view ? 98.28 : 249 : 260}
             />
             <ListTopName
-                name="Краткое описание"
-                width={role === "admin" ? 230 : 220}
+                name={view ? "Краткое..." : "Краткое описание"}
+                width={role === "admin" ? view ? 127.5 : 230 : 220}
             />
             <ListTopName
-                name="Заявитель"
-                width={role === "admin" ? 142 : 160}
+                name={view ? "Заяв..." : "Заявитель"}
+                width={role === "admin" ? view ? 98.28 : 142 : 160}
             />
             <ListTopName
-                name="Менеджер"
-                width={role === "admin" ? 188 : 200}
+                name={view ? "Мене..." : "Менеджер"}
+                width={role === "admin" ? view ? 98.28 : 188 : 200}
             />
             <ListTopName
-                name="Дата начала"
-                width={role === "admin" ? 164 : 180}
+                name={view ? "Дата..." : "Дата начала"}
+                width={role === "admin" ? view ? 98.28 : 164 : 180}
             />
             <ListTopName
-                name="Дата завершение"
-                width={role === "admin" ? 194 : 180}
+                name={view ? "Дата..." : "Дата завершение"}
+                width={role === "admin" ? view ? 98.28 : 194 : 180}
             />
             <ListTopName
-                name="Приоритет"
-                width={role === "admin" ? 136 : 150}
+                name={view ? "Прио..." : "Приоритет"}
+                width={role === "admin" ? view ? 98.28 : 136 : 150}
             />
             <ListTopName
                 name="Статус"
-                width={role === "admin" ? 114 : 140}
+                width={role === "admin" ? view ? 98.28 : 114 : 140}
             />
         </ListTop>
     );

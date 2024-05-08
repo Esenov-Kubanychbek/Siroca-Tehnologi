@@ -1,42 +1,18 @@
 @import "index.scss";
 
 .ViewRequest {
+    width: 698px;
+    position: relative;
+    transition: 0.1s;
     display: flex;
     gap: 14px;
     width: 698px;
-    overflow-y: scroll;
-    height: 900px;
-    margin-bottom: 100px;
+    height: 820px;
+    overflow-y: hidden;
     position: relative;
-    .Header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 592px;
-        margin: 16px 0;
-    }
-    .Name {
-        font-size: 24px;
-        font-weight: 700;
-        display: flex;
-        .Number {
-            color: #1c6ab1;
-        }
-    }
 }
 
-.MoreButtons {
-    width: 180px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    button {
-        height: 41px;
-        background: none;
-        border: none;
-        color: $blue;
-        font-weight: 700;
-        font-size: 14px;
-    }
+.Main {
+    height: 700px;
+    overflow-y: scroll;
 }

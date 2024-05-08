@@ -1,7 +1,11 @@
-@import "../../app/styles/variables.scss";
+@import "index.scss";
+
+.RequestList {
+    display: flex;
+    justify-content: space-between;
+}
 
 .Inner {
-    width: 1760px;
     height: 616px;
     overflow-x: hidden;
 }
@@ -15,4 +19,16 @@
     color: $black71;
     justify-content: center;
     align-items: center;
+}
+
+.Bottom {
+    position: relative;
+}
+
+.ItemCount {
+    width: 370px;
+    height: 23px;
+    position: absolute;
+    top: 26px;
+    right: 0;
 }

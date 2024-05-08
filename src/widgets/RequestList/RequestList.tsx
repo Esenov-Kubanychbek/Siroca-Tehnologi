@@ -2,35 +2,23 @@ import styles from "./RequestList.module.scss";
 import { FC, useEffect, useState } from "react";
 import { Request } from "../../entities";
 import { RequestTop, ViewRequest } from "..";
-import { Modal } from "antd";
 import { getRequestApi } from "./api/getRequestApi";
 import { IRequest } from "./types/types";
 import axios from "axios";
-import { BASE_URL } from "../../shared/variables/variables";
-import { AddComment, AddDescription } from "../Modals/ViewRequest/ui";
+import { BASE_URL, authToken } from "../../shared/variables/variables";
 import { Pagination } from "../../shared/ui/Pagination/Pagination";
 import { ItemCount } from "../../shared/ui/ItemCount/ItemCount";
-import { idRoles } from "../../pages/MainPage/api/idRoles";
-import { descriptionApi } from "../Modals/ViewRequest/api/descriptionApi";
-import { filesApi } from "../Modals/ViewRequest/api/filesApi";
 
-export const RequestList: FC<IRequest> = ({ role, api }) => {
+export const RequestList: FC<IRequest> = (props) => {
+    const { role, api } = props;
     const [page, setPage] = useState<number>(1);
     const [reqCount, setReqCount] = useState<number>(0);
-    const [modal, setModal] = useState<boolean>(false);
-    const {setImagesList, setOtherFilesList} = filesApi()
+    const [view, setView] = useState<boolean>(false);
     const fetchRequest = getRequestApi();
-    const apiLength = fetchRequest.getState;
-    const roles = idRoles();
-    const {opened, setOpened} = descriptionApi()
-    const role_type = localStorage.getItem("role_type");
+    const apiLength = fetchRequest.getState.length;
     const reqPage = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/applications/form/?page=${page}&${api}`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
+            const response = await axios.get(`${BASE_URL}/applications/form/?page=${page}&${api}`, authToken);
             setReqCount(response.data.data.created_count);
             fetchRequest.setState(response.data.data.results);
             fetchRequest.setFilterState(response.data.data.results);
@@ -40,61 +28,54 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
             console.log(error);
         }
     };
-    const closeModal = () => {
-        setModal(false)
-        setOpened(false)
-        setImagesList([]),
-        setOtherFilesList([])
-    }
-
     useEffect(() => {
         reqPage();
     }, [page]);
     return (
-        <div style={role === "admin" ? { width: "1724px" } : { width: "1820px" }}>
-            <RequestTop role={role} />
-            <div
-                className={styles.Inner}
-                style={apiLength.length > 11 ? { overflowY: "scroll" } : { overflowY: "hidden" }}
-            >
-                {apiLength.length > 0 ? (
-                    fetchRequest.getState.map((card, i) => (
-                        <Request
-                            role={role}
-                            key={i}
-                            request={card}
-                            setModal={setModal}
-                        />
-                    ))
-                ) : (
-                    <div className={styles.Nothing}>По вашему запросу ничего не найдено!</div>
-                )}
-            </div>
-            {apiLength ? (
-                <Pagination
-                    page={page}
-                    setPage={setPage}
-                    count={reqCount}
+        <div className={styles.RequestList}>
+            <div style={{ width: role === "admin" ? (view ? "1012px" : "1724px") : "1820px" }}>
+                <RequestTop
+                    role={role}
+                    view={view}
                 />
-            ) : null}
-            <ItemCount
-                count={reqCount}
-                page={page}
-            />
-
-            <Modal
-                centered
-                width={750}
-                open={modal}
-                onCancel={closeModal}
-                zIndex={5}
-            >
-                <ViewRequest setModal={setModal} />
-                {roles.formatedState?.client_can_edit_comments_extra || role_type === "manager" || role_type === "" ? (
-                    <AddComment />
-                ) : null}
-                {opened && <AddDescription/>}
-            </Modal>
+                <div
+                    className={styles.Inner}
+                    style={{
+                        overflowY: apiLength > 11 ? "scroll" : "hidden",
+                        width: view ? "1048px" : "1760px",
+                    }}
+                >
+                    {apiLength > 0 ? (
+                        fetchRequest.getState.map((card, i) => (
+                            <Request
+                                view={view}
+                                role={role}
+                                key={i}
+                                request={card}
+                                setView={setView}
+                            />
+                        ))
+                    ) : (
+                        <div className={styles.Nothing}>По вашему запросу ничего не найдено!</div>
+                    )}
+                </div>
+                <div className={styles.Bottom}>
+                    {apiLength && (
+                        <Pagination
+                            page={page}
+                            setPage={setPage}
+                            count={reqCount}
+                        />
+                    )}
+                    <div className={styles.ItemCount}>
+                        <ItemCount
+                            count={reqCount}
+                            page={page}
+                        />
+                    </div>
+                </div>
+            </div>
+            {view && <ViewRequest setView={setView} />}
         </div>
     );
 };

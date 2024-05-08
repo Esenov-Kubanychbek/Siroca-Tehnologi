@@ -1,72 +1,34 @@
 import { FC, useState } from "react";
-import { CloseSquare, MoreSquare } from "iconsax-react";
 import styles from "./ViewRequest.module.scss";
-import { Collapses, MenuRequest } from "./ui";
-import { getOneRequestApi } from "./api/getOneRequestApi";
-import { IViewRequestModal } from "./types/types";
-import { Modal, Popover } from "antd";
-import { deleteRequestApi } from "./api/deleteRequestApi";
+import { AddComment, AddDescription, Collapses, RequestMenu, RequestHeader } from "./ui";
+import { IViewRequestModal } from "./types/ViewRequestTypes";
+import { Modal } from "antd";
 import { ViewLogs } from "../ViewLogs/ViewLogs";
 import { EditRequest } from "../EditRequest/EditRequest";
+import { idRoles } from "../../../pages/MainPage/api/idRoles";
+import { descriptionApi } from "./api/descriptionApi";
 
-export const ViewRequest: FC<IViewRequestModal> = (props) => {
-    const { setModal } = props;
-    const [open, setOpen] = useState<boolean>(false);
+export const ViewRequest: FC<IViewRequestModal> = ({ setView }) => {
+    const roles = idRoles();
+    const role_type = localStorage.getItem("role_type");
+    const { opened, setOpened } = descriptionApi();
     const [editOpen, setEditOpen] = useState<boolean>(false);
-    const fetchData = getOneRequestApi();
-    const deleteRequest = deleteRequestApi();
     const [viewLogs, setViewLogs] = useState<boolean>(false);
-    const deleteFunc = () => {
-        deleteRequest.deleteRequest(fetchData.oneRequest.id);
-        setModal(false);
-        setOpen(false);
-    };
-    const handleOpenChange = (newOpen: boolean) => {
-        setOpen(newOpen);
-    };
-    const openEditModal = () => {
-        setOpen(false);
-        setModal(false);
-        setEditOpen(true);
-    };
     return (
         <div className={styles.ViewRequest}>
-            <MenuRequest />
-            <div>
-                <div className={styles.Header}>
-                    <div className={styles.Name}>
-                        Заявка - {fetchData.oneRequest.company} /&nbsp;
-                        <div className={styles.Number}>{fetchData.oneRequest.task_number}</div>
-                    </div>
-                    <div>
-                        <Popover
-                            placement="bottomRight"
-                            content={
-                                <div className={styles.MoreButtons}>
-                                    <button onClick={openEditModal}>Редактировать</button>
-                                    <button onClick={deleteFunc}>Удалить</button>
-                                </div>
-                            }
-                            onOpenChange={handleOpenChange}
-                            trigger={"click"}
-                            open={open}
-                        >
-                            <MoreSquare
-                                cursor={"pointer"}
-                                variant="Bulk"
-                                color="#929292"
-                                size={34}
-                            />
-                        </Popover>
-                        <CloseSquare
-                            cursor={"pointer"}
-                            size={34}
-                            onClick={() => setModal(false)}
-                        />
-                    </div>
-                </div>
+            <RequestMenu />
+            <div className={styles.Main}>
+                <RequestHeader
+                    setView={setView}
+                    setEditOpen={setEditOpen}
+                    setOpened={setOpened}
+                />
                 <Collapses setViewLogs={setViewLogs} />
             </div>
+            {(roles.formatedState?.client_can_edit_comments_extra || role_type === "manager" || role_type === "") && (
+                <AddComment />
+            )}
+            {opened && <AddDescription />}
             <Modal
                 centered
                 width={1066}
