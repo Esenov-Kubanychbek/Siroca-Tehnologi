@@ -18,6 +18,12 @@ interface IComments {
     application?: number | null;
 }
 
+interface IFile {
+    id?: number
+    file: string
+    application: number
+}
+
 export interface IRequest {
     id?: number;
     checklist?: ICheckList[];
@@ -26,7 +32,7 @@ export interface IRequest {
     title?: string;
     description?: string;
     short_description?: string;
-    files?: string | null | File | FileList | string | File[];
+    files: IFile[];
     jira?: string;
     status?: string;
     payment_state?: string;

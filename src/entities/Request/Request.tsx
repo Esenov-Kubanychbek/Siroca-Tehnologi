@@ -75,7 +75,7 @@ export const Request: FC<IRequest> = (props) => {
                         color: `${priorityColor(request.priority)}`,
                     }}
                 >
-                    {request.priority}
+                    {request.priority.slice(0, 9)}...
                 </div>
             </div>
             <div

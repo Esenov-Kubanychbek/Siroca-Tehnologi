@@ -13,7 +13,7 @@ export const Pagination: FC<IPagination> = ({ page, setPage, count }) => {
     const [middle, setMiddle] = useState<number[]>([]);
     const [finish, setFinish] = useState<number[]>([]);
 
-    const ceil = Math.ceil(count / 2);
+    const ceil = Math.ceil(count / 50);
 
     const prevPage = () => {
         if (page !== 1) {

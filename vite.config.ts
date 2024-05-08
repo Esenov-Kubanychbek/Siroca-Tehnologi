@@ -8,6 +8,7 @@ export default defineConfig({
         alias: {
             "@": path.resolve(__dirname, "src"),
             "index.scss": path.resolve(__dirname, "src/app/styles/index.scss"),
+            "variables": path.resolve(__dirname, "src/shared/variables/variables.ts"),
         },
     },
 });
