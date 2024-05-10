@@ -1,23 +1,23 @@
-import { CloseSquare, MoreSquare } from 'iconsax-react';
-import styles from './ChangeCompany.module.scss';
-import { FC, useState } from 'react';
-import { useDataStoreComponies } from '../../Admin/Companies/api/componiesApi';
-import { Modal } from 'antd';
-import { ViewCompany } from '../ViewCompany/ViewCompany';
-import { useDataInputCompaniesStore } from '../ViewCompany/api/dataInputCompanies';
-import { CreateUser } from '../CreateUser/CreateUser';
-
+import { CloseSquare, MoreSquare } from "iconsax-react";
+import styles from "./ChangeCompany.module.scss";
+import { FC, useState } from "react";
+import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
+import { Modal } from "antd";
+import { ViewCompany } from "../ViewCompany/ViewCompany";
+import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
+import { CreateUser } from "../CreateUser/CreateUser";
 
 interface props {
     message: (text: string, number: number) => void;
     count: number;
-    page: number
+    page: number;
 }
-export const ChangeCompany: FC <props> = ({ message, count, page }) => {
+export const ChangeCompany: FC<props> = ({ message, count, page }) => {
     const [modalButtons, setModalButtons] = useState<boolean>(false);
-    const { deleteCompany, data, idCompany, closeModalView, modalViewCompany, selectedCompanyData, users } = useDataStoreComponies();
+    const { deleteCompany, data, idCompany, closeModalView, modalViewCompany, selectedCompanyData, users } =
+        useDataStoreComponies();
     const { resetInput } = useDataInputCompaniesStore();
-    const [modalCreateUser,setModalCreateUser] = useState<boolean>(false);
+    const [modalCreateUser, setModalCreateUser] = useState<boolean>(false);
     const [viewModal, setViewModal] = useState<boolean>(false);
     const closeView = () => {
         setViewModal(false);
@@ -25,40 +25,57 @@ export const ChangeCompany: FC <props> = ({ message, count, page }) => {
     const openView = () => {
         setViewModal(true);
     };
-    
-    
 
     const deleteComp = () => {
-        
         deleteCompany(idCompany, page);
         console.log(data);
         const number = count + 1;
-        message(`Компания "${selectedCompanyData.name}" была удалена!`, number );
+        message(`Компания "${selectedCompanyData.name}" была удалена!`, number);
         closeView();
         closeModalView();
-    }
+    };
     const names = (id: number | undefined): string => {
-        const manager = users.find(manager => manager.id === id);
-        return manager ? manager.first_name : '';
+        const manager = users.find((manager) => manager.id === id);
+        return manager ? manager.first_name : "";
     };
 
     return (
         <>
-            <div className={styles.ChangeCompany} style={{ display: `${modalViewCompany ? 'block' : 'none'}` }}>
+            <div
+                className={styles.ChangeCompany}
+                style={{ display: `${modalViewCompany ? "block" : "none"}` }}
+            >
                 <div className={styles.buttons}>
                     <div>
-                        <MoreSquare onClick={() => setModalButtons(prevState => !prevState)} size={34} />
-                        <div style={{ display: `${modalButtons ? 'block' : 'none'}` }} className={styles.moreClick}>
-                            <p onClick={() => {
-                                openView();
-
-                            }}>Редактировать</p>
+                        <MoreSquare
+                            cursor={"pointer"}
+                            variant="Bulk"
+                            color="#929292"
+                            size={34}
+                            onClick={() => setModalButtons((prevState) => !prevState)}
+                        />
+                        <div
+                            style={{ display: `${modalButtons ? "block" : "none"}` }}
+                            className={styles.moreClick}
+                        >
+                            <p
+                                onClick={() => {
+                                    openView();
+                                }}
+                            >
+                                Редактировать
+                            </p>
                             <p onClick={() => setModalCreateUser(true)}>Создать пользователя</p>
                             <p onClick={deleteComp}>Удалить</p>
                         </div>
-                        <div onClick={() => setModalButtons(false)} style={{ display: `${modalButtons ? 'block' : 'none'}` }} className={styles.blackBagr}></div>
+                        <div
+                            onClick={() => setModalButtons(false)}
+                            style={{ display: `${modalButtons ? "block" : "none"}` }}
+                            className={styles.blackBagr}
+                        ></div>
                     </div>
                     <CloseSquare
+                        cursor={"pointer"}
                         onClick={closeModalView}
                         size={34}
                     />
@@ -118,10 +135,16 @@ export const ChangeCompany: FC <props> = ({ message, count, page }) => {
                 open={viewModal}
                 onCancel={() => {
                     closeView();
-                    resetInput()
+                    resetInput();
                 }}
             >
-                <ViewCompany closeModalView={closeView} message={message} count={count} viewModal={viewModal} page={page}/>
+                <ViewCompany
+                    closeModalView={closeView}
+                    message={message}
+                    count={count}
+                    viewModal={viewModal}
+                    page={page}
+                />
             </Modal>
             <Modal
                 centered

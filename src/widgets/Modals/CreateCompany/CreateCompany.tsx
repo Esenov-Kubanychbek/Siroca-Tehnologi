@@ -134,9 +134,8 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                             change={changeInput}
                             name="company_code"
                             value={dataInputCompanies.company_code}
-                            maxLenght={3}
+                            maxLength={3}
                             trim={allData}
-
                         />
                         <div onClick={async () => {
                             const respose = await lamp(dataInputCompanies.name);

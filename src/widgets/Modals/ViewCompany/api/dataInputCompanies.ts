@@ -1,4 +1,4 @@
-import create from 'zustand';
+import {create} from 'zustand';
 
 // Добавляем объявление Symbol.iterator для типа number | undefined[]
 declare global {

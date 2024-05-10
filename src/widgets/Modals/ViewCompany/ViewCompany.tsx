@@ -120,7 +120,7 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                         width={272}
                         change={changeInputCompany}
                         name="company_code"
-                        maxLenght={3}
+                        maxLength={3}
                     />
                 </div>
                 <div>
