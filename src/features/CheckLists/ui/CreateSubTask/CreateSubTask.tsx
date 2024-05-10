@@ -1,46 +1,41 @@
-import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
 import styles from "./CreateSubTask.module.scss";
+import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
 import { CloseSquare } from "iconsax-react";
 import { usersRoleTypeApi } from "../../../../widgets/Modals/EditRequest/api/usersRoleTypeApi";
 import { CustomButton, CustomInput } from "../../../../shared/ui";
 import { CustomSelect } from "../../../../widgets/Modals/CreateCompany/ui/CustomSelect";
 import { checkListApi } from "../../api/checkListApi";
-import { getOneRequestApi } from "../../../../widgets/Modals/ViewRequest/api/getOneRequestApi";
 
-export const CreateSubTask: FC<{ main_manager: string | undefined,setDisplay: Dispatch<SetStateAction<boolean>>, checklistId: number | undefined }> = ({ setDisplay, checklistId, main_manager }) => {
-    const fetchRoleType = usersRoleTypeApi();
-    const subtaskCreate = checkListApi()
+interface ICreateSubTask {
+    setDisplay: Dispatch<SetStateAction<boolean>>
+    checklistId: number | undefined
+}
+
+export const CreateSubTask: FC<ICreateSubTask> = (props) => {
+    const { setDisplay, checklistId } = props
+    const {managersList} = usersRoleTypeApi();
+    const {createSubTask} = checkListApi()
     const [inputDatas, setInputDatas] = useState({
-        compited: false,
-        task: "",
-        date: "",
-        manager: fetchRoleType.managersList[0]
+        completed: false,
+        text: "",
+        deadline: "",
+        manager: managersList[0],
+        checklist: checklistId,
     })
-
-    const onChangeInput = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setInputDatas((prev) => ({
-            ...prev, 
-            [event.target.id]: event.target.value
+    const onChangeInput = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        setInputDatas((prevState) => ({
+            ...prevState, 
+            [e.target.name]: e.target.value
         }))
+        console.log(inputDatas);
     }
-    const {oneRequest, getOneRequest} = getOneRequestApi()
     const add = () => {
-        const obj = {
-            text: inputDatas.task,
-            deadline: inputDatas.date,
-            manager: main_manager,
-            checklist: checklistId,
-            completed: inputDatas.compited
-        }
-        subtaskCreate.createSubTask(obj)
-        const id = oneRequest.id
-        getOneRequest(id)
+        createSubTask(inputDatas)
     }
     return (
         <div className={styles.CreateSubTask}>
             <div className={styles.InputRelative}>
                 <CustomInput
-                    id="task"
                     name="text"
                     width={553}
                     placeholder="Подзадача..."
@@ -62,17 +57,14 @@ export const CreateSubTask: FC<{ main_manager: string | undefined,setDisplay: Di
                     onClick={add}
                 />
                 <CustomSelect
-                    value={inputDatas.manager}
-                    id="manager"
                     name="manager"
-                    text="Назначить..."
-                    dataOption={fetchRoleType.managersList}
+                    value={inputDatas.manager}
+                    dataOption={managersList}
                     width={330}
                     change={onChangeInput}
                 />
                 <input
                     type="date"
-                    id="date"
                     name="deadline"
                     onChange={onChangeInput}
                 />

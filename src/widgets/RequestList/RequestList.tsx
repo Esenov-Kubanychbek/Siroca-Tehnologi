@@ -60,7 +60,7 @@ export const RequestList: FC<IRequest> = (props) => {
                     )}
                 </div>
                 <div className={styles.Bottom}>
-                    {apiLength && (
+                    {apiLength > 0 && (
                         <Pagination
                             page={page}
                             setPage={setPage}

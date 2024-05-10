@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { BASE_URL, authToken } from "../../../../shared/variables/variables";
 import { IGetOneRequestApi } from "../types/getOneRequestTypes";
 
-export const getOneRequestApi = create<IGetOneRequestApi>((set) => ({
+export const getOneRequestApi = create<IGetOneRequestApi>((set, get) => ({
     oneRequest: {
         id: 0,
         logs: [],
@@ -28,14 +28,27 @@ export const getOneRequestApi = create<IGetOneRequestApi>((set) => ({
         finish_date: "",
         deadline_date: "",
     },
-    setChecklist: (data) => {
-        set((prev) => ({
+    setChecklist: (checklist) => {
+        set((prevState) => ({
             oneRequest: {
-                ...prev.oneRequest,
-                checklists: [...prev.oneRequest.checklists, data],
+                ...prevState.oneRequest,
+                checklists: [...prevState.oneRequest.checklists, checklist],
             },
         }));
     },
+    setCompletedFromChecklists: (id) => {
+        const checklists = get().oneRequest.checklists
+        console.log(id, checklists);
+    },
+    deleteChecklistFromChecklists: (id) => {
+        set((prevState) => ({
+            oneRequest: {
+                ...prevState.oneRequest,
+                checklists: prevState.oneRequest.checklists.filter((checklist) => checklist.id !== id),
+            },
+        }));
+    },
+    setSubTask: () => {},
     setFile: (file) => {
         set((prevState) => ({
             oneRequest: {
@@ -48,15 +61,31 @@ export const getOneRequestApi = create<IGetOneRequestApi>((set) => ({
         set((prevState) => ({
             oneRequest: {
                 ...prevState.oneRequest,
-                files: prevState.oneRequest.files.filter(file => file.id !== id),
+                files: prevState.oneRequest.files.filter((file) => file.id !== id),
+            },
+        }));
+    },
+    setComment: (comment) => {
+        set((prevState) => ({
+            oneRequest: {
+                ...prevState.oneRequest,
+                comments: [...prevState.oneRequest.comments, comment],
+            },
+        }));
+    },
+    deleteCommentFromComments: (id) => {
+        set((prevState) => ({
+            oneRequest: {
+                ...prevState.oneRequest,
+                comments: prevState.oneRequest.comments.filter((comment) => comment.id !== id),
             },
         }));
     },
     getOneRequest: async (id) => {
         try {
-            const getOneResponse = await axios.get(`${BASE_URL}/applications/form_view/${id}/`, authToken);
-            console.log(getOneResponse.data, "getOneRequestSuccess");
-            set({ oneRequest: getOneResponse.data });
+            const response = await axios.get(`${BASE_URL}/applications/form_view/${id}/`, authToken);
+            console.log(response.data, "getOneRequestSuccess");
+            set({ oneRequest: response.data });
         } catch (error) {
             console.log(error, "getOneRequestError");
         }

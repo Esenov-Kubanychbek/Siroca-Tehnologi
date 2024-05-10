@@ -28,3 +28,4 @@ export { ViewRequest } from "./Modals/ViewRequest/ViewRequest";
 export { EditUser } from "./Modals/EditUser/EditUser";
 export { ResetPassword } from "./Modals/ResetPassword/ResetPassword";
 export { ViewUser } from "./Modals/ViewUser/ViewUser";
+export {CreateChecklist} from "./Modals/CreateChecklist/CreateChecklist"

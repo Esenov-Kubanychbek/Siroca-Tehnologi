@@ -1,5 +1,4 @@
 export { ButtonCreate } from "./ButtonCreate/ButtonCreate";
-export { CheckBox } from "./CheckBox/CheckBox";
 export { CustomButton } from "./CustomButton/CustomButton";
 export { CustomInput } from "./CustomInput/CustomInput";
 export { CustomSelect } from "./CustomSelect/CustomSelect";
@@ -9,3 +8,4 @@ export { ListTop } from "./ListTop/ListTop";
 export { ListTopName } from "./ListTop/ListTopName";
 export { Typography } from "./Typography/Typography";
 export { ItemInner } from "./ItemInner/ItemInner";
+export {CustomCheckBox} from "./CustomCheckBox/CustomCheckBox"

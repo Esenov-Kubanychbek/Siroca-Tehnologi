@@ -19,21 +19,22 @@ interface ISubtask {
 
 interface ICheckList {
     id?: number;
+    completed?: boolean
     main_manager?: string;
     subtasks?: ISubtask[];
     name: string;
     application: number | null | string;
 }
 
-interface IComments {
-    id: number;
-    user: string;
+interface IComment {
+    id?: number;
+    user?: string;
     text: string;
-    date_added: string;
+    date_added?: string;
     application: number;
-    formatted_date_added: string;
-    user_image: string;
-    user_id: number;
+    formatted_date_added?: string;
+    user_image?: string;
+    user_id?: number;
 }
 
 interface IFile {
@@ -50,7 +51,7 @@ interface IOneRequest {
     main_client: string;
     main_manager: string;
     checklists: ICheckList[];
-    comments: IComments[];
+    comments: IComment[];
     task_number: string;
     title: string;
     description: string;
@@ -70,8 +71,13 @@ interface IOneRequest {
 
 export interface IGetOneRequestApi {
     oneRequest: IOneRequest;
-    setChecklist: (data: ICheckList) => void;
+    setChecklist: (checklist: ICheckList) => void;
+    setCompletedFromChecklists:(id: number | undefined)=>void
+    deleteChecklistFromChecklists: (id?: number) => void
+    setSubTask: (subTask: ISubtask) => void 
     setFile: (file: IFile) => void
     deleteFileFromFiles: (id?: number) => void
+    setComment: (comment: IComment) => void
+    deleteCommentFromComments: (id?: number) => void
     getOneRequest: (id: number | undefined) => void;
 }

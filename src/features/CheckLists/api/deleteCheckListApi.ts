@@ -7,9 +7,9 @@ interface IFetch {
 }
 
 export const deleteCheckListApi = create<IFetch>(() => ({
-    deleteCheckList: (id) => {
+    deleteCheckList: async (id) => {
         try {
-            const response = axios.delete(`${BASE_URL}/applications/checklist/${id}`, authToken);
+            const response = await axios.delete(`${BASE_URL}/applications/checklist/${id}`, authToken);
             console.log(response, "deleteCheckListSuccess");
         } catch (error) {
             console.log(error, "deleteCheckListError");

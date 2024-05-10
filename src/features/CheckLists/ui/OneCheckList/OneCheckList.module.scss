@@ -1,5 +1,12 @@
 @import "index.scss";
 
+.OneCheckList {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 12px;
+}
+
 .SubTaskList {
     border-radius: 8px;
     background-color: $blackf4;
@@ -14,22 +21,13 @@
     align-items: center;
     background-color: $blackf4;
     border-radius: 8px 8px 0 0;
-
     .HeaderLeft {
         display: flex;
         gap: 10px;
-        color: var(---600, #5C5C5C);
+        color: $black5c;
         font-size: 18px;
-        font-style: normal;
         font-weight: 500;
-        line-height: normal;
-        input[type="checkbox"] {
-            display: flex;
-            align-items: center;
-            width: 20px;
-        }
     }
-
     button {
         width: 100px;
         height: 30px;
@@ -47,11 +45,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     .Left {
         display: flex;
         gap: 20px;
-
         p {
             color: var(---800, #252525);
             font-size: 17px;
@@ -60,25 +56,15 @@
             line-height: normal;
             
         }
-
-        input[type="checkbox"] {
-            display: flex;
-            align-items: center;
-            width: 20px;
-        }
     }
-
-
     .Right {
         align-items: center;
         display: flex;
-
         span {
             font-size: 14px;
             font-weight: 500;
             color: $blue;
         }
-
         div {
             align-items: center;
             display: flex;
@@ -86,7 +72,6 @@
             padding: 8px 16px;
             border-radius: 6px;
             margin-left: 10px;
-
             p {
                 font-weight: 500;
                 font-size: 16px;
@@ -94,3 +79,5 @@
         }
     }
 }
+
+
