@@ -1,32 +1,27 @@
+import { profile } from "../../widgets/Modals/ProfileModal/api/ProfileModal";
 import styles from "./ProfileButton.module.scss";
-import { Modal } from "antd";
-import { ProfileModal } from "../../widgets";
-import { FC, useState } from "react";
-import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
+import { FC } from "react";
+
+
 
 export const ProfileButton: FC = () => {
-    const [modal, setModal] = useState<boolean>(false);
-    const fetchUsers = usersApi();
+    const {users} = profile();
     return (
         <>
             <button
-                onClick={() => setModal(true)}
                 aria-label="profile"
                 className={styles.Profile}
             >
                 <img
                     alt="profile"
-                    src={String(fetchUsers.oneUserGet.image)}
+                    src={String(users.image)}
                 />
                 <p>Мой профиль</p>
+
             </button>
-            <Modal
-                width={475}
-                open={modal}
-                onCancel={() => setModal(false)}
-            >
-                <ProfileModal setModal={setModal} />
-            </Modal>
+            
+            
+            
         </>
     );
 };

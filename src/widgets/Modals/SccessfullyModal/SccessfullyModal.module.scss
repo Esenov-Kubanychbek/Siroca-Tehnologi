@@ -1,13 +1,12 @@
 .SccessfullyModal{
-    position: absolute;
-    top: -20px;
-    right: 20px;
+    position: fixed;
     box-sizing: border-box;
-    transition:  0.3s ease;
+    transition:  0.3s ;
     padding: 24px 32px;
     background-color: #D8ECFF;
     border-radius: 8px;
-    margin-right: -500px;
+    z-index: 3;
+    right: 50px;
     p{
         font-size: 20px;
         font-weight: 700;

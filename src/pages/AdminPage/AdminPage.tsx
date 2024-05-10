@@ -12,6 +12,7 @@ export const AdminPage: FC = () => {
     const fetchJobTitle = jobTitleApi()
     const fetchCompanies = useDataStoreComponies()
     const fetchRoleTypes = usersRoleTypeApi();
+
     useEffect(() => {
         fetchUsers.getOneUser(Number(id));
         fetchUsers.getUsersList(1);
@@ -27,7 +28,8 @@ export const AdminPage: FC = () => {
             <Dashboard />
             <header className={styles.Inner}>
                 <HeaderTop role="admin" />
-                <HeaderBottom role="admin" />
+                <HeaderBottom role="admin" />sdvnklsdnvkl
+
             </header>
         </div>
     );

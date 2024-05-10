@@ -1,9 +1,12 @@
-.CreateCompany {
+.ViewCompany {
     width: 660px;
     box-sizing: border-box;
     border-radius: 8px;
     background-color: white;
-    
+    .arrow{
+        transform: rotate(0);
+        transition: transform .2s ease-in;
+    }
     .blockOne {
         display: flex;
         justify-content: space-between;

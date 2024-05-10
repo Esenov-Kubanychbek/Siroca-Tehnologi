@@ -69,7 +69,8 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
         zIndex: `${managersModal ? "10" : '-50'}`
     }
     const stylesArrow = {
-        transform: ` ${managersMain ? 'rotate( 180deg)' : 'none'}`
+        transform: ` rotate( ${managersModal ?  '180deg' : '0'  })
+        `
     }
     const addNewChangeManager = (id: number) => {
         const managers = [...selectedCompanyData.managers, id];
@@ -79,7 +80,7 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
 
 
     return (
-        <div className={styles.CreateCompany}>
+        <div className={styles.ViewCompany}>
             <div className={styles.blockOne}>
                 <div>{selectedCompanyData?.name}</div>
                 <CloseSquare
@@ -139,7 +140,7 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                     <div className={styles.mainManager}>Ответственный менеджер <div onClick={() => {setManagersModal(!managersModal);
         console.log(managersModal);
 
-                    }}><ArrowDown2  style={stylesArrow}/></div></div>
+                    }}><ArrowDown2 className={styles.arrow}  style={stylesArrow}/></div></div>
                     {managersMain.map((managerId) => (
                         <div className={styles.managers} key={managerId.id} style={style}>
                             <p className={styles.manager}>{names(managerId.id)}</p>
@@ -149,7 +150,6 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                                         ...item,
                                         main: i === managerId.index
                                     }));
-
                                     console.log(managersMain);
                                     return updatedManagers;
                                 });

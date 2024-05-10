@@ -4,7 +4,7 @@ import { Data } from 'iconsax-react';
 import { IUserGet } from '../../../../shared/types/userTypes';
 import { DataAddCompanies } from '../../../Modals/ViewCompany/api/dataInputCompanies';
 import { ChangeEvent } from 'react';
-import { authToken } from '../../../../shared/variables/variables';
+import { authToken, BASE_URL } from '../../../../shared/variables/variables';
 
 export interface dataAddCompanies {
     name: string,
@@ -57,20 +57,19 @@ interface DataStore extends Data {
     searchReset: (data: dataCompanies[]) => void;
     addedNewManagers: (comopanies: DataAddCompanies, data: (number | undefined)[]) => Promise<void>;
     lamp: (text: string) => Promise<void>;
-    page: number,
+    countCompany: number;
 }
 
 const fetchData = async (page?: number) => {
     console.log(page);
     
     try {
-        const response = await axios.get( `http://13.51.161.14:80/api/v1/company/list/?page=${page}`, {
-            headers: {
-                Authorization: `JWT ${localStorage.getItem("access")}`,
-            },
-        });
+        if(page !== undefined){
+        const response = await axios.get( `${BASE_URL}/company/list/?page=${page}`, authToken);
+        console.log(response)
+        return response.data
 
-        return response.data.data
+        }     
 
     } catch (error) {
         console.error("Ошибка при получении данных:", error);
@@ -81,12 +80,7 @@ const fetchData = async (page?: number) => {
 const addCompanies = async (datas: dataAddCompanies) => {
     console.log(datas);
     try {
-        const response = await axios.post('http://13.51.161.14:80/api/v1/company/create/', datas,
-            {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('access')}`
-                }
-            });
+        const response = await axios.post(`${BASE_URL}/company/create/`, datas,authToken);
         console.log(response);
         return response.data;
     } catch (error) {
@@ -97,7 +91,7 @@ const addCompanies = async (datas: dataAddCompanies) => {
 };
 const deleteCompanies = async (id: number) => {
     try {
-        const response = await axios.delete(`http://13.51.161.14:80/api/v1/company/edit/${id}/`, authToken)
+        const response = await axios.delete(`${BASE_URL}/company/edit/${id}/`, authToken)
         return response
     } catch (error) {
         console.error("Ошибка при удалении компании:", error);
@@ -107,7 +101,7 @@ const deleteCompanies = async (id: number) => {
 
 const getUser = async () => {
     try {
-        const response = await axios.get('http://13.51.161.14:80/api/v1/users/profiles/', authToken);
+        const response = await axios.get(`${BASE_URL}/users/profiles/`, authToken);
         console.log(response)
         return response.data.data
     } catch (error) {
@@ -117,7 +111,7 @@ const getUser = async () => {
 
 const selectedId = async (id: number | undefined) => {
     try {
-        const response = await axios.get(`http://13.51.161.14:80/api/v1/company/detail/${id}/`, authToken);
+        const response = await axios.get(`${BASE_URL}/company/detail/${id}/`, authToken);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -129,7 +123,7 @@ const selectedId = async (id: number | undefined) => {
 
 const useDataStoreComponies = create<DataStore>((set) => ({
     data: [],
-    page: 1,
+    countCompany: 0,
     modalViewCompany: false,
     selectedCompanyData: {
         name: '',
@@ -151,15 +145,18 @@ const useDataStoreComponies = create<DataStore>((set) => ({
     fetchDatas: async (page: number) => {
         const datas = await fetchData(page);
         if (datas !== null) {
-            set({ data: datas });
+            set({ data: datas.data });
+            set({countCompany: datas.count});
             console.log(datas);
         }
     },
     addCompany: async (company, page) => {
         await addCompanies(company);
         const newData = await fetchData(page);
+        set({countCompany: newData.count});
+
         if (newData !== null) {
-            set({ data: newData });
+            set({ data: newData.data });
         }
     },
     selectedIdCompany: async (id: number) => {
@@ -181,7 +178,9 @@ const useDataStoreComponies = create<DataStore>((set) => ({
         await deleteCompanies(id);
         const newData = await fetchData(page);
         if (newData !== null) {
-            set({ data: newData });
+            set({ data: newData.data });
+            set({countCompany: newData.count});
+
             console.log(newData);
         }
     },
@@ -203,21 +202,20 @@ const useDataStoreComponies = create<DataStore>((set) => ({
     },
 
     changeInputOne: async (data, state, id, mainManager, managers) => {
-
+        console.log(id)
         if (state !== null) {
             const datas = {
                 id: id,
                 name: data.name ? data.name : state.name,
                 company_code: data.company_code ? data.company_code : state.company_code,
                 country: data.country ? data.country : state.country,
-                main_manager: Number(mainManager),
+                main_manager: mainManager ? Number(mainManager) : null,
                 domain: data.domain ? data.domain : state.domain,
                 managers: managers,
             }
-            console.log(datas.managers);
-            console.log(datas.main_manager);
+            console.log(datas.id);
             try {
-                const response = await axios.put(`http://13.51.161.14:80/api/v1/company/edit/${id}/`, datas, authToken);
+                const response = await axios.put(`${BASE_URL}/company/edit/${id}/`, datas, authToken);
                 console.log(response);
                 if (response.data) {
                     fetchData();
@@ -231,8 +229,10 @@ const useDataStoreComponies = create<DataStore>((set) => ({
     },
     searchCompanies: async (text) => {
         try {
-            const response = await axios.get(`http://13.51.161.14:80/api/v1/company/list/?search=${text}`, authToken);
-            set({ data: response.data })
+            const response = await axios.get(`${BASE_URL}/company/list/?search=${text}`, authToken);
+            console.log(response);
+            
+            set({ data: response.data.data })
         } catch (error) {
             console.log(error);
 
@@ -252,7 +252,7 @@ const useDataStoreComponies = create<DataStore>((set) => ({
             managers: managers,
         }
         try {
-            const response = await axios.put(`http://13.51.161.14:80/api/v1/company/edit/${companies.id}/`, data, authToken);
+            const response = await axios.put(`${BASE_URL}/company/edit/${companies.id}/`, data, authToken);
             console.log(response);
             if (response.data) {
                const selectedCompany = await selectedId(companies.id);
@@ -269,7 +269,7 @@ const useDataStoreComponies = create<DataStore>((set) => ({
     },
     lamp: async ( text ) => {
         try {
-            const response = await axios.get(`http://13.51.161.14:80/api/v1/company/code/?company_name=${text}`);
+            const response = await axios.get(`${BASE_URL}/company/code/?company_name=${text}`);
             console.log(response);
             
             return response.data.codes;

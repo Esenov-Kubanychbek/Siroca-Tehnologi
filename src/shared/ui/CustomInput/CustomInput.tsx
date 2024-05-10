@@ -18,7 +18,7 @@ export const CustomInput: FC<IInput> = (props) => {
         readOnly,
         maxLenght,
         error,
-    
+        color,
         id
     } = props;
 
@@ -36,10 +36,11 @@ export const CustomInput: FC<IInput> = (props) => {
                 background: `${background}`,
                 paddingLeft: `${paddingLeft}px`,
                 border: `${error ? value ? 'none' : '1px solid #e51616' : 'none'}`,
+                color: color
 
             }}
             placeholder={placeholder}
-            className={`${styles.Input} ${error ?  value ? '' : styles['placeholder-error'] : '' }`}            onClick={onClick}
+            className={`${styles.Input} ${error ? value ? '' : styles['placeholder-error'] : ''}`} onClick={onClick}
             readOnly={readOnly}
             maxLength={maxLenght}
         />

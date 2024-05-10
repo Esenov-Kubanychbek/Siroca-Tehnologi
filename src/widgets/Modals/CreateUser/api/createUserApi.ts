@@ -33,12 +33,16 @@ export const createUserApi = create<IFetch>((set, get) => ({
     createUser: async () => {
         try {
             const state = get().createUserState;
+            console.log(state.image);
+            
             const formData = new FormData();
             Object.entries(state).forEach(([key, value]) => {
                 formData.append(key, value as string);
             });
             const response = await axios.post(`${BASE_URL}/users/create/`, formData, authToken);
             console.log(response, "createUserSuccess");
+            console.log(formData);
+            
         } catch (error) {
             console.log(error, "createUserError");
         }

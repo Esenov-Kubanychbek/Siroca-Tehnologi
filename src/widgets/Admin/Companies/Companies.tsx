@@ -9,9 +9,10 @@ import { ListTopName, ListTop, ItemInner } from "../../../shared/ui";
 import { ChangeCompany } from "../../Modals/ChangeCompany/ChangeCompany";
 import { SccessfullyModal } from "../../Modals/SccessfullyModal/SccessfullyModal";
 import { Pagination } from "../../../shared/ui/Pagination/Pagination";
+import { usePassword } from "../../Modals/ChangePassword/api/ChangePassword";
 
 export const Companies: FC = () => {
-    const { fetchDatas, getUsers, data, selectedIdCompany,searchReset, openModalView, closeModalView, modalViewCompany, searchCompanies } = useDataStoreComponies();
+    const { fetchDatas, getUsers, data, selectedIdCompany,searchReset, openModalView, closeModalView, modalViewCompany, searchCompanies, countCompany } = useDataStoreComponies();
     const [modalScc, setModalScc] = useState<string>('none');
     const [createCompany, setCreateCompany] = useState<boolean>(false);
     const [companyList, setCompanyList] = useState<dataCompanies[] | undefined>()
@@ -19,7 +20,10 @@ export const Companies: FC = () => {
     const [searchText, setSearchText] = useState<string>('');
     const [createCompanyName, setCreateCompanyName] = useState<string>('');
     const [count, setCount] = useState<number>(0);
-    const [page, setPage] = useState<number>(1)
+    const [page, setPage] = useState<number>(1);
+    const usePasswordScc = usePassword();
+    console.log(modalScc);
+    
     const openModalCreateCompany = () => {
         setCreateCompany(true);
     }
@@ -125,10 +129,12 @@ export const Companies: FC = () => {
                 </div>
                 <ChangeCompany message={message} count={count} page={page}/>
             </div>
-            <div className={styles.pogin}>
-            <Pagination count={50} page={page} setPage={setPage} />
+            <div className={styles.pogin} style={{width: `${modalViewCompany ? '1300px' : '100%'}`}}>
+            <Pagination count={countCompany} page={page} setPage={setPage} />
             </div>
-            {modalScc === 'block' ? <SccessfullyModal closeModal={closeModal} modalScc={modalScc} texts={createCompanyName} /> : null}
+            {<SccessfullyModal closeModal={closeModal} modalScc={modalScc} texts={createCompanyName} /> }
+            {<SccessfullyModal closeModal={usePasswordScc.closeModalScc} modalScc={usePasswordScc.changePasswordScc} texts='Изменения были успешно сохранены' />}
+
             <Modal
                 centered
                 width={700}
