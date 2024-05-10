@@ -33,20 +33,22 @@ export const Request: FC<IRequest> = (props) => {
 
             <Popover
                 placement="top"
-                content={
-                <div>
-                    {request.short_description}
-                </div>}
+                content={<div>{request.short_description}</div>}
             >
                 <ItemInner
-                    content={request.short_description !== null && request.short_description !== '' ? `${request.short_description.slice(0,7)}...` : "------------"}
+                    content={
+                        request.short_description !== null && request.short_description !== ""
+                            ? `${request.short_description.slice(0, 7)}...`
+                            : "------------"
+                    }
                     width={role === "admin" ? 230 : 220}
                 />
             </Popover>
 
-
             <ItemInner
-                content={request.main_client !== null && request.main_client !== '' ? request.main_client : "-----------"}
+                content={
+                    request.main_client !== null && request.main_client !== "" ? request.main_client : "-----------"
+                }
                 width={role === "admin" ? 142 : 160}
             />
             <ItemInner
@@ -54,11 +56,13 @@ export const Request: FC<IRequest> = (props) => {
                 width={role === "admin" ? 188 : 200}
             />
             <ItemInner
-                content={request.start_date !== null && request.start_date !== '' ? request.start_date : "-----------"}
+                content={request.start_date !== null && request.start_date !== "" ? request.start_date : "-----------"}
                 width={role === "admin" ? 164 : 180}
             />
             <ItemInner
-                content={request.finish_date !== null && request.finish_date !== '' ? request.finish_date : "-----------"}
+                content={
+                    request.finish_date !== null && request.finish_date !== "" ? request.finish_date : "-----------"
+                }
                 width={role === "admin" ? 194 : 180}
             />
             <div
@@ -71,7 +75,7 @@ export const Request: FC<IRequest> = (props) => {
                         color: `${priorityColor(request.priority)}`,
                     }}
                 >
-                    {request.priority}
+                    {request.priority.slice(0, 9)}...
                 </div>
             </div>
             <div

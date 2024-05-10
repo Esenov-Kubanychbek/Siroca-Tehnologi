@@ -6,7 +6,6 @@ import { CheckLists } from "../../../../../features";
 import { idRoles } from "../../../../../pages/MainPage/api/idRoles";
 
 export const Collapses: FC = () => {
-    
     const roles = idRoles();
     const role_type = localStorage.getItem("role_type");
     const items: CollapseProps["items"] = [
@@ -43,7 +42,7 @@ export const Collapses: FC = () => {
         ...(roles.formatedState?.client_can_edit_comments_extra || role_type === "manager" || role_type === ""
             ? [
                   {
-                      key: "8",
+                      key: "7",
                       label: "Комментарии",
                       children: <Comments />,
                   },
@@ -54,7 +53,7 @@ export const Collapses: FC = () => {
             key: "8",
             label: "Чек-листы",
             children: <CheckLists />,
-            extra: <AddSquare/>
+            extra: <AddSquare />,
         },
     ];
     return (

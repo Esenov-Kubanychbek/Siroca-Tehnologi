@@ -5,7 +5,7 @@ import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
 import { usersRoleTypeApi } from "../../widgets/Modals/EditRequest/api/usersRoleTypeApi";
 import { usePassword } from "../../widgets/Modals/ChangePassword/api/ChangePassword";
 import { SccessfullyModal } from "../../widgets/Modals/SccessfullyModal/SccessfullyModal";
-import { profile } from "../../widgets/Modals/ProfileModal/api/ProfileModal";
+import { profile } from "../../widgets/Modals/ProfileModal/api/profileApi";
 
 export const MainPage: FC = () => {
     const roles = idRoles();

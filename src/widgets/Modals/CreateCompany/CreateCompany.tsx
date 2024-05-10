@@ -108,7 +108,7 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                         change={changeInput}
                         name="name"
                         value={dataInputCompanies.name}
-                        error={allData}
+                        trim={allData}
                     />
                 </div>
                 <div>
@@ -119,7 +119,7 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                         change={changeInput}
                         name="country"
                         value={dataInputCompanies.country}
-                        error={allData}
+                        trim={allData}
 
                     />
                 </div>
@@ -135,7 +135,7 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                             name="company_code"
                             value={dataInputCompanies.company_code}
                             maxLenght={3}
-                            error={allData}
+                            trim={allData}
 
                         />
                         <div onClick={async () => {
@@ -156,7 +156,7 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                         name="domain"
                         change={changeInput}
                         value={dataInputCompanies.domain}
-                        error={allData}
+                        trim={allData}
 
                     />
                 </div>

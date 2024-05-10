@@ -6,7 +6,7 @@ import { ChangePassword } from "../ChangePassword/ChangePassword";
 import { IProfileModal } from "./types/types";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { usePassword } from "../ChangePassword/api/ChangePassword";
-import { profile, user } from "./api/ProfileModal";
+import { profile, user } from "./api/profileApi";
 
 export const ProfileModal: FC<IProfileModal> = (props) => {
     const { setModal } = props;

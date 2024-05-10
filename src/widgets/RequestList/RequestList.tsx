@@ -7,18 +7,22 @@ import { getRequestApi } from "./api/getRequestApi";
 import { IRequest } from "./types/types";
 import axios from "axios";
 import { BASE_URL } from "../../shared/variables/variables";
-import { AddComment } from "../Modals/ViewRequest/ui";
+import { AddComment, AddDescription } from "../Modals/ViewRequest/ui";
 import { Pagination } from "../../shared/ui/Pagination/Pagination";
 import { ItemCount } from "../../shared/ui/ItemCount/ItemCount";
 import { idRoles } from "../../pages/MainPage/api/idRoles";
+import { descriptionApi } from "../Modals/ViewRequest/api/descriptionApi";
+import { filesApi } from "../Modals/ViewRequest/api/filesApi";
 
 export const RequestList: FC<IRequest> = ({ role, api }) => {
     const [page, setPage] = useState<number>(1);
     const [reqCount, setReqCount] = useState<number>(0);
     const [modal, setModal] = useState<boolean>(false);
+    const {setImagesList, setOtherFilesList} = filesApi()
     const fetchRequest = getRequestApi();
     const apiLength = fetchRequest.getState;
     const roles = idRoles();
+    const {opened, setOpened} = descriptionApi()
     const role_type = localStorage.getItem("role_type");
     const reqPage = async () => {
         try {
@@ -27,20 +31,24 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
-            console.log(response);
-            
-            setReqCount(response.data.count);
+            setReqCount(response.data.data.created_count);
             fetchRequest.setState(response.data.data.results);
             fetchRequest.setFilterState(response.data.data.results);
+            console.log(response, "getRequestsListSuccess");
             fetchRequest.setNow(page);
         } catch (error) {
             console.log(error);
         }
     };
+    const closeModal = () => {
+        setModal(false)
+        setOpened(false)
+        setImagesList([]),
+        setOtherFilesList([])
+    }
 
-    
     useEffect(() => {
-        reqPage();  
+        reqPage();
     }, [page]);
     return (
         <div style={role === "admin" ? { width: "1724px" } : { width: "1820px" }}>
@@ -63,21 +71,29 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                 )}
             </div>
             {apiLength ? (
-                <Pagination page={page} setPage={setPage} count={reqCount}/>
+                <Pagination
+                    page={page}
+                    setPage={setPage}
+                    count={reqCount}
+                />
             ) : null}
-            <ItemCount count={reqCount} page={page}/>
+            <ItemCount
+                count={reqCount}
+                page={page}
+            />
 
             <Modal
                 centered
                 width={750}
                 open={modal}
-                onCancel={() => setModal(false)}
+                onCancel={closeModal}
                 zIndex={5}
             >
                 <ViewRequest setModal={setModal} />
-                {roles.formatedState?.client_can_edit_comments_extra || role_type === "manager" || role_type === ""?
-                <AddComment /> : null}
-                
+                {roles.formatedState?.client_can_edit_comments_extra || role_type === "manager" || role_type === "" ? (
+                    <AddComment />
+                ) : null}
+                {opened && <AddDescription/>}
             </Modal>
         </div>
     );

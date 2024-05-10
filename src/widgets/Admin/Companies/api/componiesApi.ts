@@ -72,7 +72,7 @@ const fetchData = async (page?: number) => {
         }     
 
     } catch (error) {
-        console.error("Ошибка при получении данных:", error);
+        console.error(error, "getCompaniesListError");
         return null;
     }
 };

@@ -6,7 +6,7 @@ import { Popover } from "antd";
 import { NotifModal } from "../Modals/NotifModal/NotifModal";
 import { ProfileModal } from "../Modals/ProfileModal/ProfileModal";
 
-export const HeaderTop: FC<{ role: string | null, isAdminManager?: boolean }> = ({ role, isAdminManager }) => {
+export const HeaderTop: FC<{ role: string | null; isAdminManager?: boolean }> = ({ role, isAdminManager }) => {
     const [notifOpen, setNotifOpen] = useState<boolean>(false);
     const [modal, setModal] = useState<boolean>(false);
 

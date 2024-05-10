@@ -6,7 +6,7 @@ import { jobTitleApi } from "../../Admin/JobTitles/api/jobTitleApi";
 import { ICreateJobTitleModal } from "./types/types";
 
 export const CreateJobTitle: FC<ICreateJobTitleModal> = (props) => {
-    const { setModal, setModalSuccess } = props;
+    const { setModal } = props;
     const fetchData = jobTitleApi();
     const postTrim = () => {
         if (fetchData.oneJobTitle.title == "") {
@@ -15,8 +15,6 @@ export const CreateJobTitle: FC<ICreateJobTitleModal> = (props) => {
             fetchData.postJobTitle(fetchData.oneJobTitle);
             fetchData.getJobTitleList();
             setModal(false);
-            setModalSuccess(true);
-            setTimeout(() => setModalSuccess(false), 1000);
         }
     };
     return (

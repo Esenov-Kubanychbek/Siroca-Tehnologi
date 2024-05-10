@@ -48,3 +48,54 @@
     justify-content: flex-end;
     gap: 16px;
 }
+
+.Company {
+    position: relative;
+    input {
+        width: 350px;
+        padding-right: 25px;
+        padding-left: 25px;
+        color: $black5c;
+        font-size: 18px;
+        font-weight: 500;
+        border-radius: 8px;
+        background-color: $blackf4;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+    }
+    input:focus {
+        border: none;
+    }
+    svg {
+        position: absolute;
+        top: 16px;
+        right: 24px;
+    }
+}
+
+.NotExist {
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 8px;
+    background-color: $blackf4;
+    padding: 10px 5px;
+    color: #e51616;
+}
+
+.MustTrim {
+    width: 100%;
+    p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        background-color: $blackf4;
+        width: 400px;
+        height: 40px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #e51616;
+    }
+}

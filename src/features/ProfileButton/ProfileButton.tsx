@@ -1,4 +1,4 @@
-import { profile } from "../../widgets/Modals/ProfileModal/api/ProfileModal";
+import { profile } from "../../widgets/Modals/ProfileModal/api/profileApi";
 import styles from "./ProfileButton.module.scss";
 import { FC } from "react";
 

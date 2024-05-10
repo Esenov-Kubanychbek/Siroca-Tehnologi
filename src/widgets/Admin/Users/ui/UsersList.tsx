@@ -12,7 +12,7 @@ export const UsersList: FC = () => {
     const [modal, setModal] = useState<boolean>(false);
     const fetchData = usersApi();
     useEffect(() => {
-        fetchData.getUsersList();
+        fetchData.getUsersList(1);
     }, []);
     return (
         <>

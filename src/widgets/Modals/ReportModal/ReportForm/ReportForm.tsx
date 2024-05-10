@@ -50,7 +50,6 @@ const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
             end: openEnd,
         };
         onSub(formData);
-        console.log(choosedFilters);
     };
 
     const handleInputChange = (
@@ -103,7 +102,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
         }
     };
     useEffect(() => {
-        fetchDatas();
+        fetchDatas(1);
         getUsersList(1);
     }, []);
 

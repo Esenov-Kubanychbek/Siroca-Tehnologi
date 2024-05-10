@@ -12,9 +12,7 @@ export const ButtonCreate: FC<{
             className={styles.ButtonCreate}
         >
             {name}
-            <AddSquare
-                size={24}
-            />
+            <AddSquare size={24} />
         </button>
     );
 };

@@ -13,7 +13,7 @@ export const CheckLists: FC = () => {
             {oneRequest.checklists.map((checklist, i) => (
                 <div key={i} className={styles.OneCheckList}>
                     <OneCheckList checkList={checklist}/>
-                    {display && <CreateSubTask setDisplay={setDisplay} />}
+                    {display && <CreateSubTask main_manager={checklist.main_manager} checklistId={checklist.id} setDisplay={setDisplay} />}
                     <CustomButton
                         onClick={() => setDisplay(true)}
                         text="Добавить подзадачу"

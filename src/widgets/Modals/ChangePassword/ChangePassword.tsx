@@ -91,7 +91,7 @@ export const ChangePassword: FC<IChangeModal> = (props) => {
                                 width={237}
                                 change={onChange}
                                 type={passwordOpen ? 'text' : 'password'}
-                                error={err || errors}
+                                trim={err || errors}
                                 color={`${err || errors ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`}
 
                             />
@@ -106,7 +106,7 @@ export const ChangePassword: FC<IChangeModal> = (props) => {
                                 width={237}
                                 change={onChange}
                                 type={passwordOpen ? 'text' : 'password'}
-                                error={err || errors}
+                                trim={err || errors}
                                 color={`${err || errors ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`}
 
                             />
@@ -121,7 +121,7 @@ export const ChangePassword: FC<IChangeModal> = (props) => {
                                 width={237}
                                 change={onChange}
                                 type={passwordOpen ? 'text' : 'password'}
-                                error={err || errors}
+                                trim={err || errors}
                                 color={`${err || errors ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`}
                             />
                             <EyeSlash className={styles.img} style={styleClosePassword} onClick={() => setPasswordOpen(true)} variant="Bold" color={`${err ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`} />

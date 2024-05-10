@@ -7,7 +7,7 @@ import { IGetRequest, getRequestApi } from "../../widgets/RequestList/api/getReq
 import { ArrowLeft2, CloseSquare } from "iconsax-react";
 import { SelectFilterItem } from "./ui/SelectFilterItem";
 import axios from "axios";
-import { BASE_URL } from "../../shared/variables/variables";
+import { BASE_URL, authToken } from "../../shared/variables/variables";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { InputSelects } from "./ui/InputSelect";
 
@@ -100,6 +100,8 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                     Authorization: `JWT ${localStorage.getItem("access")}`,
                 },
             });
+            console.log(response);
+            
             fetchRequest.setFilterState(response.data.data.results);
         } catch (error) {
             console.log(error);
@@ -192,11 +194,9 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                     }
                 })
                 .join("")}`;
-            const response = await axios.get(url, {
-                headers: { Authorization: `JWT ${localStorage.getItem("access")}` },
-            });
+            const response = await axios.get(url, authToken);
             console.log(response);
-            fetchRequest.setState(response.data.results);
+            fetchRequest.setState(response.data.data.results);
         } catch (error) {
             console.log(error);
         }
@@ -206,6 +206,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         beetwinSelcetsVal();
     }, []);
     //Thats useEf to caling the uoSelects on changes to mount and filter state
+
     useEffect(() => {
         if (isMounted) {
             upSelects();
@@ -215,11 +216,9 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
     //For clear the choosed filters
     const clearFilter = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/applications/form/?page=1`, {
-                headers: { Authorization: `JWT ${localStorage.getItem("access")}` },
-            });
-            fetchRequest.setState(response.data.results);
-            fetchRequest.setFilterState(response.data.results);
+            const response = await axios.get(`${BASE_URL}/applications/form/?page=1`, authToken);
+            fetchRequest.setState(response.data.data.results);
+            fetchRequest.setFilterState(response.data.data.results);
             const timeState = [...filterItems];
             timeState.map((el: FilterItem) => {
                 el.selected = [];
