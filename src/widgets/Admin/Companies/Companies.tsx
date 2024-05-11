@@ -10,6 +10,7 @@ import { ChangeCompany } from "../../Modals/ChangeCompany/ChangeCompany";
 import { SccessfullyModal } from "../../Modals/SccessfullyModal/SccessfullyModal";
 import { Pagination } from "../../../shared/ui/Pagination/Pagination";
 import { usePassword } from "../../Modals/ChangePassword/api/ChangePassword";
+import { ItemCount } from "../../../shared/ui/ItemCount/ItemCount";
 
 export const Companies: FC = () => {
     const { fetchDatas, getUsers, data, selectedIdCompany,searchReset, openModalView, closeModalView, modalViewCompany, searchCompanies, countCompany } = useDataStoreComponies();
@@ -131,6 +132,7 @@ export const Companies: FC = () => {
             </div>
             <div className={styles.pogin} style={{width: `${modalViewCompany ? '1300px' : '100%'}`}}>
             <Pagination count={countCompany} page={page} setPage={setPage} />
+            <ItemCount page={page} count={countCompany}/>
             </div>
             {<SccessfullyModal closeModal={closeModal} modalScc={modalScc} texts={createCompanyName} /> }
             {<SccessfullyModal closeModal={usePasswordScc.closeModalScc} modalScc={usePasswordScc.changePasswordScc} texts='Изменения были успешно сохранены' />}

@@ -42,7 +42,7 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
     }
 
     useEffect(() => {
-        
+
         const otherManagers = selectedCompanyData.managers.map((manager, index) => ({
             id: manager,
             main: manager === selectedCompanyData.main_manager,
@@ -69,7 +69,7 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
         zIndex: `${managersModal ? "10" : '-50'}`
     }
     const stylesArrow = {
-        transform: ` rotate( ${managersModal ?  '180deg' : '0'  })
+        transform: ` rotate( ${managersModal ? '180deg' : '0'})
         `
     }
     const addNewChangeManager = (id: number) => {
@@ -135,12 +135,13 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                 </div>
             </div>
             <div className={styles.blockTwo}>
-                <div>
+                <div className={styles.blockTwoOne}>
                     <br />
-                    <div className={styles.mainManager}>Ответственный менеджер <div onClick={() => {setManagersModal(!managersModal);
-        console.log(managersModal);
+                    <div className={styles.mainManager}>Ответственный менеджер <div onClick={() => {
+                        setManagersModal(!managersModal);
+                        console.log(managersModal);
 
-                    }}><ArrowDown2 className={styles.arrow}  style={stylesArrow}/></div></div>
+                    }}><ArrowDown2 className={styles.arrow} style={stylesArrow} /></div></div>
                     {managersMain.map((managerId) => (
                         <div className={styles.managers} key={managerId.id} style={style}>
                             <p className={styles.manager}>{names(managerId.id)}</p>
@@ -185,29 +186,31 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
             </div>
 
             <div className={styles.buttons}>
-                <div onClick={() => {
-                    closeModalView();
-                    if (selectedCompanyData.id !== undefined) {
-                        selectedIdCompany(selectedCompanyData.id);
-                    }
-                }}>
-                    <CustomButton
-                        variant="Without"
-                        width={150}
-                        text="Сбросить"
+                <div className={styles.buttonss}>
+                    <div onClick={() => {
+                        closeModalView();
+                        if (selectedCompanyData.id !== undefined) {
+                            selectedIdCompany(selectedCompanyData.id);
+                        }
+                    }}>
+                        <CustomButton
+                            variant="Without"
+                            width={150}
+                            text="Сбросить"
 
-                    />
-                </div>
-                <div onClick={closeModalView}>
-                    <CustomButton
-                        variant="Primary"
-                        width={150}
-                        text="Сохранить"
-                        onClick={() => {
-                            change();
-                        }}
+                        />
+                    </div>
+                    <div onClick={closeModalView}>
+                        <CustomButton
+                            variant="Primary"
+                            width={150}
+                            text="Сохранить"
+                            onClick={() => {
+                                change();
+                            }}
 
-                    />
+                        />
+                    </div>
                 </div>
             </div>
             <Modal

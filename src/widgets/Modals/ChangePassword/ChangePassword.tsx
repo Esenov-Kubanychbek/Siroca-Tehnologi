@@ -91,12 +91,12 @@ export const ChangePassword: FC<IChangeModal> = (props) => {
                                 width={237}
                                 change={onChange}
                                 type={passwordOpen ? 'text' : 'password'}
-                                trim={err || errors}
+                                trim={err || errors ? false : undefined}
                                 color={`${err || errors ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`}
 
                             />
-                            <EyeSlash className={styles.img} style={styleClosePassword} onClick={() => setPasswordOpen(true)} variant="Bold" color={`${err ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`} />
-                            <Eye className={styles.img} style={styleOpenPassword} onClick={() => setPasswordOpen(false)} variant="Bold" color={`${err ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`} />
+                            <EyeSlash className={styles.img} style={styleClosePassword} onClick={() => setPasswordOpen(true)} variant="Bold" color={`${err|| errors ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`} />
+                            <Eye className={styles.img} style={styleOpenPassword} onClick={() => setPasswordOpen(false)} variant="Bold" color={`${err|| errors ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`} />
 
                         </div>
                         <div className={styles.inputs}>
@@ -106,12 +106,12 @@ export const ChangePassword: FC<IChangeModal> = (props) => {
                                 width={237}
                                 change={onChange}
                                 type={passwordOpen ? 'text' : 'password'}
-                                trim={err || errors}
+                                trim={err || errors ? false : undefined}
                                 color={`${err || errors ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`}
 
                             />
-                            <EyeSlash className={styles.img} style={styleClosePassword} onClick={() => setPasswordOpen(true)} variant="Bold" color={`${err ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`} />
-                            <Eye className={styles.img} style={styleOpenPassword} onClick={() => setPasswordOpen(false)} variant="Bold" color={`${err ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`} />
+                            <EyeSlash className={styles.img} style={styleClosePassword} onClick={() => setPasswordOpen(true)} variant="Bold" color={`${err|| errors ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`} />
+                            <Eye className={styles.img} style={styleOpenPassword} onClick={() => setPasswordOpen(false)} variant="Bold" color={`${err|| errors ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`} />
 
                         </div>
                         <div className={styles.inputs}>
@@ -121,11 +121,11 @@ export const ChangePassword: FC<IChangeModal> = (props) => {
                                 width={237}
                                 change={onChange}
                                 type={passwordOpen ? 'text' : 'password'}
-                                trim={err || errors}
+                                trim={err || errors ? false : undefined}
                                 color={`${err || errors ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`}
                             />
-                            <EyeSlash className={styles.img} style={styleClosePassword} onClick={() => setPasswordOpen(true)} variant="Bold" color={`${err ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`} />
-                            <Eye className={styles.img} style={styleOpenPassword} onClick={() => setPasswordOpen(false)} variant="Bold" color={`${err ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`} />
+                            <EyeSlash className={styles.img} style={styleClosePassword} onClick={() => setPasswordOpen(true)} variant="Bold" color={`${err || errors ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`} />
+                            <Eye className={styles.img} style={styleOpenPassword} onClick={() => setPasswordOpen(false)} variant="Bold" color={`${err|| errors ? 'rgba(229, 22, 22, 1)' : 'rgba(113, 113, 113, 1)'}`} />
 
                         </div>
                     </div>

@@ -28,11 +28,13 @@
         position: fixed;
         color: #1c6ab1;
         z-index: 5;
+        cursor: pointer;
         p {
             height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
             &:hover {
                 background-color: #f4f4f4;
             }

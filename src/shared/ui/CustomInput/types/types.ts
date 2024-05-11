@@ -16,5 +16,5 @@ export interface IInput {
     readOnly?: boolean;
     maxLength?: number;
     color?: string
-    trim?: boolean;
+    trim?: boolean | string;
 }

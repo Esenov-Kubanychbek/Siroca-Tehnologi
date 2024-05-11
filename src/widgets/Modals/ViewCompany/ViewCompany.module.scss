@@ -3,10 +3,12 @@
     box-sizing: border-box;
     border-radius: 8px;
     background-color: white;
-    .arrow{
+
+    .arrow {
         transform: rotate(0);
         transition: transform .2s ease-in;
     }
+
     .blockOne {
         display: flex;
         justify-content: space-between;
@@ -15,6 +17,7 @@
         font-weight: 700;
         margin: 30px;
     }
+
     .AddUser {
         margin-left: 40px;
         display: flex;
@@ -34,6 +37,7 @@
         background: var(---100, #f4f4f4);
         border: none;
     }
+
     .Label {
         color: var(---600, #5c5c5c);
         font-size: 18px;
@@ -41,23 +45,37 @@
         font-weight: 700;
         line-height: normal;
     }
+
     .blockTwo {
         display: flex;
         justify-content: space-between;
         margin: 30px;
+
+        .blockTwoOne {
+            width: 50px;
+        }
+
         label {
             font-size: 18px;
             font-weight: 700;
             padding: 8px;
         }
     }
+
     .buttons {
-        width: 316px;
-        display: flex;
-        justify-content: space-between;
+        width: 660px;
         margin: 30px 40px;
+
+        .buttonss {
+            width: 326px;
+
+            display: flex;
+            justify-content: space-between;
+            margin-left: 265px;
+        }
     }
-    .managers{
+
+    .managers {
         display: flex;
         width: 476px;
         justify-content: space-between;
@@ -68,14 +86,16 @@
         position: relative;
         top: -200px;
         transition: .2s;
-        .manager{
+
+        .manager {
             height: 56px;
             box-sizing: border-box;
             font-size: 18px;
             font-weight: 700;
-        }        
+        }
     }
-    .mainManager{
+
+    .mainManager {
         background-color: #F4F4F4;
         width: 476px;
         height: 56px;
@@ -88,6 +108,7 @@
         padding: 0 16px;
         border-radius: 8px;
     }
+
     .addManagers {
         background-color: #1C6AB1;
         width: 56px;
@@ -98,12 +119,15 @@
         justify-content: center;
         border-radius: 8px;
         margin-left: 50px;
+        margin-top: 20px;
 
     }
-    .hintAdd{
+
+    .hintAdd {
         position: fixed;
         margin-left: 465px;
     }
+
     .hint {
         width: 184px;
         height: 60px;
@@ -116,6 +140,7 @@
         text-align: center;
         margin-top: -80px;
     }
+
     .tre {
         width: 0;
         height: 0;

@@ -66,9 +66,7 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
             setAllData(true);
             console.log('error');
         }
-    }
-
-
+    };
     const filterManager = (text: string) => {
         const filtered = managers.filter(manager => {
             const inputText = text.toLowerCase();
@@ -108,7 +106,7 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                         change={changeInput}
                         name="name"
                         value={dataInputCompanies.name}
-                        trim={allData}
+                        trim={allData || err ? dataInputCompanies.name : true}
                     />
                 </div>
                 <div>
@@ -119,8 +117,7 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                         change={changeInput}
                         name="country"
                         value={dataInputCompanies.country}
-                        trim={allData}
-
+                        trim={allData || err ? dataInputCompanies.country : true}
                     />
                 </div>
             </div>
@@ -135,9 +132,9 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                             name="company_code"
                             value={dataInputCompanies.company_code}
                             maxLength={3}
-                            trim={allData}
+                            trim={allData || err ? dataInputCompanies.company_code : true}
                         />
-                        <div onClick={async () => {
+                        <div className={styles.lampCursor} onClick={async () => {
                             const respose = await lamp(dataInputCompanies.name);
                             if(typeof respose === 'string'){
                                 company_code(respose)
@@ -155,7 +152,7 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                         name="domain"
                         change={changeInput}
                         value={dataInputCompanies.domain}
-                        trim={allData}
+                        trim={allData || err ? dataInputCompanies.domain : true}
 
                     />
                 </div>
@@ -220,6 +217,7 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                         width={150}
                         text="Создать"
                         onClick={addNewCompany}
+                        
                     />
                 </div>
             </div>
