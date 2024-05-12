@@ -22,7 +22,7 @@ interface ExcelData {
 export const ReportModal: FC<IReportModal> = (props) => {
     const { setModal } = props;
     const [results, setResults] = useState<ResultsData | null>(null);
-    const [excel, setExcel] = useState<ExcelData | false | null >();
+    const [excel, setExcel] = useState<ExcelData | false | null>();
 
     const subResults = async (e: ResultsData) => {
         setResults(e);
@@ -43,7 +43,7 @@ export const ReportModal: FC<IReportModal> = (props) => {
                 setExcel(false);
             }
         } catch (error) {
-            setExcel(false)
+            setExcel(false);
         }
     };
 
@@ -59,7 +59,7 @@ export const ReportModal: FC<IReportModal> = (props) => {
                 },
             );
             console.log(response);
-            
+
             // Создаем объект Blob из полученных данных
             const blob = new Blob([response.data], {
                 type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -130,9 +130,11 @@ export const ReportModal: FC<IReportModal> = (props) => {
                     </button>
                 </div>
             ) : null}
-            {excel === false ? <div className={styles.NotFount}>
-            <p>По вашему запросу ничего не найдено!</p>
-        </div> : null}
+            {excel === false ? (
+                <div className={styles.NotFount}>
+                    <p>По вашему запросу ничего не найдено!</p>
+                </div>
+            ) : null}
         </div>
     );
 };

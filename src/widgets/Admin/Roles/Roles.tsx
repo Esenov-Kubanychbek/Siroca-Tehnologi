@@ -22,11 +22,7 @@ export const Roles: React.FC<IRoles> = () => {
         "Добавление чек листа к заявке",
     ];
 
-    const ManegerList: string[] = [
-        "Удаление комментариев пользователей",
-        "Скачивание отчёта",
-        "Удаление заявки",
-    ];
+    const ManegerList: string[] = ["Удаление комментариев пользователей", "Скачивание отчёта", "Удаление заявки"];
 
     //just get all roles general
     const get = async () => {

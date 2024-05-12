@@ -6,7 +6,7 @@ import { priorityColor, statusColor } from "../../../../../shared/helpers";
 export const Details: FC = () => {
     const fetchData = getOneRequestApi();
     return (
-        <div className={styles.Details}>
+        <div className={styles.Details} id="details">
             <div className={styles.Name}>
                 <p>Название заявки:</p>
                 <p>Название компании:</p>

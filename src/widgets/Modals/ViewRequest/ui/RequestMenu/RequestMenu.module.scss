@@ -10,7 +10,8 @@
     background-color: $blackf4;
 }
 
-.Icon {
+.Active,
+.NotActive {
     cursor: pointer;
     width: 56px;
     height: 56px;
@@ -21,7 +22,7 @@
     margin-bottom: 10px;
 }
 
-.Icon:global(.active) {
+.Active {
     background-color: $blue;
     svg {
         color: white;

@@ -1,0 +1,33 @@
+@import "index.scss";
+
+.ManagerForSubtask {
+    padding: 10px 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    gap: 16px;
+}
+
+.Main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.Header {
+    font-size: 24px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Buttons {
+    width: 228px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

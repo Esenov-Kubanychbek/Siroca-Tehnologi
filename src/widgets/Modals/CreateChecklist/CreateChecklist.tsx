@@ -11,7 +11,7 @@ interface ICreateChecklist {
 
 export const CreateChecklist: FC<ICreateChecklist> = (props) => {
     const { setChecklistModal } = props;
-    const { oneRequest, setChecklist } = getOneRequestApi();
+    const { oneRequest, setChecklistToOneRequest } = getOneRequestApi();
     const { oneChecklist, resetOneChecklist, oneChecklistChange, createChecklist } = createChecklistApi();
     const postTrim = () => {
         if (oneChecklist.name !== "") {
@@ -19,7 +19,7 @@ export const CreateChecklist: FC<ICreateChecklist> = (props) => {
                 name: oneChecklist.name,
                 application: oneRequest.id,
             });
-            setChecklist(oneChecklist);
+            setChecklistToOneRequest(oneChecklist);
             setChecklistModal(false);
         } else {
             console.log("postChecklistTrimError");

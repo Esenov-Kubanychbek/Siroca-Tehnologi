@@ -8,11 +8,13 @@ import { EditRequest } from "../EditRequest/EditRequest";
 import { idRoles } from "../../../pages/MainPage/api/idRoles";
 import { descriptionApi } from "./api/descriptionApi";
 import { CreateChecklist } from "../..";
+import { Sections } from "./ui/RequestMenu/RequestMenu";
 
 export const ViewRequest: FC<IViewRequestModal> = ({ setView }) => {
     const roles = idRoles();
     const role_type = localStorage.getItem("role_type");
     const { opened, setOpened } = descriptionApi();
+    const [activeSection, setActiveSection] = useState<Sections | null>(null);
     const [editOpen, setEditOpen] = useState<boolean>(false);
     const [checklistModal, setChecklistModal] = useState<boolean>(false);
     const [viewLogs, setViewLogs] = useState<boolean>(false);
@@ -20,8 +22,8 @@ export const ViewRequest: FC<IViewRequestModal> = ({ setView }) => {
         setChecklistModal(false);
     };
     return (
-        <div className={styles.ViewRequest}>
-            <RequestMenu />
+        <div className={styles.ViewRequest} id="ViewRequest">
+            <RequestMenu setActiveSection={setActiveSection} />
             <div className={styles.Main}>
                 <RequestHeader
                     setView={setView}
@@ -62,7 +64,7 @@ export const ViewRequest: FC<IViewRequestModal> = ({ setView }) => {
                 open={checklistModal}
                 onCancel={closeChecklist}
             >
-                <CreateChecklist setChecklistModal={setChecklistModal}/>
+                <CreateChecklist setChecklistModal={setChecklistModal} />
             </Modal>
         </div>
     );

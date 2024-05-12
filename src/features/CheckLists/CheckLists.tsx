@@ -6,7 +6,7 @@ import { OneCheckList } from "./ui/OneCheckList/OneCheckList";
 export const CheckLists: FC = () => {
     const { oneRequest } = getOneRequestApi();
     return (
-        <div className={styles.CheckLists}>
+        <div className={styles.CheckLists} id="checklists">
             {oneRequest.checklists.map((checkList, i) => (
                 <OneCheckList
                     checkList={checkList}

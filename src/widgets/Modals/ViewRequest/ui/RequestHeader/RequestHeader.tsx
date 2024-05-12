@@ -1,10 +1,10 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import styles from "./RequestHeader.module.scss";
-import { Popover } from "antd";
-import { CloseSquare, MoreSquare } from "iconsax-react";
+import { CloseSquare } from "iconsax-react";
 import { getOneRequestApi } from "../../api/getOneRequestApi";
 import { deleteRequestApi } from "../../api/deleteRequestApi";
 import { filesApi } from "../../api/filesApi";
+import { CustomMoreSquare } from "../../../../../shared/ui";
 
 interface IRequestHeader {
     setOpened: (opened: boolean) => void;
@@ -28,9 +28,6 @@ export const RequestHeader: FC<IRequestHeader> = (props) => {
         setOpened(false);
         setImagesList([]), setOtherFilesList([]);
     };
-    const handleOpenChange = (newOpen: boolean) => {
-        setOpen(newOpen);
-    };
     const openEditModal = () => {
         setOpen(false);
         setEditOpen(true);
@@ -42,25 +39,13 @@ export const RequestHeader: FC<IRequestHeader> = (props) => {
                 <div className={styles.Number}>{fetchData.oneRequest.task_number}</div>
             </div>
             <div>
-                <Popover
-                    placement="bottomRight"
-                    content={
-                        <div className={styles.MoreButtons}>
-                            <button onClick={openEditModal}>Редактировать</button>
-                            <button onClick={deleteFunc}>Удалить</button>
-                        </div>
-                    }
-                    onOpenChange={handleOpenChange}
-                    trigger={"click"}
+                <CustomMoreSquare
                     open={open}
+                    setOpen={setOpen}
                 >
-                    <MoreSquare
-                        cursor={"pointer"}
-                        variant="Bulk"
-                        color="#929292"
-                        size={34}
-                    />
-                </Popover>
+                    <button onClick={openEditModal}>Редактировать</button>
+                    <button onClick={deleteFunc}>Удалить</button>
+                </CustomMoreSquare>
                 <CloseSquare
                     cursor={"pointer"}
                     size={34}

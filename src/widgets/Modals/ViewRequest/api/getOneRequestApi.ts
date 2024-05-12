@@ -1,9 +1,9 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL, authToken } from "../../../../shared/variables/variables";
+import { BASE_URL, authToken } from "@/shared/variables/variables";
 import { IGetOneRequestApi } from "../types/getOneRequestTypes";
 
-export const getOneRequestApi = create<IGetOneRequestApi>((set, get) => ({
+export const getOneRequestApi = create<IGetOneRequestApi>((set) => ({
     oneRequest: {
         id: 0,
         logs: [],
@@ -28,17 +28,13 @@ export const getOneRequestApi = create<IGetOneRequestApi>((set, get) => ({
         finish_date: "",
         deadline_date: "",
     },
-    setChecklist: (checklist) => {
+    setChecklistToOneRequest: (checklist) => {
         set((prevState) => ({
             oneRequest: {
                 ...prevState.oneRequest,
                 checklists: [...prevState.oneRequest.checklists, checklist],
             },
         }));
-    },
-    setCompletedFromChecklists: (id) => {
-        const checklists = get().oneRequest.checklists
-        console.log(id, checklists);
     },
     deleteChecklistFromChecklists: (id) => {
         set((prevState) => ({
@@ -48,7 +44,76 @@ export const getOneRequestApi = create<IGetOneRequestApi>((set, get) => ({
             },
         }));
     },
-    setSubTask: () => {},
+    setSubtaskToOneRequest: (subtask) => {
+        set((prevState) => {
+            const { checklists } = prevState.oneRequest;
+            const updatedChecklists = checklists.map((checklist) => {
+                if (checklist.id === subtask.checklist) {
+                    return {
+                        ...checklist,
+                        subtasks: checklist.subtasks && [...checklist.subtasks, subtask],
+                    };
+                }
+                return checklist;
+            });
+            return {
+                oneRequest: {
+                    ...prevState.oneRequest,
+                    checklists: updatedChecklists,
+                },
+            };
+        });
+    },
+    setSubtaskCompletedFromOneRequest: (id) => {
+        set((prevState) => {
+            const updatedOneRequest = { ...prevState.oneRequest };
+            const updatedChecklists = updatedOneRequest.checklists.map((checklist) => {
+                if (checklist.subtasks) {
+                    const updatedSubtasks = checklist.subtasks.map((subtask) => {
+                        if (subtask.id === id) {
+                            return {
+                                ...subtask,
+                                completed: !subtask.completed,
+                            };
+                        }
+                        return subtask;
+                    });
+                    return {
+                        ...checklist,
+                        subtasks: updatedSubtasks,
+                    };
+                }
+                return checklist;
+            });
+            return {
+                oneRequest: {
+                    ...updatedOneRequest,
+                    checklists: updatedChecklists,
+                },
+            };
+        });
+    },
+    deleteSubtaskFromOneRequest: (id) => {
+        set((prevState) => {
+            const updatedOneRequest = { ...prevState.oneRequest };
+            const updatedChecklists = updatedOneRequest.checklists.map((checklist) => {
+                if (checklist.subtasks) {
+                    const updatedSubtasks = checklist.subtasks.filter((subtask) => subtask.id !== id);
+                    return {
+                        ...checklist,
+                        subtasks: updatedSubtasks,
+                    };
+                }
+                return checklist;
+            });
+            return {
+                oneRequest: {
+                    ...updatedOneRequest,
+                    checklists: updatedChecklists,
+                },
+            };
+        });
+    },
     setFile: (file) => {
         set((prevState) => ({
             oneRequest: {

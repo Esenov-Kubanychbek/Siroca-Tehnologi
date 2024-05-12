@@ -1,5 +1,5 @@
 interface ILog {
-    field: string,
+    field: string;
     formatted_created_at: string;
     id: number;
     initially: string;
@@ -14,12 +14,12 @@ interface ISubtask {
     completed?: boolean;
     deadline?: string;
     checklist: number;
-    manager?: number;
+    manager?: string;
 }
 
 interface ICheckList {
     id?: number;
-    completed?: boolean
+    completed?: boolean;
     main_manager?: string;
     subtasks?: ISubtask[];
     name: string;
@@ -38,10 +38,10 @@ interface IComment {
 }
 
 interface IFile {
-    id?: number
-    file: string
-    application: number
-    file_name?: string
+    id?: number;
+    file: string;
+    application: number;
+    file_name?: string;
 }
 
 interface IOneRequest {
@@ -71,13 +71,14 @@ interface IOneRequest {
 
 export interface IGetOneRequestApi {
     oneRequest: IOneRequest;
-    setChecklist: (checklist: ICheckList) => void;
-    setCompletedFromChecklists:(id: number | undefined)=>void
-    deleteChecklistFromChecklists: (id?: number) => void
-    setSubTask: (subTask: ISubtask) => void 
-    setFile: (file: IFile) => void
-    deleteFileFromFiles: (id?: number) => void
-    setComment: (comment: IComment) => void
-    deleteCommentFromComments: (id?: number) => void
+    setChecklistToOneRequest: (checklist: ICheckList) => void;
+    deleteChecklistFromChecklists: (id?: number) => void;
+    setSubtaskToOneRequest: (subtask: ISubtask) => void;
+    setSubtaskCompletedFromOneRequest: (id: number | undefined) => void
+    deleteSubtaskFromOneRequest: (id: number | undefined) => void
+    setFile: (file: IFile) => void;
+    deleteFileFromFiles: (id?: number) => void;
+    setComment: (comment: IComment) => void;
+    deleteCommentFromComments: (id?: number) => void;
     getOneRequest: (id: number | undefined) => void;
 }

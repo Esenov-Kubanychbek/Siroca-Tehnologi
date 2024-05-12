@@ -9,7 +9,7 @@ interface ISubtask {
     completed?: boolean;
     deadline?: string;
     checklist: number;
-    manager?: number;
+    manager?: string;
 }
 
 interface ICheckList {

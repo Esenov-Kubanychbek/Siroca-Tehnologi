@@ -1,6 +1,7 @@
 import axios from "axios";
 import { create } from "zustand";
 import { BASE_URL, authToken } from "../../../shared/variables/variables";
+import { ChangeEvent } from "react";
 
 export interface ISubtask {
     id?: number;
@@ -8,7 +9,15 @@ export interface ISubtask {
     completed?: boolean;
     deadline?: string;
     checklist: number;
-    manager?: number;
+    manager?: string;
+}
+
+export interface ICreateSubtask {
+    text: string;
+    completed?: boolean;
+    deadline?: string;
+    checklist: number | undefined;
+    manager?: string;
 }
 
 export interface IChecklist {
@@ -20,54 +29,74 @@ export interface IChecklist {
     application: number | null | string;
 }
 
-export interface ICreateSub {
-    text: string;
-    completed: boolean;
-    deadline: string;
-    checklist: number | undefined;
-    manager: string | undefined;
-}
-
-interface IFetch {
-    checklists: IChecklist[];
-    oneChecklist: IChecklist;
-    createSubTask: (data: ICreateSub) => void;
-    setChecklistCompleted: (checklist: IChecklist) => void;
+interface IChecklistApi {
+    oneSubtask: ISubtask;
+    setOneSubtask: (subtask: ISubtask) => void;
+    oneSubtaskChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    createSubTask: () => void;
     setSubtaskCompleted: (subtask: ISubtask) => void;
+    editSubtask: () => void;
+    deleteSubtask: (id: number | undefined) => void;
 }
 
-export const checkListApi = create<IFetch>(() => ({
-    checklists: [],
-    oneChecklist: {
-        name: "",
-        application: 0,
+export const checkListApi = create<IChecklistApi>((set, get) => ({
+    oneSubtask: {
+        text: "",
+        checklist: 0,
     },
-    createSubTask: async (data) => {
+    setOneSubtask: (subtask) => {
+        set({ oneSubtask: subtask });
+    },
+    oneSubtaskChange: (e) => {
+        set((prevState) => ({
+            oneSubtask: {
+                ...prevState.oneSubtask,
+                [e.target.name]: e.target.value,
+            },
+        }));
+    },
+    createSubTask: async () => {
         try {
-            const response = await axios.post(`${BASE_URL}/applications/subtask/`, data, authToken);
+            const oneSubtask = get().oneSubtask
+            const response = await axios.post(`${BASE_URL}/applications/subtask/`, oneSubtask, authToken);
+            set({ oneSubtask: response.data });
             console.log(response, "createSubTaskSuccess");
         } catch (error) {
             console.log(error, "createSubTaskError");
         }
     },
-    setChecklistCompleted: async (checklist) => {
+    setSubtaskCompleted: async (subtask) => {
+        const completedSubtask = {
+            ...subtask,
+            completed: !subtask.completed,
+        };
         try {
-            const response = await axios.patch(
-                `${BASE_URL}/applications/checklist/${checklist.id}/`,
-                checklist,
+            const response = await axios.put(
+                `${BASE_URL}/applications/subtask/${subtask.id}/`,
+                completedSubtask,
                 authToken,
             );
-            console.log(response, "setChecklistCompletedSuccess");
-        } catch (error) {
-            console.log(error, "setChecklistCompletedError");
-        }
-    },
-    setSubtaskCompleted: async (subtask) => {
-        try {
-            const response = await axios.patch(`${BASE_URL}/applications/subtask/${subtask.id}/`, subtask, authToken);
             console.log(response, "setSubtaskCompletedSuccess");
         } catch (error) {
             console.log(error, "setSubtaskCompletedError");
+        }
+    },
+    editSubtask: async () => {
+        try {
+            const oneSubtask = get().oneSubtask
+            const response = await axios.put(`${BASE_URL}/applications/subtask/${oneSubtask.id}/`, oneSubtask, authToken);
+            set({ oneSubtask: response.data });
+            console.log(response, "editSubtaskSuccess");
+        } catch (error) {
+            console.log(error, "editSubtaskError");
+        }
+    },
+    deleteSubtask: async (id) => {
+        try {
+            const response = await axios.delete(`${BASE_URL}/applications/subtask/${id}/`, authToken);
+            console.log(response, "deleteSubtaskSuccess");
+        } catch (error) {
+            console.log(error, "deleteSubtaskError");
         }
     },
 }));

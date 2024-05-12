@@ -1,95 +1,71 @@
 import styles from "./OneCheckList.module.scss";
-import { Timer1 } from "iconsax-react";
+import { TickSquare } from "iconsax-react";
 import { FC, useState } from "react";
-import { IChecklist, ISubtask, checkListApi } from "../../api/checkListApi";
+import { IChecklist } from "../../api/checkListApi";
 import { deleteCheckListApi } from "../../api/deleteCheckListApi";
 import { getOneRequestApi } from "../../../../widgets/Modals/ViewRequest/api/getOneRequestApi";
 import { CreateSubTask } from "../CreateSubTask/CreateSubTask";
-import { CustomButton, CustomCheckBox } from "../../../../shared/ui";
+import { CustomButton } from "../../../../shared/ui";
+import { OneSubtask } from "./ui/OneSubtask";
 
 interface IOneCheckList {
     checkList: IChecklist;
 }
 
-export const OneCheckList: FC<IOneCheckList> = (props) => {
-    const { checkList } = props;
-    const { deleteChecklistFromChecklists, setCompletedFromChecklists } = getOneRequestApi();
+export const OneCheckList: FC<IOneCheckList> = ({ checkList }) => {
+    const { deleteChecklistFromChecklists } = getOneRequestApi();
     const { deleteCheckList } = deleteCheckListApi();
-    const [display, setDisplay] = useState<boolean>(false);
-    const { setChecklistCompleted, setSubtaskCompleted } = checkListApi();
-
+    const [createDisplay, setCreateDisplay] = useState<boolean>(false);
     const deleteFunc = () => {
         deleteCheckList(checkList.id);
         deleteChecklistFromChecklists(checkList.id);
     };
-
-    const setCompleted = (subtask: ISubtask) => {
-        setSubtaskCompleted({
-            completed: !subtask.completed,
-            checklist: subtask.checklist,
-            text: subtask.text,
-            id: subtask.id,
-            deadline: subtask.deadline,
-            manager: subtask.manager
+    const completedPercent = () => {
+        const completedArray = [];
+        checkList.subtasks?.map((subtask) => {
+            subtask.completed && completedArray.push(subtask);
         });
-    };
-
-    const checklistCompleted = () => {
-        setCompletedFromChecklists(checkList.id);
-        setChecklistCompleted({
-            id: checkList.id,
-            completed: !checkList.completed,
-            main_manager: checkList.main_manager,
-            subtasks: checkList.subtasks,
-            name: checkList.name,
-            application: checkList.application,
-        });
+        const percent = checkList.subtasks && (completedArray.length / checkList.subtasks?.length) * 100;
+        return percent?.toFixed(0);
     };
     return (
         <div className={styles.OneCheckList}>
             <div className={styles.SubTaskList}>
                 <div className={styles.Header}>
                     <div className={styles.HeaderLeft}>
-                        <CustomCheckBox
-                            checked={checkList.completed}
-                            onClick={checklistCompleted}
-                        />
+                        <TickSquare />
                         {checkList.name}
                     </div>
                     <button onClick={deleteFunc}>Удалить</button>
                 </div>
-                {checkList.subtasks !== undefined
-                    ? checkList.subtasks.map((subtask, i) => (
-                          <div
-                              className={styles.SubTask}
-                              key={i}
-                          >
-                              <div className={styles.Left}>
-                                  <CustomCheckBox
-                                      checked={subtask.completed}
-                                      onClick={() => setCompleted(subtask)}
-                                  />
-                                  <p>{subtask.text}</p>
-                              </div>
-                              <div className={styles.Right}>
-                                  <span>{subtask.manager}</span>
-                                  <div>
-                                      <Timer1 />
-                                      <p>{subtask.deadline}</p>
-                                  </div>
-                              </div>
-                          </div>
-                      ))
-                    : null}
+                {checkList.subtasks && checkList.subtasks.length > 0 && (
+                    <div className={styles.CompletedPercent}>
+                        <p>{completedPercent()}%</p>
+                        <div>
+                            <div
+                                style={{
+                                    width: `${completedPercent()}%`,
+                                    backgroundColor: Number(completedPercent()) === 100 ? "#00A91B" : "#1C6AB1",
+                                }}
+                            />
+                        </div>
+                    </div>
+                )}
+                {checkList.subtasks?.map((subtask, i) => (
+                    <OneSubtask
+                        subtask={subtask}
+                        key={i}
+                    />
+                ))}
             </div>
-            {display && (
+            {createDisplay && (
                 <CreateSubTask
-                    checklistId={checkList.id}
-                    setDisplay={setDisplay}
+                    checklistId={Number(checkList.id)}
+                    setDisplay={setCreateDisplay}
                 />
             )}
             <CustomButton
-                onClick={() => setDisplay(true)}
+                onClick={() => setCreateDisplay(true)}
                 text="Добавить подзадачу"
                 width={207}
                 variant="Primary"

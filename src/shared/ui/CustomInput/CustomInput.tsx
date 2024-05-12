@@ -29,7 +29,7 @@ export const CustomInput: FC<IInput> = (props) => {
             defaultValue={defaultValue}
             onChange={change}
             style={{
-                width: `${width - 50}px`,
+                width: `${width}px`,
                 height: `${height}px`,
                 background: `${background}`,
                 paddingLeft: `${paddingLeft}px`,

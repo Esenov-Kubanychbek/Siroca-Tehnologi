@@ -10,10 +10,10 @@ export const Comments: FC = () => {
     const deleteComment = deleteCommentApi();
     const deleteFunc = (props: number) => {
         deleteComment.deleteComment(props);
-        deleteCommentFromComments(props)
+        deleteCommentFromComments(props);
     };
     return (
-        <div className={styles.Comments}>
+        <div className={styles.Comments} id="comments">
             {oneRequest.comments.map((comment, i) => (
                 <div
                     className={styles.OneComment}

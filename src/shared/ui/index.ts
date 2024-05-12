@@ -8,4 +8,5 @@ export { ListTop } from "./ListTop/ListTop";
 export { ListTopName } from "./ListTop/ListTopName";
 export { Typography } from "./Typography/Typography";
 export { ItemInner } from "./ItemInner/ItemInner";
-export {CustomCheckBox} from "./CustomCheckBox/CustomCheckBox"
+export { CustomCheckBox } from "./CustomCheckBox/CustomCheckBox";
+export { CustomMoreSquare } from "./CustomMoreSquare/CustomMoreSquare";

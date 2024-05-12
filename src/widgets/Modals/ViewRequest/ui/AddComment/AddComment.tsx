@@ -10,8 +10,8 @@ export const AddComment: FC = () => {
     const roles = idRoles();
     const role_type = localStorage.getItem("role_type");
     const [commentState, setCommentState] = useState<string>("");
-    const {oneRequest, setComment} = getOneRequestApi();
-    const { oneComment, postComment} = postCommentApi();
+    const { oneRequest, setComment } = getOneRequestApi();
+    const { oneComment, postComment } = postCommentApi();
     const changeComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setCommentState(e.target.value);
     };
@@ -26,11 +26,11 @@ export const AddComment: FC = () => {
             console.log("trimCommentError");
         }
     };
-    useEffect(()=>{
-        if(oneComment.application !== 0){
-            setComment(oneComment)
+    useEffect(() => {
+        if (oneComment.application !== 0) {
+            setComment(oneComment);
         }
-    },[oneComment])
+    }, [oneComment]);
     const render = () => {
         if (roles.formatedState && role_type === "client" && roles.formatedState.client_can_edit_comments_extra) {
             return (

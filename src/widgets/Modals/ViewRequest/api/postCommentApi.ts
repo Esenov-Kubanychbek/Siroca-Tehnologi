@@ -14,20 +14,20 @@ export interface IComment {
 }
 
 interface IPostCommentApi {
-    oneComment: IComment
+    oneComment: IComment;
     postComment: (comment: IComment) => void;
 }
 
 export const postCommentApi = create<IPostCommentApi>((set) => ({
     oneComment: {
         application: 0,
-        text: ""
+        text: "",
     },
     postComment: async (comment) => {
         try {
             const response = await axios.post(`${BASE_URL}/applications/comments/`, comment, authToken);
             console.log(response, "postCommentSuccess");
-            set({oneComment: response.data})
+            set({ oneComment: response.data });
         } catch (error) {
             console.log(error, "postCommentError");
         }
