@@ -19,9 +19,9 @@ interface IComments {
 }
 
 interface IFile {
-    id?: number
-    file: string
-    application: number
+    id?: number;
+    file: string;
+    application: number;
 }
 
 export interface IRequest {

@@ -46,7 +46,6 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType 
             const update = [...responseC.data.data, ...responseM.data.data];
             setGetInBoxes(update);
             console.log(update);
-            
         } catch (error) {
             console.log(error);
         }

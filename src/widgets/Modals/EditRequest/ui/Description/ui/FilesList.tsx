@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 import styles from "./FilesList.module.scss";
 import { filesApi } from "../../../../ViewRequest/api/filesApi";
 import { getOneRequestApi } from "../../../../ViewRequest/api/getOneRequestApi";
-import { CloseSquare, Document, Trash } from "iconsax-react";
+import { CloseSquare, DocumentText1, Trash } from "iconsax-react";
 import { deleteFileApi } from "../../../api/deleteFileApi";
 
 export const FilesList: FC = () => {
@@ -41,7 +41,7 @@ export const FilesList: FC = () => {
                               className={styles.OtherFile}
                           >
                               <div onClick={() => downloadFile(file.file, String(file.file_name))}>
-                                  <Document />
+                                  <DocumentText1 />
                                   <p>{file.file_name}</p>
                               </div>
                               <Trash

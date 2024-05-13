@@ -21,7 +21,7 @@ export const Description: FC = () => {
                 id: oneFile.id,
                 file: String(oneFile.file),
                 application: oneFile.application !== undefined ? oneFile.application : 0,
-                file_name: oneFile.file_name
+                file_name: oneFile.file_name,
             });
         }
     }, [oneFile]);

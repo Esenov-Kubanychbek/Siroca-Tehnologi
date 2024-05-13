@@ -101,7 +101,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                 },
             });
             console.log(response);
-            
+
             fetchRequest.setFilterState(response.data.data.results);
         } catch (error) {
             console.log(error);

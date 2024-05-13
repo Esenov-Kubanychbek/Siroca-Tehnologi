@@ -5,8 +5,9 @@ export { Description } from "./Description/Description";
 export { Details } from "./Details/Details";
 export { LinkJira } from "./LinkJira/LinkJira";
 export { RequestLogs } from "./RequestLogs/RequestLogs";
-export { MenuRequest } from "./MenuRequest/MenuRequest";
+export { RequestMenu } from "./RequestMenu/RequestMenu";
 export { People } from "./People/People";
 export { ShortDescription } from "./ShortDescription/ShortDescription";
 export { AddComment } from "./AddComment/AddComment";
-export {AddDescription} from "./AddDescription/AddDescription"
+export { AddDescription } from "./AddDescription/AddDescription";
+export { RequestHeader } from "./RequestHeader/RequestHeader";

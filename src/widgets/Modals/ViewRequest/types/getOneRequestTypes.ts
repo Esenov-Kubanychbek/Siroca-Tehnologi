@@ -1,5 +1,5 @@
 interface ILog {
-    field: string,
+    field: string;
     formatted_created_at: string;
     id: number;
     initially: string;
@@ -14,33 +14,34 @@ interface ISubtask {
     completed?: boolean;
     deadline?: string;
     checklist: number;
-    manager?: number;
+    manager?: string;
 }
 
 interface ICheckList {
     id?: number;
+    completed?: boolean;
     main_manager?: string;
     subtasks?: ISubtask[];
     name: string;
     application: number | null | string;
 }
 
-interface IComments {
-    id: number;
-    user: string;
+interface IComment {
+    id?: number;
+    user?: string;
     text: string;
-    date_added: string;
+    date_added?: string;
     application: number;
-    formatted_date_added: string;
-    user_image: string;
-    user_id: number;
+    formatted_date_added?: string;
+    user_image?: string;
+    user_id?: number;
 }
 
 interface IFile {
-    id?: number
-    file: string
-    application: number
-    file_name?: string
+    id?: number;
+    file: string;
+    application: number;
+    file_name?: string;
 }
 
 interface IOneRequest {
@@ -50,7 +51,7 @@ interface IOneRequest {
     main_client: string;
     main_manager: string;
     checklists: ICheckList[];
-    comments: IComments[];
+    comments: IComment[];
     task_number: string;
     title: string;
     description: string;
@@ -70,8 +71,15 @@ interface IOneRequest {
 
 export interface IGetOneRequestApi {
     oneRequest: IOneRequest;
-    setChecklist: (data: ICheckList) => void;
-    setFile: (file: IFile) => void
-    deleteFileFromFiles: (id?: number) => void
+    setChecklistToOneRequest: (checklist: ICheckList) => void;
+    deleteChecklistFromChecklists: (id?: number) => void;
+    setSubtaskToOneRequest: (subtask: ISubtask) => void;
+    editSubtaskInOneRequest: (subtask: ISubtask) => void;
+    setSubtaskCompletedFromOneRequest: (id: number | undefined) => void
+    deleteSubtaskFromOneRequest: (id: number | undefined) => void
+    setFile: (file: IFile) => void;
+    deleteFileFromFiles: (id?: number) => void;
+    setComment: (comment: IComment) => void;
+    deleteCommentFromComments: (id?: number) => void;
     getOneRequest: (id: number | undefined) => void;
 }

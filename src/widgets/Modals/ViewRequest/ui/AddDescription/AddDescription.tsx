@@ -8,9 +8,9 @@ export const AddDescription: FC = () => {
     const { oneRequest } = getOneRequestApi();
     const { setOpened, descriptionChange, putDescription, descriptionState } = descriptionApi();
     const saveFunc = () => {
-        setOpened(false)
-        putDescription(oneRequest.id)
-    }
+        setOpened(false);
+        putDescription(oneRequest.id);
+    };
     return (
         <div className={styles.AddDescription}>
             <textarea

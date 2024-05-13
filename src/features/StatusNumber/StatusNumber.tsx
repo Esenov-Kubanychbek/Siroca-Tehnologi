@@ -9,7 +9,11 @@ export const StatusNumber: FC = () => {
     const getCounts = async () => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/`, authToken);
-            setCount([response.data.data.closed_count, response.data.data.created_count, response.data.data.in_progress_count]);
+            setCount([
+                response.data.data.closed_count,
+                response.data.data.created_count,
+                response.data.data.in_progress_count,
+            ]);
         } catch (error) {
             console.log(error);
         }

@@ -3,44 +3,40 @@ import { Dispatch, FC, SetStateAction } from "react";
 import { Comments, Date, Description, Details, LinkJira, RequestLogs, People, ShortDescription } from "..";
 import { AddSquare, Maximize4 } from "iconsax-react";
 import { CheckLists } from "../../../../../features";
-import { checkListApi } from "../../../../../features/CheckLists/api/checkListApi";
-import { getOneRequestApi } from "../../api/getOneRequestApi";
 
 interface ICollapses {
-    setViewLogs: Dispatch<SetStateAction<boolean>>
+    setViewLogs: Dispatch<SetStateAction<boolean>>;
+    setChecklistModal: Dispatch<SetStateAction<boolean>>;
 }
 
 export const Collapses: FC<ICollapses> = (props) => {
-    const { createCheckList } = checkListApi()
-    const { oneRequest, setChecklist, getOneRequest } = getOneRequestApi()
-    const { oneCheckList } = checkListApi()
-    const { setViewLogs } = props
-
-    const createCheck = (e:{stopPropagation: () => void}) => {
-        createCheckList({
-            name: "CheckList",
-            application: oneRequest.id
-        })
-        e.stopPropagation()
-        setChecklist(oneCheckList)
-        const id = oneRequest.id
-        getOneRequest(id)
-    }
-
+    const { setViewLogs, setChecklistModal } = props;
+    const openChecklistModal = (e: { stopPropagation: () => void }) => {
+        setChecklistModal(true);
+        e.stopPropagation();
+    };
     const items: CollapseProps["items"] = [
         {
             key: "1",
             label: "Logs",
             children: <RequestLogs />,
-            extra: <Maximize4 onClick={() => setViewLogs(true)} size={24} style={{ marginTop: "6px", marginRight: "6px" }} />
+            extra: (
+                <Maximize4
+                    onClick={() => setViewLogs(true)}
+                    size={24}
+                    style={{ marginTop: "6px", marginRight: "6px" }}
+                />
+            ),
         },
         {
             key: "2",
+            id: "Details",
             label: "Детали заявки",
             children: <Details />,
         },
         {
             key: "3",
+            id: "JiraLink",
             label: "Ссылка на Jira",
             children: <LinkJira />,
         },
@@ -56,6 +52,7 @@ export const Collapses: FC<ICollapses> = (props) => {
         },
         {
             key: "6",
+            id:"Description",
             label: "Описание",
             children: <Description />,
         },
@@ -66,14 +63,16 @@ export const Collapses: FC<ICollapses> = (props) => {
         },
         {
             key: "8",
+            id:"Comments",
             label: "Комментарии",
             children: <Comments />,
         },
         {
             key: "9",
+            id:"Checklists",
             label: "Чек-листы",
             children: <CheckLists />,
-            extra: <AddSquare onClick={(e) => createCheck(e)} />
+            extra: <AddSquare onClick={(e) => openChecklistModal(e)} />,
         },
     ];
     return (

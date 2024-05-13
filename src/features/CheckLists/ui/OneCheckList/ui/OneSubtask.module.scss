@@ -1,0 +1,39 @@
+@import "index.scss";
+
+.OneSubtask {
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .Left {
+        display: flex;
+        gap: 20px;
+        p {
+            color: #252525;
+            font-size: 17px;
+            font-weight: 500;
+        }
+    }
+    .Right {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+        span {
+            font-size: 14px;
+            font-weight: 500;
+            color: $blue;
+        }
+        div {
+            align-items: center;
+            display: flex;
+            background-color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            p {
+                font-weight: 500;
+                font-size: 16px;
+            }
+        }
+    }
+}
