@@ -140,7 +140,6 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                                 company_code(respose)
                             }  
                         }}><LampOn variant="Bold" color="#1c6ab1" /></div>
-                       
                     </div>
 
                 </div>
@@ -153,7 +152,6 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                         change={changeInput}
                         value={dataInputCompanies.domain}
                         trim={allData || err ? dataInputCompanies.domain : true}
-
                     />
                 </div>
             </div>
@@ -172,7 +170,6 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                                         setInputValue(manager.first_name);
                                         setInputValueText('');
                                         addManagers(manager.id)
-
                                     }} className={styles.manager}>{manager.first_name} </div>
                                 ))}
                             </div>
@@ -185,11 +182,12 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                             <div className={styles.tre}> </div>
                         </div>
 
-                        <div className={styles.addManagers}>
+                        <div className={styles.addManagers}
+                             onMouseEnter={() => setHovered(true)}
+                            onMouseLeave={() => setHovered(false)}>
                             <AddSquare
                                 color="white"
-                                onMouseEnter={() => setHovered(true)}
-                                onMouseLeave={() => setHovered(false)}
+                               
                                 onClick={openAddManager}
                             />
                         </div>

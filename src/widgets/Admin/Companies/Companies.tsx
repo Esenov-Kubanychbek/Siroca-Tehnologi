@@ -13,7 +13,7 @@ import { usePassword } from "../../Modals/ChangePassword/api/ChangePassword";
 import { ItemCount } from "../../../shared/ui/ItemCount/ItemCount";
 
 export const Companies: FC = () => {
-    const { fetchDatas, getUsers, data, selectedIdCompany,searchReset, openModalView, closeModalView, modalViewCompany, searchCompanies, countCompany } = useDataStoreComponies();
+    const { fetchDatas, getUsers, data, selectedIdCompany, searchReset, openModalView, closeModalView, modalViewCompany, searchCompanies, countCompany } = useDataStoreComponies();
     const [modalScc, setModalScc] = useState<string>('none');
     const [createCompany, setCreateCompany] = useState<boolean>(false);
     const [companyList, setCompanyList] = useState<dataCompanies[] | undefined>()
@@ -24,7 +24,7 @@ export const Companies: FC = () => {
     const [page, setPage] = useState<number>(1);
     const usePasswordScc = usePassword();
     console.log(modalScc);
-    
+
     const openModalCreateCompany = () => {
         setCreateCompany(true);
     }
@@ -71,14 +71,14 @@ export const Companies: FC = () => {
             setCompanyList(undefined);
         }
         console.log(data);
-        
-    }, [ searchText, fetchDatas]);
+
+    }, [searchText, fetchDatas]);
 
     useEffect(() => {
-        if(count > 0){
+        if (count > 0) {
             setModalScc('block');
         }
-    },[createCompanyName, count])
+    }, [createCompanyName, count])
 
 
     return (
@@ -106,10 +106,9 @@ export const Companies: FC = () => {
                         <ListTopName name="Менеджер" width={modalViewCompany ? 160 : 204} />
                         <ListTopName name={modalViewCompany ? 'Дата созд...' : 'Дата создания'} width={modalViewCompany ? 160 : 202} />
                         <ListTopName name={modalViewCompany ? 'Дата пос...' : 'Дата последнего редактирования'} width={modalViewCompany ? 160 : 292} />
-
                     </ListTop>
                     {data.length !== 0 ? <ul>
-                        { data.map((dataCompany) => (
+                        {data.map((dataCompany) => (
                             <li className={styles.datas} onClick={() => {
                                 selectedIdCompany(dataCompany.id);
                                 openModalView();
@@ -124,28 +123,28 @@ export const Companies: FC = () => {
                                 <ItemInner width={modalViewCompany ? 160 : 226} content={dataCompany.created_at} />
                                 <ItemInner width={modalViewCompany ? 160 : 306} content={dataCompany.last_updated_at} />
                             </li>
-                        )) }
-                    </ul> : 
-                    <p className={styles.alert}>По вашему запросу не чего не найдено!</p>}
+                        ))}
+                    </ul> :
+                        <p className={styles.alert}>По вашему запросу не чего не найдено!</p>}
                 </div>
-                <ChangeCompany message={message} count={count} page={page}/>
+                <ChangeCompany message={message} count={count} page={page} />
             </div>
-            <div className={styles.pogin} style={{width: `${modalViewCompany ? '1300px' : '100%'}`}}>
-            <Pagination count={countCompany} page={page} setPage={setPage} />
-            <ItemCount page={page} count={countCompany}/>
+            <div className={styles.pogin} style={{ width: `${modalViewCompany ? '1300px' : '100%'}` }}>
+                <Pagination count={countCompany} page={page} setPage={setPage} />
+                    <ItemCount page={page} count={countCompany} />
             </div>
-            {<SccessfullyModal closeModal={closeModal} modalScc={modalScc} texts={createCompanyName} /> }
+            {<SccessfullyModal closeModal={closeModal} modalScc={modalScc} texts={createCompanyName} />}
             {<SccessfullyModal closeModal={usePasswordScc.closeModalScc} modalScc={usePasswordScc.changePasswordScc} texts='Изменения были успешно сохранены' />}
 
             <Modal
                 centered
-                width={700}
+                width={660}
                 open={createCompany}
                 onCancel={() => {
                     closeModalCreateCompany();
                 }}
             >
-                <CreateCompany nameCreateCompany={message} count={count} openModals={openModal} closeCreateModal={closeModalCreateCompany} page={page}/>
+                <CreateCompany nameCreateCompany={message} count={count} openModals={openModal} closeCreateModal={closeModalCreateCompany} page={page} />
             </Modal>
         </div>
     );

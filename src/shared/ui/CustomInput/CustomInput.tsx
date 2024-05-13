@@ -36,6 +36,7 @@ export const CustomInput: FC<IInput> = (props) => {
                 background: `${background}`,
                 paddingLeft: `${paddingLeft}px`,
                 border: trim || trim === undefined ? "none" : "2px solid #E51616",
+                color: color
             }}
             placeholder={placeholder}
             color={color}

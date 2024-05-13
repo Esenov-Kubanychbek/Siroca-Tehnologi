@@ -3,9 +3,9 @@
     box-sizing: border-box;
     border-radius: 8px;
     background-color: white;
-
+    padding: 0 20px 40px 20px;
     .arrow {
-        transform: rotate(0);
+        transform: rotate(360deg);
         transition: transform .2s ease-in;
     }
 
@@ -15,7 +15,7 @@
         align-items: center;
         font-size: 32px;
         font-weight: 700;
-        margin: 30px;
+        margin: 30px ;
     }
 
     .AddUser {
@@ -64,7 +64,6 @@
 
     .buttons {
         width: 660px;
-        margin: 30px 40px;
 
         .buttonss {
             width: 326px;
@@ -92,6 +91,8 @@
             box-sizing: border-box;
             font-size: 18px;
             font-weight: 700;
+            display: flex;
+            align-items: center;
         }
     }
 
@@ -120,12 +121,13 @@
         border-radius: 8px;
         margin-left: 50px;
         margin-top: 20px;
-
+        cursor: pointer;
     }
 
     .hintAdd {
-        position: fixed;
-        margin-left: 465px;
+        position: absolute;
+        bottom: 250px;
+        margin-left: 438px;
     }
 
     .hint {

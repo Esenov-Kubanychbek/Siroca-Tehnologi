@@ -69,7 +69,7 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
         zIndex: `${managersModal ? "10" : '-50'}`
     }
     const stylesArrow = {
-        transform: ` rotate( ${managersModal ? '180deg' : '0'})
+        transform: ` rotate( ${managersModal ? '360deg' : '270deg'})
         `
     }
     const addNewChangeManager = (id: number) => {
@@ -98,6 +98,7 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                         width={272}
                         change={changeInputCompany}
                         name="name"
+                        color="black"
                     />
                 </div>
                 <div>
@@ -108,6 +109,8 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                         width={272}
                         change={changeInputCompany}
                         name="country"
+                        color="black"
+
                     />
                 </div>
             </div>
@@ -121,6 +124,8 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                         change={changeInputCompany}
                         name="company_code"
                         maxLength={3}
+                        color="black"
+
                     />
                 </div>
                 <div>
@@ -131,6 +136,8 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                         width={272}
                         change={changeInputCompany}
                         name="domain"
+                        color="black"
+
                     />
                 </div>
             </div>
@@ -141,7 +148,7 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                         setManagersModal(!managersModal);
                         console.log(managersModal);
 
-                    }}><ArrowDown2 className={styles.arrow} style={stylesArrow} /></div></div>
+                    }}><ArrowDown2 color="rgba(28, 106, 177, 1)" className={styles.arrow} style={stylesArrow} /></div></div>
                     {managersMain.map((managerId) => (
                         <div className={styles.managers} key={managerId.id} style={style}>
                             <p className={styles.manager}>{names(managerId.id)}</p>
@@ -169,14 +176,15 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                     </p>
                     <div className={styles.tre}> </div>
                 </div>
-                <div
+                <div    
                     className={styles.addManagers}
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
                 >
 
                     <AddSquare
                         color="white"
-                        onMouseEnter={() => setHovered(true)}
-                        onMouseLeave={() => setHovered(false)}
+                        
                         onClick={() => {
                             openAddManager();
 

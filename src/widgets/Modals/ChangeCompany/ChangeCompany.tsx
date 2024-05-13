@@ -49,8 +49,8 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                     <div>
                         <MoreSquare
                             cursor={"pointer"}
-                            variant="Bulk"
-                            color="#929292"
+                            color="black"
+                            
                             size={34}
                             onClick={() => setModalButtons((prevState) => !prevState)}
                         />
@@ -68,11 +68,7 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                             <p onClick={() => setModalCreateUser(true)}>Создать пользователя</p>
                             <p onClick={deleteComp}>Удалить</p>
                         </div>
-                        <div
-                            onClick={() => setModalButtons(false)}
-                            style={{ display: `${modalButtons ? "block" : "none"}` }}
-                            className={styles.blackBagr}
-                        ></div>
+                        
                     </div>
                     <CloseSquare
                         cursor={"pointer"}
@@ -131,7 +127,7 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
             </div>
             <Modal
                 centered
-                width={700}
+                width={660}
                 open={viewModal}
                 onCancel={() => {
                     closeView();
