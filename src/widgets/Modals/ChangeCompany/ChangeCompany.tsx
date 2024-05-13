@@ -14,7 +14,7 @@ interface props {
 }
 export const ChangeCompany: FC<props> = ({ message, count, page }) => {
     const [modalButtons, setModalButtons] = useState<boolean>(false);
-    const { deleteCompany, data, idCompany, closeModalView, modalViewCompany, selectedCompanyData, users } =
+    const { deleteCompany, idCompany, closeModalView, modalViewCompany, selectedCompanyData, users } =
         useDataStoreComponies();
     const { resetInput } = useDataInputCompaniesStore();
     const [modalCreateUser, setModalCreateUser] = useState<boolean>(false);
@@ -28,7 +28,6 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
 
     const deleteComp = () => {
         deleteCompany(idCompany, page);
-        console.log(data);
         const number = count + 1;
         message(`Компания "${selectedCompanyData.name}" была удалена!`, number);
         closeView();

@@ -52,7 +52,6 @@ export const AddManager: FC<types> = ({ type, addNewChangeManager, closeModal })
                         if (type === 'changes') {
                             array.id !== undefined && addNewChangeManager !== undefined && addNewChangeManager(array.id)
                             closeModal();
-                            console.log(array.id);
                             
                         }
                     });

@@ -36,7 +36,6 @@ export const profile = create<IFetchs>((set) => ({
         try {
             const response = await axios.get(`${BASE_URL}/users/edit/${id}/`, authToken);
             set({ users: response.data });
-            console.log(response);
 
         } catch (error) {
             console.log(error, "getOneUserError");
@@ -53,7 +52,6 @@ export const profile = create<IFetchs>((set) => ({
         set({ users: data })
     },
     putOneUser: async (data, newData) => {
-        console.log(data);
         try {
             const putData = newData.image === data.image ? {
                 first_name: newData.first_name,
@@ -69,7 +67,6 @@ export const profile = create<IFetchs>((set) => ({
                 surname: newData.surname,
                 username: newData.username
             };
-            console.log(putData);
 
             if (putData !== undefined) {
                 const formData = new FormData();
@@ -78,7 +75,6 @@ export const profile = create<IFetchs>((set) => ({
                 });
                 const response = await axios.put(`${BASE_URL}/users/edit/${data.id}/`, formData, authToken);
                 set({ users: response.data });
-                console.log(formData);
 
             }
 

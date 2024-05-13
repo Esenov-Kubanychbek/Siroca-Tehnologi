@@ -18,7 +18,6 @@ export const ChangePassword: FC<IChangeModal> = (props) => {
 
     const [passwordOpen, setPasswordOpen] = useState<boolean>(false);
     const usePasswordScc = usePassword();
-    console.log(err);
 
     const { setModal } = props;
     const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -34,8 +33,7 @@ export const ChangePassword: FC<IChangeModal> = (props) => {
                     new_password1: inputStates.new1.value,
                     new_password2: inputStates.new2.value
                 }
-                const response = await axios.put(`${BASE_URL}/users/change_password/`, data, authToken);
-                console.log(response);
+                await axios.put(`${BASE_URL}/users/change_password/`, data, authToken);
                 props.setModal(false);
                 props.setModalProfile(false);
                 usePasswordScc.openModalScc();

@@ -31,7 +31,6 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
 
     const change = async () => {
         const mainManager = managersMain.find(manager => manager.main === true);
-        console.log(mainManager)
         const idMainManager = mainManager !== undefined && mainManager.id;
         const newIdManagers = managersMain.map(manager => manager.id);
         const filteredNewIdManagers = newIdManagers.filter(item => typeof item === 'number');
@@ -146,7 +145,6 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                     <br />
                     <div className={styles.mainManager}>Ответственный менеджер <div onClick={() => {
                         setManagersModal(!managersModal);
-                        console.log(managersModal);
 
                     }}><ArrowDown2 color="rgba(28, 106, 177, 1)" className={styles.arrow} style={stylesArrow} /></div></div>
                     {managersMain.map((managerId) => (
@@ -158,7 +156,6 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                                         ...item,
                                         main: i === managerId.index
                                     }));
-                                    console.log(managersMain);
                                     return updatedManagers;
                                 });
                             }} />}

@@ -23,7 +23,6 @@ export const Companies: FC = () => {
     const [count, setCount] = useState<number>(0);
     const [page, setPage] = useState<number>(1);
     const usePasswordScc = usePassword();
-    console.log(modalScc);
 
     const openModalCreateCompany = () => {
         setCreateCompany(true);
@@ -37,8 +36,6 @@ export const Companies: FC = () => {
     };
     const openModal = () => {
         setModalScc('block');
-        console.log(modalScc);
-
     }
     const message = (name: string, number: number) => {
         setCreateCompanyName(name);
@@ -70,8 +67,6 @@ export const Companies: FC = () => {
             companyList !== undefined && searchReset(companyList);
             setCompanyList(undefined);
         }
-        console.log(data);
-
     }, [searchText, fetchDatas]);
 
     useEffect(() => {

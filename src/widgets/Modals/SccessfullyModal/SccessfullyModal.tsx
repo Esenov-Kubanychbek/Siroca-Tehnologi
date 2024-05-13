@@ -19,17 +19,14 @@ export const SccessfullyModal: FC<text> = ({ texts, modalScc, closeModal, style 
 
         if (modalScc === 'block') {
             setDispley('block' );
-            console.log(displey);
             const timeoutId = setTimeout(() => {
                 closeModal();
                 setBool(true);  
-            console.log(displey);
 
             }, 5000);
             if (bool === true) {
                 const timeDisplay = setTimeout(() => {
                     setDispley('none');
-            console.log(displey);
 
                 }, 5300);
                 return () => {
