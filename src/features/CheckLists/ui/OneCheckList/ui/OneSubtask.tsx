@@ -1,12 +1,12 @@
 import { FC, useState } from "react";
 import styles from "./OneSubtask.module.scss";
-import { CustomCheckBox, CustomMoreSquare } from "../../../../../shared/ui";
+import { CustomCheckBox, CustomMoreSquare } from "@/shared/ui";
 import { ISubtask, checkListApi } from "../../../api/checkListApi";
 import { Timer1 } from "iconsax-react";
-import { getOneRequestApi } from "../../../../../widgets/Modals/ViewRequest/api/getOneRequestApi";
+import { getOneRequestApi } from "@/widgets/Modals/ViewRequest/api/getOneRequestApi";
 import { CreateSubTask } from "../../CreateSubTask/CreateSubTask";
 import { Modal } from "antd";
-import { ManagerForSubtask } from "../../../../../widgets";
+import { ManagerForSubtask } from "@/widgets";
 
 interface IOneSubtask {
     subtask: ISubtask;
@@ -28,8 +28,8 @@ export const OneSubtask: FC<IOneSubtask> = (props) => {
         deleteSubtaskFromOneRequest(subtask.id);
     };
     const editFunc = () => {
-        setEditState(true)
-    }
+        setEditState(true);
+    };
     return editState === false ? (
         <div className={styles.OneSubtask}>
             <div className={styles.Left}>
@@ -40,8 +40,8 @@ export const OneSubtask: FC<IOneSubtask> = (props) => {
                 <p onClick={editFunc}>{subtask.text}</p>
             </div>
             <div className={styles.Right}>
-                <span>{subtask.manager}</span>
-                <div>
+                <span onClick={editFunc}>{subtask.manager}</span>
+                <div onClick={editFunc}>
                     <Timer1 />
                     <p>{subtask.deadline}</p>
                 </div>
@@ -50,20 +50,21 @@ export const OneSubtask: FC<IOneSubtask> = (props) => {
                     setOpen={setMoreState}
                 >
                     <button onClick={editFunc}>Редактирокать</button>
-                    <button onClick={()=>setManagerModal(true)}>Назначить</button>
+                    <button onClick={() => setManagerModal(true)}>Назначить</button>
                     <button onClick={deleteFunc}>Удалить</button>
                 </CustomMoreSquare>
             </div>
             <Modal
-            open={managerModal}
-            centered
-            onCancel={()=>setManagerModal(false)}
+                open={managerModal}
+                centered
+                onCancel={() => setManagerModal(false)}
             >
-                <ManagerForSubtask setManagerModal={setManagerModal}/>
+                <ManagerForSubtask setManagerModal={setManagerModal} />
             </Modal>
         </div>
     ) : (
         <CreateSubTask
+            forWhat="edit"
             subtask={subtask}
             checklistId={Number(subtask.id)}
             setDisplay={setEditState}

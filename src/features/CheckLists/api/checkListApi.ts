@@ -54,15 +54,17 @@ export const checkListApi = create<IChecklistApi>((set, get) => ({
                 [e.target.name]: e.target.value,
             },
         }));
+        const oneSubtask = get().oneSubtask
+        console.log(oneSubtask, "changing");
     },
     createSubTask: async () => {
         try {
             const oneSubtask = get().oneSubtask
             const response = await axios.post(`${BASE_URL}/applications/subtask/`, oneSubtask, authToken);
             set({ oneSubtask: response.data });
-            console.log(response, "createSubTaskSuccess");
+            console.log(response, "createSubtaskSuccess");
         } catch (error) {
-            console.log(error, "createSubTaskError");
+            console.log(error, "createSubtaskError");
         }
     },
     setSubtaskCompleted: async (subtask) => {

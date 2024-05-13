@@ -64,6 +64,32 @@ export const getOneRequestApi = create<IGetOneRequestApi>((set) => ({
             };
         });
     },
+    editSubtaskInOneRequest: (subtask) => {
+        set((prevState) => {
+            const updatedOneRequest = { ...prevState.oneRequest };
+            const updatedChecklists = updatedOneRequest.checklists.map((checklist) => {
+                if (checklist.subtasks) {
+                    const updatedSubtasks = checklist.subtasks.map((existingSubtask) => {
+                        if (existingSubtask.id === subtask.id) {
+                            return subtask;
+                        }
+                        return existingSubtask;
+                    });
+                    return {
+                        ...checklist,
+                        subtasks: updatedSubtasks,
+                    };
+                }
+                return checklist;
+            });
+            return {
+                oneRequest: {
+                    ...updatedOneRequest,
+                    checklists: updatedChecklists,
+                },
+            };
+        });
+    },    
     setSubtaskCompletedFromOneRequest: (id) => {
         set((prevState) => {
             const updatedOneRequest = { ...prevState.oneRequest };

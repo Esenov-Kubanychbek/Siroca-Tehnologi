@@ -32,7 +32,7 @@ export const Description: FC = () => {
         setDescriptionState(oneRequest.description);
     }, [oneRequest.description]);
     return (
-        <div className={styles.Description} id="description">
+        <div className={styles.Description}>
             <div className={styles.Text}>
                 <div className={styles.Buttons}>
                     <FolderAdd

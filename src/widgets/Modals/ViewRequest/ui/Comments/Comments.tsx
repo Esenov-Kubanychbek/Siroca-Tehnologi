@@ -13,7 +13,7 @@ export const Comments: FC = () => {
         deleteCommentFromComments(props);
     };
     return (
-        <div className={styles.Comments} id="comments">
+        <div className={styles.Comments}>
             {oneRequest.comments.map((comment, i) => (
                 <div
                     className={styles.OneComment}
