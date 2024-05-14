@@ -4,7 +4,7 @@ interface IFile {
     id?: number;
     file: string;
     application?: number;
-    file_name?: string
+    file_name?: string;
 }
 
 interface IFilesApi {
@@ -34,8 +34,8 @@ export const filesApi = create<IFilesApi>((set) => ({
     },
     deleteFromOtherFilesList: (id) => {
         set((prevState) => ({
-                ...prevState.otherFilesList,
-                otherFilesList: prevState.otherFilesList.filter((file) => file.id !== id),
+            ...prevState.otherFilesList,
+            otherFilesList: prevState.otherFilesList.filter((file) => file.id !== id),
         }));
     },
     findTypeOfFile: (files) => {

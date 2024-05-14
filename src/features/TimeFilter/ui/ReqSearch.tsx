@@ -40,7 +40,6 @@ export const ReqSearch: FC = () => {
                 },
             });
             fetchRequest.setState(response.data.data.results);
-            
 
             console.log(response);
         } catch (error) {

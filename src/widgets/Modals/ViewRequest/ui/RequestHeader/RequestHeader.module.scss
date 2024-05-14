@@ -1,0 +1,35 @@
+@import "index.scss";
+
+.RequestHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 592px;
+    margin: 16px 0;
+}
+
+.Name {
+    font-size: 24px;
+    font-weight: 700;
+    display: flex;
+}
+
+.Number {
+    color: $blue;
+}
+
+.MoreButtons {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    button {
+        height: 41px;
+        background: none;
+        border: none;
+        color: $blue;
+        font-weight: 700;
+        font-size: 14px;
+    }
+}

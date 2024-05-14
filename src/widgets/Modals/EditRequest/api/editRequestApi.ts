@@ -5,16 +5,16 @@ import { IRequest } from "../types/types";
 import { ChangeEvent } from "react";
 
 interface IFile {
-    id?: number
-    file: string
-    application: number
-    file_name?: string
+    id?: number;
+    file: string;
+    application: number;
+    file_name?: string;
 }
 
 interface IFetch {
     requestState: IRequest;
     setRequestData: (request: IRequest) => void;
-    setFile: (file: IFile) => void
+    setFile: (file: IFile) => void;
     requestChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
     editRequest: () => void;
 }
@@ -39,7 +39,7 @@ export const editRequestApi = create<IFetch>((set, get) => ({
         deadline_date: "",
         main_client: "",
         main_manager: "",
-        files: []
+        files: [],
     },
     setRequestData: (request) => {
         set({
@@ -62,7 +62,7 @@ export const editRequestApi = create<IFetch>((set, get) => ({
                 start_date: request.start_date,
                 finish_date: request.finish_date,
                 deadline_date: request.deadline_date,
-                files: request.files
+                files: request.files,
             },
         });
     },
@@ -88,7 +88,11 @@ export const editRequestApi = create<IFetch>((set, get) => ({
         try {
             const requestState = get().requestState;
             console.log(requestState, "requestState");
-            const editResponse = await axios.put(`${BASE_URL}/applications/form_edit/${requestState.id}/`, requestState, authToken);
+            const editResponse = await axios.put(
+                `${BASE_URL}/applications/form_edit/${requestState.id}/`,
+                requestState,
+                authToken,
+            );
             console.log(editResponse, "editRequestSuccess");
         } catch (error) {
             console.log(error, "editRequestError");

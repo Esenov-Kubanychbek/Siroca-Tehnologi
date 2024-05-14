@@ -1,82 +1,107 @@
-import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
 import styles from "./CreateSubTask.module.scss";
-import { CloseSquare } from "iconsax-react";
-import { usersRoleTypeApi } from "../../../../widgets/Modals/EditRequest/api/usersRoleTypeApi";
-import { CustomButton, CustomInput } from "../../../../shared/ui";
-import { CustomSelect } from "../../../../widgets/Modals/CreateCompany/ui/CustomSelect";
-import { checkListApi } from "../../api/checkListApi";
-import { getOneRequestApi } from "../../../../widgets/Modals/ViewRequest/api/getOneRequestApi";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { usersRoleTypeApi } from "@/widgets/Modals/EditRequest/api/usersRoleTypeApi";
+import { CustomButton } from "@/shared/ui";
+import { ISubtask, checkListApi } from "../../api/checkListApi";
+import { ProfileTick } from "iconsax-react";
+import { CreateSubtaskModals } from "./ui/CreateSubtaskModals";
+import { getOneRequestApi } from "@/widgets/Modals/ViewRequest/api/getOneRequestApi";
 
-export const CreateSubTask: FC<{ main_manager: string | undefined,setDisplay: Dispatch<SetStateAction<boolean>>, checklistId: number | undefined }> = ({ setDisplay, checklistId, main_manager }) => {
-    const fetchRoleType = usersRoleTypeApi();
-    const subtaskCreate = checkListApi()
-    const [inputDatas, setInputDatas] = useState({
-        compited: false,
-        task: "",
-        date: "",
-        manager: fetchRoleType.managersList[0]
-    })
+interface ICreateSubTask {
+    subtask?: ISubtask;
+    forWhat: "create" | "edit";
+    setDisplay: Dispatch<SetStateAction<boolean>>;
+    checklistId: number;
+}
 
-    const onChangeInput = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setInputDatas((prev) => ({
-            ...prev, 
-            [event.target.id]: event.target.value
-        }))
-    }
-    const {oneRequest, getOneRequest} = getOneRequestApi()
-    const add = () => {
-        const obj = {
-            text: inputDatas.task,
-            deadline: inputDatas.date,
-            manager: main_manager,
-            checklist: checklistId,
-            completed: inputDatas.compited
+export const CreateSubTask: FC<ICreateSubTask> = (props) => {
+    const { setDisplay, checklistId, subtask, forWhat } = props;
+    const { managersList } = usersRoleTypeApi();
+    const { oneSubtask, setOneSubtask, oneSubtaskChange, createSubTask, editSubtask } = checkListApi();
+    const { setSubtaskToOneRequest, editSubtaskInOneRequest } = getOneRequestApi();
+    const [userModal, setUserModal] = useState<boolean>(false);
+    const [managerModal, setManagerModal] = useState<boolean>(false);
+    const createFunc = () => {
+        if (forWhat === "edit") {
+            editSubtask();
+            editSubtaskInOneRequest(oneSubtask);
+            setDisplay(false);
+        } else {
+            createSubTask();
         }
-        subtaskCreate.createSubTask(obj)
-        const id = oneRequest.id
-        getOneRequest(id)
-    }
+    };
+    useEffect(() => {
+        if (forWhat === "create") {
+            setOneSubtask({
+                text: "",
+                completed: false,
+                checklist: checklistId,
+                manager: managersList[0],
+                deadline: "2021-02-21",
+            });
+        } else if (forWhat === "edit" && subtask?.text !== "") {
+            subtask && setOneSubtask(subtask);
+        } else if (forWhat === "edit" && oneSubtask.text === "") {
+            setDisplay(false);
+        }
+    }, []);
+    useEffect(() => {
+        if (forWhat === "create" && Number(oneSubtask.id) > 0) {
+            setSubtaskToOneRequest(oneSubtask);
+        }
+    }, [oneSubtask.id]);
     return (
         <div className={styles.CreateSubTask}>
-            <div className={styles.InputRelative}>
-                <CustomInput
-                    id="task"
-                    name="text"
-                    width={553}
-                    placeholder="Подзадача..."
-                    paddingLeft={52}
-                    change={onChangeInput}
-                />
-                <CloseSquare
-                    onClick={() => setDisplay(false)}
-                    className={styles.CloseSquare}
-                    cursor={"pointer"}
-                />
-            </div>
-            <div className={styles.CheckDesc}>
+            <input
+                className={styles.TextInput}
+                type="text"
+                value={oneSubtask.text || ""}
+                placeholder="Добавить подзадачу..."
+                onChange={oneSubtaskChange}
+                name="text"
+            />
+            <div className={styles.Bottom}>
                 <CustomButton
-                    type="button"
                     variant="Primary"
                     width={130}
-                    text="Добавить"
-                    onClick={add}
+                    text={forWhat === "create" ? "Добавить" : "Сохранить"}
+                    onClick={createFunc}
                 />
-                <CustomSelect
-                    value={inputDatas.manager}
-                    id="manager"
-                    name="manager"
-                    text="Назначить..."
-                    dataOption={fetchRoleType.managersList}
-                    width={330}
-                    change={onChangeInput}
+                <CustomButton
+                    variant="Secondary"
+                    width={94}
+                    text="Отмена"
+                    onClick={() => {
+                        setDisplay(false);
+                    }}
                 />
+                <button
+                    className={styles.AddManager}
+                    onClick={() => setManagerModal(true)}
+                >
+                    <ProfileTick />
+                    Назначить
+                </button>
+                <button
+                    className={styles.AddUser}
+                    onClick={() => setUserModal(true)}
+                >
+                    @
+                </button>
                 <input
                     type="date"
-                    id="date"
                     name="deadline"
-                    onChange={onChangeInput}
+                    className={styles.Date}
+                    value={oneSubtask.deadline || ""}
+                    onChange={oneSubtaskChange}
                 />
             </div>
+            <CreateSubtaskModals
+                managerModal={managerModal}
+                setManagerModal={setManagerModal}
+                userModal={userModal}
+                setUserModal={setUserModal}
+            />
         </div>
     );
 };

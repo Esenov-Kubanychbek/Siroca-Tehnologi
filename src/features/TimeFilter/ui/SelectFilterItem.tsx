@@ -39,42 +39,42 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
             style={{ left: `${el.pos}px` }}
         >
             <div className={styles.elCont}>
-              {el.values && //checking if values is already true
-                el.values.map((elem: string | number | boolean, index) => {
-                    const displayedText = String(elem).length > 10 ? String(elem).substring(0, 10) + "..." : elem;
-                    if (el.selected.includes(elem) || elem === "null" || elem === "undefined") {
-                        return;
-                    } else {
-                        return (
-                            <div
-                                className={styles.Cont}
-                                key={`${el.type}-${index}`}
-                            >
-                                <input
-                                    type="checkbox"
-                                    onClick={addSelect}
-                                    className={el.type}
-                                    id={`${elem}`}
-                                />
-                                <label
-                                    htmlFor={String(elem)}
-                                    onClick={addSelect}
-                                    className={el.type}
+                {el.values && //checking if values is already true
+                    el.values.map((elem: string | number | boolean, index) => {
+                        const displayedText = String(elem).length > 10 ? String(elem).substring(0, 10) + "..." : elem;
+                        if (el.selected.includes(elem) || elem === "null" || elem === "undefined") {
+                            return;
+                        } else {
+                            return (
+                                <div
+                                    className={styles.Cont}
+                                    key={`${el.type}-${index}`}
                                 >
-                                    {displayedText}
-                                </label>
-                            </div>
-                        );
-                    }
-                })}  
+                                    <input
+                                        type="checkbox"
+                                        onClick={addSelect}
+                                        className={el.type}
+                                        id={`${elem}`}
+                                    />
+                                    <label
+                                        htmlFor={String(elem)}
+                                        onClick={addSelect}
+                                        className={el.type}
+                                    >
+                                        {displayedText}
+                                    </label>
+                                </div>
+                            );
+                        }
+                    })}
             </div>
-            
-                <button
-                    className={styles.add}
-                    onClick={onUseSelects}
-                >
-                    Применить
-                </button>
+
+            <button
+                className={styles.add}
+                onClick={onUseSelects}
+            >
+                Применить
+            </button>
         </div>
     );
 };
