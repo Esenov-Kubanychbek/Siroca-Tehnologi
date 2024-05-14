@@ -52,27 +52,23 @@ export const EditUser: FC<IEditUserModal> = (props) => {
             console.log("trimUserError");
         }
     };
+
     const deleteUser = () => {
         deleting.deleteUser(fetchData.oneUserGet.id);
         setModal(false);
         setModalSuccess(true);
         setTimeout(() => setModalSuccess(false), 1000);
     };
+
     useEffect(() => {
         setEditState(fetchData.oneUserGet);
     }, [fetchData.oneUserGet]);
+
     return (
-        <form
-            className={styles.EditUser}
-            onSubmit={postTrim}
-        >
+        <form className={styles.EditUser} onSubmit={postTrim}>
             <div className={styles.Top}>
                 <div className={styles.TextTop}>Редактирование</div>
-                <CloseSquare
-                    cursor={"pointer"}
-                    size={34}
-                    onClick={() => setModal(false)}
-                />
+                <CloseSquare cursor={"pointer"} size={34} onClick={() => setModal(false)} />
             </div>
             <div className={styles.Description}>
                 <EditImage
@@ -222,12 +218,7 @@ export const EditUser: FC<IEditUserModal> = (props) => {
                     text="Отменить"
                     onClick={() => setModal(false)}
                 />
-                <CustomButton
-                    variant="Primary"
-                    width={150}
-                    text="Сохранить"
-                    type="submit"
-                />
+                <CustomButton variant="Primary" width={150} text="Сохранить" type="submit" />
             </div>
             <Modals
                 jobTitleModal={jobTitleModal}

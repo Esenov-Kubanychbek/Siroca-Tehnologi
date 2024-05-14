@@ -1,20 +1,24 @@
-import { CloseSquare } from "iconsax-react";
-import { ChangeEvent, FC, useState } from "react";
-import styles from "./AddManager.module.scss";
-import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
-import { IUserGet } from "../../../shared/types/userTypes";
-import { CustomButton } from "../../../shared/ui";
-import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
-import { IAddManagerModal } from "./types/types";
-
-export const AddManager: FC<IAddManagerModal> = (props) => {
-    const { setModal } = props;
+import { CloseSquare } from "iconsax-react"
+import { ChangeEvent, FC, useEffect, useState } from "react"
+import styles from './AddManager.module.scss'
+import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi"
+import { IUserGet } from "../../../shared/types/userTypes"
+import { CustomButton } from "../../../shared/ui"
+import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies"
+interface types {
+    type: string,
+    addNewChangeManager?: (id: number) => void,
+    closeModal: () => void,
+}
+export const AddManager: FC<types> = ({ type, addNewChangeManager, closeModal }) => {
     const { users } = useDataStoreComponies();
     const managers = users.filter((array) => array.role_type === "manager");
     const [filteredManager, setFilteredManager] = useState<IUserGet[]>();
     const [inputValue, setInputValue] = useState<string>("");
     const { addManager } = useDataInputCompaniesStore();
     const [err, setErr] = useState<boolean>(false);
+    const [object, setObject] = useState<IUserGet>();
+    const [text, setText] = useState<string>('');
 
     const filterManager = (text: string) => {
         const filtered = managers.filter((manager) => {
@@ -28,22 +32,29 @@ export const AddManager: FC<IAddManagerModal> = (props) => {
     const searchManagerChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setInputValue(value);
+        setText(value);
         const filter = filterManager(value);
         setFilteredManager(filter);
         setErr(false);
     };
 
     const addManagers = () => {
-        console.log(inputValue);
 
         managers?.some((array) => {
-            if (inputValue === array.first_name) {
-                if (filteredManager?.length === 1) {
+            if (text === array.first_name) {
+                if (filteredManager) {
                     setErr(false);
-                    filteredManager.map((array) => {
-                        addManager(array.id);
+                    filteredManager.map(array => {
+                        if (type === 'created') {
+                            addManager(array.id);
+                            closeModal();
+                        }
+                        if (type === 'changes') {
+                            array.id !== undefined && addNewChangeManager !== undefined && addNewChangeManager(array.id)
+                            closeModal();
+                            
+                        }
                     });
-                    setModal(false);
                     setInputValue("");
                 }
                 return true;
@@ -52,20 +63,26 @@ export const AddManager: FC<IAddManagerModal> = (props) => {
             }
         });
     };
+
+    useEffect(() => {
+        if (object) {
+            setInputValue('');
+        }
+    }, [object])
     return (
         <div className={styles.AddManager}>
-            <CloseSquare
-                className={styles.close}
-                cursor={"pointer"}
-                onClick={() => setModal(false)}
-            />
+            <CloseSquare className={styles.close} onClick={() => {
+                closeModal();
+                setInputValue('')
+            }} />
+
             <div className={styles.addContainer}>
                 <p className={styles.head}>Добавить менеджера</p>
 
                 <div className={styles.searchManager}>
                     <input
                         onChange={searchManagerChange}
-                        value={inputValue}
+                        value={text}
                         type="text"
                         className={styles.searchManagers}
                         name="searchManager"
@@ -81,6 +98,8 @@ export const AddManager: FC<IAddManagerModal> = (props) => {
                                     key={manager.id}
                                     onClick={() => {
                                         setInputValue(manager.first_name);
+                                        setObject(manager);
+                                        setText(manager.first_name)
                                     }}
                                 >
                                     {manager.first_name}
@@ -102,7 +121,10 @@ export const AddManager: FC<IAddManagerModal> = (props) => {
                     variant="Secondary"
                     width={150}
                     text="Отмена"
-                    onClick={() => setModal(false)}
+                    onClick={() => {
+                        closeModal();
+                        setInputValue('')
+                    }}
                 />
                 <CustomButton
                     variant="Primary"

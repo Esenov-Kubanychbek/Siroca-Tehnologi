@@ -10,7 +10,7 @@ export const WorkPage: FC = () => {
     const { fetchDatas } = useDataStoreComponies();
     useEffect(() => {
         getJobTitleList();
-        fetchDatas();
+        fetchDatas(1);
     }, []);
     return (
         <div className={styles.WorkPage}>
