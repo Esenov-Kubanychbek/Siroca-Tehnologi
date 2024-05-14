@@ -34,7 +34,6 @@ interface IChecklistApi {
     setOneSubtask: (subtask: ISubtask) => void;
     addManagerToOneSubtask: (manager: string) => void;
     oneSubtaskChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    createSubTask: () => void;
     setSubtaskCompleted: (subtask: ISubtask) => void;
     editSubtask: () => void;
     deleteSubtask: (id?: number) => void;
@@ -65,16 +64,6 @@ export const checkListApi = create<IChecklistApi>((set, get) => ({
         }));
         const oneSubtask = get().oneSubtask;
         console.log(oneSubtask, "changing");
-    },
-    createSubTask: async () => {
-        try {
-            const oneSubtask = get().oneSubtask;
-            const response = await axios.post(`${BASE_URL}/applications/subtask/`, oneSubtask, authToken);
-            set({ oneSubtask: response.data });
-            console.log(response, "createSubtaskSuccess");
-        } catch (error) {
-            console.log(error, "createSubtaskError");
-        }
     },
     setSubtaskCompleted: async (subtask) => {
         const completedSubtask = {

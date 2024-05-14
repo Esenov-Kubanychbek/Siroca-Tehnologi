@@ -57,19 +57,3 @@
         }
     }
 }
-
-.MoreButtons {
-    width: 170px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .Button {
-        height: 41px;
-        background: none;
-        border: none;
-        color: $blue;
-        font-weight: 700;
-        font-size: 14px;
-    }
-}

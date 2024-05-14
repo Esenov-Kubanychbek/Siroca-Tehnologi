@@ -1,25 +1,25 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL, authToken } from "../../../../shared/variables/variables";
+import { BASE_URL, authToken } from "@/shared/variables/variables";
 import { ChangeEvent } from "react";
 
-interface IObject {
-    id?: number | undefined;
+interface IJobTitle {
+    id?: number;
     title: string;
 }
 
-interface IJobTitle {
-    jobTitleList: IObject[];
-    searchList: IObject[];
-    oneJobTitle: IObject;
+interface IJobTitleApi {
+    jobTitleList: IJobTitle[];
+    searchList: IJobTitle[];
+    oneJobTitle: IJobTitle;
     setJobTitle: (e: ChangeEvent<HTMLInputElement>) => void;
     getJobTitleList: () => void;
-    setSearchList: (searchState: IObject[]) => void;
+    setSearchList: (searchState: IJobTitle[]) => void;
     postJobTitle: (postState: { title: string }) => void;
     deleteJobTitle: (id: number) => void;
 }
 
-export const jobTitleApi = create<IJobTitle>((set, get) => ({
+export const jobTitleApi = create<IJobTitleApi>((set, get) => ({
     jobTitleList: [],
     oneJobTitle: {
         title: "",
@@ -48,13 +48,12 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
     },
     postJobTitle: async (postState) => {
         try {
-            const postResponse = await axios.post(`${BASE_URL}/company/create_job-title/`, postState, authToken);
-            console.log(postResponse, "postJobTitleSuccess");
-            set({
-                oneJobTitle: {
-                    title: "",
-                },
-            });
+            const response = await axios.post(`${BASE_URL}/company/create_job-title/`, postState, authToken);
+            console.log(response, "postJobTitleSuccess");
+            set((prevState) => ({
+                jobTitleList: [...prevState.jobTitleList, response.data],
+                oneJobTitle: { title: "" },
+            }));
         } catch (error) {
             console.log(error, "postJobTitleError");
         }
@@ -62,13 +61,8 @@ export const jobTitleApi = create<IJobTitle>((set, get) => ({
     deleteJobTitle: async (id) => {
         try {
             const deleteResponse = await axios.delete(`${BASE_URL}/company/delete_job-title/${id}/`, authToken);
-            const oldList = get().jobTitleList;
-            oldList.map((card, i) => {
-                if (card.id === id) {
-                    const secondList = oldList.slice(0, i).concat(oldList.slice(i + 1));
-                    set({ jobTitleList: secondList });
-                }
-            });
+            const newJobTitlesList = get().jobTitleList.filter((jobTitle) => jobTitle.id !== id);
+            set({ jobTitleList: newJobTitlesList, searchList: newJobTitlesList });
             console.log(deleteResponse, "deleteJobTitleSuccess");
         } catch (error) {
             console.log(error, "deleteJobTitleError");
