@@ -28,8 +28,7 @@ export const AdminPage: FC = () => {
             <Dashboard />
             <header className={styles.Inner}>
                 <HeaderTop role="admin" />
-                <HeaderBottom role="admin" />sdvnklsdnvkl
-
+                <HeaderBottom role="admin" />
             </header>
         </div>
     );
