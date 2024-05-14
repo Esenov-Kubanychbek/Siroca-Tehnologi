@@ -18,8 +18,8 @@ export const usersApi = create<IFetch>((set) => ({
     usersList: [],
     oneUser: {
         first_name: "",
-        job_title: 3,
-        main_company: 3,
+        job_title: "",
+        main_company: "",
         password: "",
         role_type: "",
         surname: "",
@@ -47,7 +47,7 @@ export const usersApi = create<IFetch>((set) => ({
     setSearchList: async (searchState) => {
         try {
             const response = await axios.get(`${BASE_URL}/users/profiles/?search=${searchState}`, authToken);
-            set({ usersList: response.data });
+            set({ usersList: response.data.data });
         } catch (error) {
             console.log(error, "getUsersListError");
         }

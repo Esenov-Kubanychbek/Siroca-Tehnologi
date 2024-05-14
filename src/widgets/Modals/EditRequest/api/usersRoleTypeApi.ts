@@ -12,15 +12,19 @@ export const usersRoleTypeApi = create<IFetch>((set) => ({
     clientList: [],
     managersList: [],
     setClients: (result) => {
-        const clientsFiltered = result.filter((client) => client.role_type === "client");
-        const clientsName = clientsFiltered.map((client) => client.username);
-        set({ clientList: clientsName });
+        if (Array.isArray(result) && result.length > 0) {
+            const clientsFiltered = result.filter((client) => client.role_type === "client");
+            const clientsName = clientsFiltered.map((client) => client.username);
+            set({ clientList: clientsName });
+        }
     },
     setManagers: (result) => {
-        const managersFiltered = result.filter(
-            (manager) => manager.role_type === "manager" || manager.role_type === "",
-        );
-        const managersName = managersFiltered.map((manager) => manager.username);
-        set({ managersList: managersName });
+        if (Array.isArray(result) && result.length > 0) {
+            const managersFiltered = result.filter(
+                (manager) => manager.role_type === "manager" || manager.role_type === "",
+            );
+            const managersName = managersFiltered.map((manager) => manager.username);
+            set({ managersList: managersName });
+        }
     },
 }));
