@@ -4,9 +4,15 @@ import { NotifButton } from "../../HeaderTop/ui/NotifButton/NotifButton";
 import styles from "./Administration.module.scss";
 import { FC, useState } from "react";
 import { NotifModal } from "../../Modals/NotifModal/NotifModal";
+import { ProfileModal } from "../../Modals/ProfileModal/ProfileModal";
 
 export const Administration: FC = () => {
     const [notifOpen, setNotifOpen] = useState<boolean>(false);
+    const [modal, setModal] = useState<boolean>(false);
+
+    const handleOpenChange = (modals: boolean) => {
+        setModal(modals);
+    };
     return (
         <div className={styles.Administration}>
             <div className={styles.HeaderTop}>
@@ -25,7 +31,18 @@ export const Administration: FC = () => {
                             <NotifButton />
                         </>
                     </Popover>
-                    <ProfileButton />
+                    <Popover
+                        placement="bottomRight"
+                        content={<ProfileModal setModal={setModal} />}
+                        trigger={"click"}
+                        open={modal}
+                        
+                        onOpenChange={handleOpenChange}
+                    >
+                        <>
+                            <ProfileButton />
+                        </>
+                    </Popover>
                 </div>
             </div>
             <AdminNavigate />

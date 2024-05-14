@@ -58,6 +58,10 @@
                 border: none;
                 background: none;
                 text-align: left;
+                background-color: rgba(244, 244, 244, 1);
+                height: 32px;
+                padding: 0 24px;
+                border-radius: 8px;
             }
         }
     }
@@ -76,4 +80,17 @@
             border-radius: 8px;
         }
     }
+    input[type="file"] {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+    }
+    input[type="file"]::-webkit-file-upload-button {
+        background-color: rgba(0, 255, 255, 0);
+        width: 100px;
+        height: 100px;
+        border-radius: 21px;
+        color: rgba(255, 0, 0, 0);
+    }
+    
 }

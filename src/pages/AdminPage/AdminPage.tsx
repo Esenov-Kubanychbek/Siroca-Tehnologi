@@ -12,11 +12,12 @@ export const AdminPage: FC = () => {
     const fetchJobTitle = jobTitleApi();
     const fetchCompanies = useDataStoreComponies();
     const fetchRoleTypes = usersRoleTypeApi();
+
     useEffect(() => {
         fetchUsers.getOneUser(Number(id));
         fetchUsers.getUsersList(1);
         fetchJobTitle.getJobTitleList();
-        fetchCompanies.fetchDatas();
+        fetchCompanies.fetchDatas(1);
     }, []);
     useEffect(() => {
         fetchRoleTypes.setClients(fetchUsers.usersList);
