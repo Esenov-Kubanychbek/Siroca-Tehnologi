@@ -1,6 +1,7 @@
 import { Modal } from "antd";
 import { Dispatch, FC, SetStateAction } from "react";
 import { ManagerForSubtask, UserForSubtask } from "../../../../../widgets";
+import { allManagersListApi } from "@/widgets/Modals/ManagerForSubtask/api/allManagersListApi";
 
 interface ICreateSubTaskModals {
     managerModal: boolean;
@@ -11,12 +12,17 @@ interface ICreateSubTaskModals {
 
 export const CreateSubtaskModals: FC<ICreateSubTaskModals> = (props) => {
     const { managerModal, setManagerModal, userModal, setUserModal } = props;
+    const {setManagerState} = allManagersListApi()
+    const closeManagerModal = () => {
+        setManagerModal(false)
+        setManagerState("")
+    }
     return (
         <>
             <Modal
                 centered
                 open={managerModal}
-                onCancel={() => setManagerModal(false)}
+                onCancel={closeManagerModal}
             >
                 <ManagerForSubtask setManagerModal={setManagerModal} />
             </Modal>

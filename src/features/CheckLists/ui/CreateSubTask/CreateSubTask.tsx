@@ -1,11 +1,11 @@
 import styles from "./CreateSubTask.module.scss";
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
-import { usersRoleTypeApi } from "@/widgets/Modals/EditRequest/api/usersRoleTypeApi";
 import { CustomButton } from "@/shared/ui";
 import { ISubtask, checkListApi } from "../../api/checkListApi";
 import { ProfileTick } from "iconsax-react";
 import { CreateSubtaskModals } from "./ui/CreateSubtaskModals";
 import { getOneRequestApi } from "@/widgets/Modals/ViewRequest/api/getOneRequestApi";
+import { createSubtaskApi } from "../../api/createSubtaskApi";
 
 interface ICreateSubTask {
     subtask?: ISubtask;
@@ -16,8 +16,8 @@ interface ICreateSubTask {
 
 export const CreateSubTask: FC<ICreateSubTask> = (props) => {
     const { setDisplay, checklistId, subtask, forWhat } = props;
-    const { managersList } = usersRoleTypeApi();
-    const { oneSubtask, setOneSubtask, oneSubtaskChange, createSubTask, editSubtask } = checkListApi();
+    const { oneSubtask, setOneSubtask, oneSubtaskChange, editSubtask } = checkListApi();
+    const { createSubtaskState, setCreateSubtaskState, createSubtaskChange, createSubTask } = createSubtaskApi();
     const { setSubtaskToOneRequest, editSubtaskInOneRequest } = getOneRequestApi();
     const [userModal, setUserModal] = useState<boolean>(false);
     const [managerModal, setManagerModal] = useState<boolean>(false);
@@ -32,11 +32,11 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
     };
     useEffect(() => {
         if (forWhat === "create") {
-            setOneSubtask({
+            setCreateSubtaskState({
                 text: "",
                 completed: false,
                 checklist: checklistId,
-                manager: managersList[0],
+                manager: "",
                 deadline: "2021-02-21",
             });
         } else if (forWhat === "edit" && subtask?.text !== "") {
@@ -46,18 +46,18 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
         }
     }, []);
     useEffect(() => {
-        if (forWhat === "create" && Number(oneSubtask.id) > 0) {
-            setSubtaskToOneRequest(oneSubtask);
+        if (forWhat === "create") {
+            setSubtaskToOneRequest(createSubtaskState);
         }
-    }, [oneSubtask.id]);
+    }, [createSubtaskState.id]);
     return (
         <div className={styles.CreateSubTask}>
             <input
                 className={styles.TextInput}
                 type="text"
-                value={oneSubtask.text || ""}
+                value={forWhat === "create" ? createSubtaskState.text : oneSubtask.text}
                 placeholder="Добавить подзадачу..."
-                onChange={oneSubtaskChange}
+                onChange={forWhat === "create" ? createSubtaskChange : oneSubtaskChange}
                 name="text"
             />
             <div className={styles.Bottom}>
@@ -71,9 +71,7 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
                     variant="Secondary"
                     width={94}
                     text="Отмена"
-                    onClick={() => {
-                        setDisplay(false);
-                    }}
+                    onClick={() => setDisplay(false)}
                 />
                 <button
                     className={styles.AddManager}

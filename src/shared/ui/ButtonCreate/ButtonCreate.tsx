@@ -8,6 +8,7 @@ export const ButtonCreate: FC<{
 }> = ({ name, onClick }) => {
     return (
         <button
+            type="button"
             onClick={onClick}
             className={styles.ButtonCreate}
         >
