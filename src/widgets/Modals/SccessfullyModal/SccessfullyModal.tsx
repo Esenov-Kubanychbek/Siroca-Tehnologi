@@ -13,7 +13,6 @@ interface text {
 export const SccessfullyModal: FC<text> = ({ texts, modalScc, closeModal, style }) => {
     const [displey, setDispley] = useState<string>('none');
     const [bool, setBool] = useState<boolean>(false)
-    console.log(displey);
 
     useEffect(() => {
 
