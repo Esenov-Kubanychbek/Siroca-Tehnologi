@@ -10,6 +10,7 @@ interface ILog {
     new: string;
     user: string;
     task_number: string;
+    user_id: number;
 }
 
 interface ISubtask {

@@ -69,10 +69,12 @@ export const RequestList: FC<IRequest> = ({ role, api }) => {
                     count={reqCount}
                 />
             ) : null}
-            <ItemCount
+            
+              <ItemCount
                 count={reqCount}
                 page={page}
-            />
+            />  
+            
 
             <Modal
                 centered

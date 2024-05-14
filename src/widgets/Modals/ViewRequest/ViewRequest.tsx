@@ -71,7 +71,7 @@ export const ViewRequest: FC<IViewRequestModal> = (props) => {
                 open={viewLogs}
                 onCancel={() => setViewLogs(false)}
             >
-                <ViewLogs />
+                <ViewLogs setViewLogs={setViewLogs}/>
             </Modal>
         </div>
     );

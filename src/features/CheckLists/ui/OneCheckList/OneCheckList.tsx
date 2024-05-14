@@ -14,13 +14,11 @@ export const OneCheckList: FC<IOneCheckList> = (props) => {
     const {oneRequest, getOneRequest} = getOneRequestApi()
     const {deleteCheckList} = deleteCheckListApi()
     const [isCheked, setIsChecked] = useState<(boolean)[]>([])
-    const [complitedCList, setComplitedList] = useState<boolean>(false)
+   
     const {setComplited, setSubCompleted} = checkListApi()
-    
-    const deleteFunc = () => {
-        getOneRequest(oneRequest.id)
-        deleteCheckList(checkList.id)
-    }
+
+
+    const [complitedCList, setComplitedList] = useState<boolean>(false)
     const beetwinComplited = () => {
         const filtered = checkList.subtasks ? checkList.subtasks.map((el) => {
            return el.completed ? el.completed : false
@@ -28,6 +26,12 @@ export const OneCheckList: FC<IOneCheckList> = (props) => {
         setComplitedList(checkList.completed ? checkList.completed : false)
         setIsChecked(filtered)
     }
+    
+    const deleteFunc = () => {
+        getOneRequest(oneRequest.id)
+        deleteCheckList(checkList.id)
+    }
+    
 
     const setComplit = (event: {i: number, id: number | undefined}) => {
         setSubCompleted({id: event.id, obj: {completed: !isCheked[event.i]}})
@@ -36,6 +40,7 @@ export const OneCheckList: FC<IOneCheckList> = (props) => {
         setIsChecked(timeState)
         console.log(isCheked[event.i]);
     }
+
     const setChecklistComplited = () => {
         const timeState = [...isCheked]
         setComplited({id: checkList.id, obj: {completed: !complitedCList}})
@@ -43,13 +48,12 @@ export const OneCheckList: FC<IOneCheckList> = (props) => {
         for (let index = 0; index < timeState.length; index++) {
             timeState[index] = !complitedCList
         }
-        setIsChecked(timeState)
-        
+        setIsChecked(timeState)   
     }
 
     useEffect(() => {
         beetwinComplited()
-    }, [])
+    }, [checkList])
     useEffect(() => {
         console.log(complitedCList);
     }, [complitedCList])
@@ -59,7 +63,7 @@ export const OneCheckList: FC<IOneCheckList> = (props) => {
         <div className={styles.SubTaskList}>
             <div className={styles.Header}>
                 <div className={styles.HeaderLeft}>
-                    <input type="checkbox" checked={complitedCList} onClick={setChecklistComplited}/>
+                    <input readOnly type="checkbox" checked={complitedCList} onChange={setChecklistComplited}/>
                     {checkList.name}
                 </div>
                 <button onClick={deleteFunc}>Удалить</button>
@@ -70,7 +74,7 @@ export const OneCheckList: FC<IOneCheckList> = (props) => {
                     key={i}
                 >
                     <div className={styles.Left}>
-                        <input type="checkbox" checked={isCheked[i]} onClick={() => setComplit({i: i, id: card.id})}/>
+                        <input readOnly type="checkbox" checked={isCheked[i]} onChange={() => setComplit({i: i, id: card.id})}/>
                         <p>{card.text}</p>
                     </div>
                     <div className={styles.Right}>
