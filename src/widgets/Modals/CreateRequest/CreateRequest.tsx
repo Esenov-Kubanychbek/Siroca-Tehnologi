@@ -87,7 +87,7 @@ export const CreateRequest: FC<ICreateRequestModal> = (props) => {
                             value={oneRequest.company}
                             style={{
                                 border:
-                                    hasCompany || added.company
+                                    hasCompany || oneRequest.company === ""
                                         ? hasCompany
                                             ? "2px solid #00A91B"
                                             : "none"
@@ -120,13 +120,13 @@ export const CreateRequest: FC<ICreateRequestModal> = (props) => {
                         type="button"
                         onClick={() => setModal(false)}
                         variant="Without"
-                        width={150}
-                        text="Отменить"
+                        width={144}
+                        text="Отмена"
                     />
                     <CustomButton
                         type="submit"
                         variant="Primary"
-                        width={150}
+                        width={144}
                         text="Создать"
                     />
                 </div>

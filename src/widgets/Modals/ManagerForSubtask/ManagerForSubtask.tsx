@@ -5,14 +5,17 @@ import { CustomButton } from "@/shared/ui";
 import { usersApi } from "@/widgets/Admin/Users/api/usersApi";
 import { allManagersListApi } from "./api/allManagersListApi";
 import { checkListApi } from "@/features/CheckLists/api/checkListApi";
+import { createSubtaskApi } from "@/features/CheckLists/api/createSubtaskApi";
 
 interface IManagerForSubtask {
+    forWhat: "createSubtask" | "editSubtask";
     setManagerModal: Dispatch<SetStateAction<boolean>>;
 }
 
 export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
+    const { setManagerModal, forWhat } = props;
     const [chosen, setChosen] = useState<boolean>(false);
-    const { setManagerModal } = props;
+    const { addManagerToCreateSubtask } = createSubtaskApi();
     const { addManagerToOneSubtask } = checkListApi();
     const { usersList, setSearchList } = usersApi();
     const { managerState, setManagerState, managerExists, setManagerExists, searchManagersList, filterManagers } =
@@ -33,7 +36,11 @@ export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
     };
     const closeFunc = () => {
         if (managerExists === true) {
-            addManagerToOneSubtask(managerState);
+            if (forWhat === "createSubtask") {
+                addManagerToCreateSubtask(managerState);
+            } else if (forWhat === "editSubtask") {
+                addManagerToOneSubtask(managerState);
+            }
             setManagerState("");
             filterManagers([], "");
             setManagerModal(false);

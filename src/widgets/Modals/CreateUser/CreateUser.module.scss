@@ -60,9 +60,23 @@
     gap: 6px;
 }
 
+.PasswordInput {
+    position: relative;
+    input {
+        padding-right: 55px;
+    }
+    svg {
+        cursor: pointer;
+        position: absolute;
+        top: 16px;
+        right: 24px;
+    }
+}
+
 .Input {
     position: relative;
     input {
+        box-sizing: border-box;
         padding-right: 25px;
         padding-left: 25px;
         color: $black5c;
@@ -74,9 +88,7 @@
         display: flex;
         align-items: center;
         font-weight: 700;
-    }
-    input:focus {
-        border: none;
+        outline: none;
     }
     svg {
         position: absolute;
@@ -92,15 +104,16 @@
 }
 
 .MustTrim {
+    height: 40px;
     width: 100%;
     p {
+        width: 400px;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 8px;
         background-color: $blackf4;
-        width: 400px;
-        height: 40px;
         font-size: 16px;
         font-weight: 500;
         color: #e51616;
@@ -114,10 +127,8 @@
 }
 
 .NotExist {
+    width: 277px;
     font-size: 14px;
     font-weight: 700;
-    border-radius: 8px;
-    background-color: $blackf4;
-    padding: 10px 5px;
     color: #e51616;
 }
