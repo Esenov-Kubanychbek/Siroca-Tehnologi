@@ -59,12 +59,12 @@ export const OneSubtask: FC<IOneSubtask> = (props) => {
                 centered
                 onCancel={() => setManagerModal(false)}
             >
-                <ManagerForSubtask setManagerModal={setManagerModal} />
+                <ManagerForSubtask forWhat="editSubtask" setManagerModal={setManagerModal} />
             </Modal>
         </div>
     ) : (
         <CreateSubTask
-            forWhat="edit"
+            forWhat="editSubtask"
             subtask={subtask}
             checklistId={Number(subtask.id)}
             setDisplay={setEditState}

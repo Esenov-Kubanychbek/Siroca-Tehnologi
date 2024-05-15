@@ -9,7 +9,7 @@ import { createSubtaskApi } from "../../api/createSubtaskApi";
 
 interface ICreateSubTask {
     subtask?: ISubtask;
-    forWhat: "create" | "edit";
+    forWhat: "createSubtask" | "editSubtask";
     setDisplay: Dispatch<SetStateAction<boolean>>;
     checklistId: number;
 }
@@ -22,7 +22,7 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
     const [userModal, setUserModal] = useState<boolean>(false);
     const [managerModal, setManagerModal] = useState<boolean>(false);
     const createFunc = () => {
-        if (forWhat === "edit") {
+        if (forWhat === "editSubtask") {
             editSubtask();
             editSubtaskInOneRequest(oneSubtask);
             setDisplay(false);
@@ -31,22 +31,22 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
         }
     };
     useEffect(() => {
-        if (forWhat === "create") {
+        if (forWhat === "createSubtask") {
             setCreateSubtaskState({
                 text: "",
                 completed: false,
                 checklist: checklistId,
                 manager: "",
-                deadline: "2021-02-21",
+                deadline: "",
             });
-        } else if (forWhat === "edit" && subtask?.text !== "") {
+        } else if (forWhat === "editSubtask" && subtask?.text !== "") {
             subtask && setOneSubtask(subtask);
-        } else if (forWhat === "edit" && oneSubtask.text === "") {
+        } else if (forWhat === "editSubtask" && oneSubtask.text === "") {
             setDisplay(false);
         }
     }, []);
     useEffect(() => {
-        if (forWhat === "create") {
+        if (forWhat === "createSubtask") {
             setSubtaskToOneRequest(createSubtaskState);
         }
     }, [createSubtaskState.id]);
@@ -55,16 +55,16 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
             <input
                 className={styles.TextInput}
                 type="text"
-                value={forWhat === "create" ? createSubtaskState.text : oneSubtask.text}
+                value={forWhat === "createSubtask" ? createSubtaskState.text : oneSubtask.text}
                 placeholder="Добавить подзадачу..."
-                onChange={forWhat === "create" ? createSubtaskChange : oneSubtaskChange}
+                onChange={forWhat === "createSubtask" ? createSubtaskChange : oneSubtaskChange}
                 name="text"
             />
             <div className={styles.Bottom}>
                 <CustomButton
                     variant="Primary"
                     width={130}
-                    text={forWhat === "create" ? "Добавить" : "Сохранить"}
+                    text={forWhat === "createSubtask" ? "Добавить" : "Сохранить"}
                     onClick={createFunc}
                 />
                 <CustomButton
@@ -78,7 +78,13 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
                     onClick={() => setManagerModal(true)}
                 >
                     <ProfileTick />
-                    Назначить
+                    {forWhat === "createSubtask"
+                        ? String(createSubtaskState.manager).length > 8
+                            ? `${createSubtaskState.manager?.slice(0, 8)}...`
+                            : "Назначить"
+                        : String(oneSubtask.manager).length > 8
+                          ? `${oneSubtask.manager?.slice(0, 8)}...`
+                          : "Назначить"}
                 </button>
                 <button
                     className={styles.AddUser}
@@ -95,6 +101,7 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
                 />
             </div>
             <CreateSubtaskModals
+                forWhat={forWhat}
                 managerModal={managerModal}
                 setManagerModal={setManagerModal}
                 userModal={userModal}

@@ -4,6 +4,7 @@ import { ManagerForSubtask, UserForSubtask } from "../../../../../widgets";
 import { allManagersListApi } from "@/widgets/Modals/ManagerForSubtask/api/allManagersListApi";
 
 interface ICreateSubTaskModals {
+    forWhat: "createSubtask" | "editSubtask"
     managerModal: boolean;
     setManagerModal: Dispatch<SetStateAction<boolean>>;
     userModal: boolean;
@@ -11,7 +12,7 @@ interface ICreateSubTaskModals {
 }
 
 export const CreateSubtaskModals: FC<ICreateSubTaskModals> = (props) => {
-    const { managerModal, setManagerModal, userModal, setUserModal } = props;
+    const { forWhat, managerModal, setManagerModal, userModal, setUserModal } = props;
     const {setManagerState} = allManagersListApi()
     const closeManagerModal = () => {
         setManagerModal(false)
@@ -24,7 +25,7 @@ export const CreateSubtaskModals: FC<ICreateSubTaskModals> = (props) => {
                 open={managerModal}
                 onCancel={closeManagerModal}
             >
-                <ManagerForSubtask setManagerModal={setManagerModal} />
+                <ManagerForSubtask forWhat={forWhat} setManagerModal={setManagerModal} />
             </Modal>
             <Modal
                 centered
