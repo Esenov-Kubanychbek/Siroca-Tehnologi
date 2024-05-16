@@ -96,8 +96,8 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
                     type="date"
                     name="deadline"
                     className={styles.Date}
-                    value={oneSubtask.deadline || ""}
-                    onChange={oneSubtaskChange}
+                    value={forWhat === "createSubtask" ? String(createSubtaskState.deadline) : String(oneSubtask.deadline)}
+                    onChange={forWhat === "createSubtask" ? createSubtaskChange : oneSubtaskChange}
                 />
             </div>
             <CreateSubtaskModals

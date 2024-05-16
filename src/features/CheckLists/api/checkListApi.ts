@@ -63,7 +63,7 @@ export const checkListApi = create<IChecklistApi>((set, get) => ({
             },
         }));
         const oneSubtask = get().oneSubtask;
-        console.log(oneSubtask, "changing");
+        console.log(oneSubtask, "oneSubtask is changing");
     },
     setSubtaskCompleted: async (subtask) => {
         const completedSubtask = {
