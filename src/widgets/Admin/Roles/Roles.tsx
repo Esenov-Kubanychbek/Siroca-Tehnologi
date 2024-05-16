@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL, PATHS } from "../../../shared/variables/variables";
+import { BASE_URL, PATHS, authToken } from "../../../shared/variables/variables";
 import RolesList from "./components/rolesMenu/RolesList";
 import styles from "./Roles.module.scss";
+import { CustomButton } from "../../../shared/ui";
 
 interface PermissionData {
     [key: string]: boolean;
 }
 
-interface IRoles {}
+interface IRoles { }
 
 export const Roles: React.FC<IRoles> = () => {
     const [boxesClient, setBoxesClient] = useState<PermissionData | undefined>();
@@ -27,16 +28,8 @@ export const Roles: React.FC<IRoles> = () => {
     //just get all roles general
     const get = async () => {
         try {
-            const responseClients = await axios.get(`${BASE_URL}/users/clientpermissions/general`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
-            const responseManeger = await axios.get(`${BASE_URL}/users/managerpermissions/general/`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
+            const responseClients = await axios.get(`${BASE_URL}/users/clientpermissions/general`, authToken);
+            const responseManeger = await axios.get(`${BASE_URL}/users/managerpermissions/general/`, authToken);
             setBoxesClient(responseClients.data);
             setBoxesManeger(responseManeger.data);
         } catch (error) {
@@ -75,16 +68,8 @@ export const Roles: React.FC<IRoles> = () => {
     //there im doing put req to save all changed roles
     const onSave = async () => {
         try {
-            const responseClient = await axios.put(`${BASE_URL}/users/clientpermissions/general/`, boxesClient, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
-            const responseManeger = await axios.put(`${BASE_URL}/users/managerpermissions/general/`, boxesManeger, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
+            const responseClient = await axios.put(`${BASE_URL}/users/clientpermissions/general/`, boxesClient, authToken);
+            const responseManeger = await axios.put(`${BASE_URL}/users/managerpermissions/general/`, boxesManeger, authToken);
             console.log(responseClient, responseManeger);
         } catch (error) {
             console.log(error);
@@ -96,13 +81,15 @@ export const Roles: React.FC<IRoles> = () => {
 
     return (
         <div className={styles.MenuCont}>
-            <div className={styles.ListBlock}>
+            <div className={styles.ListCont}>
+              <div className={styles.ListBlock}>
                 <RolesList
                     listType="Клиент"
                     list={ClientList}
                     box={boxesClient || null}
                     handleChangeBox={getCheckBoxVal}
                 />
+                <CustomButton variant="Primary" text="Сохранить" width={130} onClick={onSave} />
             </div>
             <div className={styles.ListBlock}>
                 <RolesList
@@ -111,13 +98,9 @@ export const Roles: React.FC<IRoles> = () => {
                     box={boxesManeger || null}
                     handleChangeBox={getCheckBoxVal}
                 />
+            </div>  
             </div>
-            <div className={styles.SettingsBtn}>
-                <button onClick={() => navigate(PATHS.rolessettings)}>Расширенные настройки</button>
-            </div>
-            <div className={styles.SettingsSave}>
-                <button onClick={onSave}>Сохранить</button>
-            </div>
+            <CustomButton variant="Primary" text="Расширенные настройки" width={261} onClick={() => navigate(PATHS.rolessettings)} />
         </div>
     );
 };

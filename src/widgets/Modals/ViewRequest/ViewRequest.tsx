@@ -43,7 +43,7 @@ export const ViewRequest: FC<IViewRequestModal> = ({ setView }) => {
                 open={viewLogs}
                 onCancel={() => setViewLogs(false)}
             >
-                <ViewLogs />
+                <ViewLogs setViewLogs={setViewLogs}/>
             </Modal>
             <Modal
                 width={732}
