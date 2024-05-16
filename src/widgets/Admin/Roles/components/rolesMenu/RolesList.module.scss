@@ -1,9 +1,17 @@
+@import "index.scss";
+
 .MenuCont {
     width: 450px;
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 16px;
+    margin-bottom: 34px;
+    @include lg{
+        width: 338px;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
     .HeaderPrg {
         p {
             color: var(---800, #252525);
@@ -13,16 +21,18 @@
             font-weight: 700;
             line-height: normal;
             margin: 0;
+            @include lg{
+                font-size: 24px;
+            }
         }
     }
     .ListItem {
         display: flex;
-        width: 418px;
+        width: 96%;
         padding: 16px;
         align-items: flex-start;
         gap: 16px;
         border-radius: 8px;
-        // background: var(---100, #f4f4f4);
         background: #fff;
         input {
             width: 20px;
@@ -36,6 +46,9 @@
             font-style: normal;
             font-weight: 500;
             line-height: normal;
+            @include lg{
+                font-size: 14px;
+            }
         }
     }
 }

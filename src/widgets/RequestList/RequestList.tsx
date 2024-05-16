@@ -20,6 +20,8 @@ export const RequestList: FC<IRequest> = (props) => {
         try {
             const response = await axios.get(`${BASE_URL}/applications/form/?page=${page}&${api}`, authToken);
             setReqCount(response.data.data.created_count);
+            console.log(response.data.data.created_count);
+            
             fetchRequest.setState(response.data.data.results);
             fetchRequest.setFilterState(response.data.data.results);
             console.log(response, "getRequestsListSuccess");
