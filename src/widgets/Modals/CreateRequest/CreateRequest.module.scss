@@ -46,27 +46,25 @@
 .Buttons {
     display: flex;
     justify-content: flex-end;
-    gap: 16px;
+    gap: 6px;
 }
 
 .Company {
     position: relative;
     input {
-        width: 350px;
+        width: 400px;
         padding-right: 25px;
         padding-left: 25px;
         color: $black5c;
+        box-sizing: border-box;
         font-size: 18px;
-        font-weight: 500;
         border-radius: 8px;
         background-color: $blackf4;
         height: 56px;
         display: flex;
         align-items: center;
         font-weight: 700;
-    }
-    input:focus {
-        border: none;
+        outline: none;
     }
     svg {
         position: absolute;
@@ -76,11 +74,9 @@
 }
 
 .NotExist {
+    width: 100%;
     font-size: 14px;
     font-weight: 700;
-    border-radius: 8px;
-    background-color: $blackf4;
-    padding: 10px 5px;
     color: #e51616;
 }
 
