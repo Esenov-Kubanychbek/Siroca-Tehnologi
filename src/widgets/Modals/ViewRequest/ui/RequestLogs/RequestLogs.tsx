@@ -15,7 +15,10 @@ export const RequestLogs: FC = () => {
                     className={styles.Log}
                 >
                     <div className={styles.LogHeader}>
-                        <img src="" alt="" />
+                        <img
+                            src=""
+                            alt=""
+                        />
                         <p className={styles.Name}>{card.user}</p>
                         <p className={styles.Time}>Внес изменения {card.formatted_created_at} </p>
                     </div>

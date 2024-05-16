@@ -6,7 +6,7 @@ export const CustomSelect: FC<ISelect> = (props) => {
     const { dataOption, name, text, width, value, change, id } = props;
     return (
         <select
-        id={id}
+            id={id}
             value={value}
             onChange={change}
             name={name}

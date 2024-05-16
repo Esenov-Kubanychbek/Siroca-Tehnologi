@@ -1,78 +1,9 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL, authToken } from "../../../../shared/variables/variables";
+import { BASE_URL, authToken } from "@/shared/variables/variables";
+import { IGetOneRequestApi } from "../types/getOneRequestTypes";
 
-interface ILog {
-    field: string,
-    formatted_created_at: string;
-    id: number;
-    initially: string;
-    new: string;
-    user: string;
-    task_number: string;
-    user_id: number;
-}
-
-interface ISubtask {
-    id?: number;
-    text: string;
-    completed?: boolean;
-    deadline?: string;
-    checklist: number;
-    manager?: number;
-}
-
-interface ICheckList {
-    id?: number;
-    main_manager?: string;
-    subtasks?: ISubtask[];
-    name: string;
-    application: number | null | string;
-}
-
-interface IComments {
-    id: number;
-    user: string;
-    text: string;
-    date_added: string;
-    application: number;
-    formatted_date_added: string;
-    user_image: string;
-    user_id: number;
-}
-
-interface IObject {
-    id: number;
-    logs: ILog[];
-    company: string;
-    main_client: string;
-    main_manager: string;
-    checklists: ICheckList[];
-    comments: IComments[];
-    task_number: string;
-    title: string;
-    description: string;
-    short_description: string;
-    files: string;
-    jira: string;
-    status: string;
-    payment_state: string;
-    priority: string;
-    application_date: string;
-    confirm_date: string;
-    offer_date: string;
-    start_date: string;
-    finish_date: string;
-    deadline_date: string;
-}
-
-interface IFetch {
-    oneRequest: IObject;
-    setChecklist: (data: ICheckList) => void;
-    getOneRequest: (id: number | undefined) => void;
-}
-
-export const getOneRequestApi = create<IFetch>((set) => ({
+export const getOneRequestApi = create<IGetOneRequestApi>((set) => ({
     oneRequest: {
         id: 0,
         logs: [],
@@ -85,7 +16,7 @@ export const getOneRequestApi = create<IFetch>((set) => ({
         title: "",
         description: "",
         short_description: "",
-        files: "",
+        files: [],
         jira: "",
         status: "",
         payment_state: "",
@@ -97,19 +28,155 @@ export const getOneRequestApi = create<IFetch>((set) => ({
         finish_date: "",
         deadline_date: "",
     },
-    setChecklist: (data) => {
-        set((prev) => ({
+    setChecklistToOneRequest: (checklist) => {
+        set((prevState) => ({
             oneRequest: {
-                ...prev.oneRequest,
-                checklists: [...prev.oneRequest.checklists, data],
+                ...prevState.oneRequest,
+                checklists: [...prevState.oneRequest.checklists, checklist],
+            },
+        }));
+    },
+    deleteChecklistFromChecklists: (id) => {
+        set((prevState) => ({
+            oneRequest: {
+                ...prevState.oneRequest,
+                checklists: prevState.oneRequest.checklists.filter((checklist) => checklist.id !== id),
+            },
+        }));
+    },
+    setSubtaskToOneRequest: (subtask) => {
+        set((prevState) => {
+            const { checklists } = prevState.oneRequest;
+            const updatedChecklists = checklists.map((checklist) => {
+                if (checklist.id === subtask.checklist) {
+                    return {
+                        ...checklist,
+                        subtasks: checklist.subtasks && [...checklist.subtasks, subtask],
+                    };
+                }
+                return checklist;
+            });
+            return {
+                oneRequest: {
+                    ...prevState.oneRequest,
+                    checklists: updatedChecklists,
+                },
+            };
+        });
+    },
+    editSubtaskInOneRequest: (subtask) => {
+        set((prevState) => {
+            const updatedOneRequest = { ...prevState.oneRequest };
+            const updatedChecklists = updatedOneRequest.checklists.map((checklist) => {
+                if (checklist.subtasks) {
+                    const updatedSubtasks = checklist.subtasks.map((existingSubtask) => {
+                        if (existingSubtask.id === subtask.id) {
+                            return subtask;
+                        }
+                        return existingSubtask;
+                    });
+                    return {
+                        ...checklist,
+                        subtasks: updatedSubtasks,
+                    };
+                }
+                return checklist;
+            });
+            return {
+                oneRequest: {
+                    ...updatedOneRequest,
+                    checklists: updatedChecklists,
+                },
+            };
+        });
+    },    
+    setSubtaskCompletedFromOneRequest: (id) => {
+        set((prevState) => {
+            const updatedOneRequest = { ...prevState.oneRequest };
+            const updatedChecklists = updatedOneRequest.checklists.map((checklist) => {
+                if (checklist.subtasks) {
+                    const updatedSubtasks = checklist.subtasks.map((subtask) => {
+                        if (subtask.id === id) {
+                            return {
+                                ...subtask,
+                                completed: !subtask.completed,
+                            };
+                        }
+                        return subtask;
+                    });
+                    return {
+                        ...checklist,
+                        subtasks: updatedSubtasks,
+                    };
+                }
+                return checklist;
+            });
+            return {
+                oneRequest: {
+                    ...updatedOneRequest,
+                    checklists: updatedChecklists,
+                },
+            };
+        });
+    },
+    deleteSubtaskFromOneRequest: (id) => {
+        set((prevState) => {
+            const updatedOneRequest = { ...prevState.oneRequest };
+            const updatedChecklists = updatedOneRequest.checklists.map((checklist) => {
+                if (checklist.subtasks) {
+                    const updatedSubtasks = checklist.subtasks.filter((subtask) => subtask.id !== id);
+                    return {
+                        ...checklist,
+                        subtasks: updatedSubtasks,
+                    };
+                }
+                return checklist;
+            });
+            return {
+                oneRequest: {
+                    ...updatedOneRequest,
+                    checklists: updatedChecklists,
+                },
+            };
+        });
+    },
+    setFile: (file) => {
+        set((prevState) => ({
+            oneRequest: {
+                ...prevState.oneRequest,
+                files: [...prevState.oneRequest.files, file],
+            },
+        }));
+    },
+    deleteFileFromFiles: (id) => {
+        set((prevState) => ({
+            oneRequest: {
+                ...prevState.oneRequest,
+                files: prevState.oneRequest.files.filter((file) => file.id !== id),
+            },
+        }));
+    },
+    setComment: (comment) => {
+        set((prevState) => ({
+            oneRequest: {
+                ...prevState.oneRequest,
+                comments: [...prevState.oneRequest.comments, comment],
+            },
+        }));
+    },
+    deleteCommentFromComments: (id) => {
+        set((prevState) => ({
+            oneRequest: {
+                ...prevState.oneRequest,
+                comments: prevState.oneRequest.comments.filter((comment) => comment.id !== id),
             },
         }));
     },
     getOneRequest: async (id) => {
         try {
-            const getOneResponse = await axios.get(`${BASE_URL}/applications/form_view/${id}/`, authToken);
-            console.log(getOneResponse.data, "getOneRequestSuccess");
-            set({ oneRequest: getOneResponse.data });
+            const response = await axios.get(`${BASE_URL}/applications/form_view/${id}/`, authToken);
+            console.log(response.data, "getOneRequestSuccess");
+            set({ oneRequest: response.data });
         } catch (error) {
             console.log(error, "getOneRequestError");
         }

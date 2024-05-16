@@ -47,7 +47,6 @@ export const ViewLogs: FC<{ setViewLogs: Dispatch<SetStateAction<boolean>> }> = 
 
                 )
             })}
-
         </div>
     );
 };

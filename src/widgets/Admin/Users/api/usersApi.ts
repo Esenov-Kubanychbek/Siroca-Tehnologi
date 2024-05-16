@@ -18,8 +18,8 @@ export const usersApi = create<IFetch>((set) => ({
     usersList: [],
     oneUser: {
         first_name: "",
-        job_title: 3,
-        main_company: 3,
+        job_title: "",
+        main_company: "",
         password: "",
         role_type: "",
         surname: "",

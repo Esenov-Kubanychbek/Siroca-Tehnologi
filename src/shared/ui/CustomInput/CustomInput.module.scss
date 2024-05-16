@@ -1,8 +1,9 @@
-@import "../../../app/styles/index.scss";
+@import "index.scss";
 
 .Input {
     padding-right: 25px;
     padding-left: 25px;
+    box-sizing: border-box;
     color: $black5c;
     font-size: 18px;
     font-weight: 500;
@@ -12,12 +13,4 @@
     display: flex;
     align-items: center;
     font-weight: 700;
-}
-
-.blackPlaceholder::placeholder {
-    color: black;
-}
-
-.redPlaceholder::placeholder {
-    color: red;
 }

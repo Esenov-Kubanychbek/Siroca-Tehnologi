@@ -102,7 +102,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
         }
     };
     useEffect(() => {
-        fetchDatas();
+        fetchDatas(1);
         getUsersList(1);
     }, []);
 

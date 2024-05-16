@@ -41,7 +41,7 @@ export const getRequestApi = create<IFetchGet>((set, get) => ({
             console.log(response, "getRequestsListSuccess");
             set({ getState: response.data.results });
         } catch (error) {
-            console.log(error, "GetRequestError");
+            console.log(error, "getRequestListError");
         }
     },
     setState: (data: []) => {
@@ -59,11 +59,7 @@ export const getRequestApi = create<IFetchGet>((set, get) => ({
     },
     clearFilter: async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/applications/form/?page=1`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
+            const response = await axios.get(`${BASE_URL}/applications/form/?page=1`, authToken);
             set({ getState: response.data.data.results });
         } catch (error) {
             console.log(error);

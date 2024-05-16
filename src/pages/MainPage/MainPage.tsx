@@ -3,6 +3,9 @@ import { FC, useEffect } from "react";
 import { idRoles } from "./api/idRoles";
 import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
 import { usersRoleTypeApi } from "../../widgets/Modals/EditRequest/api/usersRoleTypeApi";
+import { usePassword } from "../../widgets/Modals/ChangePassword/api/ChangePassword";
+import { SccessfullyModal } from "../../widgets/Modals/SccessfullyModal/SccessfullyModal";
+import { profile } from "../../widgets/Modals/ProfileModal/api/profileApi";
 
 export const MainPage: FC = () => {
     const roles = idRoles();
@@ -10,11 +13,16 @@ export const MainPage: FC = () => {
     const fetchRoleTypes = usersRoleTypeApi();
     const role = localStorage.getItem("role_type");
     const id = localStorage.getItem("id");
+    const usePasswordScc = usePassword();
+    const { getOneUser } = profile()
+
+
 
     useEffect(() => {
         roles.getting();
         fetchUsers.getOneUser(Number(id));
         fetchUsers.getUsersList(1);
+        id !== null && getOneUser(id)
     }, []);
     useEffect(() => {
         roles.formateState();
@@ -35,22 +43,20 @@ export const MainPage: FC = () => {
                 <>
                     <Dashboard />
                     <header style={{ width: "1820px", marginLeft: "120px" }}>
-                        <HeaderTop
-                            role={role}
-                            isAdminManager={true}
-                        />
+                        <HeaderTop role={role} isAdminManager={true} />
                         <HeaderBottom role={role} />
+                        {<SccessfullyModal closeModal={usePasswordScc.closeModalScc} modalScc={usePasswordScc.changePasswordScc} texts='Изменения были успешно сохранены' style={50}/> }
                     </header>
+
                 </>
             );
         } else {
             return (
                 <>
-                    <HeaderTop
-                        role={role}
-                        isAdminManager={false}
-                    />
+                    <HeaderTop role={role} isAdminManager={false} />
                     <HeaderBottom role={role} />
+                    {<SccessfullyModal closeModal={usePasswordScc.closeModalScc} modalScc={usePasswordScc.changePasswordScc} texts='Изменения были успешно сохранены' style={150}/> }
+
                 </>
             );
         }

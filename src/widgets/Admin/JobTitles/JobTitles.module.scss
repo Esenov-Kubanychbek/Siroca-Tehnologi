@@ -66,6 +66,7 @@
             background-color: white;
             position: relative;
             cursor: pointer;
+            border-bottom: 1px solid $black92;
             &:hover {
                 background-color: $hover;
             }

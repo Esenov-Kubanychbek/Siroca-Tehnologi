@@ -6,54 +6,66 @@
     flex-direction: column;
     gap: 10px;
     width: 580px;
+    background-color: $blackf4;
 }
 
-.NotChecked {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    left: 16px;
-    top: 16px;
+.TextInput {
+    width: 580px;
+    height: 56px;
+    box-sizing: border-box;
+    padding: 0 25px;
+    border: 2px solid $blue;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: $blackf4;
     border-radius: 8px;
-    border: 2px solid $blackde;
 }
 
-.Checked {
-    position: absolute;
-    left: 16px;
-    top: 10px;
-    cursor: pointer;
-}
-
-.InputRelative {
-    position: relative;
-}
-
-.CloseSquare {
-    position: absolute;
-    top: 10px;
-    left: 540px;
-}
-
-.CheckDesc {
+.Bottom {
     display: flex;
     justify-content: center;
-    gap: 16px;
-    input {
-        width: 130px;
-        height: 56px;
-        padding-left: 16px;
-        font-size: 16px;
-        font-weight: 500;
-        border: none;
-        border-radius: 8px;
-        background-color: $blackf4;
-    }
-    input[type="date"]::-webkit-calendar-picker-indicator {
-        opacity: 0;
-    }
+    gap: 5px;
+}
+
+.AddManager {
+    width: 140px;
+    height: 56px;
+    background: none;
+    border: none;
+    display: flex;
+    color: $black5c;
+    font-size: 16px;
+    font-weight: 500;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.AddUser {
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56px;
+    font-size: 22px;
+    font-weight: 700;
+    color: $black5c;
+    height: 56px;
+}
+
+.Date {
+    width: 130px;
+    height: 56px;
+    padding-left: 16px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    background-color: $blackf4;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
 }

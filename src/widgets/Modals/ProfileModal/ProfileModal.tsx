@@ -1,16 +1,30 @@
 import { CloseSquare, Edit } from "iconsax-react";
 import styles from "./ProfileModal.module.scss";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Modal } from "antd";
 import { ChangePassword } from "../ChangePassword/ChangePassword";
 import { IProfileModal } from "./types/types";
-import { CustomButton } from "../../../shared/ui";
-import { usersApi } from "../../Admin/Users/api/usersApi";
+import { CustomButton, CustomInput } from "../../../shared/ui";
+import { usePassword } from "../ChangePassword/api/ChangePassword";
+import { profile, user } from "./api/profileApi";
 
 export const ProfileModal: FC<IProfileModal> = (props) => {
     const { setModal } = props;
     const [changeModal, setChangeModal] = useState<boolean>(false);
-    const fetchUsers = usersApi();
+    const { openModalScc } = usePassword()
+    const {users, changeInputUser, setDatas, putOneUser, getOneUser} = profile();
+    const [readOnly, setReadOnly] = useState<boolean>(true);
+    const [data, setData] = useState<user>();
+
+    useEffect(() => {
+        if(readOnly === false){
+            setData(users);
+        }else if(readOnly === true){
+            data !== undefined && setDatas(data);
+            setData(undefined)
+            
+        }
+    }, [readOnly]);
     return (
         <div className={styles.ProfileModal}>
             <div className={styles.Header}>
@@ -28,25 +42,30 @@ export const ProfileModal: FC<IProfileModal> = (props) => {
                     <p>Фамилия:</p>
                     <p>Должность:</p>
                     <p>Компания:</p>
+
+                    <p>Ваш менеджер:</p>
                     <p>Логин:</p>
-                    <p>Почта:</p>
-                    <p>Телефон:</p>
-                    <p>WhatsApp:</p>
                     <p>Пароль:</p>
                 </div>
                 <div className={styles.Data}>
-                    <img
-                        src={String(fetchUsers.oneUserGet.image)}
-                        className={styles.Image}
+                        
+                <img src={data ? String(data.image) : String(users.image)} alt="images" className={styles.Image}/>
+                    <input
+                        style={{display: `${readOnly ? 'none' : 'block'}`}}
+                        className={styles.input}
+                        type="file"
+                        onChange={changeInputUser}
+                        accept="image/*"
+                        name="image"
                     />
-                    <p>{fetchUsers.oneUserGet.first_name}</p>
-                    <p>{fetchUsers.oneUserGet.surname}</p>
-                    <p>{fetchUsers.oneUserGet.job_title}</p>
-                    <p>{fetchUsers.oneUserGet.main_company}</p>
-                    <p>{fetchUsers.oneUserGet.username}</p>
-                    <p className={styles.ColorBlue}>ivan@pepsi.com</p>
-                    <p className={styles.ColorBlue}>+996 777 894 621</p>
-                    <p className={styles.ColorBlue}>+996 777 235 589</p>
+                    <CustomInput change={changeInputUser} value={users.first_name} name="first_name" type="text" width={215} height={32} readOnly={readOnly}/>
+                    <CustomInput change={changeInputUser} value={users.surname} name="surname" type="text" width={215} height={32} readOnly={readOnly}/>
+                    <CustomInput change={changeInputUser} value={users.job_title} name="job_title" type="text" width={215} height={32} readOnly={readOnly}/>
+                    <CustomInput change={changeInputUser} value={users.main_company} name="main_company" type="text" width={215} height={32} readOnly={readOnly}/>
+
+                    <CustomInput value='hello' type="text" width={215} height={32} readOnly={readOnly}/>
+                    <CustomInput change={changeInputUser} value={users.username} name="username" type="text" width={215} height={32} readOnly={readOnly}/>
+
                     <button
                         className={styles.ChangeButton}
                         onClick={() => setChangeModal(true)}
@@ -56,13 +75,25 @@ export const ProfileModal: FC<IProfileModal> = (props) => {
                 </div>
             </div>
             <div className={styles.Buttons}>
-                <button className={styles.EditButton}>
+                <button className={styles.EditButton} onClick={() => {
+                    setReadOnly(!readOnly);
+                }
+                    
+                }>
                     <Edit color="white" />
                 </button>
                 <CustomButton
                     text="Сохранить"
                     width={119}
                     variant="Primary"
+                    onClick={() => {
+                        data !== undefined && putOneUser(data, users);
+                        setModal(false);
+                        openModalScc();
+                        setData(undefined);
+                        users.id !== null && getOneUser(users.id);
+                        setReadOnly(true);
+                    }}
                 />
             </div>
             <Modal
@@ -71,7 +102,7 @@ export const ProfileModal: FC<IProfileModal> = (props) => {
                 open={changeModal}
                 onCancel={() => setChangeModal(false)}
             >
-                <ChangePassword setModal={setChangeModal} />
+                <ChangePassword setModal={setChangeModal} setModalProfile={setModal}/>
             </Modal>
         </div>
     );

@@ -10,6 +10,7 @@
     align-items: center;
     font-weight: 700;
     font-size: 18px;
+    box-sizing: border-box;
     border-radius: 8px;
     height: 56px;
     cursor: pointer;
@@ -22,7 +23,7 @@
 }
 
 .Secondary {
-    background-color: white;
+    background: none;
     color: $blue;
     border: 2px solid $blue;
 }

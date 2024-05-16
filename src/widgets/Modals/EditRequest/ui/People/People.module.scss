@@ -1,17 +1,11 @@
 @import "index.scss";
 
-.Humans {
+.People {
     display: flex;
     justify-content: center;
-    flex-direction: column;
     gap: 16px;
-    .People {
-        display: flex;
-        justify-content: center;
-        gap: 16px;
-    }
-    .Text {
-        font-size: 18px;
-        font-weight: 700;
-    }
+}
+.Text {
+    font-size: 18px;
+    font-weight: 700;
 }

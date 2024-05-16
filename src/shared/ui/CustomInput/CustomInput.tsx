@@ -18,6 +18,8 @@ export const CustomInput: FC<IInput> = (props) => {
         readOnly,
         id,
         trim,
+        maxLength,
+        color
     } = props;
 
     return (
@@ -29,16 +31,19 @@ export const CustomInput: FC<IInput> = (props) => {
             defaultValue={defaultValue}
             onChange={change}
             style={{
-                width: `${width - 50}px`,
+                width: `${width}px`,
                 height: `${height}px`,
                 background: `${background}`,
                 paddingLeft: `${paddingLeft}px`,
                 border: trim || trim === undefined ? "none" : "2px solid #E51616",
+                color: color
             }}
             placeholder={placeholder}
+            color={color}
             className={styles.Input}
             onClick={onClick}
             readOnly={readOnly}
+            maxLength={maxLength}
         />
     );
 };

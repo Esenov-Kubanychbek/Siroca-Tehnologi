@@ -1,20 +1,41 @@
 import { CloseSquare, MoreSquare } from "iconsax-react";
 import styles from "./ChangeCompany.module.scss";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { Modal } from "antd";
 import { ViewCompany } from "../ViewCompany/ViewCompany";
+import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
+import { CreateUser } from "../CreateUser/CreateUser";
 
-export const ChangeCompany = () => {
+interface props {
+    message: (text: string, number: number) => void;
+    count: number;
+    page: number;
+}
+export const ChangeCompany: FC<props> = ({ message, count, page }) => {
     const [modalButtons, setModalButtons] = useState<boolean>(false);
-    const { selectedCompanyData } = useDataStoreComponies();
-    const { deleteCompany, data, idCompany, closeModalView, modalViewCompany } = useDataStoreComponies();
-    const [modal, setModal] = useState<boolean>(false);
+    const { deleteCompany, idCompany, closeModalView, modalViewCompany, selectedCompanyData, users } =
+        useDataStoreComponies();
+    const { resetInput } = useDataInputCompaniesStore();
+    const [modalCreateUser, setModalCreateUser] = useState<boolean>(false);
+    const [viewModal, setViewModal] = useState<boolean>(false);
+    const closeView = () => {
+        setViewModal(false);
+    };
+    const openView = () => {
+        setViewModal(true);
+    };
+
     const deleteComp = () => {
-        deleteCompany(idCompany);
-        console.log(data);
+        deleteCompany(idCompany, page);
+        const number = count + 1;
+        message(`Компания "${selectedCompanyData.name}" была удалена!`, number);
+        closeView();
         closeModalView();
-        setModal(false);
+    };
+    const names = (id: number | undefined): string => {
+        const manager = users.find((manager) => manager.id === id);
+        return manager ? manager.first_name : "";
     };
 
     return (
@@ -26,23 +47,30 @@ export const ChangeCompany = () => {
                 <div className={styles.buttons}>
                     <div>
                         <MoreSquare
-                            onClick={() => setModalButtons((prevState) => !prevState)}
+                            cursor={"pointer"}
+                            color="black"
+                            
                             size={34}
+                            onClick={() => setModalButtons((prevState) => !prevState)}
                         />
                         <div
                             style={{ display: `${modalButtons ? "block" : "none"}` }}
                             className={styles.moreClick}
                         >
-                            <p onClick={() => setModal(true)}>Редактировать</p>
+                            <p
+                                onClick={() => {
+                                    openView();
+                                }}
+                            >
+                                Редактировать
+                            </p>
+                            <p onClick={() => setModalCreateUser(true)}>Создать пользователя</p>
                             <p onClick={deleteComp}>Удалить</p>
                         </div>
-                        <div
-                            onClick={() => setModalButtons(false)}
-                            style={{ display: `${modalButtons ? "block" : "none"}` }}
-                            className={styles.blackBagr}
-                        ></div>
+                        
                     </div>
                     <CloseSquare
+                        cursor={"pointer"}
                         onClick={closeModalView}
                         size={34}
                     />
@@ -74,21 +102,53 @@ export const ChangeCompany = () => {
 
                     <div className={styles.main_manager}>
                         <span>Ответственный менеджер:</span>
-                        <div>{selectedCompanyData?.main_manager}</div>
+                        <div>{names(selectedCompanyData?.main_manager)}</div>
                     </div>
-                    <div className={styles.count_usesrs}>
-                        <span>Количество пользователей :</span>
-                        <div>{selectedCompanyData?.count_users}</div>
+                    <div className={styles.miniContainer}>
+                        <span>Количество заявок:</span>
+                        <p>{selectedCompanyData.count_applications}</p>
+                    </div>
+                    <div className={styles.miniContainer}>
+                        <span>Количество пользователей:</span>
+                        <p>{selectedCompanyData.count_users}</p>
+                    </div>
+                    <div className={styles.times}>
+                        <div className={styles.miniContainer}>
+                            <span>Дата создания:</span>
+                            <p>{selectedCompanyData.created_at}</p>
+                        </div>
+                        <div className={styles.miniContainer}>
+                            <span>Дата крайнего редактирование:</span>
+                            <p>{selectedCompanyData.last_updated_at}</p>
+                        </div>
                     </div>
                 </div>
             </div>
             <Modal
                 centered
-                width={700}
-                open={modal}
-                onCancel={() => setModal(false)}
+                width={660}
+                open={viewModal}
+                onCancel={() => {
+                    closeView();
+                    resetInput();
+                }}
             >
-                <ViewCompany setModal={setModal} />
+                <ViewCompany
+                    closeModalView={closeView}
+                    message={message}
+                    count={count}
+                    viewModal={viewModal}
+                    page={page}
+                />
+            </Modal>
+            <Modal
+                centered
+                width={700}
+                open={modalCreateUser}
+                onCancel={() => setModalCreateUser(false)}
+                zIndex={5}
+            >
+                <CreateUser setModal={setModalCreateUser} />
             </Modal>
         </>
     );

@@ -4,9 +4,15 @@ import { LoginButton, ProfileButton, StatusNumber } from "../../features";
 import { NotifButton } from "./ui/NotifButton/NotifButton";
 import { Popover } from "antd";
 import { NotifModal } from "../Modals/NotifModal/NotifModal";
+import { ProfileModal } from "../Modals/ProfileModal/ProfileModal";
 
 export const HeaderTop: FC<{ role: string | null; isAdminManager?: boolean }> = ({ role, isAdminManager }) => {
     const [notifOpen, setNotifOpen] = useState<boolean>(false);
+    const [modal, setModal] = useState<boolean>(false);
+
+    const handleOpenChange = (modals: boolean) => {
+        setModal(modals);
+    };
 
     return (
         <div className={styles.HeaderTop}>
@@ -32,7 +38,18 @@ export const HeaderTop: FC<{ role: string | null; isAdminManager?: boolean }> = 
                             <NotifButton />
                         </>
                     </Popover>
-                    <ProfileButton />
+                    <Popover
+                        placement="bottomRight"
+                        content={<ProfileModal setModal={setModal} />}
+                        trigger={"click"}
+                        open={modal}
+                        
+                        onOpenChange={handleOpenChange}
+                    >
+                        <>
+                            <ProfileButton />
+                        </>
+                    </Popover>
                     {role === "admin" || isAdminManager ? null : <LoginButton variant="Primary" />}
                 </div>
             </div>

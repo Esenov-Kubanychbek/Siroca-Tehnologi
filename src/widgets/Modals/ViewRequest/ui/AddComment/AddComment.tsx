@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { CustomTextArea } from "../../../../../shared/ui";
 import { idRoles } from "../../../../../pages/MainPage/api/idRoles";
 import styles from "./AddComment.module.scss";
@@ -9,43 +9,46 @@ import { getOneRequestApi } from "../../api/getOneRequestApi";
 export const AddComment: FC = () => {
     const roles = idRoles();
     const role_type = localStorage.getItem("role_type");
-    const [comment, setComment] = useState<string>("");
-    const fetchRequest = getOneRequestApi();
-    const fetchComment = postCommentApi();
+    const [commentState, setCommentState] = useState<string>("");
+    const { oneRequest, setComment } = getOneRequestApi();
+    const { oneComment, postComment } = postCommentApi();
     const changeComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setComment(e.target.value);
+        setCommentState(e.target.value);
     };
-    const postComment = () => {
-        if (comment !== "") {
-            fetchComment.postComment({
-                application: fetchRequest.oneRequest.id,
-                text: comment,
+    const postTrim = () => {
+        if (commentState !== "") {
+            postComment({
+                application: oneRequest.id,
+                text: commentState,
             });
-            setComment("");
-            fetchRequest.getOneRequest(fetchRequest.oneRequest.id);
+            setCommentState("");
         } else {
             console.log("trimCommentError");
         }
     };
-
+    useEffect(() => {
+        if (oneComment.application !== 0) {
+            setComment(oneComment);
+        }
+    }, [oneComment]);
     const render = () => {
         if (roles.formatedState && role_type === "client" && roles.formatedState.client_can_edit_comments_extra) {
             return (
                 <div className={styles.AddComment}>
                     <CustomTextArea
                         name="text"
-                        value={comment}
+                        value={commentState}
                         placeholder="Добавьте коментарий..."
-                        height={44}
+                        height={56}
                         width={580}
                         variant="TextArea"
                         change={changeComment}
                     />
                     <Send2
-                        color="#1c6ab1"
+                        color={commentState === "" ? "#5c5c5c" : "#1c6ab1"}
                         cursor={"pointer"}
-                        size={32}
-                        onClick={postComment}
+                        size={24}
+                        onClick={postTrim}
                     />
                 </div>
             );
@@ -54,18 +57,18 @@ export const AddComment: FC = () => {
                 <div className={styles.AddComment}>
                     <CustomTextArea
                         name="text"
-                        value={comment}
+                        value={commentState}
                         placeholder="Добавьте коментарий..."
-                        height={44}
+                        height={56}
                         width={580}
                         variant="TextArea"
                         change={changeComment}
                     />
                     <Send2
-                        color="#1c6ab1"
+                        color={commentState === "" ? "#5c5c5c" : "#1c6ab1"}
                         cursor={"pointer"}
-                        size={32}
-                        onClick={postComment}
+                        size={24}
+                        onClick={postTrim}
                     />
                 </div>
             );

@@ -1,7 +1,26 @@
 @import "index.scss";
+@import "../../../app/styles/variables.scss";
 
 .Companies {
     margin-top: 20px;
+    margin-right: 16px;
+    height: 850px;
+    .h3{
+        font-size: 24px;
+        font-weight: 700;
+        color: rgba(37, 37, 37, 1);
+        margin: 8px 0;
+    }
+    .Buttons{
+        margin-right: 30px;
+    }
+    .alert{
+        color: rgba(113, 113, 113, 1);
+        font-size: 32px;
+        font-weight: 700;
+        text-align: center;
+        padding-top: 100px;
+    }
     .searchCompanies {
         display: flex;
         justify-content: space-between;
@@ -17,6 +36,14 @@
         font-size: 24px;
         font-weight: 700;
     }
+    .pogin{
+        width: 100%;
+        position: fixed;
+        bottom: 24px;
+        left: 0;
+        display: flex;
+        align-items: center;
+    }
     .container {
         display: flex;
         .table {
@@ -25,14 +52,21 @@
             border: 1px #f4f4f4 solid;
             ul {
                 padding: 0;
+                margin: 0;
                 .datas {
+                    border-bottom: 1px solid rgba(146, 146, 146, 1);
                     cursor: pointer;
                     display: flex;
+                    
                     div {
                         transition: 0.1s;
                     }
                 }
+                .datas:hover{
+                    background-color: $hover;
+                }
             }
         }
     }
+    
 }

@@ -1,0 +1,10 @@
+@import "index.scss";
+
+.NotChecked {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    border: 2px solid $blackde;
+}
