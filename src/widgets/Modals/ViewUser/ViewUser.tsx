@@ -10,17 +10,14 @@ import { CustomMoreSquare } from "@/shared/ui";
 
 export const ViewUser: FC<IViewUser> = (props) => {
     const [modal, setModal] = useState<boolean>(false);
-    const [open, setOpen] = useState<boolean>(false);
     const { view, setView } = props;
     const { oneUserGet } = usersApi();
     const { deleteUser } = deleteUserApi();
     const deleteFunc = () => {
         deleteUser(oneUserGet.id);
         setView(false);
-        setOpen(false);
     };
     const openEdit = () => {
-        setOpen(false);
         setModal(true);
     };
     return (
@@ -39,10 +36,7 @@ export const ViewUser: FC<IViewUser> = (props) => {
                     </p>
                 </div>
                 <div className={styles.TopRight}>
-                    <CustomMoreSquare
-                        open={open}
-                        setOpen={setOpen}
-                    >
+                    <CustomMoreSquare>
                         <button onClick={openEdit}>Редактировать</button>
                         <button onClick={deleteFunc}>Удалить</button>
                     </CustomMoreSquare>

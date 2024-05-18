@@ -49,7 +49,6 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                         <MoreSquare
                             cursor={"pointer"}
                             color="black"
-                            
                             size={34}
                             onClick={() => setModalButtons((prevState) => !prevState)}
                         />
@@ -67,7 +66,6 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                             <p onClick={() => setModalCreateUser(true)}>Создать пользователя</p>
                             <p onClick={deleteComp}>Удалить</p>
                         </div>
-                        
                     </div>
                     <CloseSquare
                         cursor={"pointer"}

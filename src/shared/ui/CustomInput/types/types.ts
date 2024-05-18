@@ -15,6 +15,6 @@ export interface IInput {
     onClick?: () => void;
     readOnly?: boolean;
     maxLength?: number;
-    color?: string
+    color?: string;
     trim?: boolean | string;
 }

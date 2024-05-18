@@ -36,7 +36,6 @@ export const Administration: FC = () => {
                         content={<ProfileModal setModal={setModal} />}
                         trigger={"click"}
                         open={modal}
-                        
                         onOpenChange={handleOpenChange}
                     >
                         <>

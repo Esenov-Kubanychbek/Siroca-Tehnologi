@@ -48,16 +48,16 @@ export const Collapses: FC = () => {
                   },
               ]
             : []),
-            ...(roles.formatedState?.client_can_add_checklist_extra || role_type === "manager" || role_type === ""
+        ...(roles.formatedState?.client_can_add_checklist_extra || role_type === "manager" || role_type === ""
             ? [
-                {
-                    key: "8",
-                    label: "Чек-листы",
-                    children: <CheckLists />,
-                    extra: <AddSquare />,
-                },
+                  {
+                      key: "8",
+                      label: "Чек-листы",
+                      children: <CheckLists />,
+                      extra: <AddSquare />,
+                  },
               ]
-            : [])
+            : []),
     ];
     return (
         <Collapse

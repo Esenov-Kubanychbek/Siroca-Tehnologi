@@ -4,7 +4,8 @@
 .Secondary,
 .Without,
 .ColorBlue,
-.ColorRed {
+.ColorRed,
+.Gray {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,7 +30,7 @@
 }
 
 .Without {
-    background-color: white;
+    background: none;
     color: $blue;
     border: none;
 }
@@ -43,5 +44,11 @@
 .ColorRed {
     background: none;
     color: $highest;
+    border: none;
+}
+
+.Gray {
+    background-color: $blacka8;
+    color: white;
     border: none;
 }

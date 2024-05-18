@@ -76,11 +76,11 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
             <div className={styles.name}>
                 <p>{user.username}</p>
             </div>
-            
+
             {checkBoxList.map((el, index: number) => {
                 if (boxes && Object.entries(boxes)[index] && Object.entries(boxes)[index][1] == null && el) {
-                    
-                    const isChecked = genBoxes && Object.entries(genBoxes)[index] ? Object.entries(genBoxes)[index][1] : false;
+                    const isChecked =
+                        genBoxes && Object.entries(genBoxes)[index] ? Object.entries(genBoxes)[index][1] : false;
                     return (
                         <div
                             className={styles.el}

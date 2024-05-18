@@ -5,19 +5,35 @@ import { getOneRequestApi } from "../../api/getOneRequestApi";
 import { FilesList } from "../../../EditRequest/ui/Description/ui/FilesList";
 import { createFileApi } from "../../../EditRequest/api/createFileApi";
 import { descriptionApi } from "../../api/descriptionApi";
-import { CustomMoreSquare } from "../../../../../shared/ui";
+import { CustomButton, CustomMoreSquare } from "../../../../../shared/ui";
 
 export const Description: FC = () => {
-    const [open, setOpen] = useState<boolean>(false);
     const { oneRequest, setFile } = getOneRequestApi();
-    const { setOpened, clearDescription, setDescriptionState, descriptionState } = descriptionApi();
     const { oneFile, createFile } = createFileApi();
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const [opened, setOpened] = useState<boolean>(false);
+    const [canChange, setCanChange] = useState<boolean>(false);
+    const { putDescription, clearDescription, setDescriptionState, descriptionState, descriptionChange } =
+        descriptionApi();
+    const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setOpened(true)
+        setCanChange(true)
+        descriptionChange(e)
+    };
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         createFile({
             file: e.target.files ? e.target.files[0] : "",
             application: oneRequest.id,
         });
     };
+
+    const saveFunc = () => {
+        if (canChange) {
+            setOpened(false);
+            setCanChange(false)
+            putDescription(oneRequest.id);
+        }
+    };
+
     useEffect(() => {
         if (oneFile.application !== 0) {
             setFile({
@@ -28,34 +44,57 @@ export const Description: FC = () => {
             });
         }
     }, [oneFile]);
+
     useEffect(() => {
         setDescriptionState(oneRequest.description);
     }, [oneRequest.description]);
+
     return (
         <div className={styles.Description}>
-            <div className={styles.Text}>
-                <div className={styles.Buttons}>
-                    <FolderAdd
-                        cursor={"pointer"}
-                        size={28}
-                        color="#5C5C5C"
-                    />
-                    <input
-                        type="file"
-                        name="files"
+            <div className={styles.Main}>
+                <div className={styles.Text}>
+                    <div className={styles.Buttons}>
+                        <FolderAdd
+                            cursor={"pointer"}
+                            size={28}
+                            color="#5C5C5C"
+                        />
+                        <input
+                            className={styles.FileInput}
+                            type="file"
+                            name="files"
+                            onChange={handleFileChange}
+                        />
+                        <CustomMoreSquare>
+                            <button onClick={() => setOpened(true)}>Редактировать</button>
+                            <button onClick={() => clearDescription(oneRequest.id)}>Очистить всё</button>
+                        </CustomMoreSquare>
+                    </div>
+                    <textarea
+                        rows={descriptionState.description !== null || undefined ? Math.ceil(descriptionState.description.length / 74) : 1}
+                        value={descriptionState.description !== null || undefined ? descriptionState.description : ""}
+                        placeholder="Добавьте описание..."
                         onChange={handleChange}
                     />
-                    <CustomMoreSquare
-                        open={open}
-                        setOpen={setOpen}
-                    >
-                        <button onClick={() => setOpened(true)}>Редактировать</button>
-                        <button onClick={() => clearDescription(oneRequest.id)}>Очистить всё</button>
-                    </CustomMoreSquare>
                 </div>
-                <p>{!descriptionState.description ? "Добавьте описание..." : descriptionState.description}</p>
+                <FilesList />
             </div>
-            <FilesList />
+            {opened && (
+                <div className={styles.Buttons}>
+                    <CustomButton
+                        variant="Without"
+                        width={120}
+                        text="Отмена"
+                        onClick={() => setOpened(false)}
+                    />
+                    <CustomButton
+                        variant={canChange ? "Primary" : "Gray"}
+                        width={130}
+                        text="Сохранить"
+                        onClick={saveFunc}
+                    />
+                </div>
+            )}
         </div>
     );
 };

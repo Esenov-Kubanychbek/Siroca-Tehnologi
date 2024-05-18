@@ -9,5 +9,4 @@ export { RequestMenu } from "./RequestMenu/RequestMenu";
 export { People } from "./People/People";
 export { ShortDescription } from "./ShortDescription/ShortDescription";
 export { AddComment } from "./AddComment/AddComment";
-export { AddDescription } from "./AddDescription/AddDescription";
 export { RequestHeader } from "./RequestHeader/RequestHeader";

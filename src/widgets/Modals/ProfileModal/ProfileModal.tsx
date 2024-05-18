@@ -11,18 +11,17 @@ import { profile, user } from "./api/profileApi";
 export const ProfileModal: FC<IProfileModal> = (props) => {
     const { setModal } = props;
     const [changeModal, setChangeModal] = useState<boolean>(false);
-    const { openModalScc } = usePassword()
-    const {users, changeInputUser, setDatas, putOneUser, getOneUser} = profile();
+    const { openModalScc } = usePassword();
+    const { users, changeInputUser, setDatas, putOneUser, getOneUser } = profile();
     const [readOnly, setReadOnly] = useState<boolean>(true);
     const [data, setData] = useState<user>();
 
     useEffect(() => {
-        if(readOnly === false){
+        if (readOnly === false) {
             setData(users);
-        }else if(readOnly === true){
+        } else if (readOnly === true) {
             data !== undefined && setDatas(data);
-            setData(undefined)
-            
+            setData(undefined);
         }
     }, [readOnly]);
     return (
@@ -48,23 +47,72 @@ export const ProfileModal: FC<IProfileModal> = (props) => {
                     <p>Пароль:</p>
                 </div>
                 <div className={styles.Data}>
-                        
-                <img src={data ? String(data.image) : String(users.image)} alt="images" className={styles.Image}/>
+                    <img
+                        src={data ? String(data.image) : String(users.image)}
+                        alt="images"
+                        className={styles.Image}
+                    />
                     <input
-                        style={{display: `${readOnly ? 'none' : 'block'}`}}
+                        style={{ display: `${readOnly ? "none" : "block"}` }}
                         className={styles.input}
                         type="file"
                         onChange={changeInputUser}
                         accept="image/*"
                         name="image"
                     />
-                    <CustomInput change={changeInputUser} value={users.first_name} name="first_name" type="text" width={215} height={32} readOnly={readOnly}/>
-                    <CustomInput change={changeInputUser} value={users.surname} name="surname" type="text" width={215} height={32} readOnly={readOnly}/>
-                    <CustomInput change={changeInputUser} value={users.job_title} name="job_title" type="text" width={215} height={32} readOnly={readOnly}/>
-                    <CustomInput change={changeInputUser} value={users.main_company} name="main_company" type="text" width={215} height={32} readOnly={readOnly}/>
+                    <CustomInput
+                        change={changeInputUser}
+                        value={users.first_name}
+                        name="first_name"
+                        type="text"
+                        width={215}
+                        height={32}
+                        readOnly={readOnly}
+                    />
+                    <CustomInput
+                        change={changeInputUser}
+                        value={users.surname}
+                        name="surname"
+                        type="text"
+                        width={215}
+                        height={32}
+                        readOnly={readOnly}
+                    />
+                    <CustomInput
+                        change={changeInputUser}
+                        value={users.job_title}
+                        name="job_title"
+                        type="text"
+                        width={215}
+                        height={32}
+                        readOnly={readOnly}
+                    />
+                    <CustomInput
+                        change={changeInputUser}
+                        value={users.main_company}
+                        name="main_company"
+                        type="text"
+                        width={215}
+                        height={32}
+                        readOnly={readOnly}
+                    />
 
-                    <CustomInput value='hello' type="text" width={215} height={32} readOnly={readOnly}/>
-                    <CustomInput change={changeInputUser} value={users.username} name="username" type="text" width={215} height={32} readOnly={readOnly}/>
+                    <CustomInput
+                        value="hello"
+                        type="text"
+                        width={215}
+                        height={32}
+                        readOnly={readOnly}
+                    />
+                    <CustomInput
+                        change={changeInputUser}
+                        value={users.username}
+                        name="username"
+                        type="text"
+                        width={215}
+                        height={32}
+                        readOnly={readOnly}
+                    />
 
                     <button
                         className={styles.ChangeButton}
@@ -75,11 +123,12 @@ export const ProfileModal: FC<IProfileModal> = (props) => {
                 </div>
             </div>
             <div className={styles.Buttons}>
-                <button className={styles.EditButton} onClick={() => {
-                    setReadOnly(!readOnly);
-                }
-                    
-                }>
+                <button
+                    className={styles.EditButton}
+                    onClick={() => {
+                        setReadOnly(!readOnly);
+                    }}
+                >
                     <Edit color="white" />
                 </button>
                 <CustomButton
@@ -102,7 +151,10 @@ export const ProfileModal: FC<IProfileModal> = (props) => {
                 open={changeModal}
                 onCancel={() => setChangeModal(false)}
             >
-                <ChangePassword setModal={setChangeModal} setModalProfile={setModal}/>
+                <ChangePassword
+                    setModal={setChangeModal}
+                    setModalProfile={setModal}
+                />
             </Modal>
         </div>
     );

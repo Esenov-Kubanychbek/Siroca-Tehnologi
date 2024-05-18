@@ -89,7 +89,7 @@ export const getOneRequestApi = create<IGetOneRequestApi>((set) => ({
                 },
             };
         });
-    },    
+    },
     setSubtaskCompletedFromOneRequest: (id) => {
         set((prevState) => {
             const updatedOneRequest = { ...prevState.oneRequest };

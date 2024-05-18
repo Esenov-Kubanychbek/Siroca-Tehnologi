@@ -14,7 +14,7 @@ export const JobTitles: FC = () => {
     const [modalReady, setModalReady] = useState<boolean>(false);
     const [closeState, setCloseState] = useState<boolean>(false);
     const [modalSuccess, setModalSuccess] = useState<boolean>(false);
-    const {jobTitleList, setSearchList, searchList, getJobTitleList} = jobTitleApi();
+    const { jobTitleList, setSearchList, searchList, getJobTitleList } = jobTitleApi();
     useEffect(() => {
         getJobTitleList();
     }, []);
@@ -75,7 +75,7 @@ export const JobTitles: FC = () => {
                     <button
                         className={styles.Cancel}
                         onClick={handleClick}
-                        style={{display: state ? "block" : "none" }}
+                        style={{ display: state ? "block" : "none" }}
                     >
                         Отменить
                     </button>
@@ -91,7 +91,7 @@ export const JobTitles: FC = () => {
                     </div>
                     <div
                         className={styles.Inner}
-                        style={{ overflowY: jobTitleList.length > 11 ? "scroll" :  "hidden" }}
+                        style={{ overflowY: jobTitleList.length > 11 ? "scroll" : "hidden" }}
                     >
                         {searchList.length > 0 ? (
                             searchList.map((card, i) => (
