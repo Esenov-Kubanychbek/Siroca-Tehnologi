@@ -16,9 +16,9 @@ export const RolesSettingsPage: FC = () => {
     const [boxesReg, setBoxesReg] = useState<IUser[]>([]);
     const [navtype, setNavtype] = useState<string>("Клиент");
     const [users, setUsers] = useState<IUser[]>([]);
-    const [searchVal, setSearchVal] = useState<string>('')
-    const [page, setPage] = useState<number>(1)
-    const [count, setCount] = useState<number>(0)
+    const [searchVal, setSearchVal] = useState<string>("");
+    const [page, setPage] = useState<number>(1);
+    const [count, setCount] = useState<number>(0);
     const headerSettingsList: string[] = [
         "Добавление/удаление комментария к заявке",
         "Скачивание отчета по заявкам",
@@ -96,7 +96,11 @@ export const RolesSettingsPage: FC = () => {
                 };
                 console.log(sendingData);
 
-                const response = await axios.put(`${BASE_URL}/users/managerpermissions/detail/`, sendingData, authToken);
+                const response = await axios.put(
+                    `${BASE_URL}/users/managerpermissions/detail/`,
+                    sendingData,
+                    authToken,
+                );
                 console.log(response);
             } else if (props.role === "") {
                 return;
@@ -149,18 +153,18 @@ export const RolesSettingsPage: FC = () => {
         //     }
         // });
         // setUsers(filterUsers);
-        setSearchVal(event.target.value)
+        setSearchVal(event.target.value);
     };
-    
+
     const onEnterSearch = (event: KeyboardEvent<HTMLInputElement>) => {
-        if(event.key === "Enter"){
-          fetchData.setSearchList(searchVal)  
+        if (event.key === "Enter") {
+            fetchData.setSearchList(searchVal);
         }
-    }
+    };
 
     useEffect(() => {
         fetchData.getUsersList(page);
-        setCount(fetchData.count)
+        setCount(fetchData.count);
     }, []);
     useEffect(() => {
         setUsers(fetchData.usersList);
@@ -197,7 +201,12 @@ export const RolesSettingsPage: FC = () => {
                                 }}
                                 onKeyDown={onEnterSearch}
                             />
-                            <CustomButton width={130} variant="Primary" onClick={saveRoles} text="Сохранить"/>
+                            <CustomButton
+                                width={130}
+                                variant="Primary"
+                                onClick={saveRoles}
+                                text="Сохранить"
+                            />
                         </div>
                     </div>
                     <div className={styles.topnav}>
@@ -228,7 +237,11 @@ export const RolesSettingsPage: FC = () => {
                     navType={navtype}
                 />
             </div>
-            <Pagination count={count} page={page} setPage={setPage}/>   
+            <Pagination
+                count={count}
+                page={page}
+                setPage={setPage}
+            />
         </div>
     );
 };

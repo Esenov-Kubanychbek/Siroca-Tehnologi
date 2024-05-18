@@ -135,7 +135,9 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                                     hasCompany || added.main_company
                                         ? hasCompany
                                             ? "2px solid #00A91B"
-                                            : createUserState.main_company !== "" ? "2px solid #E51616" : "none"
+                                            : createUserState.main_company !== ""
+                                              ? "2px solid #E51616"
+                                              : "none"
                                         : "2px solid #E51616",
                             }}
                             placeholder="Напишите..."
@@ -173,7 +175,9 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                                         hasJobTitle || added.job_title
                                             ? hasJobTitle
                                                 ? "2px solid #00A91B"
-                                                : createUserState.job_title !== "" ? "2px solid #E51616" : "none"
+                                                : createUserState.job_title !== ""
+                                                  ? "2px solid #E51616"
+                                                  : "none"
                                             : "2px solid #E51616",
                                 }}
                                 placeholder="Напишите..."

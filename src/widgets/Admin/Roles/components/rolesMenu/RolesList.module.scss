@@ -7,7 +7,7 @@
     align-items: flex-start;
     gap: 16px;
     margin-bottom: 34px;
-    @include lg{
+    @include lg {
         width: 338px;
         gap: 12px;
         margin-bottom: 20px;
@@ -21,7 +21,7 @@
             font-weight: 700;
             line-height: normal;
             margin: 0;
-            @include lg{
+            @include lg {
                 font-size: 24px;
             }
         }
@@ -46,7 +46,7 @@
             font-style: normal;
             font-weight: 500;
             line-height: normal;
-            @include lg{
+            @include lg {
                 font-size: 14px;
             }
         }

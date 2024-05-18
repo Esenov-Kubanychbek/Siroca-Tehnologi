@@ -10,7 +10,7 @@ interface PermissionData {
     [key: string]: boolean;
 }
 
-interface IRoles { }
+interface IRoles {}
 
 export const Roles: React.FC<IRoles> = () => {
     const [boxesClient, setBoxesClient] = useState<PermissionData | undefined>();
@@ -68,8 +68,16 @@ export const Roles: React.FC<IRoles> = () => {
     //there im doing put req to save all changed roles
     const onSave = async () => {
         try {
-            const responseClient = await axios.put(`${BASE_URL}/users/clientpermissions/general/`, boxesClient, authToken);
-            const responseManeger = await axios.put(`${BASE_URL}/users/managerpermissions/general/`, boxesManeger, authToken);
+            const responseClient = await axios.put(
+                `${BASE_URL}/users/clientpermissions/general/`,
+                boxesClient,
+                authToken,
+            );
+            const responseManeger = await axios.put(
+                `${BASE_URL}/users/managerpermissions/general/`,
+                boxesManeger,
+                authToken,
+            );
             console.log(responseClient, responseManeger);
         } catch (error) {
             console.log(error);
@@ -82,25 +90,35 @@ export const Roles: React.FC<IRoles> = () => {
     return (
         <div className={styles.MenuCont}>
             <div className={styles.ListCont}>
-              <div className={styles.ListBlock}>
-                <RolesList
-                    listType="Клиент"
-                    list={ClientList}
-                    box={boxesClient || null}
-                    handleChangeBox={getCheckBoxVal}
-                />
-                <CustomButton variant="Primary" text="Сохранить" width={130} onClick={onSave} />
+                <div className={styles.ListBlock}>
+                    <RolesList
+                        listType="Клиент"
+                        list={ClientList}
+                        box={boxesClient || null}
+                        handleChangeBox={getCheckBoxVal}
+                    />
+                    <CustomButton
+                        variant="Primary"
+                        text="Сохранить"
+                        width={130}
+                        onClick={onSave}
+                    />
+                </div>
+                <div className={styles.ListBlock}>
+                    <RolesList
+                        listType="Менеджер"
+                        list={ManegerList}
+                        box={boxesManeger || null}
+                        handleChangeBox={getCheckBoxVal}
+                    />
+                </div>
             </div>
-            <div className={styles.ListBlock}>
-                <RolesList
-                    listType="Менеджер"
-                    list={ManegerList}
-                    box={boxesManeger || null}
-                    handleChangeBox={getCheckBoxVal}
-                />
-            </div>  
-            </div>
-            <CustomButton variant="Primary" text="Расширенные настройки" width={261} onClick={() => navigate(PATHS.rolessettings)} />
+            <CustomButton
+                variant="Primary"
+                text="Расширенные настройки"
+                width={261}
+                onClick={() => navigate(PATHS.rolessettings)}
+            />
         </div>
     );
 };

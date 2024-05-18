@@ -1,8 +1,8 @@
 import { AddSquare, ArrowDown2, CloseSquare, Star1 } from "iconsax-react";
-import styles from "./ViewCompany.module.scss"
+import styles from "./ViewCompany.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
-import { FC, useEffect, useState, } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDataInputCompaniesStore } from "./api/dataInputCompanies";
 import { Modal } from "antd";
 import { AddManager } from "../AddManager/AddManager";
@@ -11,72 +11,76 @@ interface props {
     closeModalView: () => void;
     message: (text: string, number: number) => void;
     count: number;
-    viewModal: boolean,
-    page: number,
+    viewModal: boolean;
+    page: number;
 }
 
 export const ViewCompany: FC<props> = ({ closeModalView, message, count, page }) => {
     interface managers {
-        id: number | undefined,
-        main: boolean,
-        index: number
+        id: number | undefined;
+        main: boolean;
+        index: number;
     }
-    const { selectedCompanyData, fetchDatas, changeInputOne, idCompany, changeInputCompany, users, addedNewManagers, selectedIdCompany } = useDataStoreComponies();
+    const {
+        selectedCompanyData,
+        fetchDatas,
+        changeInputOne,
+        idCompany,
+        changeInputCompany,
+        users,
+        addedNewManagers,
+        selectedIdCompany,
+    } = useDataStoreComponies();
     const { dataInputCompanies } = useDataInputCompaniesStore();
     const [managersMain, setManagersMain] = useState<managers[]>([]);
     const [hovered, setHovered] = useState<boolean>(false);
     const [managersModal, setManagersModal] = useState<boolean>(false);
 
-
-
     const change = async () => {
-        const mainManager = managersMain.find(manager => manager.main === true);
+        const mainManager = managersMain.find((manager) => manager.main === true);
         const idMainManager = mainManager !== undefined && mainManager.id;
-        const newIdManagers = managersMain.map(manager => manager.id);
-        const filteredNewIdManagers = newIdManagers.filter(item => typeof item === 'number');
+        const newIdManagers = managersMain.map((manager) => manager.id);
+        const filteredNewIdManagers = newIdManagers.filter((item) => typeof item === "number");
         await changeInputOne(dataInputCompanies, selectedCompanyData, idCompany, idMainManager, filteredNewIdManagers);
         const number = count + 1;
-        message(`Изменение были сохранены!`, number)
+        message(`Изменение были сохранены!`, number);
         fetchDatas(page);
-    }
+    };
 
     useEffect(() => {
-
         const otherManagers = selectedCompanyData.managers.map((manager, index) => ({
             id: manager,
             main: manager === selectedCompanyData.main_manager,
-            index: index
+            index: index,
         }));
         if (otherManagers) {
             setManagersMain(otherManagers);
         }
     }, [selectedCompanyData]);
     const names = (id: number | undefined): string => {
-        const manager = users.find(manager => manager.id === id);
-        return manager ? manager.first_name : '';
+        const manager = users.find((manager) => manager.id === id);
+        return manager ? manager.first_name : "";
     };
     const [addManagerModal, setAddManagerModal] = useState<boolean>(false);
 
     const closeAddManager = () => {
-        setAddManagerModal(false)
+        setAddManagerModal(false);
     };
     const openAddManager = () => {
-        setAddManagerModal(true)
+        setAddManagerModal(true);
     };
     const style = {
-        top: `${managersModal ? "0" : '-200px'}`,
-        zIndex: `${managersModal ? "10" : '-50'}`
-    }
+        top: `${managersModal ? "0" : "-200px"}`,
+        zIndex: `${managersModal ? "10" : "-50"}`,
+    };
     const stylesArrow = {
-        transform: ` rotate( ${managersModal ? '360deg' : '270deg'})
-        `
-    }
+        transform: ` rotate( ${managersModal ? "360deg" : "270deg"})
+        `,
+    };
     const addNewChangeManager = (id: number) => {
         const managers = [...selectedCompanyData.managers, id];
         addedNewManagers(selectedCompanyData, managers);
-    }
-
-
+    };
 
     return (
         <div className={styles.ViewCompany}>
@@ -109,7 +113,6 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                         change={changeInputCompany}
                         name="country"
                         color="black"
-
                     />
                 </div>
             </div>
@@ -124,7 +127,6 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                         name="company_code"
                         maxLength={3}
                         color="black"
-
                     />
                 </div>
                 <div>
@@ -136,55 +138,71 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                         change={changeInputCompany}
                         name="domain"
                         color="black"
-
                     />
                 </div>
             </div>
             <div className={styles.blockTwo}>
                 <div className={styles.blockTwoOne}>
                     <br />
-                    <div className={styles.mainManager}>Ответственный менеджер <div onClick={() => {
-                        setManagersModal(!managersModal);
-
-                    }}><ArrowDown2 color="rgba(28, 106, 177, 1)" className={styles.arrow} style={stylesArrow} /></div></div>
+                    <div className={styles.mainManager}>
+                        Ответственный менеджер{" "}
+                        <div
+                            onClick={() => {
+                                setManagersModal(!managersModal);
+                            }}
+                        >
+                            <ArrowDown2
+                                color="rgba(28, 106, 177, 1)"
+                                className={styles.arrow}
+                                style={stylesArrow}
+                            />
+                        </div>
+                    </div>
                     {managersMain.map((managerId) => (
-                        <div className={styles.managers} key={managerId.id} style={style}>
+                        <div
+                            className={styles.managers}
+                            key={managerId.id}
+                            style={style}
+                        >
                             <p className={styles.manager}>{names(managerId.id)}</p>
-                            {managerId.main ? <Star1 variant="Bold" color="yellow" size={30} /> : <Star1 onClick={() => {
-                                setManagersMain(prevState => {
-                                    const updatedManagers = prevState.map((item, i) => ({
-                                        ...item,
-                                        main: i === managerId.index
-                                    }));
-                                    return updatedManagers;
-                                });
-                            }} />}
-
+                            {managerId.main ? (
+                                <Star1
+                                    variant="Bold"
+                                    color="yellow"
+                                    size={30}
+                                />
+                            ) : (
+                                <Star1
+                                    onClick={() => {
+                                        setManagersMain((prevState) => {
+                                            const updatedManagers = prevState.map((item, i) => ({
+                                                ...item,
+                                                main: i === managerId.index,
+                                            }));
+                                            return updatedManagers;
+                                        });
+                                    }}
+                                />
+                            )}
                         </div>
                     ))}
                 </div>
                 <div
                     className={styles.hintAdd}
-                    style={{ display: `${hovered ? 'block' : 'none'}` }}
-
+                    style={{ display: `${hovered ? "block" : "none"}` }}
                 >
-                    <p className={styles.hint}>
-                        Нажмите что бы добавить менеджера
-                    </p>
+                    <p className={styles.hint}>Нажмите что бы добавить менеджера</p>
                     <div className={styles.tre}> </div>
                 </div>
-                <div    
+                <div
                     className={styles.addManagers}
                     onMouseEnter={() => setHovered(true)}
                     onMouseLeave={() => setHovered(false)}
                 >
-
                     <AddSquare
                         color="white"
-                        
                         onClick={() => {
                             openAddManager();
-
                         }}
                     />
                 </div>
@@ -192,17 +210,18 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
 
             <div className={styles.buttons}>
                 <div className={styles.buttonss}>
-                    <div onClick={() => {
-                        closeModalView();
-                        if (selectedCompanyData.id !== undefined) {
-                            selectedIdCompany(selectedCompanyData.id);
-                        }
-                    }}>
+                    <div
+                        onClick={() => {
+                            closeModalView();
+                            if (selectedCompanyData.id !== undefined) {
+                                selectedIdCompany(selectedCompanyData.id);
+                            }
+                        }}
+                    >
                         <CustomButton
                             variant="Without"
                             width={150}
                             text="Сбросить"
-
                         />
                     </div>
                     <div onClick={closeModalView}>
@@ -213,7 +232,6 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                             onClick={() => {
                                 change();
                             }}
-
                         />
                     </div>
                 </div>
@@ -224,7 +242,11 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                 width={500}
                 centered
             >
-                <AddManager type='changes' addNewChangeManager={addNewChangeManager} closeModal={closeAddManager} />
+                <AddManager
+                    type="changes"
+                    addNewChangeManager={addNewChangeManager}
+                    closeModal={closeAddManager}
+                />
             </Modal>
         </div>
     );

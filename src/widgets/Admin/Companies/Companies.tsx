@@ -13,34 +13,45 @@ import { usePassword } from "../../Modals/ChangePassword/api/ChangePassword";
 import { ItemCount } from "../../../shared/ui/ItemCount/ItemCount";
 
 export const Companies: FC = () => {
-    const { fetchDatas, getUsers, data, selectedIdCompany, searchReset, openModalView, closeModalView, modalViewCompany, searchCompanies, countCompany } = useDataStoreComponies();
-    const [modalScc, setModalScc] = useState<string>('none');
+    const {
+        fetchDatas,
+        getUsers,
+        data,
+        selectedIdCompany,
+        searchReset,
+        openModalView,
+        closeModalView,
+        modalViewCompany,
+        searchCompanies,
+        countCompany,
+    } = useDataStoreComponies();
+    const [modalScc, setModalScc] = useState<string>("none");
     const [createCompany, setCreateCompany] = useState<boolean>(false);
-    const [companyList, setCompanyList] = useState<dataCompanies[] | undefined>()
+    const [companyList, setCompanyList] = useState<dataCompanies[] | undefined>();
     const [closeState, setCloseState] = useState<boolean>(false);
-    const [searchText, setSearchText] = useState<string>('');
-    const [createCompanyName, setCreateCompanyName] = useState<string>('');
+    const [searchText, setSearchText] = useState<string>("");
+    const [createCompanyName, setCreateCompanyName] = useState<string>("");
     const [count, setCount] = useState<number>(0);
     const [page, setPage] = useState<number>(1);
     const usePasswordScc = usePassword();
 
     const openModalCreateCompany = () => {
         setCreateCompany(true);
-    }
+    };
     const closeModalCreateCompany = () => {
         setCreateCompany(false);
-    }
+    };
 
     const closeModal = () => {
-        setModalScc('none');
+        setModalScc("none");
     };
     const openModal = () => {
-        setModalScc('block');
-    }
+        setModalScc("block");
+    };
     const message = (name: string, number: number) => {
         setCreateCompanyName(name);
         setCount(number);
-    }
+    };
     useEffect(() => {
         getUsers();
         fetchDatas(page);
@@ -55,14 +66,13 @@ export const Companies: FC = () => {
     const handleChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchText(e.target.value);
         setCloseState(true);
-    }
+    };
     const closeStates = () => {
         setCloseState(false);
-        setSearchText('');
-
-    }
+        setSearchText("");
+    };
     useEffect(() => {
-        if (searchText === '') {
+        if (searchText === "") {
             fetchDatas(page);
             companyList !== undefined && searchReset(companyList);
             setCompanyList(undefined);
@@ -71,14 +81,18 @@ export const Companies: FC = () => {
 
     useEffect(() => {
         if (count > 0) {
-            setModalScc('block');
+            setModalScc("block");
         }
-    }, [createCompanyName, count])
-
+    }, [createCompanyName, count]);
 
     return (
         <div className={styles.Companies}>
-            <div className={styles.h3} onClick={closeModalView}>Поиск по компаниям</div>
+            <div
+                className={styles.h3}
+                onClick={closeModalView}
+            >
+                Поиск по компаниям
+            </div>
             <div className={styles.searchCompanies}>
                 <SearchInput
                     value={searchText}
@@ -87,49 +101,130 @@ export const Companies: FC = () => {
                     onKeyDown={handleKeyPress}
                     closeFunc={closeStates}
                 />
-                <div className={styles.Buttons} onClick={openModalCreateCompany}>
+                <div
+                    className={styles.Buttons}
+                    onClick={openModalCreateCompany}
+                >
                     <ButtonCreate name="Создать компанию" />
                 </div>
             </div>
             <div className={styles.container}>
-                <div style={{ width: modalViewCompany ? '1092px' : "1718px" }} className={styles.table}>
+                <div
+                    style={{ width: modalViewCompany ? "1092px" : "1718px" }}
+                    className={styles.table}
+                >
                     <ListTop>
-                        <ListTopName name="Компания" width={modalViewCompany ? 160 : 204} />
-                        <ListTopName name={modalViewCompany ? 'Страна ком...' : 'Страна компании'} width={modalViewCompany ? 160 : 206} />
-                        <ListTopName name={modalViewCompany ? 'Количес...' : 'Количество пользователей'} width={modalViewCompany ? 160 : 302} />
-                        <ListTopName name={modalViewCompany ? 'Количес...' : 'Количество заявок'} width={modalViewCompany ? 160 : 281} />
-                        <ListTopName name="Менеджер" width={modalViewCompany ? 160 : 204} />
-                        <ListTopName name={modalViewCompany ? 'Дата созд...' : 'Дата создания'} width={modalViewCompany ? 160 : 202} />
-                        <ListTopName name={modalViewCompany ? 'Дата пос...' : 'Дата последнего редактирования'} width={modalViewCompany ? 160 : 292} />
+                        <ListTopName
+                            name="Компания"
+                            width={modalViewCompany ? 160 : 204}
+                        />
+                        <ListTopName
+                            name={modalViewCompany ? "Страна ком..." : "Страна компании"}
+                            width={modalViewCompany ? 160 : 206}
+                        />
+                        <ListTopName
+                            name={modalViewCompany ? "Количес..." : "Количество пользователей"}
+                            width={modalViewCompany ? 160 : 302}
+                        />
+                        <ListTopName
+                            name={modalViewCompany ? "Количес..." : "Количество заявок"}
+                            width={modalViewCompany ? 160 : 281}
+                        />
+                        <ListTopName
+                            name="Менеджер"
+                            width={modalViewCompany ? 160 : 204}
+                        />
+                        <ListTopName
+                            name={modalViewCompany ? "Дата созд..." : "Дата создания"}
+                            width={modalViewCompany ? 160 : 202}
+                        />
+                        <ListTopName
+                            name={modalViewCompany ? "Дата пос..." : "Дата последнего редактирования"}
+                            width={modalViewCompany ? 160 : 292}
+                        />
                     </ListTop>
-                    {data.length !== 0 ? <ul>
-                        {data.map((dataCompany) => (
-                            <li className={styles.datas} onClick={() => {
-                                selectedIdCompany(dataCompany.id);
-                                openModalView();
-                            }} key={dataCompany.id}>
-                                <ItemInner width={modalViewCompany ? 160 : 201} content={dataCompany.name} />
-                                <ItemInner width={modalViewCompany ? 160 : 206} content={dataCompany.country} />
-                                <ItemInner width={modalViewCompany ? 160 : 301} content={dataCompany.count_users} />
-                                <ItemInner width={modalViewCompany ? 160 : 284} content={dataCompany.count_applications} />
-                                <div className={styles.managerName} style={{ width: `${modalViewCompany ? '160px' : '221px'}` }}>
-                                    {dataCompany.main_manager}
-                                </div>
-                                <ItemInner width={modalViewCompany ? 160 : 226} content={dataCompany.created_at} />
-                                <ItemInner width={modalViewCompany ? 160 : 306} content={dataCompany.last_updated_at} />
-                            </li>
-                        ))}
-                    </ul> :
-                        <p className={styles.alert}>По вашему запросу не чего не найдено!</p>}
+                    {data.length !== 0 ? (
+                        <ul>
+                            {data.map((dataCompany) => (
+                                <li
+                                    className={styles.datas}
+                                    onClick={() => {
+                                        selectedIdCompany(dataCompany.id);
+                                        openModalView();
+                                    }}
+                                    key={dataCompany.id}
+                                >
+                                    <ItemInner
+                                        width={modalViewCompany ? 160 : 201}
+                                        content={dataCompany.name}
+                                    />
+                                    <ItemInner
+                                        width={modalViewCompany ? 160 : 206}
+                                        content={dataCompany.country}
+                                    />
+                                    <ItemInner
+                                        width={modalViewCompany ? 160 : 301}
+                                        content={dataCompany.count_users}
+                                    />
+                                    <ItemInner
+                                        width={modalViewCompany ? 160 : 284}
+                                        content={dataCompany.count_applications}
+                                    />
+                                    <div
+                                        className={styles.managerName}
+                                        style={{ width: `${modalViewCompany ? "160px" : "221px"}` }}
+                                    >
+                                        {dataCompany.main_manager}
+                                    </div>
+                                    <ItemInner
+                                        width={modalViewCompany ? 160 : 226}
+                                        content={dataCompany.created_at}
+                                    />
+                                    <ItemInner
+                                        width={modalViewCompany ? 160 : 306}
+                                        content={dataCompany.last_updated_at}
+                                    />
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p className={styles.alert}>По вашему запросу не чего не найдено!</p>
+                    )}
                 </div>
-                <ChangeCompany message={message} count={count} page={page} />
+                <ChangeCompany
+                    message={message}
+                    count={count}
+                    page={page}
+                />
             </div>
-            <div className={styles.pogin} style={{ width: `${modalViewCompany ? '1300px' : '100%'}` }}>
-                <Pagination count={countCompany} page={page} setPage={setPage} />
-                    <ItemCount page={page} count={countCompany} />
+            <div
+                className={styles.pogin}
+                style={{ width: `${modalViewCompany ? "1300px" : "100%"}` }}
+            >
+                <Pagination
+                    count={countCompany}
+                    page={page}
+                    setPage={setPage}
+                />
+                <ItemCount
+                    page={page}
+                    count={countCompany}
+                />
             </div>
-            {<SccessfullyModal closeModal={closeModal} modalScc={modalScc} texts={createCompanyName} />}
-            {<SccessfullyModal closeModal={usePasswordScc.closeModalScc} modalScc={usePasswordScc.changePasswordScc} texts='Изменения были успешно сохранены' />}
+            {
+                <SccessfullyModal
+                    closeModal={closeModal}
+                    modalScc={modalScc}
+                    texts={createCompanyName}
+                />
+            }
+            {
+                <SccessfullyModal
+                    closeModal={usePasswordScc.closeModalScc}
+                    modalScc={usePasswordScc.changePasswordScc}
+                    texts="Изменения были успешно сохранены"
+                />
+            }
 
             <Modal
                 centered
@@ -139,7 +234,13 @@ export const Companies: FC = () => {
                     closeModalCreateCompany();
                 }}
             >
-                <CreateCompany nameCreateCompany={message} count={count} openModals={openModal} closeCreateModal={closeModalCreateCompany} page={page} />
+                <CreateCompany
+                    nameCreateCompany={message}
+                    count={count}
+                    openModals={openModal}
+                    closeCreateModal={closeModalCreateCompany}
+                    page={page}
+                />
             </Modal>
         </div>
     );

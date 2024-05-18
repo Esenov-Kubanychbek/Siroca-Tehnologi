@@ -8,7 +8,7 @@ interface ICreateSubtaskApi {
     createSubtaskState: ISubtask;
     setCreateSubtaskState: (subtask: ISubtask) => void;
     addManagerToCreateSubtask: (manager: string) => void;
-    addUserToCreateSubtask: (user: string) => void
+    addUserToCreateSubtask: (user: string) => void;
     createSubtaskChange: (e: ChangeEvent<HTMLInputElement>) => void;
     createSubTask: () => void;
 }
@@ -29,8 +29,8 @@ export const createSubtaskApi = create<ICreateSubtaskApi>((set, get) => ({
             },
         }));
     },
-    addUserToCreateSubtask:(user)=>{
-        const text = get().createSubtaskState.text
+    addUserToCreateSubtask: (user) => {
+        const text = get().createSubtaskState.text;
         set((prevState) => ({
             createSubtaskState: {
                 ...prevState.createSubtaskState,
@@ -57,5 +57,5 @@ export const createSubtaskApi = create<ICreateSubtaskApi>((set, get) => ({
         } catch (error) {
             console.log(error, "createSubtaskError");
         }
-    }
+    },
 }));

@@ -68,36 +68,34 @@
             cursor: pointer;
             margin-left: 20px;
         }
-        
     }
-    .addedManeger{
-        .searchInput{
+    .addedManeger {
+        .searchInput {
             height: 56px;
             border: none;
             border-radius: 8px;
             width: 478px;
-            background-color: #F4F4F4;
+            background-color: #f4f4f4;
             padding: 8px 16px;
             box-sizing: border-box;
             font-size: 18px;
             font-weight: 700;
             padding-bottom: 10px;
-            &:active{
+            &:active {
                 border: none;
             }
         }
-
     }
-    .allManagers{
+    .allManagers {
         width: 488px;
         margin: -10px 0 0 0;
         border-radius: 8px;
         padding: 0 16px;
-        background-color: #F4F4F4;
+        background-color: #f4f4f4;
         box-sizing: border-box;
         max-height: 132px;
 
-        .manager{                   
+        .manager {
             font-size: 18px;
             font-weight: 500;
             height: 50px;
@@ -105,7 +103,7 @@
             box-sizing: border-box;
 
             cursor: pointer;
-            & :first-child{
+            & :first-child {
                 padding-top: 20px;
             }
         }
@@ -136,17 +134,17 @@
         position: relative;
         left: 130px;
     }
-    .lamp{
+    .lamp {
         display: flex;
         align-items: center;
-        div{
+        div {
             margin-left: -40px;
         }
-        .lampCursor{
+        .lampCursor {
             cursor: pointer;
         }
     }
-    .listCode{
+    .listCode {
         position: absolute;
         border-radius: 8px;
         margin-bottom: 120px;
@@ -161,22 +159,21 @@
         ::-webkit-scrollbar-thumb {
             border-radius: 5px; /* Закругление углов ползунка */
         }
-        div{
-        max-height: 90px;
-        margin: 0;
-            p{
-        background-color: #f4f4f4;
-        padding: 0 72px;
-        border-radius: 8px;
+        div {
+            max-height: 90px;
+            margin: 0;
+            p {
+                background-color: #f4f4f4;
+                padding: 0 72px;
+                border-radius: 8px;
 
                 color: #5c5c5c;
                 font-weight: 700;
                 font-size: 18px;
                 height: 30px;
-                
-                }
+            }
         }
-        p:hover{
+        p:hover {
             background-color: #fcfcfc;
         }
     }

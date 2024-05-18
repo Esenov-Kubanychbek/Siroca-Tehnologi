@@ -4,8 +4,6 @@ import { BASE_URL, authToken } from "../../../../shared/variables/variables";
 import { ChangeEvent } from "react";
 
 interface IDescriptionApi {
-    opened: boolean;
-    setOpened: (opened: boolean) => void;
     descriptionState: {
         description: string;
     };
@@ -16,10 +14,6 @@ interface IDescriptionApi {
 }
 
 export const descriptionApi = create<IDescriptionApi>((set, get) => ({
-    opened: false,
-    setOpened: (opened) => {
-        set({ opened: opened });
-    },
     descriptionState: {
         description: "",
     },
