@@ -1,8 +1,8 @@
 import styles from "./CreateUser.module.scss";
 import { FC, FormEvent, useState } from "react";
-import { CloseSquare, InfoCircle, TickCircle } from "iconsax-react";
+import { CloseSquare, Eye, EyeSlash, InfoCircle, TickCircle } from "iconsax-react";
 import { ButtonCreate, CustomButton, CustomInput } from "../../../shared/ui";
-import { Modal } from "antd";
+import { Modal, Popover } from "antd";
 import { CreateJobTitle } from "../..";
 import { ICreateUserModal } from "./types/types";
 import { createUserApi } from "./api/createUserApi";
@@ -16,6 +16,7 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
     const { createUser, createUserState, createUserChange } = createUserApi();
     const { jobTitleList } = jobTitleApi();
     const { data } = useDataStoreComponies();
+    const [passwordState, setPasswordState] = useState<boolean>(false);
     const [added, setAdded] = useState<IAddUser>({
         first_name: true,
         surname: true,
@@ -104,13 +105,21 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                 </div>
                 <div>
                     <div className={styles.Text}>Пароль</div>
-                    <CustomInput
-                        trim={added.password}
-                        name="password"
-                        width={272}
-                        placeholder="Напишите..."
-                        change={createUserChange}
-                    />
+                    <div className={styles.PasswordInput}>
+                        <CustomInput
+                            trim={added.password}
+                            name="password"
+                            width={272}
+                            type={passwordState ? "text" : "password"}
+                            placeholder="Напишите..."
+                            change={createUserChange}
+                        />
+                        {passwordState ? (
+                            <Eye onClick={() => setPasswordState(false)} />
+                        ) : (
+                            <EyeSlash onClick={() => setPasswordState(true)} />
+                        )}
+                    </div>
                 </div>
             </div>
             <div className={styles.Login}>
@@ -121,12 +130,14 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                             type="text"
                             name="main_company"
                             style={{
-                                width: "222px",
+                                width: "272px",
                                 border:
                                     hasCompany || added.main_company
                                         ? hasCompany
                                             ? "2px solid #00A91B"
-                                            : "none"
+                                            : createUserState.main_company !== ""
+                                              ? "2px solid #E51616"
+                                              : "none"
                                         : "2px solid #E51616",
                             }}
                             placeholder="Напишите..."
@@ -137,14 +148,20 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                                 <TickCircle color="#00A91B" />
                             ) : null
                         ) : (
-                            <InfoCircle color="#E51616" />
+                            <Popover
+                                placement="top"
+                                color="#F4F4F4"
+                                content={
+                                    <p className={styles.NotExist}>
+                                        Компании с таким названием не существует! Повторите попытку, или создайте новую
+                                        компанию.
+                                    </p>
+                                }
+                            >
+                                <InfoCircle color="#E51616" />
+                            </Popover>
                         )}
                     </div>
-                    {hasCompany || createUserState.main_company === "" ? null : (
-                        <p className={styles.NotExist}>
-                            Компании с таким названием не существует! Повторите попытку, или создайте новую компанию.
-                        </p>
-                    )}
                 </div>
                 <div className={styles.Bottom}>
                     <div className={styles.Text}>Должность в компании</div>
@@ -153,12 +170,14 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                             <input
                                 name="job_title"
                                 style={{
-                                    width: "160px",
+                                    width: "210px",
                                     border:
                                         hasJobTitle || added.job_title
                                             ? hasJobTitle
                                                 ? "2px solid #00A91B"
-                                                : "none"
+                                                : createUserState.job_title !== ""
+                                                  ? "2px solid #E51616"
+                                                  : "none"
                                             : "2px solid #E51616",
                                 }}
                                 placeholder="Напишите..."
@@ -169,23 +188,29 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                                     <TickCircle color="#00A91B" />
                                 ) : null
                             ) : (
-                                <InfoCircle color="#E51616" />
+                                <Popover
+                                    placement="top"
+                                    color="#F4F4F4"
+                                    content={
+                                        <p className={styles.NotExist}>
+                                            Данной должности не существует! Повторите попытку, или создайте новую
+                                            должность.
+                                        </p>
+                                    }
+                                >
+                                    <InfoCircle color="#E51616" />
+                                </Popover>
                             )}
                         </div>
                         <ButtonCreate onClick={() => setJobTitleModal(true)} />
                     </div>
-                    {hasJobTitle || createUserState.job_title === "" ? null : (
-                        <p className={styles.NotExist}>
-                            Данной должности не существует! Повторите попытку, или создайте новую должность.
-                        </p>
-                    )}
                 </div>
             </div>
-            {Object.values(added).every((value) => value === true) ? null : (
-                <div className={styles.MustTrim}>
+            <div className={styles.MustTrim}>
+                {Object.values(added).every((value) => value === true) ? null : (
                     <p>Все поля должны быть обязательно заполнены*</p>
-                </div>
-            )}
+                )}
+            </div>
             <div className={styles.Buttons}>
                 <CustomButton
                     type="button"

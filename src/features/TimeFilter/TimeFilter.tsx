@@ -95,13 +95,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
     //Change filter state to defoult mean
     const fullFilterState = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/applications/form/?page=${fetchRequest.now}`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            });
-            console.log(response);
-
+            const response = await axios.get(`${BASE_URL}/applications/form/?page=${fetchRequest.now}`, authToken);
             fetchRequest.setFilterState(response.data.data.results);
         } catch (error) {
             console.log(error);

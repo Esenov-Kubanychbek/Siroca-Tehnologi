@@ -23,19 +23,34 @@ export const RequestMenu: FC = () => {
 
     return (
         <div className={styles.RequestMenu}>
-            <div className={activeSection === Sections.DETAILS ? styles.Active : styles.NotActive} onClick={() => scrollToSection(Sections.DETAILS)}>
+            <div
+                className={activeSection === Sections.DETAILS ? styles.Active : styles.NotActive}
+                onClick={() => scrollToSection(Sections.DETAILS)}
+            >
                 <InfoCircle />
             </div>
-            <div className={activeSection === Sections.JIRA_LINK ? styles.Active : styles.NotActive} onClick={() => scrollToSection(Sections.JIRA_LINK)}>
+            <div
+                className={activeSection === Sections.JIRA_LINK ? styles.Active : styles.NotActive}
+                onClick={() => scrollToSection(Sections.JIRA_LINK)}
+            >
                 <Link1 />
             </div>
-            <div className={activeSection === Sections.DESCRIPTION ? styles.Active : styles.NotActive} onClick={() => scrollToSection(Sections.DESCRIPTION)}>
+            <div
+                className={activeSection === Sections.DESCRIPTION ? styles.Active : styles.NotActive}
+                onClick={() => scrollToSection(Sections.DESCRIPTION)}
+            >
                 <HambergerMenu />
             </div>
-            <div className={activeSection === Sections.COMMENTS ? styles.Active : styles.NotActive} onClick={() => scrollToSection(Sections.COMMENTS)}>
+            <div
+                className={activeSection === Sections.COMMENTS ? styles.Active : styles.NotActive}
+                onClick={() => scrollToSection(Sections.COMMENTS)}
+            >
                 <Message2 />
             </div>
-            <div className={activeSection === Sections.CHECKLISTS ? styles.Active : styles.NotActive} onClick={() => scrollToSection(Sections.CHECKLISTS)}>
+            <div
+                className={activeSection === Sections.CHECKLISTS ? styles.Active : styles.NotActive}
+                onClick={() => scrollToSection(Sections.CHECKLISTS)}
+            >
                 <TaskSquare />
             </div>
         </div>

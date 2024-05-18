@@ -1,27 +1,17 @@
-import { Dispatch, FC, ReactNode, SetStateAction } from "react";
+import { FC, ReactNode, useState } from "react";
 import styles from "./CustomMoreSquare.module.scss";
 import { Popover } from "antd";
 import { MoreSquare } from "iconsax-react";
 
-interface ICustomMoreSquare {
-    open: boolean
-    setOpen: Dispatch<SetStateAction<boolean>>
-    children: ReactNode
-}
-
-export const CustomMoreSquare: FC<ICustomMoreSquare> = (props) => {
-    const {open, setOpen, children} = props
+export const CustomMoreSquare: FC<{ children: ReactNode }> = ({ children }) => {
+    const [open, setOpen] = useState<boolean>(false);
     const handleOpenChange = (newOpen: boolean) => {
-        setOpen(newOpen)
-    }
+        setOpen(newOpen);
+    };
     return (
         <Popover
             placement="bottomRight"
-            content={
-                <div className={styles.MoreButtons}>
-                    {children}
-                </div>
-            }
+            content={<div className={styles.MoreButtons}>{children}</div>}
             onOpenChange={handleOpenChange}
             trigger={"click"}
             open={open}

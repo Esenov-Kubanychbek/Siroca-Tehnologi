@@ -15,7 +15,6 @@ interface IOneSubtask {
 export const OneSubtask: FC<IOneSubtask> = (props) => {
     const { subtask } = props;
     const [editState, setEditState] = useState<boolean>(false);
-    const [moreState, setMoreState] = useState<boolean>(false);
     const [managerModal, setManagerModal] = useState<boolean>(false);
     const { deleteSubtask, setSubtaskCompleted } = checkListApi();
     const { setSubtaskCompletedFromOneRequest, deleteSubtaskFromOneRequest } = getOneRequestApi();
@@ -36,7 +35,10 @@ export const OneSubtask: FC<IOneSubtask> = (props) => {
                 checked={subtask.completed}
                 onClick={completeFunc}
             />
-            <div onClick={editFunc} className={styles.Main}>
+            <div
+                onClick={editFunc}
+                className={styles.Main}
+            >
                 <div className={styles.Text}>{subtask.text}</div>
                 <div className={styles.Right}>
                     <span>{subtask.manager}</span>
@@ -46,10 +48,7 @@ export const OneSubtask: FC<IOneSubtask> = (props) => {
                     </div>
                 </div>
             </div>
-            <CustomMoreSquare
-                open={moreState}
-                setOpen={setMoreState}
-            >
+            <CustomMoreSquare>
                 <button onClick={editFunc}>Редактирокать</button>
                 <button onClick={() => setManagerModal(true)}>Назначить</button>
                 <button onClick={deleteFunc}>Удалить</button>
@@ -59,12 +58,15 @@ export const OneSubtask: FC<IOneSubtask> = (props) => {
                 centered
                 onCancel={() => setManagerModal(false)}
             >
-                <ManagerForSubtask setManagerModal={setManagerModal} />
+                <ManagerForSubtask
+                    forWhat="editSubtask"
+                    setManagerModal={setManagerModal}
+                />
             </Modal>
         </div>
     ) : (
         <CreateSubTask
-            forWhat="edit"
+            forWhat="editSubtask"
             subtask={subtask}
             checklistId={Number(subtask.id)}
             setDisplay={setEditState}

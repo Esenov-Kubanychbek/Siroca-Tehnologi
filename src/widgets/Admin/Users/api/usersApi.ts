@@ -7,7 +7,6 @@ interface IFetch {
     count: number;
     usersList: IUser[];
     oneUserGet: IUserGet;
-    oneUser: IUser;
     getUsersList: (page: number) => void;
     setSearchList: (searchState: string) => void;
     getOneUser: (id: number | undefined) => void;
@@ -16,15 +15,6 @@ interface IFetch {
 export const usersApi = create<IFetch>((set) => ({
     count: 1,
     usersList: [],
-    oneUser: {
-        first_name: "",
-        job_title: "",
-        main_company: "",
-        password: "",
-        role_type: "",
-        surname: "",
-        username: "",
-    },
     oneUserGet: {
         first_name: "",
         image: "",

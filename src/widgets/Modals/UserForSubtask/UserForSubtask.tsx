@@ -14,8 +14,8 @@ export const UserForSubtask: FC<IUserForSubtask> = (props) => {
     const [chosen, setChosen] = useState<boolean>(false);
     const { setUserModal } = props;
     const { usersList, setSearchList } = usersApi();
-    const {addUserToCreateSubtask} = createSubtaskApi()
-    const { userState, setUserState, userExists, setUserExists, searchUsersList, filterUsers } = allUsersListApi()
+    const { addUserToCreateSubtask } = createSubtaskApi();
+    const { userState, setUserState, userExists, setUserExists, searchUsersList, filterUsers } = allUsersListApi();
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setUserState(value);
@@ -32,7 +32,7 @@ export const UserForSubtask: FC<IUserForSubtask> = (props) => {
     };
     const closeFunc = () => {
         if (userExists === true) {
-            addUserToCreateSubtask(userState)
+            addUserToCreateSubtask(userState);
             setUserState("");
             filterUsers([], "");
             setUserModal(false);

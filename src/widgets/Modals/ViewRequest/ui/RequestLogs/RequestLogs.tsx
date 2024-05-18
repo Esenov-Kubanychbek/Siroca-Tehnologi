@@ -23,9 +23,15 @@ export const RequestLogs: FC = () => {
                         <p className={styles.Time}>Внес изменения {card.formatted_created_at} </p>
                     </div>
                     <div className={styles.LogMain}>
-                        <div className={styles.TypeOf}>Изменения: <p>{card.field}</p></div>
-                        <div className={styles.Prev}>Изначально: <p>{card.initially}</p></div>
-                        <div className={styles.Prev}>Новая: <p>{card.new.slice(0, 15) + "..."}</p></div>
+                        <div className={styles.TypeOf}>
+                            Изменения: <p>{card.field}</p>
+                        </div>
+                        <div className={styles.Prev}>
+                            Изначально: <p>{card.initially}</p>
+                        </div>
+                        <div className={styles.Prev}>
+                            Новая: <p>{card.new.slice(0, 15) + "..."}</p>
+                        </div>
                     </div>
                 </div>
             ))}

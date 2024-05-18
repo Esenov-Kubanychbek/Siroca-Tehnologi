@@ -60,7 +60,7 @@ export const OneCheckList: FC<IOneCheckList> = ({ checkList }) => {
             </div>
             {createDisplay && (
                 <CreateSubTask
-                    forWhat="create"
+                    forWhat="createSubtask"
                     checklistId={Number(checkList.id)}
                     setDisplay={setCreateDisplay}
                 />

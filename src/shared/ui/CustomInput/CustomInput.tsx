@@ -19,7 +19,7 @@ export const CustomInput: FC<IInput> = (props) => {
         id,
         trim,
         maxLength,
-        color
+        color,
     } = props;
 
     return (
@@ -36,7 +36,7 @@ export const CustomInput: FC<IInput> = (props) => {
                 background: `${background}`,
                 paddingLeft: `${paddingLeft}px`,
                 border: trim || trim === undefined ? "none" : "2px solid #E51616",
-                color: color
+                color: color,
             }}
             placeholder={placeholder}
             color={color}

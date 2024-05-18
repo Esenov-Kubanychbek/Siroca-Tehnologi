@@ -75,8 +75,8 @@ export interface IGetOneRequestApi {
     deleteChecklistFromChecklists: (id?: number) => void;
     setSubtaskToOneRequest: (subtask: ISubtask) => void;
     editSubtaskInOneRequest: (subtask: ISubtask) => void;
-    setSubtaskCompletedFromOneRequest: (id: number | undefined) => void
-    deleteSubtaskFromOneRequest: (id: number | undefined) => void
+    setSubtaskCompletedFromOneRequest: (id: number | undefined) => void;
+    deleteSubtaskFromOneRequest: (id: number | undefined) => void;
     setFile: (file: IFile) => void;
     deleteFileFromFiles: (id?: number) => void;
     setComment: (comment: IComment) => void;

@@ -1,22 +1,19 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
-interface DataStore  {
-    changePasswordScc: string,
-    openModalScc: () => void,
-    closeModalScc: () => void,
+interface DataStore {
+    changePasswordScc: string;
+    openModalScc: () => void;
+    closeModalScc: () => void;
 }
 
-
-
-
 const usePassword = create<DataStore>((set) => ({
-   changePasswordScc: 'none',
+    changePasswordScc: "none",
     openModalScc: () => {
-        set({changePasswordScc: 'block'});
+        set({ changePasswordScc: "block" });
     },
     closeModalScc: () => {
-        set({changePasswordScc: 'none'});
-    }
-}))
+        set({ changePasswordScc: "none" });
+    },
+}));
 
 export { usePassword };
