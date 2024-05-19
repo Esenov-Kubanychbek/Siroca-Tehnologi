@@ -1,4 +1,4 @@
-import { CloseSquare, MoreSquare } from "iconsax-react";
+import { ArrowDown2, CloseSquare, MoreSquare, Star, Star1 } from "iconsax-react";
 import styles from "./ChangeCompany.module.scss";
 import { FC, useState } from "react";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
@@ -14,11 +14,12 @@ interface props {
 }
 export const ChangeCompany: FC<props> = ({ message, count, page }) => {
     const [modalButtons, setModalButtons] = useState<boolean>(false);
-    const { deleteCompany, idCompany, closeModalView, modalViewCompany, selectedCompanyData, users } =
-        useDataStoreComponies();
+    const { deleteCompany, idCompany, closeModalView, modalViewCompany, selectedCompanyData, users } = useDataStoreComponies();
     const { resetInput } = useDataInputCompaniesStore();
     const [modalCreateUser, setModalCreateUser] = useState<boolean>(false);
     const [viewModal, setViewModal] = useState<boolean>(false);
+    const [managerState, setManagerState] = useState<boolean>(false);
+    const [userState,setUserState] = useState<boolean>(false)
     const closeView = () => {
         setViewModal(false);
     };
@@ -35,9 +36,9 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
     };
     const names = (id: number | undefined): string => {
         const manager = users.find((manager) => manager.id === id);
-        return manager ? manager.first_name : "";
+        return manager ? manager.full_name : "";
     };
-
+    
     return (
         <>
             <div
@@ -49,7 +50,7 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                         <MoreSquare
                             cursor={"pointer"}
                             color="black"
-                            
+
                             size={34}
                             onClick={() => setModalButtons((prevState) => !prevState)}
                         />
@@ -67,7 +68,7 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                             <p onClick={() => setModalCreateUser(true)}>Создать пользователя</p>
                             <p onClick={deleteComp}>Удалить</p>
                         </div>
-                        
+
                     </div>
                     <CloseSquare
                         cursor={"pointer"}
@@ -101,13 +102,40 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                     </div>
 
                     <div className={styles.main_manager}>
-                        <span>Ответственный менеджер:</span>
-                        <div>{names(selectedCompanyData?.main_manager)}</div>
+                        <div className={styles.mainManagers}><p>Ответственный менеджер:</p><ArrowDown2 onClick={() => {
+                            setManagerState(!managerState);
+                            
+                        }} style={{ transform: `${managerState ? 'rotate(360deg)' : 'rotate(270deg)'}` }} color="rgba(28, 106, 177, 1)" /></div>
+                    </div>
+                    <div className={styles.managers} style={{
+                        display: managerState ? 'block' : 'none',
+                        zIndex: managerState ? '100' : '0'
+                    }}>
+                        <div>
+                            <p className={styles.main}>{names(selectedCompanyData.main_manager)} <Star1 variant="Bold" color="rgba(210, 195, 55, 1)"/></p>
+                            {selectedCompanyData.managers.map(manager => (
+                                <p key={manager}>{names(manager)}</p>
+                            ))}
+                        </div>
+                    </div>
+                    <div className={styles.main_manager}>
+                        <div>
+                        <p>Список пользователей</p>
+                            <ArrowDown2 color="rgba(28, 106, 177, 1)" onClick={() => setUserState(!userState)} style={{ transform: `${userState ? 'rotate(360deg)' : 'rotate(270deg)'}` }}/>
+                        </div>
+                    </div>  
+                    <div style={{
+                        display: `${userState ? 'block' : 'none'}`
+                    }} className={styles.users}>
+                        {selectedCompanyData.users?.map((user) => (
+                            <p key={user.id}>{`${user.first_name}     ${user.last_name}`}</p>
+                        ))}
                     </div>
                     <div className={styles.miniContainer}>
                         <span>Количество заявок:</span>
                         <p>{selectedCompanyData.count_applications}</p>
                     </div>
+
                     <div className={styles.miniContainer}>
                         <span>Количество пользователей:</span>
                         <p>{selectedCompanyData.count_users}</p>

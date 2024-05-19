@@ -1,3 +1,4 @@
+import { user } from '@/widgets/Admin/Companies/api/componiesApi';
 import {create} from 'zustand';
 
 // Добавляем объявление Symbol.iterator для типа number | undefined[]
@@ -19,6 +20,7 @@ export interface DataAddCompanies {
     count_applications?: number;
     created_at?: string;
     last_updated_at?: string;
+    users?: (user)[]
 }
 
 interface DataInputCompaniesStore {
@@ -65,7 +67,7 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
             dataInputCompanies: {
                 ...state.dataInputCompanies,
                 main_manager: typeof manager === 'number' && !isNaN(manager) ? manager : state.dataInputCompanies.main_manager
-
+                
             }
         }));
     },

@@ -11,9 +11,11 @@ import { SccessfullyModal } from "../../Modals/SccessfullyModal/SccessfullyModal
 import { Pagination } from "../../../shared/ui/Pagination/Pagination";
 import { usePassword } from "../../Modals/ChangePassword/api/ChangePassword";
 import { ItemCount } from "../../../shared/ui/ItemCount/ItemCount";
+import { useDataInputCompaniesStore } from "@/widgets/Modals/ViewCompany/api/dataInputCompanies";
 
 export const Companies: FC = () => {
     const { fetchDatas, getUsers, data, selectedIdCompany, searchReset, openModalView, closeModalView, modalViewCompany, searchCompanies, countCompany } = useDataStoreComponies();
+    const { resetInput } = useDataInputCompaniesStore();
     const [modalScc, setModalScc] = useState<string>('none');
     const [createCompany, setCreateCompany] = useState<boolean>(false);
     const [companyList, setCompanyList] = useState<dataCompanies[] | undefined>()
@@ -75,7 +77,7 @@ export const Companies: FC = () => {
         }
     }, [createCompanyName, count])
 
-
+    
     return (
         <div className={styles.Companies}>
             <div className={styles.h3} onClick={closeModalView}>Поиск по компаниям</div>
@@ -137,6 +139,7 @@ export const Companies: FC = () => {
                 open={createCompany}
                 onCancel={() => {
                     closeModalCreateCompany();
+                    resetInput()
                 }}
             >
                 <CreateCompany nameCreateCompany={message} count={count} openModals={openModal} closeCreateModal={closeModalCreateCompany} page={page} />

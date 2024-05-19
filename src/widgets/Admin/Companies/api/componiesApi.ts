@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import axios from 'axios';
 import { Data } from 'iconsax-react';
-import { IUserGet } from '../../../../shared/types/userTypes';
 import { DataAddCompanies } from '../../../Modals/ViewCompany/api/dataInputCompanies';
 import { ChangeEvent } from 'react';
 import { authToken, BASE_URL } from '../../../../shared/variables/variables';
@@ -37,7 +36,18 @@ export interface dataCompanies {
 interface Data {
     data: dataCompanies[];
 }
-
+export interface manager {
+    id?: number;
+    first_name: string;
+    surname: string,
+    role_type: string,
+    full_name: string,
+}
+export interface user {
+    id: number,
+    first_name: string,
+    last_name: string
+}
 interface DataStore extends Data {
     fetchDatas: (page: number) => Promise<void>;
     addCompany: (company: dataAddCompanies, page: number) => Promise<void>;
@@ -49,7 +59,7 @@ interface DataStore extends Data {
     modalViewCompany: boolean;
     openModalView: () => void;
     closeModalView: () => void;
-    users: IUserGet[];
+    users: manager[];
     getUsers: () => Promise<void>;
     changeInputOne: (data: DataAddCompanies, state: DataAddCompanies | null, id: number | undefined, mainManager: number | undefined | false, maangers: (number | undefined)[]) => void;
     changeInputCompany: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -94,8 +104,8 @@ const deleteCompanies = async (id: number) => {
 
 const getUser = async () => {
     try {
-        const response = await axios.get(`${BASE_URL}/users/profiles/`, authToken);
-        return response.data.data
+        const response = await axios.get(`${BASE_URL}/users/name_list/`, authToken);
+        return response.data
     } catch (error) {
         console.log(error, "getUserError");
     }
