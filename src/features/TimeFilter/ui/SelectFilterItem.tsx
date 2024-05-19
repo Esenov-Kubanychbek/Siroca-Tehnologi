@@ -15,7 +15,7 @@ interface ISelectItem {
 //There im rendering selecter dropdawn
 export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
     const [selects, setSelects] = useState<string[]>([]); //All choosed selects
-
+    
     // pushing choosed selects
     const addSelect = (e: { currentTarget: { id: string } }) => {
         const value = e.currentTarget.id;
@@ -32,7 +32,14 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
         const obj = { selected: selects, type: el.type };
         getSelect(obj);
     };
-
+    const check = ({ text, index }: { text: string | number | boolean, index: number }) => {
+        const sliced = el.values.slice(0, index)
+        if (sliced.includes(text.toString())) {
+            return false
+        } else {
+            return true
+        }
+    }
     return (
         <div
             className={styles.FilterItem}
@@ -45,26 +52,30 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
                         if (el.selected.includes(elem) || elem === "null" || elem === "undefined") {
                             return;
                         } else {
-                            return (
-                                <div
-                                    className={styles.Cont}
-                                    key={`${el.type}-${index}`}
-                                >
-                                    <input
-                                        type="checkbox"
-                                        onClick={addSelect}
-                                        className={el.type}
-                                        id={`${elem}`}
-                                    />
-                                    <label
-                                        htmlFor={String(elem)}
-                                        onClick={addSelect}
-                                        className={el.type}
+                            const isChecked = check({ text: elem, index: index })
+                            if (isChecked) {
+                                return (
+                                    <div
+                                        className={styles.Cont}
+                                        key={`${el.type}-${index}`}
                                     >
-                                        {displayedText}
-                                    </label>
-                                </div>
-                            );
+                                        <input
+                                            type="checkbox"
+                                            onClick={addSelect}
+                                            className={el.type}
+                                            id={`${elem}`}
+                                        />
+                                        <label
+                                            htmlFor={String(elem)}
+                                            onClick={addSelect}
+                                            className={el.type}
+                                        >
+                                            {displayedText}
+                                        </label>
+                                    </div>
+                                );
+                            }
+
                         }
                     })}
             </div>

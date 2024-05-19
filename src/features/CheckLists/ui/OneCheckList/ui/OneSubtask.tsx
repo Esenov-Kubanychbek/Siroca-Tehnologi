@@ -14,9 +14,8 @@ interface IOneSubtask {
 
 export const OneSubtask: FC<IOneSubtask> = (props) => {
     const { subtask } = props;
-    const [moreState, setMoreState] = useState<boolean>(false);
-    const [managerModal, setManagerModal] = useState<boolean>(false);
     const [editState, setEditState] = useState<boolean>(false);
+    const [managerModal, setManagerModal] = useState<boolean>(false);
     const { deleteSubtask, setSubtaskCompleted } = checkListApi();
     const { setSubtaskCompletedFromOneRequest, deleteSubtaskFromOneRequest } = getOneRequestApi();
     const completeFunc = () => {
@@ -32,39 +31,42 @@ export const OneSubtask: FC<IOneSubtask> = (props) => {
     };
     return editState === false ? (
         <div className={styles.OneSubtask}>
-            <div className={styles.Left}>
-                <CustomCheckBox
-                    checked={subtask.completed}
-                    onClick={completeFunc}
-                />
-                <p onClick={editFunc}>{subtask.text}</p>
-            </div>
-            <div className={styles.Right}>
-                <span onClick={editFunc}>{subtask.manager}</span>
-                <div onClick={editFunc}>
-                    <Timer1 />
-                    <p>{subtask.deadline}</p>
+            <CustomCheckBox
+                checked={subtask.completed}
+                onClick={completeFunc}
+            />
+            <div
+                onClick={editFunc}
+                className={styles.Main}
+            >
+                <div className={styles.Text}>{subtask.text}</div>
+                <div className={styles.Right}>
+                    <span>{subtask.manager}</span>
+                    <div>
+                        <Timer1 />
+                        <p>{subtask.deadline}</p>
+                    </div>
                 </div>
-                <CustomMoreSquare
-                    open={moreState}
-                    setOpen={setMoreState}
-                >
-                    <button onClick={editFunc}>Редактирокать</button>
-                    <button onClick={() => setManagerModal(true)}>Назначить</button>
-                    <button onClick={deleteFunc}>Удалить</button>
-                </CustomMoreSquare>
             </div>
+            <CustomMoreSquare>
+                <button onClick={editFunc}>Редактирокать</button>
+                <button onClick={() => setManagerModal(true)}>Назначить</button>
+                <button onClick={deleteFunc}>Удалить</button>
+            </CustomMoreSquare>
             <Modal
                 open={managerModal}
                 centered
                 onCancel={() => setManagerModal(false)}
             >
-                <ManagerForSubtask setManagerModal={setManagerModal} />
+                <ManagerForSubtask
+                    forWhat="editSubtask"
+                    setManagerModal={setManagerModal}
+                />
             </Modal>
         </div>
     ) : (
         <CreateSubTask
-            forWhat="edit"
+            forWhat="editSubtask"
             subtask={subtask}
             checklistId={Number(subtask.id)}
             setDisplay={setEditState}

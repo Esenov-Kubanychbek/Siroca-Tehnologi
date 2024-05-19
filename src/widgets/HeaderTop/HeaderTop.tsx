@@ -43,7 +43,6 @@ export const HeaderTop: FC<{ role: string | null; isAdminManager?: boolean }> = 
                         content={<ProfileModal setModal={setModal} />}
                         trigger={"click"}
                         open={modal}
-                        
                         onOpenChange={handleOpenChange}
                     >
                         <>

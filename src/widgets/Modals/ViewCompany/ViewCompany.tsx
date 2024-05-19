@@ -2,7 +2,7 @@ import { AddSquare, ArrowDown2, CloseSquare, Star1, Trash } from "iconsax-react"
 import styles from "./ViewCompany.module.scss"
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
-import { FC, useEffect, useState, } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDataInputCompaniesStore } from "./api/dataInputCompanies";
 import { Modal } from "antd";
 import { AddManager } from "../AddManager/AddManager";
@@ -11,41 +11,47 @@ interface props {
     closeModalView: () => void;
     message: (text: string, number: number) => void;
     count: number;
-    viewModal: boolean,
-    page: number,
+    viewModal: boolean;
+    page: number;
 }
 
 export const ViewCompany: FC<props> = ({ closeModalView, message, count, page }) => {
     interface managers {
-        id: number | undefined,
-        main: boolean,
-        index: number
+        id: number | undefined;
+        main: boolean;
+        index: number;
     }
-    const { selectedCompanyData, fetchDatas, changeInputOne, idCompany, changeInputCompany, users, addedNewManagers, selectedIdCompany } = useDataStoreComponies();
+    const {
+        selectedCompanyData,
+        fetchDatas,
+        changeInputOne,
+        idCompany,
+        changeInputCompany,
+        users,
+        addedNewManagers,
+        selectedIdCompany,
+    } = useDataStoreComponies();
     const { dataInputCompanies } = useDataInputCompaniesStore();
     const [managersMain, setManagersMain] = useState<managers[]>([]);
     const [hovered, setHovered] = useState<boolean>(false);
     const [managersModal, setManagersModal] = useState<boolean>(false);
 
-
-
     const change = async () => {
-        const mainManager = managersMain.find(manager => manager.main === true);
+        const mainManager = managersMain.find((manager) => manager.main === true);
         const idMainManager = mainManager !== undefined && mainManager.id;
-        const newIdManagers = managersMain.map(manager => manager.id);
-        const filteredNewIdManagers = newIdManagers.filter(item => typeof item === 'number');
+        const newIdManagers = managersMain.map((manager) => manager.id);
+        const filteredNewIdManagers = newIdManagers.filter((item) => typeof item === "number");
         await changeInputOne(dataInputCompanies, selectedCompanyData, idCompany, idMainManager, filteredNewIdManagers);
         const number = count + 1;
-        message(`Изменение были сохранены!`, number)
+        message(`Изменение были сохранены!`, number);
         fetchDatas(page);
-    }
+    };
 
     useEffect(() => {
-
         const otherManagers = selectedCompanyData.managers.map((manager, index) => ({
             id: manager,
             main: manager === selectedCompanyData.main_manager,
-            index: index
+            index: index,
         }));
         if (otherManagers) {
             setManagersMain(otherManagers);
@@ -57,10 +63,10 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
     };
     const [addManagerModal, setAddManagerModal] = useState<boolean>(false);
     const closeAddManager = () => {
-        setAddManagerModal(false)
+        setAddManagerModal(false);
     };
     const openAddManager = () => {
-        setAddManagerModal(true)
+        setAddManagerModal(true);
     };
     const style = {
         marginTop: `${managersModal ? "0" : '-100px'}`,
@@ -107,7 +113,6 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                         change={changeInputCompany}
                         name="country"
                         color="black"
-
                     />
                 </div>
             </div>
@@ -122,7 +127,6 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                         name="company_code"
                         maxLength={3}
                         color="black"
-
                     />
                 </div>
                 <div>
@@ -134,7 +138,6 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                         change={changeInputCompany}
                         name="domain"
                         color="black"
-
                     />
                 </div>
             </div>
@@ -145,7 +148,11 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                         setManagersModal(!managersModal);
                     }}><ArrowDown2 color="rgba(28, 106, 177, 1)" className={styles.arrow} style={stylesArrow} /></div></div>
                     {managersMain.map((managerId) => (
-                        <div className={styles.managers} key={managerId.id} style={style}>
+                        <div
+                            className={styles.managers}
+                            key={managerId.id}
+                            style={style}
+                        >
                             <p className={styles.manager}>{names(managerId.id)}</p>
                             {managerId.main ? 
                                 <div className={styles.gold}>
@@ -198,17 +205,18 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
 
             <div className={styles.buttons}>
                 <div className={styles.buttonss}>
-                    <div onClick={() => {
-                        closeModalView();
-                        if (selectedCompanyData.id !== undefined) {
-                            selectedIdCompany(selectedCompanyData.id);
-                        }
-                    }}>
+                    <div
+                        onClick={() => {
+                            closeModalView();
+                            if (selectedCompanyData.id !== undefined) {
+                                selectedIdCompany(selectedCompanyData.id);
+                            }
+                        }}
+                    >
                         <CustomButton
                             variant="Without"
                             width={150}
                             text="Сбросить"
-
                         />
                     </div>
                     <div onClick={closeModalView}>
@@ -219,7 +227,6 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                             onClick={() => {
                                 change();
                             }}
-
                         />
                     </div>
                 </div>
@@ -230,7 +237,11 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                 width={500}
                 centered
             >
-                <AddManager type='changes' addNewChangeManager={addNewChangeManager} closeModal={closeAddManager} />
+                <AddManager
+                    type="changes"
+                    addNewChangeManager={addNewChangeManager}
+                    closeModal={closeAddManager}
+                />
             </Modal>
         </div>
     );

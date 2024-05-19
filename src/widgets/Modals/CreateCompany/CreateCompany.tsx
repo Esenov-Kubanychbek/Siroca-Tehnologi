@@ -18,8 +18,8 @@ interface modal {
 export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCreateCompany, count, page }) => {
     const [allData, setAllData] = useState<boolean>(false);
     const [hovered, setHovered] = useState<boolean>(false);
-    const [inputValue, setInputValue] = useState<string>('');
-    const [inputValueText, setInputValueText] = useState<string>('')
+    const [inputValue, setInputValue] = useState<string>("");
+    const [inputValueText, setInputValueText] = useState<string>("");
     const { addCompany, users, lamp } = useDataStoreComponies();
     const { changeInput, resetInput, dataInputCompanies, addMainManager, addManagers, company_code } = useDataInputCompaniesStore();
     const [filteredManager, setFilteredManager] = useState<manager[]>([]);
@@ -27,10 +27,10 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
     const [err, setErr] = useState<boolean>(false)
     const [addManagerModal, setAddManagerModal] = useState<boolean>(false);
     const closeAddManager = () => {
-        setAddManagerModal(false)
+        setAddManagerModal(false);
     };
     const openAddManager = () => {
-        setAddManagerModal(true)
+        setAddManagerModal(true);
     };
     const addNewCompany = () => {
         if (
@@ -44,16 +44,16 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                 if (filtered.full_name === inputValue) {
                     addCompany(dataInputCompanies, page);
                     const number = count + 1;
-                    nameCreateCompany(`Компания "${dataInputCompanies.name}" была создана!`, number)
+                    nameCreateCompany(`Компания "${dataInputCompanies.name}" была создана!`, number);
                     resetInput();
                     setAllData(false);
                     closeCreateModal();
                     console.log(dataInputCompanies.main_manager);
-                    setInputValue('');
+                    setInputValue("");
                     setErr(false);
                     setTimeout(() => {
                         openModals();
-                    }, 300)
+                    }, 300);
                     return true;
                 }
                 return false;
@@ -63,11 +63,11 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
             }
         } else {
             setAllData(true);
-            console.log('error');
+            console.log("error");
         }
     };
     const filterManager = (text: string) => {
-        const filtered = managers.filter(manager => {
+        const filtered = managers.filter((manager) => {
             const inputText = text.toLowerCase();
             const nameManager = manager.first_name.toLowerCase();
             const lastName = manager.surname.toLocaleLowerCase();
@@ -124,7 +124,7 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
             <div className={styles.blockTwo}>
                 <div>
                     <label htmlFor="">Краткий код</label>
-                    <div className={styles.lamp} >
+                    <div className={styles.lamp}>
                         <CustomInput
                             placeholder="Ввести код "
                             width={272}
@@ -141,7 +141,6 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                             }
                         }}><LampOn variant="Bold" color="#1c6ab1" /></div>
                     </div>
-
                 </div>
                 <div>
                     <label htmlFor="">Домен</label>
@@ -199,8 +198,8 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                     </div>
                 </div>
             </div>
-            <p style={{ display: `${allData ? 'block' : 'none'}` }}>Все поля должны быть обязательно заполнены*</p>
-            <p style={{ display: `${err ? 'block' : 'none'}` }}>Такого менеджера не существует*</p>
+            <p style={{ display: `${allData ? "block" : "none"}` }}>Все поля должны быть обязательно заполнены*</p>
+            <p style={{ display: `${err ? "block" : "none"}` }}>Такого менеджера не существует*</p>
             <div className={styles.buttons}>
                 <div onClick={closeCreateModal}>
                     <CustomButton
@@ -210,7 +209,7 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                         onClick={() => {
                             resetInput();
                             setAllData(false);
-                            setErr(false)
+                            setErr(false);
                         }}
                     />
                 </div>
@@ -220,7 +219,6 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                         width={150}
                         text="Создать"
                         onClick={addNewCompany}
-
                     />
                 </div>
             </div>
@@ -230,7 +228,10 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                 width={500}
                 centered
             >
-                <AddManager type='created' closeModal={closeAddManager} />
+                <AddManager
+                    type="created"
+                    closeModal={closeAddManager}
+                />
             </Modal>
         </div>
     );

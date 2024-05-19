@@ -9,7 +9,7 @@ declare global {
 }
 // Модифицированный интерфейс DataAddCompanies
 export interface DataAddCompanies {
-    id?:number,
+    id?: number;
     name: string;
     company_code: string;
     country: string;
@@ -27,9 +27,9 @@ interface DataInputCompaniesStore {
     changeInput: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
     resetInput: () => void;
     dataInputCompanies: DataAddCompanies;
-    addManager: (manager: number | undefined)=> void;
-    addMainManager: (manager: number | undefined)=> void;
-    addManagers: (manager: number | undefined)=> void;
+    addManager: (manager: number | undefined) => void;
+    addMainManager: (manager: number | undefined) => void;
+    addManagers: (manager: number | undefined) => void;
     company_code: (text: string) => void;
 }
 // Создаем хранилище Zustand
@@ -40,7 +40,7 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
         country: "",
         managers: [],
         main_manager: 0,
-        domain: ""
+        domain: "",
     },
     // Функция изменения
     changeInput: (e) => {
@@ -75,10 +75,9 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
         set((state) => ({
             dataInputCompanies: {
                 ...state.dataInputCompanies,
-                managers: [...state.dataInputCompanies.managers, data]
-            }
-        }) )
-
+                managers: [...state.dataInputCompanies.managers, data],
+            },
+        }));
     },
     // Новая функция сброса
     resetInput: () => {
@@ -89,16 +88,16 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
                 country: "",
                 managers: [],
                 main_manager: 0,
-                domain: ""
-            }
+                domain: "",
+            },
         });
     },
-    company_code: ( text ) => {
+    company_code: (text) => {
         set((state) => ({
             dataInputCompanies: {
                 ...state.dataInputCompanies,
-                company_code: text
-            }
-        }))
-    }
+                company_code: text,
+            },
+        }));
+    },
 }));

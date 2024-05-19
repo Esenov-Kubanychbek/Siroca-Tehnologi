@@ -5,9 +5,9 @@ import { manager, useDataStoreComponies } from "../../Admin/Companies/api/compon
 import { CustomButton } from "../../../shared/ui";
 import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
 interface types {
-    type: string,
-    addNewChangeManager?: (id: number) => void,
-    closeModal: () => void,
+    type: string;
+    addNewChangeManager?: (id: number) => void;
+    closeModal: () => void;
 }
 export const AddManager: FC<types> = ({ type, addNewChangeManager, closeModal }) => {
     const { users } = useDataStoreComponies();
@@ -39,20 +39,20 @@ export const AddManager: FC<types> = ({ type, addNewChangeManager, closeModal })
     };
 
     const addManagers = () => {
-
         managers?.some((array) => {
             if (text === array.full_name) {
                 if (filteredManager) {
                     setErr(false);
-                    filteredManager.map(array => {
-                        if (type === 'created') {
+                    filteredManager.map((array) => {
+                        if (type === "created") {
                             addManager(array.id);
                             closeModal();
                         }
-                        if (type === 'changes') {
-                            array.id !== undefined && addNewChangeManager !== undefined && addNewChangeManager(array.id)
+                        if (type === "changes") {
+                            array.id !== undefined &&
+                                addNewChangeManager !== undefined &&
+                                addNewChangeManager(array.id);
                             closeModal();
-
                         }
                     });
                     setInputValue("");
@@ -66,12 +66,11 @@ export const AddManager: FC<types> = ({ type, addNewChangeManager, closeModal })
 
     useEffect(() => {
         if (object) {
-            setInputValue('');
+            setInputValue("");
         }
     }, [object]);
     return (
         <div className={styles.AddManager}>
-
 
             <div className={styles.addContainer}>
                 <div className={styles.container1}>

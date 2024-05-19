@@ -3,7 +3,6 @@ import { create } from "zustand";
 import { ChangeEvent } from "react";
 import { authToken, BASE_URL } from "../../../../shared/variables/variables";
 
-
 export interface user {
     id?: string | null;
     first_name: string;
@@ -22,25 +21,24 @@ interface IFetchs {
 }
 
 export const profile = create<IFetchs>((set) => ({
-
     users: {
         id: null,
-        first_name: '',
-        image: '',
-        job_title: '',
-        main_company: '',
-        surname: '',
-        username: ''
+        first_name: "",
+        image: "",
+        job_title: "",
+        main_company: "",
+        surname: "",
+        username: "",
     },
     getOneUser: async (id) => {
         try {
             const response = await axios.get(`${BASE_URL}/users/edit/${id}/`, authToken);
             set({ users: response.data });
-
         } catch (error) {
             console.log(error, "getOneUserError");
         }
-    }, changeInputUser: (e) => {
+    },
+    changeInputUser: (e) => {
         set((prevState) => ({
             users: {
                 ...prevState.users,
@@ -49,24 +47,27 @@ export const profile = create<IFetchs>((set) => ({
         }));
     },
     setDatas: (data) => {
-        set({ users: data })
+        set({ users: data });
     },
     putOneUser: async (data, newData) => {
         try {
-            const putData = newData.image === data.image ? {
-                first_name: newData.first_name,
-                job_title: newData.job_title,
-                main_company: newData.main_company,
-                surname: newData.surname,
-                username: newData.username
-            } : {
-                first_name: newData.first_name,
-                image: newData.image,
-                job_title: newData.job_title,
-                main_company: newData.main_company,
-                surname: newData.surname,
-                username: newData.username
-            };
+            const putData =
+                newData.image === data.image
+                    ? {
+                          first_name: newData.first_name,
+                          job_title: newData.job_title,
+                          main_company: newData.main_company,
+                          surname: newData.surname,
+                          username: newData.username,
+                      }
+                    : {
+                          first_name: newData.first_name,
+                          image: newData.image,
+                          job_title: newData.job_title,
+                          main_company: newData.main_company,
+                          surname: newData.surname,
+                          username: newData.username,
+                      };
 
             if (putData !== undefined) {
                 const formData = new FormData();
@@ -75,13 +76,9 @@ export const profile = create<IFetchs>((set) => ({
                 });
                 const response = await axios.put(`${BASE_URL}/users/edit/${data.id}/`, formData, authToken);
                 set({ users: response.data });
-
             }
-
-
         } catch (error) {
             console.log(error, "getOneUserError");
         }
-    }
-
+    },
 }));

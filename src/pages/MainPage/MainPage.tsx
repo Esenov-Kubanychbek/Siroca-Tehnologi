@@ -14,15 +14,13 @@ export const MainPage: FC = () => {
     const role = localStorage.getItem("role_type");
     const id = localStorage.getItem("id");
     const usePasswordScc = usePassword();
-    const { getOneUser } = profile()
-
-
+    const { getOneUser } = profile();
 
     useEffect(() => {
         roles.getting();
         fetchUsers.getOneUser(Number(id));
         fetchUsers.getUsersList(1);
-        id !== null && getOneUser(id)
+        id !== null && getOneUser(id);
     }, []);
     useEffect(() => {
         roles.formateState();
@@ -43,20 +41,38 @@ export const MainPage: FC = () => {
                 <>
                     <Dashboard />
                     <header style={{ width: "1820px", marginLeft: "120px" }}>
-                        <HeaderTop role={role} isAdminManager={true} />
+                        <HeaderTop
+                            role={role}
+                            isAdminManager={true}
+                        />
                         <HeaderBottom role={role} />
-                        {<SccessfullyModal closeModal={usePasswordScc.closeModalScc} modalScc={usePasswordScc.changePasswordScc} texts='Изменения были успешно сохранены' style={50}/> }
+                        {
+                            <SccessfullyModal
+                                closeModal={usePasswordScc.closeModalScc}
+                                modalScc={usePasswordScc.changePasswordScc}
+                                texts="Изменения были успешно сохранены"
+                                style={50}
+                            />
+                        }
                     </header>
-
                 </>
             );
         } else {
             return (
                 <>
-                    <HeaderTop role={role} isAdminManager={false} />
+                    <HeaderTop
+                        role={role}
+                        isAdminManager={false}
+                    />
                     <HeaderBottom role={role} />
-                    {<SccessfullyModal closeModal={usePasswordScc.closeModalScc} modalScc={usePasswordScc.changePasswordScc} texts='Изменения были успешно сохранены' style={150}/> }
-
+                    {
+                        <SccessfullyModal
+                            closeModal={usePasswordScc.closeModalScc}
+                            modalScc={usePasswordScc.changePasswordScc}
+                            texts="Изменения были успешно сохранены"
+                            style={150}
+                        />
+                    }
                 </>
             );
         }

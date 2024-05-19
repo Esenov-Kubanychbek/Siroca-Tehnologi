@@ -1,28 +1,23 @@
 import { FC, useState } from "react";
 import styles from "./ViewUser.module.scss";
 import { IViewUser } from "./types/types";
-import { CloseSquare, MoreSquare } from "iconsax-react";
-import { Modal, Popover } from "antd";
+import { CloseSquare } from "iconsax-react";
+import { Modal } from "antd";
 import { usersApi } from "../../Admin/Users/api/usersApi";
 import { EditUser } from "../EditUser/EditUser";
 import { deleteUserApi } from "../EditUser/api/deleteUserApi";
+import { CustomMoreSquare } from "@/shared/ui";
 
 export const ViewUser: FC<IViewUser> = (props) => {
     const [modal, setModal] = useState<boolean>(false);
-    const [open, setOpen] = useState<boolean>(false);
     const { view, setView } = props;
     const { oneUserGet } = usersApi();
     const { deleteUser } = deleteUserApi();
-    const handleOpenChange = (newOpen: boolean) => {
-        setOpen(newOpen);
-    };
     const deleteFunc = () => {
         deleteUser(oneUserGet.id);
         setView(false);
-        setOpen(false);
     };
     const openEdit = () => {
-        setOpen(false);
         setModal(true);
     };
     return (
@@ -41,35 +36,10 @@ export const ViewUser: FC<IViewUser> = (props) => {
                     </p>
                 </div>
                 <div className={styles.TopRight}>
-                    <Popover
-                        placement="bottomRight"
-                        content={
-                            <div className={styles.MoreButtons}>
-                                <button
-                                    className={styles.Button}
-                                    onClick={openEdit}
-                                >
-                                    Редактировать
-                                </button>
-                                <button
-                                    className={styles.Button}
-                                    onClick={deleteFunc}
-                                >
-                                    Удалить
-                                </button>
-                            </div>
-                        }
-                        onOpenChange={handleOpenChange}
-                        trigger={"click"}
-                        open={open}
-                    >
-                        <MoreSquare
-                            cursor={"pointer"}
-                            variant="Bulk"
-                            color="#929292"
-                            size={34}
-                        />
-                    </Popover>
+                    <CustomMoreSquare>
+                        <button onClick={openEdit}>Редактировать</button>
+                        <button onClick={deleteFunc}>Удалить</button>
+                    </CustomMoreSquare>
                     <CloseSquare
                         size={34}
                         onClick={() => setView(false)}
@@ -81,7 +51,7 @@ export const ViewUser: FC<IViewUser> = (props) => {
                 <div className={styles.Name}>
                     <p>Роль:</p>
                     <p>Должность:</p>
-                    <p>Догин:</p>
+                    <p>Логин:</p>
                     <p>Компания:</p>
                 </div>
                 <div className={styles.Data}>

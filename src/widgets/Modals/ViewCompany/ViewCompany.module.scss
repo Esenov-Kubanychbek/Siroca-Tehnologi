@@ -6,7 +6,7 @@
     padding: 0 20px 40px 20px;
     .arrow {
         transform: rotate(360deg);
-        transition: transform .2s ease-in;
+        transition: transform 0.2s ease-in;
     }
 
     .blockOne {
@@ -15,7 +15,7 @@
         align-items: center;
         font-size: 32px;
         font-weight: 700;
-        margin: 30px ;
+        margin: 30px;
     }
 
     .AddUser {
@@ -79,7 +79,7 @@
         width: 476px;
         justify-content: space-between;
         padding: 0 16px;
-        background-color: #F4F4F4;
+        background-color: #f4f4f4;
         box-sizing: border-box;
         max-height: 200px;
         margin-top: -200px;
@@ -115,7 +115,7 @@
     }
 
     .mainManager {
-        background-color: #F4F4F4;
+        background-color: #f4f4f4;
         width: 476px;
         height: 56px;
         font-size: 18px;
@@ -129,7 +129,7 @@
     }
 
     .addManagers {
-        background-color: #1C6AB1;
+        background-color: #1c6ab1;
         width: 56px;
         height: 56px;
         box-sizing: border-box;

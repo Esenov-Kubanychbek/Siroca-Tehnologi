@@ -1,20 +1,20 @@
-.SccessfullyModal{
+.SccessfullyModal {
     position: fixed;
     box-sizing: border-box;
-    transition:  0.3s ;
+    transition: 0.3s;
     padding: 24px 32px;
-    background-color: #D8ECFF;
+    background-color: #d8ecff;
     border-radius: 8px;
     z-index: 3;
     right: 50px;
-    p{
+    p {
         font-size: 20px;
         font-weight: 700;
         margin: 0 16px;
     }
-    div{
+    div {
         display: flex;
-    align-items: center;
-    justify-content: space-between;
+        align-items: center;
+        justify-content: space-between;
     }
 }

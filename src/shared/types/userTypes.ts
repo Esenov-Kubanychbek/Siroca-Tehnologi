@@ -3,8 +3,8 @@ export interface IUser {
     id?: number;
     first_name: string;
     image?: File | FileList | string;
-    job_title: number | null;
-    main_company: number;
+    job_title: string;
+    main_company: string;
     password: string;
     role_type: string;
     surname?: string;
@@ -36,10 +36,10 @@ export interface IAddUser {
 }
 
 export interface IUserGet {
-    [key: string]: number | string | boolean | FileList | File | undefined | null;
+    [key: string]: number | string | undefined;
     id?: number;
     first_name: string;
-    image?: File | FileList | string | undefined;
+    image?: string;
     job_title: string;
     main_company: string;
     password: string;

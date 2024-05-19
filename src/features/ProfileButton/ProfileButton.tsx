@@ -2,10 +2,8 @@ import { profile } from "../../widgets/Modals/ProfileModal/api/profileApi";
 import styles from "./ProfileButton.module.scss";
 import { FC } from "react";
 
-
-
 export const ProfileButton: FC = () => {
-    const {users} = profile();
+    const { users } = profile();
     return (
         <>
             <button
@@ -17,11 +15,7 @@ export const ProfileButton: FC = () => {
                     src={String(users.image)}
                 />
                 <p>Мой профиль</p>
-
             </button>
-            
-            
-            
         </>
     );
 };

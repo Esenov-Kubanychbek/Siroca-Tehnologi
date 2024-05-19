@@ -8,7 +8,8 @@
 
 .RoleContainer {
     width: 340px;
-    height: 60px;
+    height: 56px;
+    box-sizing: border-box;
     background-color: $blackf4;
     border-radius: 8px;
     display: flex;

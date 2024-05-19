@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FC, KeyboardEvent, useEffect, useRef, useState } from "react";
 import HeaderSettings from "./ui/header/HeaderSettings";
 import RolesRender from "./ui/itemsRender/RolesItemsRender";
 import styles from "./RolesSettingsPage.module.scss";
@@ -6,14 +6,19 @@ import axios from "axios";
 import { ArrowRight } from "iconsax-react";
 import { useNavigate } from "react-router-dom";
 import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
-import { BASE_URL } from "../../shared/variables/variables";
+import { BASE_URL, authToken } from "../../shared/variables/variables";
 import { SearchInput } from "../../features";
 import { IUser } from "../../shared/types/userTypes";
+import { CustomButton } from "../../shared/ui";
+import { Pagination } from "../../shared/ui/Pagination/Pagination";
 
 export const RolesSettingsPage: FC = () => {
     const [boxesReg, setBoxesReg] = useState<IUser[]>([]);
     const [navtype, setNavtype] = useState<string>("Клиент");
     const [users, setUsers] = useState<IUser[]>([]);
+    const [searchVal, setSearchVal] = useState<string>("");
+    const [page, setPage] = useState<number>(1);
+    const [count, setCount] = useState<number>(0);
     const headerSettingsList: string[] = [
         "Добавление/удаление комментария к заявке",
         "Скачивание отчета по заявкам",
@@ -83,11 +88,7 @@ export const RolesSettingsPage: FC = () => {
                 const sendingData = {
                     users_data: props.data,
                 };
-                const response = await axios.put(`${BASE_URL}/users/clientpermissions/detail/`, sendingData, {
-                    headers: {
-                        Authorization: `JWT ${localStorage.getItem("access")}`,
-                    },
-                });
+                const response = await axios.put(`${BASE_URL}/users/clientpermissions/detail/`, sendingData, authToken);
                 console.log(response);
             } else if (props.role === "manager") {
                 const sendingData = {
@@ -95,11 +96,11 @@ export const RolesSettingsPage: FC = () => {
                 };
                 console.log(sendingData);
 
-                const response = await axios.put(`${BASE_URL}/users/managerpermissions/detail/`, sendingData, {
-                    headers: {
-                        Authorization: `JWT ${localStorage.getItem("access")}`,
-                    },
-                });
+                const response = await axios.put(
+                    `${BASE_URL}/users/managerpermissions/detail/`,
+                    sendingData,
+                    authToken,
+                );
                 console.log(response);
             } else if (props.role === "") {
                 return;
@@ -146,19 +147,29 @@ export const RolesSettingsPage: FC = () => {
         setNavtype(id);
     };
     const onSearch = (event: ChangeEvent<HTMLInputElement>) => {
-        const filterUsers = fetchData.usersList.filter((el) => {
-            if (el.username?.includes(event.target.value)) {
-                return el;
-            }
-        });
-        setUsers(filterUsers);
+        // const filterUsers = fetchData.usersList.filter((el) => {
+        //     if (el.username?.includes(event.target.value)) {
+        //         return el;
+        //     }
+        // });
+        // setUsers(filterUsers);
+        setSearchVal(event.target.value);
     };
+
+    const onEnterSearch = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            fetchData.setSearchList(searchVal);
+        }
+    };
+
     useEffect(() => {
-        fetchData.getUsersList(1);
+        fetchData.getUsersList(page);
+        setCount(fetchData.count);
     }, []);
     useEffect(() => {
         setUsers(fetchData.usersList);
     }, [fetchData.usersList]);
+
     return (
         <div className={styles.Settings}>
             <div
@@ -188,13 +199,14 @@ export const RolesSettingsPage: FC = () => {
                                 onChange={(event) => {
                                     onSearch(event);
                                 }}
+                                onKeyDown={onEnterSearch}
                             />
-                            <button
+                            <CustomButton
+                                width={130}
+                                variant="Primary"
                                 onClick={saveRoles}
-                                className={styles.Save}
-                            >
-                                Сохранить
-                            </button>
+                                text="Сохранить"
+                            />
                         </div>
                     </div>
                     <div className={styles.topnav}>
@@ -225,6 +237,11 @@ export const RolesSettingsPage: FC = () => {
                     navType={navtype}
                 />
             </div>
+            <Pagination
+                count={count}
+                page={page}
+                setPage={setPage}
+            />
         </div>
     );
 };

@@ -38,7 +38,7 @@ export const AddComment: FC = () => {
                     <CustomTextArea
                         name="text"
                         value={commentState}
-                        placeholder="Добавьте коментарий..."
+                        placeholder="Добавьте комментарий..."
                         height={56}
                         width={580}
                         variant="TextArea"
@@ -58,7 +58,7 @@ export const AddComment: FC = () => {
                     <CustomTextArea
                         name="text"
                         value={commentState}
-                        placeholder="Добавьте коментарий..."
+                        placeholder="Добавьте комментарий..."
                         height={56}
                         width={580}
                         variant="TextArea"

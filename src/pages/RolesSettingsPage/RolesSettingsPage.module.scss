@@ -11,6 +11,7 @@
     padding-left: 50px;
 }
 .Fixednav {
+    width: 90%;
     position: fixed;
     top: 30px;
 }
@@ -34,7 +35,9 @@
 
 .Search {
     display: flex;
-    width: 63%;
+    position: fixed;
+    left: 700px;
+    width: 1200px;
     justify-content: space-between;
 }
 
@@ -86,28 +89,6 @@
     }
 }
 
-.Navigation {
-    button {
-        display: inline-flex;
-        height: 44px;
-        padding: 16px;
-        justify-content: center;
-        align-items: center;
-        gap: 16px;
-        border-radius: 8px;
-        background: var(---800, #1c6ab1);
-        color: var(---White, #fff);
-        text-align: center;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        border: none;
-        margin-right: 8px;
-        margin-bottom: 20px;
-    }
-}
-
 .Container {
     width: 95%;
     padding-top: 180px;
@@ -115,22 +96,8 @@
     overflow: scroll;
 }
 
-.Сontainer::-webkit-scrollbar {
-    width: 15px;
-    height: 15px;
-}
-
-.Сontainer::-webkit-scrollbar-thumb {
-    background-color: #888;
-}
-
-.Сontainer::-webkit-scrollbar-track {
-    background-color: blue;
-}
-
 .BackCont {
-    min-width: 1900px;
-    max-width: 2200px;
+    width: 100%;
     display: flex;
     margin-bottom: 32px;
     align-items: center;

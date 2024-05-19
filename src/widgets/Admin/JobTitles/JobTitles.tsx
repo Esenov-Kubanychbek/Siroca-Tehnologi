@@ -1,10 +1,10 @@
 import styles from "./JobTitles.module.scss";
 import { Modals } from "./ui/Modals";
 import { Trash } from "iconsax-react";
-import { SearchInput } from "../../../features";
+import { SearchInput } from "@/features";
 import { jobTitleApi } from "./api/jobTitleApi";
 import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from "react";
-import { ButtonCreate, ListTop, ListTopName, ItemInner } from "../../../shared/ui";
+import { ButtonCreate, ListTop, ListTopName, ItemInner } from "@/shared/ui";
 
 export const JobTitles: FC = () => {
     const [state, setState] = useState<boolean>(false);
@@ -14,9 +14,9 @@ export const JobTitles: FC = () => {
     const [modalReady, setModalReady] = useState<boolean>(false);
     const [closeState, setCloseState] = useState<boolean>(false);
     const [modalSuccess, setModalSuccess] = useState<boolean>(false);
-    const fetchData = jobTitleApi();
+    const { jobTitleList, setSearchList, searchList, getJobTitleList } = jobTitleApi();
     useEffect(() => {
-        fetchData.getJobTitleList();
+        getJobTitleList();
     }, []);
     const handleClick = () => {
         setState(!state);
@@ -27,8 +27,8 @@ export const JobTitles: FC = () => {
         setCloseState(true);
     };
     const search = () => {
-        const results = fetchData.jobTitleList.filter((item) => item.title.includes(inputState));
-        fetchData.setSearchList(results);
+        const results = jobTitleList.filter((item) => item.title.includes(inputState));
+        setSearchList(results);
     };
     const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
@@ -38,7 +38,7 @@ export const JobTitles: FC = () => {
     const closeFunc = () => {
         setCloseState(false);
         setInputState("");
-        fetchData.setSearchList(fetchData.jobTitleList);
+        setSearchList(jobTitleList);
     };
     return (
         <>
@@ -75,7 +75,7 @@ export const JobTitles: FC = () => {
                     <button
                         className={styles.Cancel}
                         onClick={handleClick}
-                        style={state ? { display: "block" } : { display: "none" }}
+                        style={{ display: state ? "block" : "none" }}
                     >
                         Отменить
                     </button>
@@ -91,10 +91,10 @@ export const JobTitles: FC = () => {
                     </div>
                     <div
                         className={styles.Inner}
-                        style={fetchData.jobTitleList.length > 11 ? { overflowY: "scroll" } : { overflowY: "hidden" }}
+                        style={{ overflowY: jobTitleList.length > 11 ? "scroll" : "hidden" }}
                     >
-                        {fetchData.searchList.length > 0 ? (
-                            fetchData.searchList.map((card, i) => (
+                        {searchList.length > 0 ? (
+                            searchList.map((card, i) => (
                                 <div
                                     key={i}
                                     className={styles.Item}

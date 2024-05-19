@@ -37,7 +37,7 @@ export const User: FC<IUserTypes> = (props) => {
                 width={view ? 244 : 350}
             />
             <ItemInner
-                content={user.role_type}
+                content={user.role_type === "manager" ? "Менеджер" : user.role_type === "client" ? "Клиент" : "Админ"}
                 width={view ? 244 : 350}
             />
             <ItemInner

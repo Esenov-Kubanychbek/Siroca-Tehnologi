@@ -1,4 +1,4 @@
-import { ArrowDown2, CloseSquare, MoreSquare, Star, Star1 } from "iconsax-react";
+import { ArrowDown2, CloseSquare, MoreSquare, Star1 } from "iconsax-react";
 import styles from "./ChangeCompany.module.scss";
 import { FC, useState } from "react";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
@@ -50,7 +50,6 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                         <MoreSquare
                             cursor={"pointer"}
                             color="black"
-
                             size={34}
                             onClick={() => setModalButtons((prevState) => !prevState)}
                         />
@@ -68,7 +67,6 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                             <p onClick={() => setModalCreateUser(true)}>Создать пользователя</p>
                             <p onClick={deleteComp}>Удалить</p>
                         </div>
-
                     </div>
                     <CloseSquare
                         cursor={"pointer"}

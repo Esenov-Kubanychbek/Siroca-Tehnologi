@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { BASE_URL } from "../../../shared/variables/variables";
+import { BASE_URL, authToken } from "../../../shared/variables/variables";
 
 export interface IRoles {
     [key: string]: boolean | string;
@@ -18,11 +18,7 @@ export const idRoles = create<IFetch>((set, get) => ({
     formatedState: null,
     getting: async () => {
         try {
-            await fetch(`${BASE_URL}/users/userpermissions/${localStorage.getItem("id")}/`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            })
+            await fetch(`${BASE_URL}/users/userpermissions/${localStorage.getItem("id")}/`, authToken)
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -33,11 +29,7 @@ export const idRoles = create<IFetch>((set, get) => ({
                     set({ rolesState: data });
                 });
 
-            await fetch(`${BASE_URL}/users/${localStorage.getItem("role_type")}permissions/general/`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem("access")}`,
-                },
-            })
+            await fetch(`${BASE_URL}/users/${localStorage.getItem("role_type")}permissions/general/`, authToken)
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");

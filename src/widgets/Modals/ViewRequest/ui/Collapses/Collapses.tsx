@@ -52,7 +52,7 @@ export const Collapses: FC<ICollapses> = (props) => {
         },
         {
             key: "6",
-            id:"Description",
+            id: "Description",
             label: "Описание",
             children: <Description />,
         },
@@ -63,13 +63,13 @@ export const Collapses: FC<ICollapses> = (props) => {
         },
         {
             key: "8",
-            id:"Comments",
+            id: "Comments",
             label: "Комментарии",
             children: <Comments />,
         },
         {
             key: "9",
-            id:"Checklists",
+            id: "Checklists",
             label: "Чек-листы",
             children: <CheckLists />,
             extra: <AddSquare onClick={(e) => openChecklistModal(e)} />,

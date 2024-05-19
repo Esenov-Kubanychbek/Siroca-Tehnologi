@@ -1,6 +1,13 @@
 @import "index.scss";
 
 .Description {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 16px;
+}
+
+.Main {
     width: 548px;
     border-radius: 8px;
     gap: 16px;
@@ -10,19 +17,30 @@
     align-items: center;
     background-color: $blackf4;
     padding: 16px 16px 0 16px;
-    input {
-        position: absolute;
-        z-index: 3;
-        width: 24px;
-        height: 24px;
-        background: none;
-        border: none;
-        color: transparent;
-        cursor: pointer;
-    }
     & ::-webkit-file-upload-button {
         visibility: hidden;
     }
+}
+
+.FileInput {
+    position: absolute;
+    z-index: 3;
+    width: 24px;
+    height: 24px;
+    background: none;
+    border: none;
+    color: transparent;
+    cursor: pointer;
+}
+
+textarea {
+    resize: none;
+    width: 100%;
+    height: auto;
+    background: none;
+    padding: 10px 0;
+    border: none;
+    outline: none;
 }
 
 .Text {
@@ -47,20 +65,4 @@
     align-items: center;
     gap: 16px;
     position: relative;
-}
-
-.MoreButtons {
-    width: 180px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    button {
-        height: 41px;
-        background: none;
-        border: none;
-        color: $blue;
-        font-weight: 700;
-        font-size: 14px;
-    }
 }

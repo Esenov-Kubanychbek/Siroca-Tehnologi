@@ -1,3 +1,5 @@
+@import "index.scss";
+
 .Item {
     display: flex;
 
@@ -5,12 +7,17 @@
         display: flex;
         min-width: 280px;
         height: 46px;
-        padding: 10px 16px;
+        padding: 10px 14px;
         background: white;
         align-items: center;
         gap: 10px;
         border-top: 1px solid var(---200, #dedede);
         border-bottom: 1px solid var(---200, #dedede);
+
+        @include lg {
+            height: 35px;
+        }
+
         p {
             color: #000;
             font-size: 16px;
@@ -18,8 +25,13 @@
             font-weight: 700;
             line-height: normal;
             flex: 1 0 0;
+
+            @include lg {
+                font-size: 12px;
+            }
         }
     }
+
     .num {
         display: flex;
         min-width: 48px;
@@ -33,6 +45,9 @@
         border-bottom: 1px solid var(---200, #dedede);
         border-right: 1px solid var(---200, #dedede);
         gap: 10px;
+        @include lg {
+            height: 35px;
+        }
         p {
             color: #000;
             text-align: center;
@@ -42,6 +57,7 @@
             line-height: normal;
         }
     }
+
     .el {
         background: white;
         display: flex;
@@ -55,6 +71,9 @@
         border-top: 1px solid var(---200, #dedede);
         border-bottom: 1px solid var(---200, #dedede);
         border-left: 2px solid var(---200, #dedede);
+        @include lg {
+            height: 35px;
+        }
         input[type="checkbox"] {
             width: 24px;
             height: 24px;

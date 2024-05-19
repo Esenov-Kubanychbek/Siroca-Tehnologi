@@ -32,11 +32,11 @@ export interface IChecklist {
 interface IChecklistApi {
     oneSubtask: ISubtask;
     setOneSubtask: (subtask: ISubtask) => void;
+    addManagerToOneSubtask: (manager: string) => void;
     oneSubtaskChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    createSubTask: () => void;
     setSubtaskCompleted: (subtask: ISubtask) => void;
     editSubtask: () => void;
-    deleteSubtask: (id: number | undefined) => void;
+    deleteSubtask: (id?: number) => void;
 }
 
 export const checkListApi = create<IChecklistApi>((set, get) => ({
@@ -47,6 +47,14 @@ export const checkListApi = create<IChecklistApi>((set, get) => ({
     setOneSubtask: (subtask) => {
         set({ oneSubtask: subtask });
     },
+    addManagerToOneSubtask: (manager) => {
+        set((prevState) => ({
+            oneSubtask: {
+                ...prevState.oneSubtask,
+                manager: manager,
+            },
+        }));
+    },
     oneSubtaskChange: (e) => {
         set((prevState) => ({
             oneSubtask: {
@@ -54,18 +62,8 @@ export const checkListApi = create<IChecklistApi>((set, get) => ({
                 [e.target.name]: e.target.value,
             },
         }));
-        const oneSubtask = get().oneSubtask
-        console.log(oneSubtask, "changing");
-    },
-    createSubTask: async () => {
-        try {
-            const oneSubtask = get().oneSubtask
-            const response = await axios.post(`${BASE_URL}/applications/subtask/`, oneSubtask, authToken);
-            set({ oneSubtask: response.data });
-            console.log(response, "createSubtaskSuccess");
-        } catch (error) {
-            console.log(error, "createSubtaskError");
-        }
+        const oneSubtask = get().oneSubtask;
+        console.log(oneSubtask, "oneSubtask is changing");
     },
     setSubtaskCompleted: async (subtask) => {
         const completedSubtask = {
@@ -85,8 +83,12 @@ export const checkListApi = create<IChecklistApi>((set, get) => ({
     },
     editSubtask: async () => {
         try {
-            const oneSubtask = get().oneSubtask
-            const response = await axios.put(`${BASE_URL}/applications/subtask/${oneSubtask.id}/`, oneSubtask, authToken);
+            const oneSubtask = get().oneSubtask;
+            const response = await axios.put(
+                `${BASE_URL}/applications/subtask/${oneSubtask.id}/`,
+                oneSubtask,
+                authToken,
+            );
             set({ oneSubtask: response.data });
             console.log(response, "editSubtaskSuccess");
         } catch (error) {

@@ -7,7 +7,6 @@ interface IFetch {
     count: number;
     usersList: IUser[];
     oneUserGet: IUserGet;
-    oneUser: IUser;
     getUsersList: (page: number) => void;
     setSearchList: (searchState: string) => void;
     getOneUser: (id: number | undefined) => void;
@@ -16,15 +15,6 @@ interface IFetch {
 export const usersApi = create<IFetch>((set) => ({
     count: 1,
     usersList: [],
-    oneUser: {
-        first_name: "",
-        job_title: 3,
-        main_company: 3,
-        password: "",
-        role_type: "",
-        surname: "",
-        username: "",
-    },
     oneUserGet: {
         first_name: "",
         image: "",
@@ -47,7 +37,7 @@ export const usersApi = create<IFetch>((set) => ({
     setSearchList: async (searchState) => {
         try {
             const response = await axios.get(`${BASE_URL}/users/profiles/?search=${searchState}`, authToken);
-            set({ usersList: response.data });
+            set({ usersList: response.data.data });
         } catch (error) {
             console.log(error, "getUsersListError");
         }
