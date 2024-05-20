@@ -8,7 +8,7 @@
     padding-bottom: 36px;
     margin: 16px -16px 0 16px;
     box-sizing: border-box;
-    z-index: 10;
+    z-index: 5;
 
     .blackBagr {
         width: 100%;
@@ -21,14 +21,12 @@
     }
 
     .moreClick {
-        font-size: 14px;
         width: 180px;
         background-color: white;
         border-radius: 8px;
         box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.084);
         margin-left: -140px;
         position: fixed;
-        color: #1c6ab1;
         z-index: 5;
         cursor: pointer;
 
@@ -38,6 +36,9 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            color: #1c6ab1;
+            font-size: 14px;
+            font-weight: 700;
 
             &:hover {
                 background-color: #f4f4f4;
@@ -94,7 +95,7 @@
 
         .main_manager {
             margin: 16px 0;
-            z-index: 5;
+            z-index: 2;
 
             div {
                 font-size: 20px;
@@ -128,9 +129,11 @@
         transition: .2s ease;
         margin-top: -16px;
         background-color: #f4f4f4;
+
         div {
             overflow-y: auto;
             max-height: 135px;
+
             p {
                 background-color: #f4f4f4;
                 padding: 8px 16px 8px 32px;
@@ -141,19 +144,23 @@
     }
 
     .managers div::-webkit-scrollbar-track {
-        background-color: white;   
+        background-color: white;
     }
-    .managers div::-webkit-scrollbar{
+
+    .managers div::-webkit-scrollbar {
         width: 10px;
     }
-    .main{
+
+    .main {
         display: flex;
         justify-content: space-between;
     }
-    .users{
+
+    .users {
         margin-top: -16px;
         position: absolute;
-        p{
+
+        p {
             width: 404px;
             background-color: #f4f4f4;
             padding: 8px 16px 8px 32px;

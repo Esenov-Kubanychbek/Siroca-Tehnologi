@@ -24,7 +24,7 @@ export interface dataCompanies {
     country: string;
     count_users: string;
     count_applications: string;
-    main_manager: number;
+    main_manager: string;
     last_updated_at: string;
     created_at: string | null | string;
 

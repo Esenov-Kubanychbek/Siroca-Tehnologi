@@ -1,4 +1,4 @@
-import { ArrowDown2, CloseSquare, MoreSquare, Star1 } from "iconsax-react";
+import { ArrowDown2, CloseSquare, MoreSquare } from "iconsax-react";
 import styles from "./ChangeCompany.module.scss";
 import { FC, useState } from "react";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
@@ -19,7 +19,11 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
     const [modalCreateUser, setModalCreateUser] = useState<boolean>(false);
     const [viewModal, setViewModal] = useState<boolean>(false);
     const [managerState, setManagerState] = useState<boolean>(false);
-    const [userState,setUserState] = useState<boolean>(false)
+    const [userState, setUserState] = useState<boolean>(false);
+    const userssss = selectedCompanyData.users && selectedCompanyData.users.length > 0 
+    ? `${selectedCompanyData.users[0].first_name} ${selectedCompanyData.users[0].last_name}`
+    : 'Пользователей нету!';
+        
     const closeView = () => {
         setViewModal(false);
     };
@@ -38,7 +42,7 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
         const manager = users.find((manager) => manager.id === id);
         return manager ? manager.full_name : "";
     };
-    
+
     return (
         <>
             <div
@@ -100,9 +104,10 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                     </div>
 
                     <div className={styles.main_manager}>
-                        <div className={styles.mainManagers}><p>Ответственный менеджер:</p><ArrowDown2 onClick={() => {
+                        <span>Ответственный менеджер:</span>
+                        <div className={styles.mainManagers}>{names(selectedCompanyData.main_manager)}<ArrowDown2 onClick={() => {
                             setManagerState(!managerState);
-                            
+                            managerState ? setUserState(false) : null
                         }} style={{ transform: `${managerState ? 'rotate(360deg)' : 'rotate(270deg)'}` }} color="rgba(28, 106, 177, 1)" /></div>
                     </div>
                     <div className={styles.managers} style={{
@@ -110,18 +115,18 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                         zIndex: managerState ? '100' : '0'
                     }}>
                         <div>
-                            <p className={styles.main}>{names(selectedCompanyData.main_manager)} <Star1 variant="Bold" color="rgba(210, 195, 55, 1)"/></p>
                             {selectedCompanyData.managers.map(manager => (
                                 <p key={manager}>{names(manager)}</p>
                             ))}
                         </div>
                     </div>
                     <div className={styles.main_manager}>
+                        <span>Список пользователей</span>
                         <div>
-                        <p>Список пользователей</p>
-                            <ArrowDown2 color="rgba(28, 106, 177, 1)" onClick={() => setUserState(!userState)} style={{ transform: `${userState ? 'rotate(360deg)' : 'rotate(270deg)'}` }}/>
+                            {userssss}
+                            <ArrowDown2 color="rgba(28, 106, 177, 1)" onClick={() => {setUserState(!userState); userState ? setManagerState(false) : null}} style={{ transform: `${userState ? 'rotate(360deg)' : 'rotate(270deg)'}` }} />
                         </div>
-                    </div>  
+                    </div>
                     <div style={{
                         display: `${userState ? 'block' : 'none'}`
                     }} className={styles.users}>

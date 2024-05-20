@@ -62,6 +62,12 @@ export const Companies: FC = () => {
         setCloseState(false);
         setSearchText("");
     };
+    const truncatedStr = (str: string | null | undefined): string => {
+        if (!str) {
+            return '';
+        }
+        return str.length > 5 ? str.substring(0, 5) + '...' : str;
+    }
     useEffect(() => {
         if (searchText === "") {
             fetchDatas(page);
@@ -166,7 +172,7 @@ export const Companies: FC = () => {
                                         className={styles.managerName}
                                         style={{ width: `${modalViewCompany ? "160px" : "221px"}` }}
                                     >
-                                        {dataCompany.main_manager}
+                                        {modalViewCompany ? truncatedStr(dataCompany.main_manager) : dataCompany.main_manager}
                                     </div>
                                     <ItemInner
                                         width={modalViewCompany ? 160 : 226}

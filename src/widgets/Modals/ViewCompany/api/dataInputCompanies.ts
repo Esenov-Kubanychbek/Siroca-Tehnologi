@@ -20,7 +20,7 @@ export interface DataAddCompanies {
     count_applications?: number;
     created_at?: string;
     last_updated_at?: string;
-    users?: (user)[]
+    users?: user[]
 }
 
 interface DataInputCompaniesStore {
