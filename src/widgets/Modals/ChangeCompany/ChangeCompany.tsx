@@ -1,4 +1,4 @@
-import { CloseSquare, MoreSquare } from "iconsax-react";
+import { ArrowDown2, CloseSquare, MoreSquare } from "iconsax-react";
 import styles from "./ChangeCompany.module.scss";
 import { FC, useState } from "react";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
@@ -14,11 +14,16 @@ interface props {
 }
 export const ChangeCompany: FC<props> = ({ message, count, page }) => {
     const [modalButtons, setModalButtons] = useState<boolean>(false);
-    const { deleteCompany, idCompany, closeModalView, modalViewCompany, selectedCompanyData, users } =
-        useDataStoreComponies();
+    const { deleteCompany, idCompany, closeModalView, modalViewCompany, selectedCompanyData, users } = useDataStoreComponies();
     const { resetInput } = useDataInputCompaniesStore();
     const [modalCreateUser, setModalCreateUser] = useState<boolean>(false);
     const [viewModal, setViewModal] = useState<boolean>(false);
+    const [managerState, setManagerState] = useState<boolean>(false);
+    const [userState, setUserState] = useState<boolean>(false);
+    const userssss = selectedCompanyData.users && selectedCompanyData.users.length > 0 
+    ? `${selectedCompanyData.users[0].first_name} ${selectedCompanyData.users[0].last_name}`
+    : 'Пользователей нету!';
+        
     const closeView = () => {
         setViewModal(false);
     };
@@ -35,7 +40,7 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
     };
     const names = (id: number | undefined): string => {
         const manager = users.find((manager) => manager.id === id);
-        return manager ? manager.first_name : "";
+        return manager ? manager.full_name : "";
     };
 
     return (
@@ -100,12 +105,40 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
 
                     <div className={styles.main_manager}>
                         <span>Ответственный менеджер:</span>
-                        <div>{names(selectedCompanyData?.main_manager)}</div>
+                        <div className={styles.mainManagers}>{names(selectedCompanyData.main_manager)}<ArrowDown2 onClick={() => {
+                            setManagerState(!managerState);
+                            managerState ? setUserState(false) : null
+                        }} style={{ transform: `${managerState ? 'rotate(360deg)' : 'rotate(270deg)'}` }} color="rgba(28, 106, 177, 1)" /></div>
+                    </div>
+                    <div className={styles.managers} style={{
+                        display: managerState ? 'block' : 'none',
+                        zIndex: managerState ? '100' : '0'
+                    }}>
+                        <div>
+                            {selectedCompanyData.managers.map(manager => (
+                                <p key={manager}>{names(manager)}</p>
+                            ))}
+                        </div>
+                    </div>
+                    <div className={styles.main_manager}>
+                        <span>Список пользователей</span>
+                        <div>
+                            {userssss}
+                            <ArrowDown2 color="rgba(28, 106, 177, 1)" onClick={() => {setUserState(!userState); userState ? setManagerState(false) : null}} style={{ transform: `${userState ? 'rotate(360deg)' : 'rotate(270deg)'}` }} />
+                        </div>
+                    </div>
+                    <div style={{
+                        display: `${userState ? 'block' : 'none'}`
+                    }} className={styles.users}>
+                        {selectedCompanyData.users?.map((user) => (
+                            <p key={user.id}>{`${user.first_name}     ${user.last_name}`}</p>
+                        ))}
                     </div>
                     <div className={styles.miniContainer}>
                         <span>Количество заявок:</span>
                         <p>{selectedCompanyData.count_applications}</p>
                     </div>
+
                     <div className={styles.miniContainer}>
                         <span>Количество пользователей:</span>
                         <p>{selectedCompanyData.count_users}</p>
