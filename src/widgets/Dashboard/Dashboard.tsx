@@ -5,7 +5,6 @@ import { FC } from "react";
 import { PATHS } from "../../shared/variables/variables";
 
 export const Dashboard: FC = () => {
-    const roleType = localStorage.getItem("role_type");
     return (
         <div className={styles.Dashboard}>
             <div className={styles.Logo}>
@@ -16,14 +15,14 @@ export const Dashboard: FC = () => {
             </div>
             <div className={styles.Line} />
             <div className={styles.Buttons}>
-                <DashboardButton name={roleType === "" ? PATHS.admin : PATHS.main}>
+                <DashboardButton name={PATHS.main}>
                     <Home />
                 </DashboardButton>
                 <DashboardButton name={PATHS.work}>
                     <TagUser />
                 </DashboardButton>
             </div>
-            {roleType === "admin" ? <LoginButton variant="Secondary" /> : null}
+            <LoginButton variant="Secondary" />
         </div>
     );
 };

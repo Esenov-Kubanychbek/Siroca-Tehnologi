@@ -4,6 +4,7 @@ import { Comments, DatesContainer, Description, Details, People, LinkJira, Short
 import { AddSquare } from "iconsax-react";
 import { CheckLists } from "../../../../../features";
 import { idRoles } from "../../../../../pages/MainPage/api/idRoles";
+import { ExpandIcon } from "@/shared/ui";
 
 export const Collapses: FC = () => {
     const roles = idRoles();
@@ -62,6 +63,7 @@ export const Collapses: FC = () => {
     return (
         <Collapse
             ghost
+            expandIcon={({ isActive }) => <ExpandIcon isActive={isActive} />}
             defaultActiveKey={[1, 2, 3, 4, 5, 6, 7, 8]}
             items={items}
         />

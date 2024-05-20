@@ -6,6 +6,7 @@ import { ProfileTick } from "iconsax-react";
 import { CreateSubtaskModals } from "./ui/CreateSubtaskModals";
 import { getOneRequestApi } from "@/widgets/Modals/ViewRequest/api/getOneRequestApi";
 import { createSubtaskApi } from "../../api/createSubtaskApi";
+import { CreateSubtaskInput } from "./ui/CreateSubtaskInput";
 
 interface ICreateSubTask {
     subtask?: ISubtask;
@@ -36,7 +37,7 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
                 text: "",
                 completed: false,
                 checklist: checklistId,
-                manager: "",
+                manager: "admin@siroca.com",
                 deadline: "",
             });
         } else if (forWhat === "editSubtask" && subtask?.text !== "") {
@@ -53,13 +54,10 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
     }, [createSubtaskState.id]);
     return (
         <div className={styles.CreateSubTask}>
-            <input
-                className={styles.TextInput}
-                type="text"
-                value={forWhat === "createSubtask" ? createSubtaskState.text : oneSubtask.text}
-                placeholder="Добавить подзадачу..."
+            <CreateSubtaskInput
+            keyWords={["pepsi", "nitro", "shoro"]}
                 onChange={forWhat === "createSubtask" ? createSubtaskChange : oneSubtaskChange}
-                name="text"
+                value={forWhat === "createSubtask" ? createSubtaskState.text : oneSubtask.text}
             />
             <div className={styles.Bottom}>
                 <CustomButton

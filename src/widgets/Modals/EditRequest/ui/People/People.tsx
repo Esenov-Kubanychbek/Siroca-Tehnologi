@@ -1,30 +1,46 @@
-import { FC } from "react";
 import styles from "./People.module.scss";
-import { CustomSelect } from "../../../CreateCompany/ui/CustomSelect";
+import { FC, useState } from "react";
 import { usersRoleTypeApi } from "../../api/usersRoleTypeApi";
 import { editRequestApi } from "../../api/editRequestApi";
+import { ArrowDown2 } from "iconsax-react";
+import { PeopleSelect } from "./ui/PeopleSelect";
 
 export const People: FC = () => {
-    const { requestState, requestChange } = editRequestApi();
-    const fetchRoleTypes = usersRoleTypeApi();
+    const { clientList } = usersRoleTypeApi();
+    const { requestState, setRequestData } = editRequestApi();
+    const [clientsOpened, setClientsOpened] = useState<boolean>(false);
+    const changeClient = (client: string) => {
+        setRequestData({ ...requestState, main_client: client });
+        setClientsOpened(false);
+    };
     return (
         <div className={styles.People}>
-            <CustomSelect
-                name="main_manager"
-                text="Менеджер"
-                dataOption={fetchRoleTypes.managersList}
-                width={282}
-                change={requestChange}
-                value={requestState.main_manager === null ? fetchRoleTypes.managersList[0] : requestState.main_manager}
-            />
-            <CustomSelect
-                name="main_client"
-                text="Заявитель"
-                dataOption={fetchRoleTypes.clientList}
-                width={282}
-                change={requestChange}
-                value={requestState.main_client === null ? fetchRoleTypes.clientList[0] : requestState.main_client}
-            />
+            <PeopleSelect/>
+            <div className={styles.PeopleSelect}>
+                <div
+                    className={styles.Chosen}
+                    onClick={() => setClientsOpened(!clientsOpened)}
+                >
+                    <input
+                        type="text"
+                        value={requestState.main_client}
+                        style={{ border: clientsOpened ? "1px solid #1C6AB1" : "none" }}
+                    />
+                    <ArrowDown2 style={{ transform: clientsOpened ? "rotate(180deg)" : "rotate(0deg)" }} />
+                </div>
+                {clientsOpened && (
+                    <div className={styles.OptionsList}>
+                        {clientList.map((item, i) => (
+                            <p
+                                key={i}
+                                onClick={() => changeClient(item)}
+                            >
+                                {item.length > 22 ? `${item.slice(0, 22)}...` : item}
+                            </p>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

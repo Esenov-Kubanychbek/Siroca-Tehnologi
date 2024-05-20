@@ -53,33 +53,26 @@ input[type="number"]::-webkit-outer-spin-button {
     display: none;
 }
 
-.ant-collapse-content-box {
-    border: none;
-}
-
-.ant-collapse-header {
-    background-color: white;
-}
-
-.ant-collapse {
-    border: none;
-    box-shadow: none;
-}
-
-.ant-collapse-item {
-    border-bottom: none;
-}
-
-:where(.css-dev-only-do-not-override-1ae8k9u).ant-collapse > .ant-collapse-item {
-    border-bottom: none;
-}
-
 .ant-collapse-expand-icon {
-    background-color: #f4f4f4;
-    width: 14px;
-    height: 24px;
-    padding: 1px;
-    margin: 0 16px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+:where(.css-dev-only-do-not-override-1uct16s).ant-collapse>.ant-collapse-item >.ant-collapse-header .ant-collapse-expand-icon {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-inline-end: 0;
+}
+
+:where(.css-dev-only-do-not-override-1uct16s).ant-collapse>.ant-collapse-item >.ant-collapse-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .h1 {

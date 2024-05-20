@@ -10,3 +10,4 @@ export { Typography } from "./Typography/Typography";
 export { ItemInner } from "./ItemInner/ItemInner";
 export { CustomCheckBox } from "./CustomCheckBox/CustomCheckBox";
 export { CustomMoreSquare } from "./CustomMoreSquare/CustomMoreSquare";
+export {ExpandIcon} from "./ExpandIcon/ExpandIcon"

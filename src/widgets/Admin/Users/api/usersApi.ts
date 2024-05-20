@@ -1,9 +1,9 @@
 import axios from "axios";
 import { create } from "zustand";
-import { IUser, IUserGet } from "../../../../shared/types/userTypes";
-import { BASE_URL, authToken } from "../../../../shared/variables/variables";
+import { IUser, IUserGet } from "@/shared/types/userTypes";
+import { BASE_URL, authToken } from "@/shared/variables/variables";
 
-interface IFetch {
+interface IUsersApi {
     count: number;
     usersList: IUser[];
     oneUserGet: IUserGet;
@@ -12,7 +12,7 @@ interface IFetch {
     getOneUser: (id: number | undefined) => void;
 }
 
-export const usersApi = create<IFetch>((set) => ({
+export const usersApi = create<IUsersApi>((set) => ({
     count: 1,
     usersList: [],
     oneUserGet: {

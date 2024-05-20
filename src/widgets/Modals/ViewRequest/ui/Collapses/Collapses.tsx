@@ -3,6 +3,7 @@ import { Dispatch, FC, SetStateAction } from "react";
 import { Comments, Date, Description, Details, LinkJira, RequestLogs, People, ShortDescription } from "..";
 import { AddSquare, Maximize4 } from "iconsax-react";
 import { CheckLists } from "../../../../../features";
+import { ExpandIcon } from "@/shared/ui";
 
 interface ICollapses {
     setViewLogs: Dispatch<SetStateAction<boolean>>;
@@ -78,6 +79,7 @@ export const Collapses: FC<ICollapses> = (props) => {
     return (
         <Collapse
             ghost
+            expandIcon={({ isActive }) => <ExpandIcon isActive={isActive} />}
             defaultActiveKey={[2, 3, 4, 5, 6, 7, 8, 9]}
             items={items}
         />

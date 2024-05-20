@@ -1,8 +1,8 @@
+import styles from "./MainPage.module.scss"
 import { Dashboard, HeaderBottom, HeaderTop } from "../../widgets";
 import { FC, useEffect } from "react";
 import { idRoles } from "./api/idRoles";
 import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
-import { usersRoleTypeApi } from "../../widgets/Modals/EditRequest/api/usersRoleTypeApi";
 import { usePassword } from "../../widgets/Modals/ChangePassword/api/ChangePassword";
 import { SccessfullyModal } from "../../widgets/Modals/SccessfullyModal/SccessfullyModal";
 import { profile } from "../../widgets/Modals/ProfileModal/api/profileApi";
@@ -10,12 +10,10 @@ import { profile } from "../../widgets/Modals/ProfileModal/api/profileApi";
 export const MainPage: FC = () => {
     const roles = idRoles();
     const fetchUsers = usersApi();
-    const fetchRoleTypes = usersRoleTypeApi();
     const role = localStorage.getItem("role_type");
     const id = localStorage.getItem("id");
     const usePasswordScc = usePassword();
     const { getOneUser } = profile();
-
     useEffect(() => {
         roles.getting();
         fetchUsers.getOneUser(Number(id));
@@ -25,22 +23,18 @@ export const MainPage: FC = () => {
     useEffect(() => {
         roles.formateState();
     }, [roles.rolesState, roles.genRolesState]);
-
-    useEffect(() => {
-        fetchRoleTypes.setClients(fetchUsers.usersList);
-        fetchRoleTypes.setManagers(fetchUsers.usersList);
-    }, [fetchUsers.usersList]);
-
+    
     const render = () => {
         if (
             (roles.formatedState && roles.formatedState.manager_can_create_and_edit_user_extra) ||
             (roles.formatedState && roles.formatedState.manager_can_create_and_edit_company_extra) ||
-            (roles.formatedState && roles.formatedState.manager_can_create_and_delete_job_title_extra)
+            (roles.formatedState && roles.formatedState.manager_can_create_and_delete_job_title_extra) ||
+            (role === "")
         ) {
             return (
                 <>
                     <Dashboard />
-                    <header style={{ width: "1820px", marginLeft: "120px" }}>
+                    <header className={styles.Inner}>
                         <HeaderTop
                             role={role}
                             isAdminManager={true}
