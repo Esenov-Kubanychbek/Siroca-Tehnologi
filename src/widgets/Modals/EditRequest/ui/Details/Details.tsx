@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styles from "./Details.module.scss";
 import { CustomInput } from "../../../../../shared/ui";
 import { editRequestApi } from "../../api/editRequestApi";
@@ -7,6 +7,8 @@ import { DetailsSelect } from "./ui/DetailsSelect";
 
 export const Details: FC = () => {
     const { requestState, requestChange } = editRequestApi();
+    const [statusOpened, setStatusOpened] = useState<boolean>(false);
+    const [priorityOpened, setPriorityOpened] = useState<boolean>(false);
     return (
         <div className={styles.Details}>
             <div className={styles.Container}>
@@ -29,13 +31,23 @@ export const Details: FC = () => {
                     change={requestChange}
                 />
             </div>
-            <div className={styles.ContainerSelect}>
+            <div className={styles.Container}>
                 <div className={styles.Text}>Приоритет:</div>
-                <DetailsSelect list={prioritiesList} />
+                <DetailsSelect
+                    list={prioritiesList}
+                    opened={priorityOpened}
+                    setPriorityOpened={setPriorityOpened}
+                    setStatusOpened={setStatusOpened}
+                />
             </div>
-            <div className={styles.ContainerSelect}>
+            <div className={styles.Container}>
                 <div className={styles.Text}>Статус заявки:</div>
-                <DetailsSelect list={statusesList} />
+                <DetailsSelect
+                    list={statusesList}
+                    opened={statusOpened}
+                    setPriorityOpened={setPriorityOpened}
+                    setStatusOpened={setStatusOpened}
+                />
             </div>
         </div>
     );

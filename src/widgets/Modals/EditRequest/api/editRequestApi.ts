@@ -42,29 +42,9 @@ export const editRequestApi = create<IFetch>((set, get) => ({
         files: [],
     },
     setRequestData: (request) => {
-        set({
-            requestState: {
-                id: request.id,
-                title: request.title,
-                company: request.company,
-                task_number: request.task_number,
-                status: request.status,
-                priority: request.priority,
-                payment_state: request.payment_state,
-                jira: request.jira,
-                main_client: request.main_client,
-                main_manager: request.main_manager,
-                description: request.description,
-                short_description: request.short_description,
-                application_date: request.application_date,
-                confirm_date: request.confirm_date,
-                offer_date: request.offer_date,
-                start_date: request.start_date,
-                finish_date: request.finish_date,
-                deadline_date: request.deadline_date,
-                files: request.files,
-            },
-        });
+        set({ requestState: request });
+        const requestState = get().requestState;
+        console.log(requestState, "requestState");
     },
     setFile: (file) => {
         set((prevState) => ({
@@ -81,8 +61,8 @@ export const editRequestApi = create<IFetch>((set, get) => ({
                 [e.target.name]: e.target.value,
             },
         }));
-        const state = get().requestState;
-        console.log(state, "requestState");
+        const requestState = get().requestState;
+        console.log(requestState, "requestState");
     },
     editRequest: async () => {
         try {

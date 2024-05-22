@@ -60,7 +60,10 @@ input[type="number"]::-webkit-outer-spin-button {
     align-items: center;
 }
 
-:where(.css-dev-only-do-not-override-1uct16s).ant-collapse>.ant-collapse-item >.ant-collapse-header .ant-collapse-expand-icon {
+:where(.css-dev-only-do-not-override-1uct16s).ant-collapse
+    > .ant-collapse-item
+    > .ant-collapse-header
+    .ant-collapse-expand-icon {
     height: auto;
     display: flex;
     justify-content: center;
@@ -68,11 +71,16 @@ input[type="number"]::-webkit-outer-spin-button {
     padding-inline-end: 0;
 }
 
-:where(.css-dev-only-do-not-override-1uct16s).ant-collapse>.ant-collapse-item >.ant-collapse-header {
+:where(.css-dev-only-do-not-override-1uct16s).ant-collapse > .ant-collapse-item > .ant-collapse-header {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
+}
+
+:where(.css-dev-only-do-not-override-1uct16s).ant-popover .ant-popover-inner {
+    background: none;
+    padding: 0;
 }
 
 .h1 {

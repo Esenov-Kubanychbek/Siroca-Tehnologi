@@ -2,8 +2,8 @@ import styles from "./Comments.module.scss";
 import { FC } from "react";
 import { getOneRequestApi } from "../../api/getOneRequestApi";
 import { deleteCommentApi } from "../../api/deleteCommentApi";
-import { ViewUserProfile } from "./ui/ViewUserProfile";
 import { CustomMoreSquare } from "@/shared/ui";
+import { ViewUserProfile } from "@/widgets";
 
 export const Comments: FC = () => {
     const { oneRequest, deleteCommentFromComments } = getOneRequestApi();
@@ -20,7 +20,15 @@ export const Comments: FC = () => {
                     key={i}
                 >
                     <div className={styles.Header}>
-                        <ViewUserProfile comment={comment} />
+                        <ViewUserProfile userId={Number(comment.user_id)}>
+                            <div
+                                className={styles.HeaderLeft}
+                            >
+                                <img src={comment.user_image} />
+                                <p>{comment.user}</p>
+                                <p className={styles.Date}>{comment.formatted_date_added}</p>
+                            </div>
+                        </ViewUserProfile>
                         <CustomMoreSquare>
                             <button>Редактировать</button>
                             <button onClick={() => deleteFunc(Number(comment.id))}>Удалить</button>

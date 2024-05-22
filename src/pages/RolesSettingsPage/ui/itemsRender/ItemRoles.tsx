@@ -20,7 +20,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
     genRoles,
 }) => {
     const [boxes, setBoxes] = useState<{
-        [key: string]: number | string | boolean | FileList | File | undefined | null;
+        [key: string]: number | string | boolean | File | undefined | null;
     }>({
         client_can_edit_comments_extra: false,
         client_can_get_reports_extra: false,

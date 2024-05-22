@@ -1,15 +1,15 @@
 import axios from "axios";
 import { create } from "zustand";
-import { IUser, IUserGet } from "@/shared/types/userTypes";
+import { IUser, IUsersListUser } from "@/shared/types/userTypes";
 import { BASE_URL, authToken } from "@/shared/variables/variables";
 
 interface IUsersApi {
     count: number;
-    usersList: IUser[];
-    oneUserGet: IUserGet;
+    usersList: IUsersListUser[];
+    oneUserGet: IUser;
     getUsersList: (page: number) => void;
     setSearchList: (searchState: string) => void;
-    getOneUser: (id: number | undefined) => void;
+    getOneUser: (id?: number) => void;
 }
 
 export const usersApi = create<IUsersApi>((set) => ({

@@ -1,26 +1,46 @@
-import { FC, useState } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import styles from "./DetailsSelect.module.scss";
 import { priorityColor, statusColor } from "@/shared/helpers";
 import { ArrowDown2 } from "iconsax-react";
 import { editRequestApi } from "../../../api/editRequestApi";
 
-export const DetailsSelect: FC<{ list: string[] }> = ({ list }) => {
+interface IDetailsSelect {
+    list: string[];
+    opened: boolean;
+    setStatusOpened: Dispatch<SetStateAction<boolean>>;
+    setPriorityOpened: Dispatch<SetStateAction<boolean>>;
+}
+
+export const DetailsSelect: FC<IDetailsSelect> = (props) => {
+    const { list, opened, setStatusOpened, setPriorityOpened } = props;
     const { requestState, setRequestData } = editRequestApi();
     const listTypeStatus: boolean = list.includes("Выполнено");
-    const [opened, setOpened] = useState<boolean>(false);
     const changeItem = (props: string) => {
         if (listTypeStatus) {
             setRequestData({ ...requestState, status: props });
         } else {
             setRequestData({ ...requestState, priority: props });
         }
-        setOpened(false);
+        if (!listTypeStatus) {
+            setPriorityOpened(false);
+        } else {
+            setStatusOpened(false);
+        }
+    };
+    const handleOpen = () => {
+        if (listTypeStatus) {
+            setStatusOpened(!opened);
+            setPriorityOpened(false);
+        } else {
+            setStatusOpened(false);
+            setPriorityOpened(!opened);
+        }
     };
     return (
         <div className={styles.DetailsSelect}>
             <div
                 className={styles.Chosen}
-                onClick={() => setOpened(!opened)}
+                onClick={handleOpen}
                 style={{ border: opened ? "1px solid #1C6AB1" : "none" }}
             >
                 <p

@@ -2,8 +2,8 @@ import { Collapse, CollapseProps } from "antd";
 import { FC } from "react";
 import { Comments, DatesContainer, Description, Details, People, LinkJira, ShortDescription } from "..";
 import { AddSquare } from "iconsax-react";
-import { CheckLists } from "../../../../../features";
-import { idRoles } from "../../../../../pages/MainPage/api/idRoles";
+import { CheckLists } from "@/features";
+import { idRoles } from "@/pages/MainPage/api/idRoles";
 import { ExpandIcon } from "@/shared/ui";
 
 export const Collapses: FC = () => {

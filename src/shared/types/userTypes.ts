@@ -1,30 +1,48 @@
 export interface IUser {
-    [key: string]: number | string | boolean | FileList | File | undefined | null;
-    id?: number;
-    first_name: string;
-    image?: File | FileList | string;
-    job_title: string;
+    [key: string]: number | boolean | string | File | undefined | null;
     main_company: string;
-    password: string;
+    job_title: string;
+    first_name: string;
     role_type: string;
-    surname?: string;
     username: string;
+    password: string;
+    surname: string;
+    image?: File | string;
+    id?: number;
+}
+
+export interface IUsersListUser {
+    [key: string]: number | string | undefined;
+    main_company: string;
+    job_title: string;
+    full_name: string;
+    role_type: string;
+    username: string;
+    id?: number;
+}
+
+export interface IAllUsersName {
+    [key: string]: number | string;
+    id: number;
+    full_name: string;
+    main_company: string
+    role_type: string;
 }
 
 export interface ISendUser {
-    [key: string]: number | string | boolean | FileList | File | undefined | null;
-    first_name: string;
-    image?: File | FileList | string;
-    job_title: string;
+    [key: string]: number | string | File | undefined | null;
     main_company: string;
+    job_title: string;
+    first_name: string;
     role_type: string;
-    surname?: string;
     username: string;
-    password?: string;
+    password: string;
+    surname: string;
+    image?: File | string;
 }
 
 export interface IAddUser {
-    [key: string]: number | string | boolean | FileList | File | undefined | null;
+    [key: string]: boolean | undefined;
     first_name?: boolean;
     image?: boolean;
     job_title?: boolean;
@@ -33,29 +51,4 @@ export interface IAddUser {
     surname?: boolean;
     username?: boolean;
     password?: boolean;
-}
-
-export interface IUserGet {
-    [key: string]: number | string | undefined;
-    id?: number;
-    first_name: string;
-    image?: string;
-    job_title: string;
-    main_company: string;
-    password: string;
-    role_type: string;
-    surname?: string;
-    username: string;
-}
-
-export interface iGetUser {
-    id?: number;
-    first_name: string;
-    image?: string | undefined;
-    job_title: string | number | readonly string[] | undefined;
-    main_company: string | number | readonly string[] | undefined;
-    password: string;
-    role_type: string;
-    surname?: string;
-    username: string;
 }

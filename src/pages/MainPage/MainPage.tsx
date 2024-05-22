@@ -1,35 +1,31 @@
-import styles from "./MainPage.module.scss"
+import styles from "./MainPage.module.scss";
 import { Dashboard, HeaderBottom, HeaderTop } from "../../widgets";
 import { FC, useEffect } from "react";
 import { idRoles } from "./api/idRoles";
-import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
 import { usePassword } from "../../widgets/Modals/ChangePassword/api/ChangePassword";
 import { SccessfullyModal } from "../../widgets/Modals/SccessfullyModal/SccessfullyModal";
 import { profile } from "../../widgets/Modals/ProfileModal/api/profileApi";
 
 export const MainPage: FC = () => {
     const roles = idRoles();
-    const fetchUsers = usersApi();
     const role = localStorage.getItem("role_type");
     const id = localStorage.getItem("id");
     const usePasswordScc = usePassword();
     const { getOneUser } = profile();
     useEffect(() => {
         roles.getting();
-        fetchUsers.getOneUser(Number(id));
-        fetchUsers.getUsersList(1);
         id !== null && getOneUser(id);
     }, []);
     useEffect(() => {
         roles.formateState();
     }, [roles.rolesState, roles.genRolesState]);
-    
+
     const render = () => {
         if (
             (roles.formatedState && roles.formatedState.manager_can_create_and_edit_user_extra) ||
             (roles.formatedState && roles.formatedState.manager_can_create_and_edit_company_extra) ||
             (roles.formatedState && roles.formatedState.manager_can_create_and_delete_job_title_extra) ||
-            (role === "")
+            role === ""
         ) {
             return (
                 <>
