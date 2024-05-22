@@ -8,14 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
 import { BASE_URL, authToken } from "../../shared/variables/variables";
 import { SearchInput } from "../../features";
-import { IUser } from "../../shared/types/userTypes";
+import { IUsersListUser } from "../../shared/types/userTypes";
 import { CustomButton } from "../../shared/ui";
 import { Pagination } from "../../shared/ui/Pagination/Pagination";
 
 export const RolesSettingsPage: FC = () => {
-    const [boxesReg, setBoxesReg] = useState<IUser[]>([]);
+    const [boxesReg, setBoxesReg] = useState<IUsersListUser[]>([]);
     const [navtype, setNavtype] = useState<string>("Клиент");
-    const [users, setUsers] = useState<IUser[]>([]);
+    const [users, setUsers] = useState<IUsersListUser[]>([]);
     const [searchVal, setSearchVal] = useState<string>("");
     const [page, setPage] = useState<number>(1);
     const [count, setCount] = useState<number>(0);
@@ -82,7 +82,7 @@ export const RolesSettingsPage: FC = () => {
     }, []);
 
     //puting changes
-    const reqRoles = async (props: { data: IUser[]; role: string }) => {
+    const reqRoles = async (props: { data: IUsersListUser[]; role: string }) => {
         try {
             if (props.role === "client") {
                 const sendingData = {
@@ -122,10 +122,10 @@ export const RolesSettingsPage: FC = () => {
             "username",
         ];
 
-        const managers: IUser[] = [];
-        const clients: IUser[] = [];
+        const managers: IUsersListUser[] = [];
+        const clients: IUsersListUser[] = [];
 
-        boxesReg.forEach((el: IUser) => {
+        boxesReg.forEach((el: IUsersListUser) => {
             propertiesToDelete.forEach((property) => {
                 delete el[property];
             });
@@ -233,7 +233,7 @@ export const RolesSettingsPage: FC = () => {
                 <RolesRender
                     users={users ? users : []}
                     list={navtype === "Клиент" ? renderSettingsList[0] : renderSettingsList[1]}
-                    getChanges={(e: IUser[]) => setBoxesReg(e)}
+                    getChanges={(e: IUsersListUser[]) => setBoxesReg(e)}
                     navType={navtype}
                 />
             </div>

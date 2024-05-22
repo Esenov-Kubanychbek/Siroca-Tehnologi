@@ -12,7 +12,7 @@ export interface IUser {
 }
 
 export interface IUsersListUser {
-    [key: string]: number | string | undefined;
+    [key: string]: number | string | undefined | boolean | null;
     main_company: string;
     job_title: string;
     full_name: string;

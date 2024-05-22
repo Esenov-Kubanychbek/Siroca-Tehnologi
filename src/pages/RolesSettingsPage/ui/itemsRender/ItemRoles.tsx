@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import styles from "./ItemRoles.module.scss";
-import { IUser } from "../../../../shared/types/userTypes";
+import { IUsersListUser } from "../../../../shared/types/userTypes";
 
 interface IItemSettingRoles {
-    user: IUser;
+    user: IUsersListUser;
     index: number;
     checkBoxList: string[];
-    getBoxes: (e: IUser) => void;
-    inBoxList: IUser[];
+    getBoxes: (e: IUsersListUser) => void;
+    inBoxList: IUsersListUser[];
     genRoles: { [key: string]: boolean } | undefined;
 }
 
@@ -20,7 +20,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
     genRoles,
 }) => {
     const [boxes, setBoxes] = useState<{
-        [key: string]: number | string | boolean | File | undefined | null;
+        [key: string]: number | string | boolean | undefined | null;
     }>({
         client_can_edit_comments_extra: false,
         client_can_get_reports_extra: false,
@@ -55,13 +55,13 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
 
     //just up all selects to top if boxes is changed
     useEffect(() => {
-        const updatedUser: IUser = { ...user, ...boxes };
+        const updatedUser: IUsersListUser = { ...user, ...boxes };
         getBoxes(updatedUser);
     }, [boxes]);
 
     //on change box list im seting boxes to formated thing
     useEffect(() => {
-        const filteredInBoxList = inBoxList.filter((el: IUser) => el.username === user.username);
+        const filteredInBoxList = inBoxList.filter((el: IUsersListUser) => el.username === user.username);
         const entrTheGets = filteredInBoxList.length > 0 ? filteredInBoxList[0] : false;
         const fmTheGets = entrTheGets ? Object.entries(entrTheGets).slice(3) : false;
         const finishGets = fmTheGets ? Object.fromEntries(fmTheGets) : boxes;

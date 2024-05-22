@@ -1,12 +1,12 @@
 import axios from "axios";
 import { create } from "zustand";
 import { BASE_URL, authToken } from "../../../../shared/variables/variables";
-import { ISendUser } from "../../../../shared/types/userTypes";
+import { ISendUser, IUser } from "../../../../shared/types/userTypes";
 import { ChangeEvent } from "react";
 
 interface IFetch {
     editUserState: ISendUser;
-    setEditState: (user: ISendUser) => void;
+    setEditState: (user: ISendUser | IUser) => void;
     editUserChange: (e: ChangeEvent<HTMLInputElement>) => void;
     editUser: (id: number | undefined) => void;
 }
