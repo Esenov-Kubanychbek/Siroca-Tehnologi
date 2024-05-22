@@ -23,7 +23,7 @@ export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
         setManagerExists,
         searchManagersNamesList,
     } = allUsersListApi();
-    const closeFunc = () => {
+    const postTrim = () => {
         if (managerExists === true) {
             if (forWhat === "createSubtask") {
                 addManagerToCreateSubtask(managerInputState);
@@ -36,6 +36,10 @@ export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
             setManagerExists(false);
         }
     };
+    const closeFunc = () => {
+        setManagerInputState("")
+        setManagerModal(false)
+    }
     return (
         <div className={styles.ManagerForSubtask}>
             <div className={styles.Main}>
@@ -43,7 +47,7 @@ export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
                     <p>Назначить менеджера</p>
                     <CloseSquare
                         cursor={"pointer"}
-                        onClick={() => setManagerModal(false)}
+                        onClick={closeFunc}
                     />
                 </div>
                 <div className={styles.SelectManager}>
@@ -86,13 +90,13 @@ export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
                     variant="Without"
                     width={101}
                     text="Отмена"
-                    onClick={() => setManagerModal(false)}
+                    onClick={closeFunc}
                 />
                 <CustomButton
                     variant="Primary"
                     text="Добавить"
                     width={121}
-                    onClick={closeFunc}
+                    onClick={postTrim}
                 />
             </div>
         </div>
