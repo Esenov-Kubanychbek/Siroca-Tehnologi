@@ -16,19 +16,19 @@ export const Request: FC<IRequest> = (props) => {
                 fetchData.getOneRequest(request.id);
             }}
             className={styles.Request}
-            style={{ width: role === "admin" ? (view ? "1012px" : "1724px") : "1820px" }}
+            style={{ width: role === "" ? (view ? "1012px" : "1724px") : "1820px" }}
         >
             <ItemInner
                 content={request.task_number}
-                width={role === "admin" ? (view ? 103 : 169) : 180}
+                width={role === "" ? (view ? 103 : 169) : 180}
             />
             <ItemInner
                 content={request.company}
-                width={role === "admin" ? (view ? 103 : 138) : 150}
+                width={role === "" ? (view ? 103 : 138) : 150}
             />
             <ItemInner
                 content={request.title}
-                width={role === "admin" ? (view ? 103 : 249) : 260}
+                width={role === "" ? (view ? 103 : 249) : 260}
             />
             <Popover
                 placement="top"
@@ -40,7 +40,7 @@ export const Request: FC<IRequest> = (props) => {
                             ? `${request.short_description.slice(0, 7)}...`
                             : "------------"
                     }
-                    width={role === "admin" ? (view ? 130 : 230) : 220}
+                    width={role === "" ? (view ? 130 : 230) : 220}
                 />
             </Popover>
             <ItemInner
@@ -51,7 +51,7 @@ export const Request: FC<IRequest> = (props) => {
                             : request.main_client
                         : "-----------"
                 }
-                width={role === "admin" ? (view ? 103 : 142) : 160}
+                width={role === "" ? (view ? 103 : 142) : 160}
             />
             <ItemInner
                 content={
@@ -61,21 +61,21 @@ export const Request: FC<IRequest> = (props) => {
                             : request.main_manager
                         : "-----------"
                 }
-                width={role === "admin" ? (view ? 102 : 188) : 200}
+                width={role === "" ? (view ? 102 : 188) : 200}
             />
             <ItemInner
                 content={request.start_date !== null && request.start_date !== "" ? request.start_date : "-----------"}
-                width={role === "admin" ? (view ? 103 : 164) : 180}
+                width={role === "" ? (view ? 103 : 164) : 180}
             />
             <ItemInner
                 content={
                     request.finish_date !== null && request.finish_date !== "" ? request.finish_date : "-----------"
                 }
-                width={role === "admin" ? (view ? 59 : 194) : 180}
+                width={role === "" ? (view ? 59 : 194) : 180}
             />
             <div
                 className={styles.Prioritet}
-                style={{ width: role === "admin" ? (view ? "103px" : "136px") : "150px" }}
+                style={{ width: role === "" ? (view ? "103px" : "136px") : "150px" }}
             >
                 <div
                     style={{
@@ -88,7 +88,7 @@ export const Request: FC<IRequest> = (props) => {
             </div>
             <div
                 className={styles.Status}
-                style={{ width: role === "admin" ? (view ? "103px" : "114px") : "140px" }}
+                style={{ width: role === "" ? (view ? "103px" : "114px") : "140px" }}
             >
                 <div
                     style={{

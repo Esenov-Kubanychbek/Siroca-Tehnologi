@@ -18,10 +18,10 @@ export const HeaderTop: FC<{ role: string | null; isAdminManager?: boolean }> = 
         <div className={styles.HeaderTop}>
             <div
                 className={styles.HeaderTopInner}
-                style={{ width: role === "admin" ? "1716px" : "1790px" }}
+                style={{ width: role === "" ? "1716px" : "1790px" }}
             >
                 <div className={styles.HeaderLogo}>
-                    {role === "admin" || isAdminManager ? null : <img src="/Logo.svg" />}
+                    {role === "" || isAdminManager ? null : <img src="/Logo.svg" />}
                     <StatusNumber />
                 </div>
                 <div className={styles.DataProfile}>
@@ -49,7 +49,7 @@ export const HeaderTop: FC<{ role: string | null; isAdminManager?: boolean }> = 
                             <ProfileButton />
                         </>
                     </Popover>
-                    {role === "admin" || isAdminManager ? null : <LoginButton variant="Primary" />}
+                    {role === "" || isAdminManager ? null : <LoginButton variant="Primary" />}
                 </div>
             </div>
         </div>

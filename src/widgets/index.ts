@@ -31,3 +31,4 @@ export { ViewUser } from "./Modals/ViewUser/ViewUser";
 export { CreateChecklist } from "./Modals/CreateChecklist/CreateChecklist";
 export { ManagerForSubtask } from "./Modals/ManagerForSubtask/ManagerForSubtask";
 export { UserForSubtask } from "./Modals/UserForSubtask/UserForSubtask";
+export {ViewUserProfile} from "./Modals/ViewUserProfile/ViewUserProfile"

@@ -1,11 +1,10 @@
 import { FC, useEffect, useState } from "react";
 import styles from "./UserList.module.scss";
 import { usersApi } from "../../api/usersApi";
-import { User } from "../../../../../entities";
+import { User } from "@/entities";
 import { ViewUser } from "../../../..";
 import { UsersTop } from "..";
-import { Pagination } from "../../../../../shared/ui/Pagination/Pagination";
-import { ItemCount } from "../../../../../shared/ui/ItemCount/ItemCount";
+import { Pagination, ItemCount } from "@/shared/ui";
 
 export const UsersList: FC = () => {
     const [view, setView] = useState<boolean>(false);

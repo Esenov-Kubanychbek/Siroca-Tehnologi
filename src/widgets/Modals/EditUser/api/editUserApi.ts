@@ -20,6 +20,7 @@ export const editUserApi = create<IFetch>((set, get) => ({
         username: "",
         job_title: "",
         main_company: "",
+        password: ""
     },
     setEditState: (user) => {
         set({
@@ -31,6 +32,7 @@ export const editUserApi = create<IFetch>((set, get) => ({
                 role_type: user.role_type,
                 surname: user.surname,
                 username: user.username,
+                password: user.password
             },
         });
     },

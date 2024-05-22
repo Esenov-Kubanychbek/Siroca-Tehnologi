@@ -3,7 +3,7 @@ import styles from "./UserForSubtask.module.scss";
 import { CloseSquare } from "iconsax-react";
 import { CustomButton } from "../../../shared/ui";
 import { usersApi } from "@/widgets/Admin/Users/api/usersApi";
-import { allUsersListApi } from "./api/allUsersListApi";
+// import { allUsersListApi } from "./api/allUsersListApi";
 import { createSubtaskApi } from "@/features/CheckLists/api/createSubtaskApi";
 
 interface IUserForSubtask {
@@ -65,7 +65,7 @@ export const UserForSubtask: FC<IUserForSubtask> = (props) => {
                         />
                         {userState !== "" && (
                             <>
-                                {searchUsersList.map((manager, i) => (
+                                {searchUsersList?.map((manager, i) => (
                                     <button
                                         key={i}
                                         onClick={() => handleClick(`${manager.first_name} ${manager.surname}`)}

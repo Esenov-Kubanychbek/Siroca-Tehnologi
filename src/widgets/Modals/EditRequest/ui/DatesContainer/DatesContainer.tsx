@@ -1,98 +1,50 @@
 import { FC } from "react";
 import styles from "./DatesContainer.module.scss";
-import { Date } from "../../../../../shared/ui";
 import { editRequestApi } from "../../api/editRequestApi";
+import { PayContainer } from "./ui/PayContainer/PayContainer";
+import { DateInput } from "./ui/DateInput/DateInput";
 
 export const DatesContainer: FC = () => {
-    const { requestState, requestChange } = editRequestApi();
+    const { requestState } = editRequestApi();
     return (
         <div className={styles.DatesContainer}>
             <div className={styles.Dates}>
-                <div className={styles.Dates1}>
-                    <Date
-                        value={requestState.start_date === null ? "" : requestState.start_date}
+                <div className={styles.Inner}>
+                    <DateInput
+                        text="Дата начала"
                         name="start_date"
-                        variant="DateContainer"
-                        text="Дата начала:"
-                        change={requestChange}
+                        value={requestState.start_date}
                     />
-                    <Date
-                        value={requestState.deadline_date === null ? "" : requestState.deadline_date}
+                    <DateInput
+                        text="Срок выполнения"
                         name="deadline_date"
-                        variant="DateContainer"
-                        text="Срок выполнения:"
-                        change={requestChange}
+                        value={requestState.deadline_date}
                     />
-                    <Date
-                        value={requestState.offer_date === null ? "" : requestState.offer_date}
-                        name="offer_date"
-                        variant="DateContainer"
-                        text="Дата отправки:"
-                        change={requestChange}
+                    <DateInput
+                        text="Дата отправки"
+                        name="deadline_date"
+                        value={requestState.deadline_date}
                     />
                 </div>
-                <div className={styles.Dates2}>
-                    <Date
-                        value={requestState.finish_date === null ? "" : requestState.finish_date}
+                <div className={styles.Inner}>
+                    <DateInput
+                        text="Дата завершения"
                         name="finish_date"
-                        variant="DateContainer"
-                        text="Дата окончания:"
-                        change={requestChange}
+                        value={requestState.finish_date}
                     />
-                    <Date
-                        value={requestState.application_date === null ? "" : requestState.application_date}
+                    <DateInput
+                        text="Дата подачи"
                         name="application_date"
-                        variant="DateContainer"
-                        text="Дата подачи:"
-                        change={requestChange}
+                        value={requestState.application_date}
                     />
-                    <Date
-                        value={requestState.confirm_date === null ? "" : requestState.confirm_date}
+                    <DateInput
+                        text="Дата утверждения"
                         name="confirm_date"
-                        variant="DateContainer"
-                        text="Дата утверждения:"
-                        change={requestChange}
+                        value={requestState.confirm_date}
                     />
                 </div>
             </div>
-            <div className={styles.PayContainer}>
-                <div className={styles.Text}>Статус оплаты:</div>
-                <div className={styles.Pay}>
-                    <div className={styles.UniPay}>
-                        <input
-                            id="paid"
-                            type="radio"
-                            name="payment_state"
-                            onChange={requestChange}
-                            value={"Оплачено"}
-                            checked={requestState.payment_state === "Оплачено" ? true : false}
-                        />
-                        <label htmlFor="paid">Оплачено</label>
-                    </div>
-                    <div className={styles.UniPay}>
-                        <input
-                            id="not_paid"
-                            type="radio"
-                            name="payment_state"
-                            onChange={requestChange}
-                            value={"Не оплачено"}
-                            checked={requestState.payment_state === "Не оплачено" ? true : false}
-                        />
-                        <label htmlFor="not_paid">Не оплачено</label>
-                    </div>
-                    <div className={styles.UniPay}>
-                        <input
-                            id="wait_paid"
-                            type="radio"
-                            name="payment_state"
-                            onChange={requestChange}
-                            value={"Ожидание оплаты"}
-                            checked={requestState.payment_state === "Ожидание оплаты" ? true : false}
-                        />
-                        <label htmlFor="wait_paid">Ожидание оплаты</label>
-                    </div>
-                </div>
-            </div>
+            <PayContainer />
         </div>
     );
 };

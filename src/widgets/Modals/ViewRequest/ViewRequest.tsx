@@ -1,12 +1,13 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./ViewRequest.module.scss";
 import { AddComment, Collapses, RequestMenu, RequestHeader } from "./ui";
 import { IViewRequestModal } from "./types/ViewRequestTypes";
 import { Modal } from "antd";
 import { ViewLogs } from "../ViewLogs/ViewLogs";
 import { EditRequest } from "../EditRequest/EditRequest";
-import { idRoles } from "../../../pages/MainPage/api/idRoles";
+import { idRoles } from "@/pages/MainPage/api/idRoles";
 import { CreateChecklist } from "../..";
+import { allUsersListApi } from "@/shared/api";
 
 export const ViewRequest: FC<IViewRequestModal> = ({ setView }) => {
     const roles = idRoles();
@@ -14,6 +15,10 @@ export const ViewRequest: FC<IViewRequestModal> = ({ setView }) => {
     const [editOpen, setEditOpen] = useState<boolean>(false);
     const [checklistModal, setChecklistModal] = useState<boolean>(false);
     const [viewLogs, setViewLogs] = useState<boolean>(false);
+    const { getAllUsersList } = allUsersListApi();
+    useEffect(() => {
+        getAllUsersList();
+    }, []);
     return (
         <div className={styles.ViewRequest}>
             <RequestMenu />

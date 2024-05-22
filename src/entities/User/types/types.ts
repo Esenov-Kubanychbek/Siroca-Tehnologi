@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
-import { IUser } from "../../../shared/types/userTypes";
+import { IUsersListUser } from "@/shared/types/userTypes";
 
 export interface IUserTypes {
-    user: IUser;
+    user: IUsersListUser;
     view: boolean;
     setView: Dispatch<SetStateAction<boolean>>;
 }

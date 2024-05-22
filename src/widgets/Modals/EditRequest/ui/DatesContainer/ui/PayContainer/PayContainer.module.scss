@@ -1,0 +1,29 @@
+@import "index.scss";
+
+.PayContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    .Pay {
+        height: 60px;
+        display: flex;
+        gap: 16px;
+        .UniPay {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+            input {
+                width: 24px;
+                height: 24px;
+            }
+            label {
+                cursor: pointer;
+                font-size: 20px;
+                font-weight: 500;
+                color: $black3b;
+            }
+        }
+    }
+}
