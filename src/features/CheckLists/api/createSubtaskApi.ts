@@ -9,7 +9,7 @@ interface ICreateSubtaskApi {
     setCreateSubtaskState: (subtask: ISubtask) => void;
     addManagerToCreateSubtask: (manager: string) => void;
     addUserToCreateSubtask: (user: string) => void;
-    createSubtaskChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    createSubtaskChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     createSubTask: () => void;
 }
 

@@ -25,7 +25,7 @@ export const User: FC<IUserTypes> = (props) => {
             style={{ width: view ? "1221px" : "1718px" }}
         >
             <ItemInner
-                content={user.first_name + " " + user.surname}
+                content={user.full_name}
                 width={view ? 244 : 318}
             />
             <ItemInner

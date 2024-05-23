@@ -2,11 +2,10 @@ import { AddSquare, CloseSquare, LampOn } from "iconsax-react";
 import styles from "./CreateCompany.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { ChangeEvent, FC, useState } from "react";
-import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
+import { manager, useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
 import { Modal } from "antd";
 import { AddManager } from "../AddManager/AddManager";
-import { IUserGet } from "../../../shared/types/userTypes";
 
 interface modal {
     openModals: () => void;
@@ -22,11 +21,10 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
     const [inputValue, setInputValue] = useState<string>("");
     const [inputValueText, setInputValueText] = useState<string>("");
     const { addCompany, users, lamp } = useDataStoreComponies();
-    const { changeInput, resetInput, dataInputCompanies, addMainManager, addManagers, company_code } =
-        useDataInputCompaniesStore();
-    const [filteredManager, setFilteredManager] = useState<IUserGet[]>([]);
-    const managers = users.filter((item) => item.role_type === "manager");
-    const [err, setErr] = useState<boolean>(false);
+    const { changeInput, resetInput, dataInputCompanies, addMainManager, addManagers, company_code } = useDataInputCompaniesStore();
+    const [filteredManager, setFilteredManager] = useState<manager[]>([]);
+    const managers = users.filter(item => item.role_type === 'manager');
+    const [err, setErr] = useState<boolean>(false)
     const [addManagerModal, setAddManagerModal] = useState<boolean>(false);
     const closeAddManager = () => {
         setAddManagerModal(false);
@@ -40,10 +38,10 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
             dataInputCompanies.company_code &&
             dataInputCompanies.country &&
             dataInputCompanies.managers &&
-            dataInputCompanies.domain
+            dataInputCompanies.domain 
         ) {
             const managerFound = filteredManager?.some((filtered) => {
-                if (filtered.first_name === inputValue) {
+                if (filtered.full_name === inputValue) {
                     addCompany(dataInputCompanies, page);
                     const number = count + 1;
                     nameCreateCompany(`Компания "${dataInputCompanies.name}" была создана!`, number);
@@ -72,7 +70,8 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
         const filtered = managers.filter((manager) => {
             const inputText = text.toLowerCase();
             const nameManager = manager.first_name.toLowerCase();
-            return nameManager.startsWith(inputText);
+            const lastName = manager.surname.toLocaleLowerCase();
+            return nameManager.startsWith(inputText) || lastName.startsWith(inputText);
         });
         return filtered;
     };
@@ -83,8 +82,8 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
         setInputValueText(value);
         const filter = filterManager(value);
         setFilteredManager(filter);
+        setErr(false);
     };
-
     return (
         <div className={styles.CreateCompany}>
             <div className={styles.blockOne}>
@@ -92,7 +91,10 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                 <CloseSquare
                     cursor={"pointer"}
                     size={32}
-                    onClick={closeCreateModal}
+                    onClick={() => {
+                        closeCreateModal();
+                        resetInput();
+                    }}
                 />
             </div>
             <div className={styles.blockTwo}>
@@ -132,20 +134,12 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                             maxLength={3}
                             trim={allData || err ? dataInputCompanies.company_code : true}
                         />
-                        <div
-                            className={styles.lampCursor}
-                            onClick={async () => {
-                                const respose = await lamp(dataInputCompanies.name);
-                                if (typeof respose === "string") {
-                                    company_code(respose);
-                                }
-                            }}
-                        >
-                            <LampOn
-                                variant="Bold"
-                                color="#1c6ab1"
-                            />
-                        </div>
+                        <div className={styles.lampCursor} onClick={async () => {
+                            const respose = await lamp(dataInputCompanies.name);
+                            if (typeof respose === 'string') {
+                                company_code(respose)
+                            }
+                        }}><LampOn variant="Bold" color="#1c6ab1" /></div>
                     </div>
                 </div>
                 <div>
@@ -167,48 +161,38 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
 
                     <div className={styles.managers}>
                         <div className={styles.addedManeger}>
-                            <input
-                                value={inputValue}
-                                onChange={searchManagerChange}
-                                placeholder="Введите имя пользователя"
-                                type="text"
-                                className={styles.searchInput}
-                            />
-                            <div
-                                style={{ display: `${inputValueText ? "block" : "none"}` }}
-                                className={styles.allManagers}
-                            >
+                            <input value={inputValue} onChange={searchManagerChange} placeholder="Введите имя пользователя" type="text" className={styles.searchInput} style={{
+                                border: `${err ? '2px solid #E51616' : 'none'}`,
+                                color: `${err ? '#E51616' : 'black'}`
+                            }}/>
+                            <div style={{ display: `${inputValueText ? 'block' : 'none'}` }} className={styles.allManagers}>
                                 {filteredManager.map((manager) => (
-                                    <div
-                                        onClick={() => {
-                                            addMainManager(manager.id);
-                                            setInputValue(manager.first_name);
-                                            setInputValueText("");
-                                            addManagers(manager.id);
-                                        }}
-                                        className={styles.manager}
-                                    >
-                                        {manager.first_name}{" "}
-                                    </div>
+                                    <div onClick={() => {
+                                        addMainManager(manager.id);
+                                        setInputValue(manager.full_name);
+                                        setInputValueText('');
+                                        addManagers(manager.id)
+                                    }} className={styles.manager}>{manager.full_name} </div>
                                 ))}
                             </div>
                         </div>
-                        <div
-                            className={styles.hintAdd}
-                            style={{ display: `${hovered ? "block" : "none"}` }}
-                        >
-                            <p className={styles.hint}>Нажмите что бы добавить менеджера</p>
-                            <div className={styles.tre}> </div>
-                        </div>
 
-                        <div
-                            className={styles.addManagers}
+
+                        <div className={styles.addManagers}
                             onMouseEnter={() => setHovered(true)}
                             onMouseLeave={() => setHovered(false)}
-                        >
+                            onClick={openAddManager}
+                            >
+                            
+                            <div
+                                className={styles.hintAdd}
+                                style={{ display: `${hovered ? "block" : "none"}` }}
+                            >
+                                <p className={styles.hint}>Нажмите что бы добавить менеджера</p>
+                                <div className={styles.tre}> </div>
+                            </div>
                             <AddSquare
                                 color="white"
-                                onClick={openAddManager}
                             />
                         </div>
                     </div>

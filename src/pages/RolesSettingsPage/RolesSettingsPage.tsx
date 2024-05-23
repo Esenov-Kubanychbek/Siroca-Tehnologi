@@ -3,24 +3,25 @@ import HeaderSettings from "./ui/header/HeaderSettings";
 import RolesRender from "./ui/itemsRender/RolesItemsRender";
 import styles from "./RolesSettingsPage.module.scss";
 import axios from "axios";
-import { ArrowRight } from "iconsax-react";
+import { ArrowRight, InfoCircle } from "iconsax-react";
 import { useNavigate } from "react-router-dom";
 import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
 import { BASE_URL, authToken } from "../../shared/variables/variables";
 import { SearchInput } from "../../features";
-import { IUser } from "../../shared/types/userTypes";
+import { IUsersListUser } from "../../shared/types/userTypes";
 import { CustomButton } from "../../shared/ui";
 import { Pagination } from "../../shared/ui/Pagination/Pagination";
+import { Popover } from "antd";
 
 export const RolesSettingsPage: FC = () => {
-    const [boxesReg, setBoxesReg] = useState<IUser[]>([]);
+    const [boxesReg, setBoxesReg] = useState<IUsersListUser[]>([]);
     const [navtype, setNavtype] = useState<string>("Клиент");
-    const [users, setUsers] = useState<IUser[]>([]);
+    const [users, setUsers] = useState<IUsersListUser[]>([]);
     const [searchVal, setSearchVal] = useState<string>("");
     const [page, setPage] = useState<number>(1);
     const [count, setCount] = useState<number>(0);
     const headerSettingsList: string[] = [
-        "Добавление/удаление комментария к заявке",
+        "Добавление/удаление комментариев к заявке",
         "Скачивание отчета по заявкам",
         "Просмотр истории изменений по заявке “Logs”",
         "Добавление/удаление файла к заявке",
@@ -29,7 +30,7 @@ export const RolesSettingsPage: FC = () => {
         "Редактирование заявки",
     ];
     const headerSettingsListManager: string[] = [
-        "Добавление/удаление комментария к заявке",
+        "Добавление/удаление комментариев к заявке",
         "Скачивание отчета по заявкам",
         "Удаление заявки",
         "Создание/редактирование компании",
@@ -38,7 +39,7 @@ export const RolesSettingsPage: FC = () => {
     ];
     const renderSettingsList: string[][] = [
         [
-            "Добавление/удаление комментария к заявке",
+            "Добавление/удаление комментариев к заявке",
             "Скачивание отчета по заявкам",
             "Просмотр истории изменений по заявке “Logs”",
             "Добавление/удаление файла к заявке",
@@ -47,7 +48,7 @@ export const RolesSettingsPage: FC = () => {
             "Создание/редактирование заявки",
         ],
         [
-            "Добавление/удаление комментария к заявке",
+            "Добавление/удаление комментариев к заявке",
             "Скачивание отчета по заявкам",
             "Удаление заявки",
             "Создание/редактирование компании",
@@ -82,7 +83,7 @@ export const RolesSettingsPage: FC = () => {
     }, []);
 
     //puting changes
-    const reqRoles = async (props: { data: IUser[]; role: string }) => {
+    const reqRoles = async (props: { data: IUsersListUser[]; role: string }) => {
         try {
             if (props.role === "client") {
                 const sendingData = {
@@ -122,10 +123,10 @@ export const RolesSettingsPage: FC = () => {
             "username",
         ];
 
-        const managers: IUser[] = [];
-        const clients: IUser[] = [];
+        const managers: IUsersListUser[] = [];
+        const clients: IUsersListUser[] = [];
 
-        boxesReg.forEach((el: IUser) => {
+        boxesReg.forEach((el: IUsersListUser) => {
             propertiesToDelete.forEach((property) => {
                 delete el[property];
             });
@@ -191,16 +192,31 @@ export const RolesSettingsPage: FC = () => {
                                 </div>
                                 <p>Назад</p>
                             </div>
-                            <p className={styles.Par}>Расширенные настройки</p>
+                            <p className={styles.Par}>Дополнительные настройки</p>
                         </div>
 
                         <div className={styles.Search}>
-                            <SearchInput
-                                onChange={(event) => {
-                                    onSearch(event);
-                                }}
-                                onKeyDown={onEnterSearch}
-                            />
+                            <div>
+                                <SearchInput
+                                    onChange={(event) => {
+                                        onSearch(event);
+                                    }}
+                                    onKeyDown={onEnterSearch}
+                                />
+                                <Popover
+                                    placement="top"
+                                    content={
+                                        <div className={styles.Popover}>
+                                            <p>
+                                                Правила пользования расширенными настройками прав пользователей:Для того, чтобы присвоить, или лишить право пользователя необходимо кликнуть дважды на чек-бокс выбранного пользователя и соответствующего права.
+                                                Те изменения, которые были сделаны в расширенных настройках остаются неизменными, даже если админ на странице общих настроек прав ролей "Клиент" и "Менеджер " менял права пользователям ролей
+                                            </p>
+                                        </div>
+                                    }
+                                >
+                                    <InfoCircle size={36} color="#1c6ab1" style={{ cursor: "pointer" }} />
+                                </Popover>
+                            </div>
                             <CustomButton
                                 width={130}
                                 variant="Primary"
@@ -233,7 +249,7 @@ export const RolesSettingsPage: FC = () => {
                 <RolesRender
                     users={users ? users : []}
                     list={navtype === "Клиент" ? renderSettingsList[0] : renderSettingsList[1]}
-                    getChanges={(e: IUser[]) => setBoxesReg(e)}
+                    getChanges={(e: IUsersListUser[]) => setBoxesReg(e)}
                     navType={navtype}
                 />
             </div>

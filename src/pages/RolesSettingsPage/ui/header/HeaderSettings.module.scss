@@ -5,14 +5,14 @@
     max-width: 2000px;
 
     .HeaderItem {
-        min-width: 226px;
+        min-width: 225px;
         max-width: 227px;
         height: 60px;
         display: flex;
         padding: 10px;
         justify-content: center;
         align-items: center;
-        gap: 10px;
+        gap: 10px;  
         border-right: 1px solid var(--White, #fff);
         border-left: 1px solid var(--White, #fff);
         background: var(--800, #1c6ab1);

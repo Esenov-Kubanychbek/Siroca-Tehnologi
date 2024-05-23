@@ -11,21 +11,12 @@ import { SccessfullyModal } from "../../Modals/SccessfullyModal/SccessfullyModal
 import { Pagination } from "../../../shared/ui/Pagination/Pagination";
 import { usePassword } from "../../Modals/ChangePassword/api/ChangePassword";
 import { ItemCount } from "../../../shared/ui/ItemCount/ItemCount";
+import { useDataInputCompaniesStore } from "@/widgets/Modals/ViewCompany/api/dataInputCompanies";
 
 export const Companies: FC = () => {
-    const {
-        fetchDatas,
-        getUsers,
-        data,
-        selectedIdCompany,
-        searchReset,
-        openModalView,
-        closeModalView,
-        modalViewCompany,
-        searchCompanies,
-        countCompany,
-    } = useDataStoreComponies();
-    const [modalScc, setModalScc] = useState<string>("none");
+    const { fetchDatas, getUsers, data, selectedIdCompany, searchReset, openModalView, closeModalView, modalViewCompany, searchCompanies, countCompany } = useDataStoreComponies();
+    const { resetInput } = useDataInputCompaniesStore();
+    const [modalScc, setModalScc] = useState<string>('none');
     const [createCompany, setCreateCompany] = useState<boolean>(false);
     const [companyList, setCompanyList] = useState<dataCompanies[] | undefined>();
     const [closeState, setCloseState] = useState<boolean>(false);
@@ -71,6 +62,12 @@ export const Companies: FC = () => {
         setCloseState(false);
         setSearchText("");
     };
+    const truncatedStr = (str: string | null | undefined): string => {
+        if (!str) {
+            return '';
+        }
+        return str.length > 5 ? str.substring(0, 5) + '...' : str;
+    }
     useEffect(() => {
         if (searchText === "") {
             fetchDatas(page);
@@ -83,8 +80,9 @@ export const Companies: FC = () => {
         if (count > 0) {
             setModalScc("block");
         }
-    }, [createCompanyName, count]);
+    }, [createCompanyName, count])
 
+    
     return (
         <div className={styles.Companies}>
             <div
@@ -174,7 +172,7 @@ export const Companies: FC = () => {
                                         className={styles.managerName}
                                         style={{ width: `${modalViewCompany ? "160px" : "221px"}` }}
                                     >
-                                        {dataCompany.main_manager}
+                                        {modalViewCompany ? truncatedStr(dataCompany.main_manager) : dataCompany.main_manager}
                                     </div>
                                     <ItemInner
                                         width={modalViewCompany ? 160 : 226}
@@ -232,6 +230,7 @@ export const Companies: FC = () => {
                 open={createCompany}
                 onCancel={() => {
                     closeModalCreateCompany();
+                    resetInput()
                 }}
             >
                 <CreateCompany

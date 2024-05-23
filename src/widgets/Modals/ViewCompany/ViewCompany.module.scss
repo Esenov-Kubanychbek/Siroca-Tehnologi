@@ -82,10 +82,9 @@
         background-color: #f4f4f4;
         box-sizing: border-box;
         max-height: 200px;
+        margin-top: -200px;
+        transition: .2s;
         position: relative;
-        top: -200px;
-        transition: 0.2s;
-
         .manager {
             height: 56px;
             box-sizing: border-box;
@@ -93,6 +92,25 @@
             font-weight: 700;
             display: flex;
             align-items: center;
+            box-sizing: border-box;
+            
+        }
+        .icons{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            svg{
+                margin: 0 8px;
+                cursor: pointer;
+            }
+        }
+        .gold{
+            display: flex;
+            align-items: center;
+            svg{
+                margin-right: 6px;
+                cursor: pointer;
+            }
         }
     }
 
@@ -123,17 +141,22 @@
         margin-top: 20px;
         cursor: pointer;
     }
-
+    .adds{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
     .hintAdd {
         position: absolute;
-        bottom: 250px;
-        margin-left: 438px;
+        margin-bottom: 18px;
+        margin-left: -16px;
+        z-index: 99;
     }
 
     .hint {
         width: 184px;
         height: 60px;
-        background-color: #929292;
+        background-color:    #929292;
         color: white;
         box-sizing: border-box;
         padding: 8px;
