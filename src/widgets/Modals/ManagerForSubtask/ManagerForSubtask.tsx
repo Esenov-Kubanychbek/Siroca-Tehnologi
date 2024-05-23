@@ -1,9 +1,8 @@
 import styles from "./ManagerForSubtask.module.scss";
-import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { CloseSquare } from "iconsax-react";
 import { CustomButton } from "@/shared/ui";
-import { usersApi } from "@/widgets/Admin/Users/api/usersApi";
-import { allManagersListApi } from "./api/allManagersListApi";
+import { allUsersListApi } from "@/shared/api";
 import { checkListApi } from "@/features/CheckLists/api/checkListApi";
 import { createSubtaskApi } from "@/features/CheckLists/api/createSubtaskApi";
 
@@ -14,38 +13,33 @@ interface IManagerForSubtask {
 
 export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
     const { setManagerModal, forWhat } = props;
-    const [chosen, setChosen] = useState<boolean>(false);
     const { addManagerToCreateSubtask } = createSubtaskApi();
     const { addManagerToOneSubtask } = checkListApi();
-    const { usersList, setSearchList } = usersApi();
-    const { managerState, setManagerState, managerExists, setManagerExists, searchManagersList, filterManagers } =
-        allManagersListApi();
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setManagerState(value);
-        setSearchList(value);
-        setChosen(false);
-        setManagerExists(value);
-        filterManagers(usersList, value);
-    };
-    const handleClick = (manager: string) => {
-        setManagerState(manager);
-        filterManagers([], "");
-        setManagerExists(manager);
-        setChosen(true);
-    };
-    const closeFunc = () => {
+    const {
+        managerInputState,
+        setManagerInputState,
+        managerExists,
+        managerInputChange,
+        setManagerExists,
+        searchManagersNamesList,
+    } = allUsersListApi();
+    const postTrim = () => {
         if (managerExists === true) {
             if (forWhat === "createSubtask") {
-                addManagerToCreateSubtask(managerState);
+                addManagerToCreateSubtask(managerInputState);
             } else if (forWhat === "editSubtask") {
-                addManagerToOneSubtask(managerState);
+                addManagerToOneSubtask(managerInputState);
             }
-            setManagerState("");
-            filterManagers([], "");
+            setManagerInputState("");
             setManagerModal(false);
+        } else {
+            setManagerExists(false);
         }
     };
+    const closeFunc = () => {
+        setManagerInputState("")
+        setManagerModal(false)
+    }
     return (
         <div className={styles.ManagerForSubtask}>
             <div className={styles.Main}>
@@ -53,38 +47,38 @@ export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
                     <p>Назначить менеджера</p>
                     <CloseSquare
                         cursor={"pointer"}
-                        onClick={() => setManagerModal(false)}
+                        onClick={closeFunc}
                     />
                 </div>
                 <div className={styles.SelectManager}>
                     <div>
                         <input
                             className={
-                                managerState === "" || chosen
+                                managerInputState === "" || managerExists
                                     ? styles.FirstInput
-                                    : searchManagersList.length === 0 && chosen === false
+                                    : searchManagersNamesList.length === 0 && managerExists === false
                                       ? styles.NotExist
                                       : styles.SecondInput
                             }
                             type="text"
                             placeholder="Введите имя пользователя..."
-                            value={managerState}
-                            onChange={handleChange}
+                            value={managerInputState}
+                            onChange={managerInputChange}
                         />
-                        {managerState !== "" && (
+                        {managerInputState !== "" && (
                             <>
-                                {searchManagersList.map((manager, i) => (
+                                {searchManagersNamesList.map((manager, i) => (
                                     <button
                                         key={i}
-                                        onClick={() => handleClick(`${manager.first_name} ${manager.surname}`)}
+                                        onClick={() => setManagerInputState(manager)}
                                     >
-                                        {manager.first_name} {manager.surname}
+                                        {manager}
                                     </button>
                                 ))}
                             </>
                         )}
                     </div>
-                    {managerState !== "" && managerExists === false && searchManagersList.length === 0 && (
+                    {managerInputState !== "" && managerExists === false && searchManagersNamesList.length === 0 && (
                         <div className={styles.NotExistText}>
                             Данного пользователя не существует! Повторите попытку.
                         </div>
@@ -96,13 +90,13 @@ export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
                     variant="Without"
                     width={101}
                     text="Отмена"
-                    onClick={() => setManagerModal(false)}
+                    onClick={closeFunc}
                 />
                 <CustomButton
                     variant="Primary"
                     text="Добавить"
                     width={121}
-                    onClick={closeFunc}
+                    onClick={postTrim}
                 />
             </div>
         </div>

@@ -1,5 +1,5 @@
-import { AddSquare, ArrowDown2, CloseSquare, Star1 } from "iconsax-react";
-import styles from "./ViewCompany.module.scss";
+import { AddSquare, ArrowDown2, CloseSquare, Star1, Trash } from "iconsax-react";
+import styles from "./ViewCompany.module.scss"
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { FC, useEffect, useState } from "react";
@@ -58,11 +58,10 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
         }
     }, [selectedCompanyData]);
     const names = (id: number | undefined): string => {
-        const manager = users.find((manager) => manager.id === id);
-        return manager ? manager.first_name : "";
+        const manager = users.find(manager => manager.id === id);
+        return manager ? `${manager.first_name} ${manager.surname}` : '';
     };
     const [addManagerModal, setAddManagerModal] = useState<boolean>(false);
-
     const closeAddManager = () => {
         setAddManagerModal(false);
     };
@@ -70,17 +69,18 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
         setAddManagerModal(true);
     };
     const style = {
-        top: `${managersModal ? "0" : "-200px"}`,
-        zIndex: `${managersModal ? "10" : "-50"}`,
-    };
+        marginTop: `${managersModal ? "0" : '-100px'}`,
+        zIndex: `${managersModal ? "10" : '-50'}`,
+    }
     const stylesArrow = {
-        transform: ` rotate( ${managersModal ? "360deg" : "270deg"})
-        `,
-    };
+        transform: ` rotate( ${managersModal ? '360deg' : '270deg'})`,
+        cursor: 'pointer'
+    }
     const addNewChangeManager = (id: number) => {
         const managers = [...selectedCompanyData.managers, id];
         addedNewManagers(selectedCompanyData, managers);
-    };
+    }
+
 
     return (
         <div className={styles.ViewCompany}>
@@ -144,20 +144,9 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
             <div className={styles.blockTwo}>
                 <div className={styles.blockTwoOne}>
                     <br />
-                    <div className={styles.mainManager}>
-                        Ответственный менеджер{" "}
-                        <div
-                            onClick={() => {
-                                setManagersModal(!managersModal);
-                            }}
-                        >
-                            <ArrowDown2
-                                color="rgba(28, 106, 177, 1)"
-                                className={styles.arrow}
-                                style={stylesArrow}
-                            />
-                        </div>
-                    </div>
+                    <div className={styles.mainManager}>Ответственный менеджер <div onClick={() => {
+                        setManagersModal(!managersModal);
+                    }}><ArrowDown2 color="rgba(28, 106, 177, 1)" className={styles.arrow} style={stylesArrow} /></div></div>
                     {managersMain.map((managerId) => (
                         <div
                             className={styles.managers}
@@ -165,46 +154,52 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
                             style={style}
                         >
                             <p className={styles.manager}>{names(managerId.id)}</p>
-                            {managerId.main ? (
-                                <Star1
-                                    variant="Bold"
-                                    color="yellow"
-                                    size={30}
-                                />
-                            ) : (
-                                <Star1
-                                    onClick={() => {
-                                        setManagersMain((prevState) => {
+                            {managerId.main ? 
+                                <div className={styles.gold}>
+                                    <Star1 variant="Bold" color="rgba(210, 195, 55, 1)" size={24} />
+                                </div> :
+                                <div className={styles.icons}>
+                                    <Trash onClick={() => {
+                                        setManagersMain(prevState => {
+                                            const newManagers = prevState.filter(manager => manager.id !== managerId.id);
+                                            return newManagers;
+                                            
+                                        })
+                                    }} size={24}/>
+                                    <Star1 onClick={() => {
+                                        setManagersMain(prevState => {
                                             const updatedManagers = prevState.map((item, i) => ({
                                                 ...item,
-                                                main: i === managerId.index,
+                                                main: i === managerId.index
                                             }));
                                             return updatedManagers;
                                         });
-                                    }}
-                                />
-                            )}
+                                    }} />
+                                </div>}
+
                         </div>
                     ))}
                 </div>
-                <div
-                    className={styles.hintAdd}
-                    style={{ display: `${hovered ? "block" : "none"}` }}
-                >
-                    <p className={styles.hint}>Нажмите что бы добавить менеджера</p>
-                    <div className={styles.tre}> </div>
-                </div>
-                <div
-                    className={styles.addManagers}
-                    onMouseEnter={() => setHovered(true)}
-                    onMouseLeave={() => setHovered(false)}
-                >
-                    <AddSquare
-                        color="white"
-                        onClick={() => {
-                            openAddManager();
-                        }}
-                    />
+                <div className={styles.adds} >
+                    <div
+                        className={styles.hintAdd}
+                        style={{ display: `${hovered ? 'block' : 'none'}` }}
+                    >
+                        <p className={styles.hint}>
+                            Нажмите что бы добавить менеджера
+                        </p>
+                        <div className={styles.tre}> </div>
+                    </div>
+                    <div
+
+                        className={styles.addManagers}
+                        onMouseEnter={() => setHovered(true)}
+                        onMouseLeave={() => setHovered(false)}
+                        onClick={() => { openAddManager() }}
+                    >
+
+                        <AddSquare color="white" />
+                    </div>
                 </div>
             </div>
 

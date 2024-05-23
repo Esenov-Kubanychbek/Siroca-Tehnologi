@@ -33,7 +33,7 @@ interface IChecklistApi {
     oneSubtask: ISubtask;
     setOneSubtask: (subtask: ISubtask) => void;
     addManagerToOneSubtask: (manager: string) => void;
-    oneSubtaskChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    oneSubtaskChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     setSubtaskCompleted: (subtask: ISubtask) => void;
     editSubtask: () => void;
     deleteSubtask: (id?: number) => void;

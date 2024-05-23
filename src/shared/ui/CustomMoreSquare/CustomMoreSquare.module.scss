@@ -1,13 +1,14 @@
 @import "index.scss";
 
 .MoreButtons {
-    width: 180px;
     display: flex;
+    min-width: 180px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     button {
         height: 41px;
+        padding: 12px;
         background: none;
         border: none;
         color: $blue;

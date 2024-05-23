@@ -171,15 +171,15 @@ const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
                             usersList &&
                             usersList.map((el, index) => {
                                 if (
-                                    el.first_name.includes(openManeger) &&
-                                    !choosedFiltersManager.includes(el.first_name)
+                                    el.full_name.includes(openManeger) &&
+                                    !choosedFiltersManager.includes(el.full_name)
                                 ) {
                                     return (
                                         <p id={`${index}`}>
-                                            {el.first_name}{" "}
+                                            {el.full_name}{" "}
                                             <input
                                                 type="checkbox"
-                                                id={`${el.first_name}`}
+                                                id={`${el.full_name}`}
                                                 onChange={addChoosedManager}
                                             />
                                         </p>

@@ -33,7 +33,7 @@ export const SelectFilterItem: FC<ISelectItem> = ({ el, getSelect }) => {
         getSelect(obj);
     };
     const check = ({ text, index }: { text: string | number | boolean, index: number }) => {
-        const sliced = el.values.slice(0, index - 1)
+        const sliced = el.values.slice(0, index)
         if (sliced.includes(text.toString())) {
             return false
         } else {

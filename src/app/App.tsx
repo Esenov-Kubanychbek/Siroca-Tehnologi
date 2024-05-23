@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Authorization, AdminPage, WorkPage, RolesSettingsPage, MainPage } from "../pages";
+import { AuthorizationPage, WorkPage, RolesSettingsPage, MainPage } from "../pages";
 import { PATHS } from "../shared/variables/variables";
 
 export const App: FC = () => {
@@ -8,15 +8,11 @@ export const App: FC = () => {
         <Routes>
             <Route
                 path={PATHS.auth}
-                element={<Authorization />}
+                element={<AuthorizationPage />}
             />
             <Route
                 path={PATHS.main}
                 element={<MainPage />}
-            />
-            <Route
-                path={PATHS.admin}
-                element={<AdminPage />}
             />
             <Route
                 path={PATHS.work}
