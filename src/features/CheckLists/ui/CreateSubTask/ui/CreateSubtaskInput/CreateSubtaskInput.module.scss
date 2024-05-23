@@ -1,0 +1,47 @@
+@import "index.scss";
+
+.CreateSubtaskInput {
+    width: 580px;
+    height: 56px;
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 8px;
+    position: relative;
+    box-sizing: border-box;
+    background-color: $blackf4;
+    border: 2px solid $blue;
+
+    .ContentEditable {
+        height: 56px;
+        width: 580px;
+        padding: 16px;
+        box-sizing: border-box;
+        outline: none;
+        border: none;
+        background: none;
+        overflow: auto;
+    }
+
+    .Highlight {
+        color: $blue;
+    }
+}
+
+/* CreateSubtaskInput.module.scss */
+.ContentEditable {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 100px;
+}
+
+.UserMention {
+    color: blue;
+    font-weight: bold;
+}
+
+.customMention {
+    .ant-mentions-mention {
+        color: #1890ff; /* Синий цвет */
+        font-weight: bold; /* Жирный текст */
+    }
+}
