@@ -2,7 +2,7 @@ import { Modal } from "antd";
 import { SearchInput } from "../../../features";
 import { ButtonCreate } from "../../../shared/ui/ButtonCreate/ButtonCreate";
 import styles from "./Companies.module.scss";
-import { CreateCompany, ManagerForSubtask } from "../..";
+import { CreateCompany } from "../..";
 import { dataCompanies, useDataStoreComponies } from "./api/componiesApi";
 import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from "react";
 import { ListTopName, ListTop, ItemInner } from "../../../shared/ui";
@@ -12,9 +12,11 @@ import { Pagination } from "../../../shared/ui/Pagination/Pagination";
 import { usePassword } from "../../Modals/ChangePassword/api/ChangePassword";
 import { ItemCount } from "../../../shared/ui/ItemCount/ItemCount";
 import { useDataInputCompaniesStore } from "@/widgets/Modals/ViewCompany/api/dataInputCompanies";
+import { allUsersListApi } from "@/shared/api";
 
 export const Companies: FC = () => {
     const { fetchDatas, data, selectedIdCompany, searchReset, openModalView, closeModalView, modalViewCompany, searchCompanies, countCompany } = useDataStoreComponies();
+    const { getAllUsersList, allUsersList } = allUsersListApi()
     const { resetInput } = useDataInputCompaniesStore();
     const [modalScc, setModalScc] = useState<string>('none');
     const [createCompany, setCreateCompany] = useState<boolean>(false);
@@ -44,9 +46,9 @@ export const Companies: FC = () => {
         setCount(number);
     };
     useEffect(() => {
-        getUsers();
+        getAllUsersList();
         fetchDatas(page);
-    }, [getUsers, fetchDatas, page]);
+    }, [fetchDatas, page, getAllUsersList]);
 
     const handleKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === "Enter") {
@@ -68,6 +70,10 @@ export const Companies: FC = () => {
         }
         return str.length > 5 ? str.substring(0, 5) + '...' : str;
     }
+    const names = (id: number | undefined): string => {
+        const manager = allUsersList.find(manager => manager.id === id);
+        return manager ? `${manager.full_name}` : '';
+    };
     useEffect(() => {
         if (searchText === "") {
             fetchDatas(page);
@@ -82,7 +88,7 @@ export const Companies: FC = () => {
         }
     }, [createCompanyName, count])
 
-    
+
     return (
         <div className={styles.Companies}>
             <div
@@ -154,11 +160,11 @@ export const Companies: FC = () => {
                                 >
                                     <ItemInner
                                         width={modalViewCompany ? 160 : 201}
-                                        content={dataCompany.name}
+                                        content={modalViewCompany ? truncatedStr(dataCompany.name) : dataCompany.name}
                                     />
                                     <ItemInner
                                         width={modalViewCompany ? 160 : 206}
-                                        content={dataCompany.country}
+                                        content={modalViewCompany ? truncatedStr(dataCompany.country) : dataCompany.country}
                                     />
                                     <ItemInner
                                         width={modalViewCompany ? 160 : 301}
@@ -172,7 +178,7 @@ export const Companies: FC = () => {
                                         className={styles.managerName}
                                         style={{ width: `${modalViewCompany ? "160px" : "221px"}` }}
                                     >
-                                        {modalViewCompany ? truncatedStr(dataCompany.main_manager) : dataCompany.main_manager}
+                                        {modalViewCompany ? truncatedStr(names(dataCompany.main_manager)) : names(dataCompany.main_manager)}
                                     </div>
                                     <ItemInner
                                         width={modalViewCompany ? 160 : 226}
@@ -197,17 +203,19 @@ export const Companies: FC = () => {
             </div>
             <div
                 className={styles.pogin}
-                style={{ width: `${modalViewCompany ? "1300px" : "100%"}` }}
+                style={{ width: `${modalViewCompany ? "1200px" : "100%"}` }}
             >
                 <Pagination
                     count={countCompany}
                     page={page}
                     setPage={setPage}
                 />
-                <ItemCount
-                    page={page}
-                    count={countCompany}
-                />
+                <div className={styles.count}>
+                    <ItemCount
+                        page={page}
+                        count={countCompany}
+                    />
+                </div>
             </div>
             {
                 <SccessfullyModal

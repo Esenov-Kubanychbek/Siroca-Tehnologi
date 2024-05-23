@@ -24,7 +24,7 @@ export interface dataCompanies {
     country: string;
     count_users: string;
     count_applications: string;
-    main_manager: string;
+    main_manager: number;
     last_updated_at: string;
     created_at: string | null | string;
 
@@ -46,7 +46,7 @@ export interface manager {
 export interface user {
     id: number,
     first_name: string,
-    last_name: string
+    surname: string
 }
 interface DataStore extends Data {
     fetchDatas: (page: number) => Promise<void>;
@@ -60,16 +60,13 @@ interface DataStore extends Data {
     openModalView: () => void;
     closeModalView: () => void;
     changeInputOne: (
-        data: DataAddCompanies,
-        state: DataAddCompanies | null,
-        id: number | undefined,
         mainManager: number | undefined | false,
         maangers: (number | undefined)[],
     ) => void;
     changeInputCompany: (e: ChangeEvent<HTMLInputElement>) => void;
     searchCompanies: (text: string) => Promise<void>;
     searchReset: (data: dataCompanies[]) => void;
-    addedNewManagers: (comopanies: DataAddCompanies, data: (number | undefined)[]) => Promise<void>;
+    addedNewManagers: (id: number) => Promise<void>;
     lamp: (text: string) => Promise<void>;
     countCompany: number;
 }
@@ -110,15 +107,14 @@ const deleteCompanies = async (id: number) => {
 const selectedId = async (id: number | undefined) => {
     try {
         const response = await axios.get(`${BASE_URL}/company/detail/${id}/`, authToken);
-        console.log(response.data);
-        
+
         return response.data;
     } catch (error) {
         console.log(error);
     }
 };
 
-const useDataStoreComponies = create<DataStore>((set) => ({
+const useDataStoreComponies = create<DataStore>((set, get) => ({
     data: [],
     countCompany: 0,
     modalViewCompany: false,
@@ -183,30 +179,27 @@ const useDataStoreComponies = create<DataStore>((set) => ({
                 [name]: value,
             },
         }));
-        console.log();
-        
+
     },
 
-    changeInputOne: async (data, state, id, mainManager, managers) => {
-        console.log(id);
-        if (state !== null) {
-            const datas = {
-                id: id,
-                name: data.name ? data.name : state.name,
-                company_code: data.company_code ? data.company_code : state.company_code,
-                country: data.country ? data.country : state.country,
-                main_manager: mainManager ? Number(mainManager) : null,
-                domain: data.domain ? data.domain : state.domain,
-                managers: managers,
-            };
-            try {
-                const response = await axios.put(`${BASE_URL}/company/edit/${id}/`, datas, authToken);
-                if (response.data) {
-                    fetchData();
-                }
-            } catch (error) {
-                console.log(error);
+    changeInputOne: async (mainManager, managers) => {
+        const { selectedCompanyData } = get()
+
+        try {
+
+            const response = await axios.put(
+                `${BASE_URL}/company/edit/${selectedCompanyData.id}/`,
+                {
+                    ...selectedCompanyData,
+                    main_manager: mainManager ? Number(mainManager) : null,
+                    managers: managers
+                },
+                authToken);
+            if (response.data) {
+                fetchData();
             }
+        } catch (error) {
+            console.log(error);
         }
     },
     searchCompanies: async (text) => {
@@ -221,15 +214,11 @@ const useDataStoreComponies = create<DataStore>((set) => ({
     searchReset: (data) => {
         set({ data: data });
     },
-    addedNewManagers: async (companies, managers) => {
+    addedNewManagers: async (id) => {
+        const companies = get().selectedCompanyData
         const data = {
-            id: companies.id,
-            name: companies.name,
-            company_code: companies.company_code,
-            country: companies.country,
-            main_manager: companies.main_manager,
-            domain: companies.domain,
-            managers: managers,
+            ...companies,
+            managers: [...companies.managers, id],
         };
         try {
             const response = await axios.put(`${BASE_URL}/company/edit/${companies.id}/`, data, authToken);
