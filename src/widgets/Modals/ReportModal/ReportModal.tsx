@@ -84,7 +84,7 @@ export const ReportModal: FC<IReportModal> = (props) => {
     return (
         <div className={styles.RepModalWindow}>
             <div className={styles.Header1}>
-                <p>Скачать отчёт</p>
+                <p>Скачивание отчета</p>
                 <CloseSquare
                     cursor={"pointer"}
                     onClick={() => setModal(false)}
@@ -93,7 +93,7 @@ export const ReportModal: FC<IReportModal> = (props) => {
                 />
             </div>
             <div className={styles.Header2}>
-                <p>Ведение данных для поиска</p>
+                <p>Введите данные для поиска:</p>
             </div>
             <div className={styles.Form}>
                 <ReportForm

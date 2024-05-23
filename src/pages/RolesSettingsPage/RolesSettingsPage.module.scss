@@ -15,6 +15,12 @@
     position: fixed;
     top: 30px;
 }
+.Popover{
+    display: flex;
+    width: 500px;
+    font-size: 20px;
+    padding: 10px;
+}
 .Save {
     display: inline-flex;
     height: 56px;
@@ -36,9 +42,14 @@
 .Search {
     display: flex;
     position: fixed;
-    left: 700px;
-    width: 1200px;
+    left: 750px;
+    width: 60%;
     justify-content: space-between;
+    div{
+        gap: 13px;
+        display: flex;
+        align-items: center;
+    }
 }
 
 .topnav {
@@ -91,9 +102,11 @@
 
 .Container {
     width: 95%;
+    height: 63%;
     padding-top: 180px;
     padding-right: 30px;
-    overflow: scroll;
+    padding-bottom: 40px;
+    overflow: auto;
 }
 
 .BackCont {
