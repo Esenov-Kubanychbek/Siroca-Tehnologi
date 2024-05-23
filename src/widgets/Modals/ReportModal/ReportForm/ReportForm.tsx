@@ -209,7 +209,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
                     />
                 </div>
                 <div className={styles.InputCont}>
-                    <p>Дата конца</p>
+                    <p>Дата завершения</p>
                     <input
                         type="date"
                         placeholder=""
