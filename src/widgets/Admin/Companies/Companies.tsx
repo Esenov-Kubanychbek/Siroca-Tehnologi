@@ -2,7 +2,7 @@ import { Modal } from "antd";
 import { SearchInput } from "../../../features";
 import { ButtonCreate } from "../../../shared/ui/ButtonCreate/ButtonCreate";
 import styles from "./Companies.module.scss";
-import { CreateCompany } from "../..";
+import { CreateCompany, ManagerForSubtask } from "../..";
 import { dataCompanies, useDataStoreComponies } from "./api/componiesApi";
 import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from "react";
 import { ListTopName, ListTop, ItemInner } from "../../../shared/ui";
@@ -14,7 +14,7 @@ import { ItemCount } from "../../../shared/ui/ItemCount/ItemCount";
 import { useDataInputCompaniesStore } from "@/widgets/Modals/ViewCompany/api/dataInputCompanies";
 
 export const Companies: FC = () => {
-    const { fetchDatas, getUsers, data, selectedIdCompany, searchReset, openModalView, closeModalView, modalViewCompany, searchCompanies, countCompany } = useDataStoreComponies();
+    const { fetchDatas, data, selectedIdCompany, searchReset, openModalView, closeModalView, modalViewCompany, searchCompanies, countCompany } = useDataStoreComponies();
     const { resetInput } = useDataInputCompaniesStore();
     const [modalScc, setModalScc] = useState<string>('none');
     const [createCompany, setCreateCompany] = useState<boolean>(false);

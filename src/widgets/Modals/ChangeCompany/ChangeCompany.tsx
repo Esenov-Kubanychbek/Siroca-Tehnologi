@@ -20,10 +20,9 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
     const [viewModal, setViewModal] = useState<boolean>(false);
     const [managerState, setManagerState] = useState<boolean>(false);
     const [userState, setUserState] = useState<boolean>(false);
-    const userssss = selectedCompanyData.users && selectedCompanyData.users.length > 0 
+    const userssss = selectedCompanyData.users !== undefined  
     ? `${selectedCompanyData.users[0].first_name} ${selectedCompanyData.users[0].last_name}`
     : 'Пользователей нету!';
-        
     const closeView = () => {
         setViewModal(false);
     };

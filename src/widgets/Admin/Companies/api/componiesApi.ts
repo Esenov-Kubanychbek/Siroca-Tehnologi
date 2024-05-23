@@ -59,8 +59,6 @@ interface DataStore extends Data {
     modalViewCompany: boolean;
     openModalView: () => void;
     closeModalView: () => void;
-    users: manager[];
-    getUsers: () => Promise<void>;
     changeInputOne: (
         data: DataAddCompanies,
         state: DataAddCompanies | null,
@@ -107,18 +105,13 @@ const deleteCompanies = async (id: number) => {
     }
 };
 
-const getUser = async () => {
-    try {
-        const response = await axios.get(`${BASE_URL}/users/name_list/`, authToken);
-        return response.data
-    } catch (error) {
-        console.log(error, "getUserError");
-    }
-};
+
 
 const selectedId = async (id: number | undefined) => {
     try {
         const response = await axios.get(`${BASE_URL}/company/detail/${id}/`, authToken);
+        console.log(response.data);
+        
         return response.data;
     } catch (error) {
         console.log(error);
@@ -138,7 +131,6 @@ const useDataStoreComponies = create<DataStore>((set) => ({
         domain: "",
     },
     idCompany: 0,
-    users: [],
 
     openModalView: () => {
         set({ modalViewCompany: true });
@@ -181,10 +173,6 @@ const useDataStoreComponies = create<DataStore>((set) => ({
             set({ countCompany: newData.count });
         }
     },
-    getUsers: async () => {
-        const users = await getUser();
-        set({ users: users });
-    },
     changeInputCompany: (e) => {
         const { name, value } = e.target;
 
@@ -195,6 +183,8 @@ const useDataStoreComponies = create<DataStore>((set) => ({
                 [name]: value,
             },
         }));
+        console.log();
+        
     },
 
     changeInputOne: async (data, state, id, mainManager, managers) => {
