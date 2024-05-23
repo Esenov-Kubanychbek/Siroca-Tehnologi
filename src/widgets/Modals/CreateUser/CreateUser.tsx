@@ -55,7 +55,7 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
             onSubmit={postTrim}
         >
             <div className={styles.Top}>
-                <div>Создание пользователя</div>
+                <div>Создать пользователя</div>
                 <CloseSquare
                     cursor={"pointer"}
                     size={34}
@@ -111,7 +111,7 @@ export const CreateUser: FC<ICreateUserModal> = (props) => {
                             name="password"
                             width={272}
                             type={passwordState ? "text" : "password"}
-                            placeholder="Напишите..."
+                            placeholder="Создайте пароль..."
                             change={createUserChange}
                         />
                         {passwordState ? (
