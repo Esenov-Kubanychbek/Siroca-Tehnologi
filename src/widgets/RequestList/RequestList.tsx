@@ -33,7 +33,7 @@ export const RequestList: FC<IRequest> = (props) => {
     }, [page]);
     return (
         <div className={styles.RequestList}>
-            <div style={{ width: role === "admin" ? (view ? "1012px" : "1724px") : "1820px" }}>
+            <div style={{ width: role === "" ? (view ? "1012px" : "1724px") : "1820px" }}>
                 <RequestTop
                     role={role}
                     view={view}

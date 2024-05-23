@@ -7,7 +7,7 @@ import { CallToAdmin } from "../../widgets";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL, PATHS } from "../../shared/variables/variables";
 
-export const Authorization: FC = () => {
+export const AuthorizationPage: FC = () => {
     const [login, setLogin] = useState<string>("");
     const [password, setPasswod] = useState<string>("");
     const [err, setErr] = useState<boolean>(false);
@@ -31,11 +31,7 @@ export const Authorization: FC = () => {
                 localStorage.setItem("access", access);
                 localStorage.setItem("role_type", response.data.role_type);
                 localStorage.setItem("id", response.data.id);
-                if (response.data.role_type === "") {
-                    navigate(PATHS.admin);
-                } else if (response.data.role_type !== "") {
-                    navigate(PATHS.main);
-                }
+                navigate(PATHS.main);
             } else {
                 setErr(true);
             }

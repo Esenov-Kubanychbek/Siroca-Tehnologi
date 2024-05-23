@@ -23,12 +23,12 @@ export const HeaderBottom: FC<{ role: string | null }> = ({ role }) => {
             />
             <div
                 className={styles.BottomRight}
-                style={{ width: role === "admin" ? "1375px" : "1455px" }}
+                style={{ width: role === "" ? "1375px" : "1455px" }}
             >
                 <ReqSearch />
                 <div className={styles.SecondRight}>
                     <FilterButton onClick={onFilter} />
-                    {role === "admin" && (
+                    {role === "" && (
                         <div style={{ display: "flex", gap: "16px" }}>
                             <button
                                 aria-label="createRequest"

@@ -6,9 +6,11 @@ export const authToken = {
     },
 };
 
+export const prioritiesList: string[] = ["Самый высокий", "Высокий", "Средний", "Низкий", "Самый низкий"];
+export const statusesList: string[] = ["К выполнению", "В работе", "В тестировании", "Выполнено", "Проверено"];
+
 export const PATHS = {
     auth: "/",
-    admin: "/admin",
     work: "/work",
     rolessettings: "/rolessettings",
     main: "/main",

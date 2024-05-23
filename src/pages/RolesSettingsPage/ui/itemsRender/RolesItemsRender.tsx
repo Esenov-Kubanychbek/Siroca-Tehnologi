@@ -3,12 +3,12 @@ import ItemSettingRoles from "./ItemRoles";
 import styles from "./RolesItemsRender.module.scss";
 import axios from "axios";
 import { BASE_URL, authToken } from "../../../../shared/variables/variables";
-import { IUser } from "../../../../shared/types/userTypes";
+import { IUsersListUser } from "../../../../shared/types/userTypes";
 
 interface IRolesRender {
     list: string[];
-    users: IUser[];
-    getChanges: (e: IUser[]) => void;
+    users: IUsersListUser[];
+    getChanges: (e: IUsersListUser[]) => void;
     navType: string;
 }
 interface IGeneralRoles {
@@ -16,14 +16,14 @@ interface IGeneralRoles {
 }
 
 const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType }) => {
-    const [usersBoxes, setUsersBoxes] = useState<IUser[]>([]);
-    const [getInBoxes, setGetInBoxes] = useState<IUser[]>([]);
+    const [usersBoxes, setUsersBoxes] = useState<IUsersListUser[]>([]);
+    const [getInBoxes, setGetInBoxes] = useState<IUsersListUser[]>([]);
 
     const [generalManager, setGeneralManager] = useState<IGeneralRoles>();
     const [generalClient, setGeneralClient] = useState<IGeneralRoles>();
 
     //push the select if this select not exist in state if is exist just change val
-    const getBoxes = (e: IUser) => {
+    const getBoxes = (e: IUsersListUser) => {
         let found = false;
         const updatedBoxes = usersBoxes.map((item) => {
             if (item.username === e.username) {
@@ -70,32 +70,32 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType 
         getChanges(usersBoxes);
     }, [usersBoxes]);
 
-    const filteredUsersClient = users.filter((el: IUser) => el.role_type === "client"); //filter to client
-    const filteredUsersManager = users.filter((el: IUser) => el.role_type === "manager"); //filter to manager
+    const filteredUsersClient = users.filter((el: IUsersListUser) => el.role_type === "client"); //filter to client
+    const filteredUsersManager = users.filter((el: IUsersListUser) => el.role_type === "manager"); //filter to manager
 
     return (
         <div className={styles.Container}>
             {navType === "Клиент"
-                ? filteredUsersClient.map((el: IUser, index: number) => (
+                ? filteredUsersClient.map((el: IUsersListUser, index: number) => (
                       <ItemSettingRoles
                           key={el.username}
                           user={el}
                           checkBoxList={list}
                           index={index}
-                          getBoxes={(e: IUser) => getBoxes(e)}
+                          getBoxes={(e: IUsersListUser) => getBoxes(e)}
                           inBoxList={getInBoxes ? getInBoxes : []}
                           genRoles={generalClient}
                       />
                   ))
                 : null}
             {navType === "Менеджер"
-                ? filteredUsersManager.map((el: IUser, index: number) => (
+                ? filteredUsersManager.map((el: IUsersListUser, index: number) => (
                       <ItemSettingRoles
                           key={el.username}
                           user={el}
                           checkBoxList={list}
                           index={index}
-                          getBoxes={(e: IUser) => getBoxes(e)}
+                          getBoxes={(e: IUsersListUser) => getBoxes(e)}
                           inBoxList={getInBoxes ? getInBoxes : []}
                           genRoles={generalManager}
                       />
