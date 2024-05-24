@@ -83,6 +83,11 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: 0;
 }
 
+.ant-mentions.ant-mentions-focused {
+    border-color: transparent;
+    box-shadow: none;
+}
+
 .h1 {
     font-size: 32px;
     font-weight: 700;

@@ -4,6 +4,7 @@ import { Comments, Date, Description, Details, LinkJira, RequestLogs, People, Sh
 import { AddSquare, Maximize4 } from "iconsax-react";
 import { CheckLists } from "../../../../../features";
 import { ExpandIcon } from "@/shared/ui";
+import { createChecklistApi } from "@/widgets/Modals/CreateChecklist/api/createChecklistApi";
 
 interface ICollapses {
     setViewLogs: Dispatch<SetStateAction<boolean>>;
@@ -12,7 +13,9 @@ interface ICollapses {
 
 export const Collapses: FC<ICollapses> = (props) => {
     const { setViewLogs, setChecklistModal } = props;
+    const { resetOneChecklist } = createChecklistApi();
     const openChecklistModal = (e: { stopPropagation: () => void }) => {
+        resetOneChecklist();
         setChecklistModal(true);
         e.stopPropagation();
     };

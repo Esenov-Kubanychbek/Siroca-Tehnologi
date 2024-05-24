@@ -1,10 +1,10 @@
 @import "index.scss";
 
 .DatesContainer {
+    width: 580px;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
     gap: 16px;
+    flex-direction: column;
     .Dates {
         display: flex;
         justify-content: center;

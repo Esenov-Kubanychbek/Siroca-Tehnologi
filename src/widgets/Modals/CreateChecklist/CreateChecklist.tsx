@@ -12,22 +12,22 @@ interface ICreateChecklist {
 export const CreateChecklist: FC<ICreateChecklist> = (props) => {
     const { setChecklistModal } = props;
     const { oneRequest, setChecklistToOneRequest } = getOneRequestApi();
-    const { oneChecklist, resetOneChecklist, oneChecklistChange, createChecklist } = createChecklistApi();
+    const { oneChecklist, oneChecklistChange, postChecklist } = createChecklistApi();
     const postTrim = () => {
         if (oneChecklist.name !== "") {
-            createChecklist({
+            postChecklist({
                 name: oneChecklist.name,
                 application: oneRequest.id,
             });
-            setChecklistToOneRequest(oneChecklist);
             setChecklistModal(false);
         } else {
             console.log("postChecklistTrimError");
         }
     };
     useEffect(() => {
-        resetOneChecklist();
-        console.log(oneChecklist);
+        if (Number(oneChecklist.id) > 0) {
+            setChecklistToOneRequest(oneChecklist);
+        }
     }, [oneChecklist.id]);
     return (
         <div className={styles.CreateChecklist}>

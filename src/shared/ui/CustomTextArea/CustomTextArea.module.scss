@@ -3,6 +3,7 @@
 .TextArea {
     box-sizing: border-box;
     padding: 10px;
+    padding-right: 25px;
     border-radius: 8px;
     background-color: $blackf4;
     font-size: 18px;
@@ -10,6 +11,7 @@
     font-weight: 500;
     resize: none;
 }
+
 .AreaDes {
     box-sizing: border-box;
     padding: 10px;
