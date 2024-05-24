@@ -14,7 +14,7 @@ export interface DataAddCompanies {
     company_code: string;
     country: string;
     managers: (number | undefined)[];
-    main_manager: number;
+    main_manager: number | null;
     domain: string;
     count_users?: number;
     count_applications?: number;
@@ -39,9 +39,9 @@ export const useDataInputCompaniesStore = create<DataInputCompaniesStore>((set) 
         company_code: "",
         country: "",
         managers: [],
-        main_manager: 0,
+        main_manager: null,
         domain: "",
-    },
+    },  
     // Функция изменения
     changeInput: (e) => {
         set((state) => ({

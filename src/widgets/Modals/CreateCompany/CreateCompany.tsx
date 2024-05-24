@@ -1,11 +1,12 @@
 import { AddSquare, CloseSquare, LampOn } from "iconsax-react";
 import styles from "./CreateCompany.module.scss";
 import { CustomButton, CustomInput } from "../../../shared/ui";
-import { ChangeEvent, FC, useState } from "react";
-import { manager, useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
+import { FC, useState } from "react";
+import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
 import { Modal } from "antd";
-import { AddManager } from "../AddManager/AddManager";
+import { allUsersListApi } from "@/shared/api";
+import { ManagerForSubtask } from "../ManagerForSubtask/ManagerForSubtask";
 
 interface modal {
     openModals: () => void;
@@ -18,72 +19,55 @@ interface modal {
 export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCreateCompany, count, page }) => {
     const [allData, setAllData] = useState<boolean>(false);
     const [hovered, setHovered] = useState<boolean>(false);
-    const [inputValue, setInputValue] = useState<string>("");
-    const [inputValueText, setInputValueText] = useState<string>("");
-    const { addCompany, users, lamp } = useDataStoreComponies();
+    const { addCompany, lamp } = useDataStoreComponies();
     const { changeInput, resetInput, dataInputCompanies, addMainManager, addManagers, company_code } = useDataInputCompaniesStore();
-    const [filteredManager, setFilteredManager] = useState<manager[]>([]);
-    const managers = users.filter(item => item.role_type === 'manager');
     const [err, setErr] = useState<boolean>(false)
     const [addManagerModal, setAddManagerModal] = useState<boolean>(false);
-    const closeAddManager = () => {
-        setAddManagerModal(false);
-    };
-    const openAddManager = () => {
-        setAddManagerModal(true);
-    };
+    const { managerInputState, managerInputChange, searchManagersNamesList, setManagerInputState, allUsersList, allManagersNamesList } = allUsersListApi();
+
+    const functionCreateCompany = () => {
+        addCompany(dataInputCompanies, page);
+        const number = count + 1;
+        nameCreateCompany(`Компания "${dataInputCompanies.name}" была создана!`, number);
+        resetInput();
+        setAllData(false);
+        closeCreateModal();
+        setManagerInputState('')
+        setErr(false);
+        setTimeout(() => {
+            openModals();
+        }, 300);
+    }
+
     const addNewCompany = () => {
         if (
             dataInputCompanies.name &&
             dataInputCompanies.company_code &&
             dataInputCompanies.country &&
-            dataInputCompanies.managers &&
-            dataInputCompanies.domain 
+            dataInputCompanies.domain
         ) {
-            const managerFound = filteredManager?.some((filtered) => {
-                if (filtered.full_name === inputValue) {
-                    addCompany(dataInputCompanies, page);
-                    const number = count + 1;
-                    nameCreateCompany(`Компания "${dataInputCompanies.name}" была создана!`, number);
-                    resetInput();
-                    setAllData(false);
-                    closeCreateModal();
-                    console.log(dataInputCompanies.main_manager);
-                    setInputValue("");
-                    setErr(false);
-                    setTimeout(() => {
-                        openModals();
-                    }, 300);
-                    return true;
+            if (managerInputState !== '') {
+                const managerFound = allManagersNamesList?.some((filtered) => {
+                    if (filtered === managerInputState) {
+                        functionCreateCompany();
+                        return true;
+                    }
+                    return false;
+                });
+                if (!managerFound) {
+                    setErr(true);
                 }
-                return false;
-            });
-            if (!managerFound) {
-                setErr(true);
+            }else{
+                functionCreateCompany();
             }
         } else {
             setAllData(true);
             console.log("error");
         }
     };
-    const filterManager = (text: string) => {
-        const filtered = managers.filter((manager) => {
-            const inputText = text.toLowerCase();
-            const nameManager = manager.first_name.toLowerCase();
-            const lastName = manager.surname.toLocaleLowerCase();
-            return nameManager.startsWith(inputText) || lastName.startsWith(inputText);
-        });
-        return filtered;
-    };
 
-    const searchManagerChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setInputValue(value);
-        setInputValueText(value);
-        const filter = filterManager(value);
-        setFilteredManager(filter);
-        setErr(false);
-    };
+
+
     return (
         <div className={styles.CreateCompany}>
             <div className={styles.blockOne}>
@@ -161,18 +145,20 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
 
                     <div className={styles.managers}>
                         <div className={styles.addedManeger}>
-                            <input value={inputValue} onChange={searchManagerChange} placeholder="Введите имя пользователя" type="text" className={styles.searchInput} style={{
+                            <input value={managerInputState} onChange={managerInputChange} placeholder="Введите имя пользователя" type="text" className={styles.searchInput} style={{
                                 border: `${err ? '2px solid #E51616' : 'none'}`,
                                 color: `${err ? '#E51616' : 'black'}`
-                            }}/>
-                            <div style={{ display: `${inputValueText ? 'block' : 'none'}` }} className={styles.allManagers}>
-                                {filteredManager.map((manager) => (
-                                    <div onClick={() => {
-                                        addMainManager(manager.id);
-                                        setInputValue(manager.full_name);
-                                        setInputValueText('');
-                                        addManagers(manager.id)
-                                    }} className={styles.manager}>{manager.full_name} </div>
+                            }} />
+                            <div style={{ display: `${managerInputState ? 'block' : 'none'}` }} className={styles.allManagers}>
+                                {searchManagersNamesList.map((manager) => (
+                                    <div key={manager} onClick={() => {
+                                        setManagerInputState(manager);
+                                        const id = allUsersList.find(user => user.full_name === manager);
+                                        if (id) {
+                                            addMainManager(id.id);
+                                            addManagers(id.id);
+                                        }
+                                    }} className={styles.manager}>{manager} </div>
                                 ))}
                             </div>
                         </div>
@@ -181,9 +167,9 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
                         <div className={styles.addManagers}
                             onMouseEnter={() => setHovered(true)}
                             onMouseLeave={() => setHovered(false)}
-                            onClick={openAddManager}
-                            >
-                            
+                            onClick={() => setAddManagerModal(true)}
+                        >
+
                             <div
                                 className={styles.hintAdd}
                                 style={{ display: `${hovered ? "block" : "none"}` }}
@@ -224,13 +210,13 @@ export const CreateCompany: FC<modal> = ({ openModals, closeCreateModal, nameCre
             </div>
             <Modal
                 open={addManagerModal}
-                onCancel={closeAddManager}
+                onCancel={() => setAddManagerModal(false)}
                 width={500}
                 centered
             >
-                <AddManager
-                    type="created"
-                    closeModal={closeAddManager}
+                <ManagerForSubtask
+                    forWhat="createCompany"
+                    setManagerModal={setAddManagerModal}
                 />
             </Modal>
         </div>
