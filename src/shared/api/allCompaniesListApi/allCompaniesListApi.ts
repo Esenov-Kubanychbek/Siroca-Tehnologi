@@ -1,8 +1,8 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL, authToken } from "../variables/variables";
+import { BASE_URL, authToken } from "../../variables/variables";
 import { ChangeEvent } from "react";
-import { IAllCompaniesName } from "../types/companyTypes";
+import { IAllCompaniesName } from "../../types/companyTypes";
 
 interface IAllCompaniesListApi {
     companyInputState: string;

@@ -22,8 +22,8 @@ export const DatesContainer: FC = () => {
                     />
                     <DateInput
                         text="Дата отправки"
-                        name="deadline_date"
-                        value={requestState.deadline_date}
+                        name="offer_date"
+                        value={requestState.offer_date}
                     />
                 </div>
                 <div className={styles.Inner}>

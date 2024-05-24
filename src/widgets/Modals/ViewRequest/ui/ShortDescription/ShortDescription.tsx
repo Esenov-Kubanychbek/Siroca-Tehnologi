@@ -1,24 +1,14 @@
 import { FC } from "react";
 import styles from "./ShortDescription.module.scss";
 import { getOneRequestApi } from "../../api/getOneRequestApi";
-import { CustomTextArea } from "../../../../../shared/ui";
 
 export const ShortDescription: FC = () => {
-    const fetchRequest = getOneRequestApi();
+    const { oneRequest } = getOneRequestApi();
+    const length: number = oneRequest.short_description ? oneRequest.short_description.length : 0;
     return (
         <div className={styles.ShortDescription}>
-            <CustomTextArea
-                maxLength={60}
-                name="short_description"
-                placeholder="Напишите..."
-                height={100}
-                width={580}
-                variant="TextArea"
-                readOnly={true}
-                value={
-                    fetchRequest.oneRequest.short_description === null ? "" : fetchRequest.oneRequest.short_description
-                }
-            />
+            {oneRequest.short_description === null ? <div>Напишите...</div> : oneRequest.short_description}
+            <p>{length}/60</p>
         </div>
     );
 };

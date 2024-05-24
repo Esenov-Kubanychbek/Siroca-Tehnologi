@@ -1,14 +1,14 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL, authToken } from "../../../../shared/variables/variables";
-import { ISendUser, IUser } from "../../../../shared/types/userTypes";
+import { BASE_URL, authToken } from "@/shared/variables/variables";
+import { ISendUser, IUserDetails,  } from "@/shared/types/userTypes";
 import { ChangeEvent } from "react";
 
 interface IFetch {
     editUserState: ISendUser;
-    setEditState: (user: ISendUser | IUser) => void;
+    setEditState: (user: ISendUser | IUserDetails) => void;
     editUserChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    editUser: (id: number | undefined) => void;
+    editUser: (id?: number) => void;
 }
 
 export const editUserApi = create<IFetch>((set, get) => ({
@@ -24,16 +24,7 @@ export const editUserApi = create<IFetch>((set, get) => ({
     },
     setEditState: (user) => {
         set({
-            editUserState: {
-                first_name: user.first_name,
-                image: user.image,
-                job_title: user.job_title,
-                main_company: user.main_company,
-                role_type: user.role_type,
-                surname: user.surname,
-                username: user.username,
-                password: user.password
-            },
+            editUserState: user,
         });
     },
     editUserChange: (e) => {

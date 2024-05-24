@@ -1,14 +1,14 @@
 import { FC, useEffect } from "react";
 import styles from "./ViewUserProfile.module.scss";
 import { Popover } from "antd";
-import { usersApi } from "@/widgets/Admin/Users/api/usersApi";
 import { IViewUserProfile } from "./types/ViewUserProfileTypes";
+import { oneUserApi } from "@/shared/api";
 
 export const ViewUserProfile: FC<IViewUserProfile> = (props) => {
     const { children, userId } = props;
-    const { oneUserGet, getOneUser } = usersApi();
+    const { oneUserState, getOneUser } = oneUserApi();
     useEffect(() => {
-        if (oneUserGet.id !== userId) {
+        if (oneUserState.id !== userId) {
             getOneUser(userId);
         }
     }, []);
@@ -30,17 +30,17 @@ export const ViewUserProfile: FC<IViewUserProfile> = (props) => {
                     <div className={styles.Data}>
                         <div>
                             <img
-                                src={String(oneUserGet.image)}
+                                src={oneUserState.image}
                                 alt="image"
                             />
                         </div>
                         <p>
-                            {oneUserGet.first_name} {oneUserGet.surname}
+                            {oneUserState.first_name} {oneUserState.surname}
                         </p>
-                        <p>{oneUserGet.main_company}</p>
-                        <p>{oneUserGet.job_title}</p>
-                        <p>{oneUserGet.role_type}</p>
-                        <p>{oneUserGet.username}</p>
+                        <p>{oneUserState.main_company}</p>
+                        <p>{oneUserState.job_title}</p>
+                        <p>{oneUserState.role_type}</p>
+                        <p>{oneUserState.username}</p>
                     </div>
                 </div>
             }

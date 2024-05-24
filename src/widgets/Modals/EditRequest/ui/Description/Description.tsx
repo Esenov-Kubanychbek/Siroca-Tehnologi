@@ -31,11 +31,9 @@ export const Description: FC = () => {
                 <CustomTextArea
                     value={requestState.description === null ? "" : requestState.description}
                     name="description"
-                    change={requestChange}
+                    paddingRight={35}
+                    onChange={requestChange}
                     placeholder="Напишите..."
-                    height={100}
-                    width={580}
-                    variant="TextArea"
                 />
                 <FolderAdd
                     cursor={"pointer"}

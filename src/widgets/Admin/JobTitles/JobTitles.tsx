@@ -1,10 +1,10 @@
 import styles from "./JobTitles.module.scss";
-import { Modals } from "./ui/Modals";
 import { Trash } from "iconsax-react";
 import { SearchInput } from "@/features";
 import { jobTitleApi } from "./api/jobTitleApi";
 import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from "react";
 import { ButtonCreate, ListTop, ListTopName, ItemInner } from "@/shared/ui";
+import { JobTitleModals } from "./ui/JobTitleModals";
 
 export const JobTitles: FC = () => {
     const [state, setState] = useState<boolean>(false);
@@ -13,7 +13,6 @@ export const JobTitles: FC = () => {
     const [inputState, setInputState] = useState<string>("");
     const [modalReady, setModalReady] = useState<boolean>(false);
     const [closeState, setCloseState] = useState<boolean>(false);
-    const [modalSuccess, setModalSuccess] = useState<boolean>(false);
     const { jobTitleList, setSearchList, searchList, getJobTitleList } = jobTitleApi();
     useEffect(() => {
         getJobTitleList();
@@ -120,14 +119,12 @@ export const JobTitles: FC = () => {
                     </div>
                 </div>
             </div>
-            <Modals
+            <JobTitleModals
                 position={position}
                 modal={modal}
                 setModal={setModal}
                 modalReady={modalReady}
                 setModalReady={setModalReady}
-                modalSuccess={modalSuccess}
-                setModalSuccess={setModalSuccess}
             />
         </>
     );
