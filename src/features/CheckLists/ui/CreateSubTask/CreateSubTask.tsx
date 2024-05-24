@@ -32,18 +32,18 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
         }
     };
     const createSubtaskInputChange = (text: string) => {
-        setCreateSubtaskState({...createSubtaskState, text: text})
-    }
+        setCreateSubtaskState({ ...createSubtaskState, text: text });
+    };
     const editSubtaskInputChange = (text: string) => {
-        setOneSubtask({...oneSubtask, text: text})
-    }
+        setOneSubtask({ ...oneSubtask, text: text });
+    };
     useEffect(() => {
         if (forWhat === "createSubtask") {
             setCreateSubtaskState({
                 text: "",
                 completed: false,
                 checklist: checklistId,
-                manager: "admin@siroca.com",
+                manager: "",
                 deadline: "",
             });
         } else if (forWhat === "editSubtask" && subtask?.text !== "") {
@@ -51,10 +51,10 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
         } else if (forWhat === "editSubtask" && oneSubtask.text === "") {
             setDisplay(false);
         }
-    }, []);
+    }, [checklistId]);
     useEffect(() => {
         if (forWhat === "createSubtask" && createSubtaskState.id && createSubtaskState.id > 0) {
-            console.log("seSubtaskToOnerequest is working");
+            console.log("setSubtaskToOnerequest is working");
             setSubtaskToOneRequest(createSubtaskState);
         }
     }, [createSubtaskState.id]);

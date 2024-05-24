@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    border-radius: 8px;
     gap: 10px;
     width: 580px;
     background-color: $blackf4;
@@ -84,12 +85,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     --border-color: black;
     --border-width: 1px;
     --border: var(--border-width) solid var(--border-color);
-  
+
     position: relative;
-  }
-  
-  .Input__field,
-  .Input__keyWordsWrapper {
+}
+
+.Input__field,
+.Input__keyWordsWrapper {
     width: 100%;
     height: 100%;
     white-space: nowrap;
@@ -99,14 +100,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     /* IE and Firefox support */
     -ms-overflow-style: none;
     scrollbar-width: none;
-  }
-  
-  .Input__field::-webkit-scrollbar,
-  .Input__keyWordsWrapper::-webkit-scrollbar {
+}
+
+.Input__field::-webkit-scrollbar,
+.Input__keyWordsWrapper::-webkit-scrollbar {
     display: none;
-  }
-  
-  .Input__field {
+}
+
+.Input__field {
     background: transparent;
     color: transparent;
     resize: none;
@@ -114,16 +115,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     vertical-align: middle;
     caret-color: var(--color);
     border: var(--border);
-  }
-  .input__field::placeholder, /* Chrome, Firefox, Opera, Safari 10.1+ */
+}
+.input__field::placeholder, /* Chrome, Firefox, Opera, Safari 10.1+ */
   .input__field::-ms-input-placeholder, /* Internet Explorer 10-11 */
   .input__field:-ms-input-placeholder {
     /* Microsoft Edge */
     color: var(--placeholder-color);
     opacity: 1; /* Firefox */
-  }
-  
-  .Input__keyWordsWrapper {
+}
+
+.Input__keyWordsWrapper {
     background-color: var(--background);
     color: var(--color);
     display: flex;
@@ -132,16 +133,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     position: absolute;
     left: 0;
     top: 0;
-  }
-  
-  .Input__keyWord {
+}
+
+.Input__keyWord {
     color: var(--mark-color);
     display: inline-block;
     position: relative;
     z-index: 0;
-  }
-  
-  .Input__keyWord::before {
+}
+
+.Input__keyWord::before {
     content: "";
     width: calc(100% + 4px);
     height: 100%;
@@ -151,5 +152,4 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     top: 0;
     background-color: var(--mark-background);
     z-index: -1;
-  }
-  
+}
