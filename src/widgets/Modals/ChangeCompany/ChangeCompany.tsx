@@ -6,6 +6,7 @@ import { Modal } from "antd";
 import { ViewCompany } from "../ViewCompany/ViewCompany";
 import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
 import { CreateUser } from "../CreateUser/CreateUser";
+import { allUsersListApi } from "@/shared/api";
 
 interface props {
     message: (text: string, number: number) => void;
@@ -14,16 +15,17 @@ interface props {
 }
 export const ChangeCompany: FC<props> = ({ message, count, page }) => {
     const [modalButtons, setModalButtons] = useState<boolean>(false);
-    const { deleteCompany, idCompany, closeModalView, modalViewCompany, selectedCompanyData, users } = useDataStoreComponies();
+    const { deleteCompany, idCompany, closeModalView, modalViewCompany, selectedCompanyData } = useDataStoreComponies();
     const { resetInput } = useDataInputCompaniesStore();
+    const { allUsersList } = allUsersListApi()
     const [modalCreateUser, setModalCreateUser] = useState<boolean>(false);
     const [viewModal, setViewModal] = useState<boolean>(false);
     const [managerState, setManagerState] = useState<boolean>(false);
     const [userState, setUserState] = useState<boolean>(false);
-    const userssss = selectedCompanyData.users && selectedCompanyData.users.length > 0 
-    ? `${selectedCompanyData.users[0].first_name} ${selectedCompanyData.users[0].last_name}`
+    const userssss = selectedCompanyData.users !== undefined && selectedCompanyData.users.length > 0
+    ? `${selectedCompanyData.users[1].first_name + selectedCompanyData.users[1].surname} ${selectedCompanyData.users[0].surname}`
     : 'Пользователей нету!';
-        
+    
     const closeView = () => {
         setViewModal(false);
     };
@@ -39,8 +41,8 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
         closeModalView();
     };
     const names = (id: number | undefined): string => {
-        const manager = users.find((manager) => manager.id === id);
-        return manager ? manager.full_name : "";
+        const manager = allUsersList.find(manager => manager.id === id);
+        return manager ? `${manager.full_name}` : '';
     };
 
     return (
@@ -105,7 +107,7 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
 
                     <div className={styles.main_manager}>
                         <span>Ответственный менеджер:</span>
-                        <div className={styles.mainManagers}>{names(selectedCompanyData.main_manager)}<ArrowDown2 onClick={() => {
+                        <div className={styles.mainManagers}>{selectedCompanyData.main_manager ? names(selectedCompanyData.main_manager) : 'Нету!'}<ArrowDown2 onClick={() => {
                             setManagerState(!managerState);
                             managerState ? setUserState(false) : null
                         }} style={{ transform: `${managerState ? 'rotate(360deg)' : 'rotate(270deg)'}` }} color="rgba(28, 106, 177, 1)" /></div>
@@ -131,7 +133,7 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                         display: `${userState ? 'block' : 'none'}`
                     }} className={styles.users}>
                         {selectedCompanyData.users?.map((user) => (
-                            <p key={user.id}>{`${user.first_name}     ${user.last_name}`}</p>
+                            <p key={user.id}>{`${user.first_name} ${user.surname}`}</p>
                         ))}
                     </div>
                     <div className={styles.miniContainer}>
