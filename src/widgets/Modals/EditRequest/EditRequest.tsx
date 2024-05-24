@@ -25,9 +25,6 @@ export const EditRequest: FC<IEditRequest> = (props) => {
         }
     }, [fetchCreate.oneRequest]);
     useEffect(() => {
-        console.log(managerExists, companyUserExists, "useEffect");
-    }, [managerExists, companyUserExists]);
-    useEffect(() => {
         fetchEdit.setRequestData(oneRequest);
         console.log(fetchEdit.requestState);
     }, [oneRequest]);

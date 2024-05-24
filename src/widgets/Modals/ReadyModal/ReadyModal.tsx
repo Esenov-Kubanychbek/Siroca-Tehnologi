@@ -4,7 +4,7 @@ import { FC } from "react";
 import { IReady } from "./types/types";
 
 export const ReadyModal: FC<IReady> = (props) => {
-    const { content, yes, no } = props;
+    const { children, yes, no } = props;
     return (
         <div className={styles.ReadyModal}>
             <div className={styles.Container}>
@@ -13,7 +13,7 @@ export const ReadyModal: FC<IReady> = (props) => {
                     size={70}
                     color="#1C6AB1"
                 />
-                <p>{content}</p>
+                {children}
             </div>
             <div className={styles.BtnCont}>
                 <button

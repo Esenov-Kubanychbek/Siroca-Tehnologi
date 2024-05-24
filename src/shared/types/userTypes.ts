@@ -1,5 +1,5 @@
-export interface IUser {
-    [key: string]: number | boolean | string | File | undefined | null;
+export interface IUserDetails {
+    [key: string]: number | string;
     main_company: string;
     job_title: string;
     first_name: string;
@@ -7,8 +7,8 @@ export interface IUser {
     username: string;
     password: string;
     surname: string;
-    image?: File | string;
-    id?: number;
+    image: string;
+    id: number;
 }
 
 export interface IUsersListUser {

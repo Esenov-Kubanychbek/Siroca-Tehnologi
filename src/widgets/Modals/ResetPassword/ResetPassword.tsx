@@ -3,19 +3,19 @@ import styles from "./ResetPassword.module.scss";
 import { CloseSquare, Eye, EyeSlash } from "iconsax-react";
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { resetPasswordApi } from "./api/resetPasswordApi";
-import { usersApi } from "../../Admin/Users/api/usersApi";
+import { oneUserApi } from "@/shared/api";
 
 export const ResetPassword: FC<{ setModal: Dispatch<SetStateAction<boolean>> }> = (props) => {
     const { setModal } = props;
     const [first, setFirst] = useState<boolean>(false);
     const [second, setSecond] = useState<boolean>(false);
+    const {oneUserState} = oneUserApi()
     const { resetPassword, passwordChange, passwordState } = resetPasswordApi();
-    const { oneUserGet } = usersApi();
     const postTrim = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (Object.values(passwordState).every((value) => value !== "")) {
             setModal(false);
-            resetPassword(oneUserGet.id, passwordState);
+            resetPassword(oneUserState.id, passwordState);
         } else {
             console.log("postTrimError");
         }
