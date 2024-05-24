@@ -28,7 +28,7 @@ export const ManagerSelect: FC = () => {
             <div className={styles.Input}>
                 <CustomInput
                     trim={managerExists === false ? false : true}
-                    paddinfRight={managerExists === false ? 80 : 45}
+                    paddingRight={managerExists === false ? 80 : 45}
                     name="main_manager"
                     onClick={() => setOpened(true)}
                     value={managerInputState}

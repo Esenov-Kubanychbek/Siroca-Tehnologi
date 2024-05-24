@@ -37,7 +37,7 @@ export const UserSelect: FC = () => {
             <div className={styles.Input}>
                 <CustomInput
                     trim={companyUserExists === false ? false : true}
-                    paddinfRight={companyUserExists === false ? 80 : 45}
+                    paddingRight={companyUserExists === false ? 80 : 45}
                     onClick={() => setOpened(true)}
                     value={companyUserInputState}
                     change={handleChange}
