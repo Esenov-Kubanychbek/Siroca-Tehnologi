@@ -20,7 +20,7 @@ export const CreateJobTitle: FC<ICreateJobTitleModal> = (props) => {
     return (
         <div className={styles.CreatePosition}>
             <div className={styles.Header}>
-                <div className={styles.Word}>Добавить должность</div>
+                <div className={styles.Word}>Создать должность</div>
                 <div
                     onClick={() => setModal(false)}
                     style={{ cursor: "pointer" }}
