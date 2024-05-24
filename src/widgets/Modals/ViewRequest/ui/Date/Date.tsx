@@ -7,12 +7,12 @@ export const Date: FC = () => {
     return (
         <div className={styles.Date}>
             <div className={styles.Name}>
-                <p>Дата начало:</p>
-                <p>Срок выполнение:</p>
+                <p>Дата начала:</p>
+                <p>Срок выполнения:</p>
                 <p>Дата отправки:</p>
-                <p>Дата завершение:</p>
+                <p>Дата завершения:</p>
                 <p>Дата подачи:</p>
-                <p>Дата утверждение:</p>
+                <p>Дата утверждения:</p>
                 <p>Статус оплаты:</p>
             </div>
             <div className={styles.Data}>
