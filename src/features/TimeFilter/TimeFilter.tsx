@@ -261,6 +261,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                                             className={styles.date}
                                             type="date"
                                             id={el.type}
+                                            value={el.selected[0]}
                                             onChange={(e) => onChangeDate(e)}
                                         />
                                     </div>
