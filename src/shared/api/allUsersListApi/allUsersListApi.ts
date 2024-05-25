@@ -1,7 +1,7 @@
 import { IAllUsersName } from "@/shared/types/userTypes";
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL, authToken } from "../variables/variables";
+import { BASE_URL, authToken } from "../../variables/variables";
 import { ChangeEvent } from "react";
 
 interface IAllUsersListApi {

@@ -1,15 +1,21 @@
 @import "index.scss";
 
 .ShortDescription {
-    position: relative;
     width: 580px;
     height: 100px;
-    p {
+    padding: 16px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: $blackf4;
+    font-weight: 500;
+    font-size: 16px;
+    position: relative;
+    div {
         color: $black5c;
-        font-weight: 500;
-        font-size: 12px;
+    }
+    p {
+        bottom: 10px;
+        right: 10px;
         position: absolute;
-        bottom: 4px;
-        right: 4px;
     }
 }

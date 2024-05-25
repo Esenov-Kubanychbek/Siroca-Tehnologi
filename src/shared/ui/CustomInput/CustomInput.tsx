@@ -13,7 +13,7 @@ export const CustomInput: FC<IInput> = (props) => {
         type,
         change,
         paddingLeft,
-        paddinfRight,
+        paddingRight,
         defaultValue,
         onClick,
         readOnly,
@@ -36,7 +36,7 @@ export const CustomInput: FC<IInput> = (props) => {
                 height: `${height}px`,
                 background: `${background}`,
                 paddingLeft: `${paddingLeft}px`,
-                paddingRight: `${paddinfRight}px`,
+                paddingRight: `${paddingRight}px`,
                 border: trim || trim === undefined ? "none" : "2px solid #E51616",
                 color: color,
             }}

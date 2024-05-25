@@ -11,7 +11,7 @@ export interface IInput {
     name?: string;
     type?: string;
     paddingLeft?: number;
-    paddinfRight?: number;
+    paddingRight?: number;
     change?: (e: ChangeEvent<HTMLInputElement>) => void;
     onClick?: () => void;
     readOnly?: boolean;

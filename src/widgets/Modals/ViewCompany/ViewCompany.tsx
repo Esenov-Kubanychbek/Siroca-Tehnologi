@@ -3,9 +3,9 @@ import styles from "./ViewCompany.module.scss"
 import { CustomButton, CustomInput } from "../../../shared/ui";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { FC, useEffect, useState } from "react";
-import { useDataInputCompaniesStore } from "./api/dataInputCompanies";
 import { Modal } from "antd";
-import { AddManager } from "../AddManager/AddManager";
+import { allUsersListApi } from "@/shared/api";
+import { ManagerForSubtask } from "../ManagerForSubtask/ManagerForSubtask";
 
 interface props {
     closeModalView: () => void;
@@ -25,23 +25,20 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
         selectedCompanyData,
         fetchDatas,
         changeInputOne,
-        idCompany,
         changeInputCompany,
-        users,
-        addedNewManagers,
         selectedIdCompany,
     } = useDataStoreComponies();
-    const { dataInputCompanies } = useDataInputCompaniesStore();
     const [managersMain, setManagersMain] = useState<managers[]>([]);
     const [hovered, setHovered] = useState<boolean>(false);
     const [managersModal, setManagersModal] = useState<boolean>(false);
+    const { allUsersList } = allUsersListApi();
 
     const change = async () => {
         const mainManager = managersMain.find((manager) => manager.main === true);
         const idMainManager = mainManager !== undefined && mainManager.id;
         const newIdManagers = managersMain.map((manager) => manager.id);
         const filteredNewIdManagers = newIdManagers.filter((item) => typeof item === "number");
-        await changeInputOne(dataInputCompanies, selectedCompanyData, idCompany, idMainManager, filteredNewIdManagers);
+        await changeInputOne( idMainManager, filteredNewIdManagers);
         const number = count + 1;
         message(`Изменение были сохранены!`, number);
         fetchDatas(page);
@@ -58,13 +55,11 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
         }
     }, [selectedCompanyData]);
     const names = (id: number | undefined): string => {
-        const manager = users.find(manager => manager.id === id);
-        return manager ? `${manager.first_name} ${manager.surname}` : '';
+        const manager = allUsersList.find(manager => manager.id === id);
+        return manager ? `${manager.full_name}` : '';
     };
     const [addManagerModal, setAddManagerModal] = useState<boolean>(false);
-    const closeAddManager = () => {
-        setAddManagerModal(false);
-    };
+    
     const openAddManager = () => {
         setAddManagerModal(true);
     };
@@ -76,10 +71,7 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
         transform: ` rotate( ${managersModal ? '360deg' : '270deg'})`,
         cursor: 'pointer'
     }
-    const addNewChangeManager = (id: number) => {
-        const managers = [...selectedCompanyData.managers, id];
-        addedNewManagers(selectedCompanyData, managers);
-    }
+    
 
 
     return (
@@ -233,14 +225,13 @@ export const ViewCompany: FC<props> = ({ closeModalView, message, count, page })
             </div>
             <Modal
                 open={addManagerModal}
-                onCancel={closeAddManager}
+                onCancel={() => setAddManagerModal(false)}
                 width={500}
                 centered
             >
-                <AddManager
-                    type="changes"
-                    addNewChangeManager={addNewChangeManager}
-                    closeModal={closeAddManager}
+                <ManagerForSubtask
+                    forWhat="changeCompany"
+                    setManagerModal={setAddManagerModal}
                 />
             </Modal>
         </div>

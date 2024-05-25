@@ -7,6 +7,7 @@ import { getOneRequestApi } from "@/widgets/Modals/ViewRequest/api/getOneRequest
 import { CreateSubTask } from "../../CreateSubTask/CreateSubTask";
 import { Modal } from "antd";
 import { ManagerForSubtask } from "@/widgets";
+import { allUsersListApi } from "@/shared/api";
 
 interface IOneSubtask {
     subtask: ISubtask;
@@ -18,6 +19,7 @@ export const OneSubtask: FC<IOneSubtask> = (props) => {
     const [managerModal, setManagerModal] = useState<boolean>(false);
     const { deleteSubtask, setSubtaskCompleted } = checkListApi();
     const { setSubtaskCompletedFromOneRequest, deleteSubtaskFromOneRequest } = getOneRequestApi();
+    const { allUsersNamesList } = allUsersListApi();
     const completeFunc = () => {
         setSubtaskCompleted(subtask);
         setSubtaskCompletedFromOneRequest(subtask.id);
@@ -29,6 +31,24 @@ export const OneSubtask: FC<IOneSubtask> = (props) => {
     const editFunc = () => {
         setEditState(true);
     };
+    const highlightUsernames = (text: string) => {
+        const usersPattern = allUsersNamesList.map(user => `@${user}`).join('|');
+        const regex = new RegExp(`(${usersPattern})`, 'gi');
+        
+        return text.split(regex).map((part, index) => {
+            if (regex.test(part)) {
+                return (
+                    <span
+                        key={index}
+                        className={styles.Highlight}
+                    >
+                        {part}
+                    </span>
+                );
+            }
+            return part;
+        });
+    };
     return editState === false ? (
         <div className={styles.OneSubtask}>
             <CustomCheckBox
@@ -39,7 +59,7 @@ export const OneSubtask: FC<IOneSubtask> = (props) => {
                 onClick={editFunc}
                 className={styles.Main}
             >
-                <div className={styles.Text}>{subtask.text}</div>
+                <div className={styles.Text}>{highlightUsernames(subtask.text)}</div>
                 <div className={styles.Right}>
                     <span>{subtask.manager}</span>
                     <div>
