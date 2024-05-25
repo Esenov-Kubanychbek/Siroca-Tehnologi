@@ -1,6 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL, authToken } from "../../../shared/variables/variables";
+import { BASE_URL, authToken } from "@/shared/variables/variables";
 import { ChangeEvent } from "react";
 
 export interface ISubtask {
@@ -33,7 +33,7 @@ interface IChecklistApi {
     oneSubtask: ISubtask;
     setOneSubtask: (subtask: ISubtask) => void;
     addManagerToOneSubtask: (manager: string) => void;
-    oneSubtaskChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    oneSubtaskChange: (e: ChangeEvent<HTMLInputElement>) => void;
     setSubtaskCompleted: (subtask: ISubtask) => void;
     editSubtask: () => void;
     deleteSubtask: (id?: number) => void;

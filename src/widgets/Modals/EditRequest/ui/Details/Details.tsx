@@ -22,16 +22,6 @@ export const Details: FC = () => {
                 />
             </div>
             <div className={styles.Container}>
-                <div className={styles.Text}>Название компании:</div>
-                <CustomInput
-                    value={requestState.company}
-                    name="company"
-                    width={350}
-                    placeholder="Введите текст..."
-                    change={requestChange}
-                />
-            </div>
-            <div className={styles.Container}>
                 <div className={styles.Text}>Приоритет:</div>
                 <DetailsSelect
                     list={prioritiesList}

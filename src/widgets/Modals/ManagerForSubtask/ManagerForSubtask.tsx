@@ -5,9 +5,11 @@ import { CustomButton } from "@/shared/ui";
 import { allUsersListApi } from "@/shared/api";
 import { checkListApi } from "@/features/CheckLists/api/checkListApi";
 import { createSubtaskApi } from "@/features/CheckLists/api/createSubtaskApi";
+import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
+import { useDataStoreComponies } from "@/widgets/Admin/Companies/api/componiesApi";
 
 interface IManagerForSubtask {
-    forWhat: "createSubtask" | "editSubtask";
+    forWhat: "createSubtask" | "editSubtask" | 'createCompany' | 'changeCompany';
     setManagerModal: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -15,6 +17,9 @@ export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
     const { setManagerModal, forWhat } = props;
     const { addManagerToCreateSubtask } = createSubtaskApi();
     const { addManagerToOneSubtask } = checkListApi();
+    const { addManager } = useDataInputCompaniesStore()
+    const { allUsersList } = allUsersListApi();
+    const { addedNewManagers } = useDataStoreComponies();
     const {
         managerInputState,
         setManagerInputState,
@@ -29,6 +34,16 @@ export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
                 addManagerToCreateSubtask(managerInputState);
             } else if (forWhat === "editSubtask") {
                 addManagerToOneSubtask(managerInputState);
+            } else if (forWhat === 'createCompany') {
+                const managerId = allUsersList.find(user => user.full_name === managerInputState);
+                if (managerId) {
+                    addManager(managerId.id)
+                }
+            } else if(forWhat === 'changeCompany'){
+                const managerId = allUsersList.find(user => user.full_name === managerInputState);
+                if (managerId) {
+                    addedNewManagers(managerId.id);
+                }
             }
             setManagerInputState("");
             setManagerModal(false);
@@ -44,7 +59,7 @@ export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
         <div className={styles.ManagerForSubtask}>
             <div className={styles.Main}>
                 <div className={styles.Header}>
-                    <p>Назначить менеджера</p>
+                    <p>{forWhat === "createCompany" || forWhat === "editSubtask" ? "Добавить менеджера" : "Назначить менеджера"}</p>
                     <CloseSquare
                         cursor={"pointer"}
                         onClick={closeFunc}
@@ -57,8 +72,8 @@ export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
                                 managerInputState === "" || managerExists
                                     ? styles.FirstInput
                                     : searchManagersNamesList.length === 0 && managerExists === false
-                                      ? styles.NotExist
-                                      : styles.SecondInput
+                                        ? styles.NotExist
+                                        : styles.SecondInput
                             }
                             type="text"
                             placeholder="Введите имя пользователя..."

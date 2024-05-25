@@ -56,6 +56,7 @@ const RolesRender: React.FC<IRolesRender> = ({ list, users, getChanges, navType 
             const responseM = await axios.get(`${BASE_URL}/users/managerpermissions/general/`, authToken);
             setGeneralManager(responseM.data);
             setGeneralClient(responseC.data);
+            
         } catch (error) {
             console.log(error);
         }

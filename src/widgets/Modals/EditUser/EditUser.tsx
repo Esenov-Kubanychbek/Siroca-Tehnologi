@@ -6,14 +6,14 @@ import { IEditUserModal } from "./types/types";
 import { editUserApi } from "./api/editUserApi";
 import { EditImage, Modals, RoleButton } from "./ui";
 import { deleteUserApi } from "./api/deleteUserApi";
-import { usersApi } from "../../Admin/Users/api/usersApi";
 import { jobTitleApi } from "../../Admin/JobTitles/api/jobTitleApi";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
 import { IAddUser } from "../../../shared/types/userTypes";
+import { oneUserApi } from "@/shared/api";
 
 export const EditUser: FC<IEditUserModal> = (props) => {
-    const fetchData = usersApi();
     const deleting = deleteUserApi();
+    const {oneUserState} = oneUserApi()
     const [passwordModal, setPasswordModal] = useState<boolean>(false);
     const [jobTitleModal, setJobTitleModal] = useState<boolean>(false);
     const [modalSuccess, setModalSuccess] = useState<boolean>(false);
@@ -46,7 +46,7 @@ export const EditUser: FC<IEditUserModal> = (props) => {
         console.log(added);
         setAdded(updatedAdded);
         if (Object.values(editUserState).every((value) => value !== "") && hasJobTitle && hasCompany) {
-            editUser(fetchData.oneUserGet.id);
+            editUser(oneUserState.id);
             setModal(false);
         } else {
             console.log("trimUserError");
@@ -54,15 +54,15 @@ export const EditUser: FC<IEditUserModal> = (props) => {
     };
 
     const deleteUser = () => {
-        deleting.deleteUser(fetchData.oneUserGet.id);
+        deleting.deleteUser(oneUserState.id);
         setModal(false);
         setModalSuccess(true);
         setTimeout(() => setModalSuccess(false), 1000);
     };
 
     useEffect(() => {
-        setEditState(fetchData.oneUserGet);
-    }, [fetchData.oneUserGet]);
+        setEditState(oneUserState);
+    }, [oneUserState]);
 
     return (
         <form

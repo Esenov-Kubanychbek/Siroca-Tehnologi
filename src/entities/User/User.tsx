@@ -1,14 +1,14 @@
 import { FC } from "react";
 import styles from "./User.module.scss";
 import { ItemInner } from "../../shared/ui";
-import { usersApi } from "../../widgets/Admin/Users/api/usersApi";
 import { IUserTypes } from "./types/types";
 import { idRoles } from "../../pages/MainPage/api/idRoles";
+import { oneUserApi } from "@/shared/api";
 
 export const User: FC<IUserTypes> = (props) => {
     const { user, setView, view } = props;
-    const fetchData = usersApi();
     const roles = idRoles();
+    const { getOneUser } = oneUserApi();
     const fmRoles = roles.formatedState;
     const role_type = localStorage.getItem("role_type");
     return (
@@ -17,7 +17,7 @@ export const User: FC<IUserTypes> = (props) => {
                 (fmRoles && fmRoles.manager_can_view_profiles_extra && role_type === "manager") || role_type === ""
                     ? () => {
                           setView(true);
-                          fetchData.getOneUser(user.id);
+                          getOneUser(user.id);
                       }
                     : () => console.log("no roles")
             }

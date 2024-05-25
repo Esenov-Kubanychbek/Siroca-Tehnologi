@@ -115,25 +115,29 @@ export const RolesSettingsPage: FC = () => {
     const saveRoles = () => {
         const propertiesToDelete: string[] = [
             "first_name",
+            "full_name",
             "image",
             "created_at",
             "job_title",
             "main_company",
             "surname",
             "username",
+            "role_type"
+            // "id"
         ];
 
         const managers: IUsersListUser[] = [];
         const clients: IUsersListUser[] = [];
-
+        
         boxesReg.forEach((el: IUsersListUser) => {
+            const role = el.role_type
             propertiesToDelete.forEach((property) => {
                 delete el[property];
             });
 
-            if (el.role_type === "manager") {
+            if (role === "manager") {
                 managers.push(el);
-            } else if (el.role_type === "client") {
+            } else if (role === "client") {
                 clients.push(el);
             }
         });
@@ -170,7 +174,7 @@ export const RolesSettingsPage: FC = () => {
     useEffect(() => {
         setUsers(fetchData.usersList);
     }, [fetchData.usersList]);
-
+    
     return (
         <div className={styles.Settings}>
             <div

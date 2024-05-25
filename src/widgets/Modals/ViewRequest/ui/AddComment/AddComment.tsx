@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
-import { CustomTextArea } from "../../../../../shared/ui";
-import { idRoles } from "../../../../../pages/MainPage/api/idRoles";
+import { CustomInput } from "@/shared/ui";
+import { idRoles } from "@/pages/MainPage/api/idRoles";
 import styles from "./AddComment.module.scss";
 import { Send2 } from "iconsax-react";
 import { postCommentApi } from "../../api/postCommentApi";
@@ -12,7 +12,7 @@ export const AddComment: FC = () => {
     const [commentState, setCommentState] = useState<string>("");
     const { oneRequest, setComment } = getOneRequestApi();
     const { oneComment, postComment } = postCommentApi();
-    const changeComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const changeComment = (e: ChangeEvent<HTMLInputElement>) => {
         setCommentState(e.target.value);
     };
     const postTrim = () => {
@@ -35,14 +35,13 @@ export const AddComment: FC = () => {
         if (roles.formatedState && role_type === "client" && roles.formatedState.client_can_edit_comments_extra) {
             return (
                 <div className={styles.AddComment}>
-                    <CustomTextArea
+                    <CustomInput
                         name="text"
                         value={commentState}
-                        placeholder="Добавьте комментарий..."
-                        height={56}
                         width={580}
-                        variant="TextArea"
+                        placeholder="Добавьте комментарий..."
                         change={changeComment}
+                        paddingRight={45}
                     />
                     <Send2
                         color={commentState === "" ? "#5c5c5c" : "#1c6ab1"}
@@ -55,14 +54,13 @@ export const AddComment: FC = () => {
         } else if (role_type === "manager" || role_type === "") {
             return (
                 <div className={styles.AddComment}>
-                    <CustomTextArea
+                    <CustomInput
                         name="text"
                         value={commentState}
-                        placeholder="Добавьте комментарий..."
-                        height={56}
                         width={580}
-                        variant="TextArea"
+                        placeholder="Добавьте комментарий..."
                         change={changeComment}
+                        paddingRight={45}
                     />
                     <Send2
                         color={commentState === "" ? "#5c5c5c" : "#1c6ab1"}

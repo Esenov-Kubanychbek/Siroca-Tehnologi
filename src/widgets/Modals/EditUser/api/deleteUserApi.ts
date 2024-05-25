@@ -9,7 +9,7 @@ interface IFetch {
 export const deleteUserApi = create<IFetch>(() => ({
     deleteUser: async (id) => {
         try {
-            const deleteResponse = await axios.delete(`${BASE_URL}/users/destroy/${id}/`, authToken);
+            const deleteResponse = await axios.delete(`${BASE_URL}/users/${id}/`, authToken);
             console.log(deleteResponse, "deleteUserSuccess");
         } catch (error) {
             console.log(error, "deleteUserError");

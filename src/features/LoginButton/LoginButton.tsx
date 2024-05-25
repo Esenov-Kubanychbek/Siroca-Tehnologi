@@ -22,16 +22,17 @@ export const LoginButton: FC<{ variant: "Primary" | "Secondary" }> = ({ variant 
                 <Login />
             </button>
             <Modal
-                width={550}
                 centered
                 open={modal}
                 onCancel={() => setModal(false)}
             >
                 <ReadyModal
-                    content="Вы уверены?"
                     no={() => setModal(false)}
                     yes={exitFunc}
-                />
+                >
+                    <p>Вы уверены, что хотите выйти?</p>
+                </ReadyModal>
+
             </Modal>
         </>
     );
