@@ -19,7 +19,9 @@ export const MainPage: FC = () => {
         id !== null && getOneUser(id);
     }, []);
     useEffect(() => {
+        if (role_type !== "") {
         roles.formateState();
+        }
     }, [roles.rolesState, roles.genRolesState]);
 
     const render = () => {
