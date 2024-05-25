@@ -65,22 +65,24 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
         const entrTheGets = filteredInBoxList.length > 0 ? filteredInBoxList[0] : false;
         const fmTheGets = entrTheGets ? Object.entries(entrTheGets).slice(3) : false;
         const finishGets = fmTheGets ? Object.fromEntries(fmTheGets) : boxes;
+        delete finishGets.role_type
         setBoxes(finishGets);
     }, [inBoxList]);
-
+    
     return (
         <div className={styles.Item}>
             <div className={styles.num}>
                 <p>{index + 1}</p>
             </div>
             <div className={styles.name}>
-                <p>{user.username}</p>
+                <p>{user.full_name}</p>
             </div>
 
             {checkBoxList.map((el, index: number) => {
                 if (boxes && Object.entries(boxes)[index] && Object.entries(boxes)[index][1] == null && el) {
                     const isChecked =
                         genBoxes && Object.entries(genBoxes)[index] ? Object.entries(genBoxes)[index][1] : false;
+                        
                     return (
                         <div
                             className={styles.el}
@@ -96,6 +98,7 @@ const ItemSettingRoles: React.FC<IItemSettingRoles> = ({
                     );
                 } else {
                     const isChecked = boxes && Object.entries(boxes)[index] ? Object.entries(boxes)[index][1] : false;
+                        
                     return (
                         <div
                             className={styles.el}

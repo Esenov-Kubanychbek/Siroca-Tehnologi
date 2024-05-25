@@ -13,11 +13,15 @@ export const MainPage: FC = () => {
     const usePasswordScc = usePassword();
     const { getOneUser } = profile();
     useEffect(() => {
-        roles.getting();
+        if (role !== "") {
+            roles.getting();
+        }
         id !== null && getOneUser(id);
     }, []);
     useEffect(() => {
+        if (role !== "") {
         roles.formateState();
+        }
     }, [roles.rolesState, roles.genRolesState]);
 
     const render = () => {
