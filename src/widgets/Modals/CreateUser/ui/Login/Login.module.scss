@@ -1,0 +1,23 @@
+.Text {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.Login {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.PasswordInput {
+    position: relative;
+    input {
+        padding-right: 55px;
+    }
+    svg {
+        cursor: pointer;
+        position: absolute;
+        top: 16px;
+        right: 24px;
+    }
+}

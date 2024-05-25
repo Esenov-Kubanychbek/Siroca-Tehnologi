@@ -8,12 +8,14 @@ import { profile } from "../../widgets/Modals/ProfileModal/api/profileApi";
 
 export const MainPage: FC = () => {
     const roles = idRoles();
-    const role = localStorage.getItem("role_type");
+    const role_type = localStorage.getItem("role_type");
     const id = localStorage.getItem("id");
     const usePasswordScc = usePassword();
     const { getOneUser } = profile();
     useEffect(() => {
-        roles.getting();
+        if (role_type !== "") {
+            roles.getting();
+        }
         id !== null && getOneUser(id);
     }, []);
     useEffect(() => {
@@ -25,17 +27,17 @@ export const MainPage: FC = () => {
             (roles.formatedState && roles.formatedState.manager_can_create_and_edit_user_extra) ||
             (roles.formatedState && roles.formatedState.manager_can_create_and_edit_company_extra) ||
             (roles.formatedState && roles.formatedState.manager_can_create_and_delete_job_title_extra) ||
-            role === ""
+            role_type === ""
         ) {
             return (
                 <>
                     <Dashboard />
                     <header className={styles.Inner}>
                         <HeaderTop
-                            role={role}
+                            role={role_type}
                             isAdminManager={true}
                         />
-                        <HeaderBottom role={role} />
+                        <HeaderBottom role={role_type} />
                         {
                             <SccessfullyModal
                                 closeModal={usePasswordScc.closeModalScc}
@@ -51,10 +53,10 @@ export const MainPage: FC = () => {
             return (
                 <>
                     <HeaderTop
-                        role={role}
+                        role={role_type}
                         isAdminManager={false}
                     />
-                    <HeaderBottom role={role} />
+                    <HeaderBottom role={role_type} />
                     {
                         <SccessfullyModal
                             closeModal={usePasswordScc.closeModalScc}
