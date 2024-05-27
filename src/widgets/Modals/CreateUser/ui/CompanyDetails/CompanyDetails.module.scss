@@ -1,0 +1,52 @@
+@import "index.scss";
+
+.CompanyDetails {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.Text {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.Bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.Input {
+    position: relative;
+    input {
+        width: 272px;
+        box-sizing: border-box;
+        padding-right: 25px;
+        padding-left: 25px;
+        color: $black5c;
+        font-size: 18px;
+        font-weight: 500;
+        border-radius: 8px;
+        background-color: $blackf4;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+        outline: none;
+    }
+    svg {
+        position: absolute;
+        top: 16px;
+        right: 24px;
+    }
+}
+
+.AddJobTitle {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    input {
+        width: 210px;
+    }
+}

@@ -37,18 +37,19 @@ export const UserSelect: FC = () => {
             <div className={styles.Input}>
                 <CustomInput
                     trim={companyUserExists === false ? false : true}
-                    paddinfRight={companyUserExists === false ? 80 : 45}
+                    paddingRight={companyUserExists === false ? 80 : 45}
                     onClick={() => setOpened(true)}
                     value={companyUserInputState}
                     change={handleChange}
                     width={282}
                     placeholder="Заявитель..."
                 />
-                <CustomErrorCircle
-                    className={styles.NotExist}
-                    exist={companyUserExists}
-                    text="Данного пользователя не существует! Повторите попытку."
-                />
+                <div className={styles.NotExist}>
+                    <CustomErrorCircle
+                        exist={companyUserExists}
+                        text="Данного пользователя не существует! Повторите попытку."
+                    />
+                </div>
                 <ArrowDown2
                     className={styles.Arrow}
                     onClick={() => setOpened(!opened)}

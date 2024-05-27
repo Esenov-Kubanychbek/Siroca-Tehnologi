@@ -59,7 +59,7 @@ export const ManagerForSubtask: FC<IManagerForSubtask> = (props) => {
         <div className={styles.ManagerForSubtask}>
             <div className={styles.Main}>
                 <div className={styles.Header}>
-                    <p>Назначить менеджера</p>
+                    <p>{forWhat === "createCompany" || forWhat === "editSubtask" ? "Добавить менеджера" : "Назначить менеджера"}</p>
                     <CloseSquare
                         cursor={"pointer"}
                         onClick={closeFunc}

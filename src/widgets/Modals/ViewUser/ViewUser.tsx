@@ -3,22 +3,22 @@ import styles from "./ViewUser.module.scss";
 import { IViewUser } from "./types/types";
 import { CloseSquare } from "iconsax-react";
 import { Modal } from "antd";
-import { usersApi } from "../../Admin/Users/api/usersApi";
 import { EditUser } from "../EditUser/EditUser";
 import { deleteUserApi } from "../EditUser/api/deleteUserApi";
 import { CustomMoreSquare } from "@/shared/ui";
+import { ReadyModal } from "../ReadyModal/ReadyModal";
+import { oneUserApi } from "@/shared/api";
 
 export const ViewUser: FC<IViewUser> = (props) => {
-    const [modal, setModal] = useState<boolean>(false);
     const { view, setView } = props;
-    const { oneUserGet } = usersApi();
+    const [modal, setModal] = useState<boolean>(false);
+    const [readyModal, setReadyModal] = useState<boolean>(false);
     const { deleteUser } = deleteUserApi();
+    const {oneUserState} = oneUserApi()
     const deleteFunc = () => {
-        deleteUser(oneUserGet.id);
+        deleteUser(oneUserState.id);
+        setReadyModal(false);
         setView(false);
-    };
-    const openEdit = () => {
-        setModal(true);
     };
     return (
         <div
@@ -28,17 +28,17 @@ export const ViewUser: FC<IViewUser> = (props) => {
             <div className={styles.Top}>
                 <div className={styles.TopLeft}>
                     <img
-                        src={String(oneUserGet.image)}
+                        src={oneUserState.image}
                         alt="image"
                     />
                     <p>
-                        {oneUserGet.first_name} {oneUserGet.surname}
+                        {oneUserState.first_name} {oneUserState.surname}
                     </p>
                 </div>
                 <div className={styles.TopRight}>
                     <CustomMoreSquare>
-                        <button onClick={openEdit}>Редактировать</button>
-                        <button onClick={deleteFunc}>Удалить</button>
+                        <button onClick={() => setModal(true)}>Редактировать</button>
+                        <button onClick={() => setReadyModal(true)}>Удалить</button>
                     </CustomMoreSquare>
                     <CloseSquare
                         size={34}
@@ -55,10 +55,10 @@ export const ViewUser: FC<IViewUser> = (props) => {
                     <p>Компания:</p>
                 </div>
                 <div className={styles.Data}>
-                    <p>{oneUserGet.role_type}</p>
-                    <p>{oneUserGet.job_title}</p>
-                    <p>{oneUserGet.username}</p>
-                    <p>{oneUserGet.main_company}</p>
+                    <p>{oneUserState.role_type}</p>
+                    <p>{oneUserState.job_title}</p>
+                    <p>{oneUserState.username}</p>
+                    <p>{oneUserState.main_company}</p>
                 </div>
             </div>
             <Modal
@@ -69,6 +69,21 @@ export const ViewUser: FC<IViewUser> = (props) => {
                 zIndex={6}
             >
                 <EditUser setModal={setModal} />
+            </Modal>
+            <Modal
+                centered
+                open={readyModal}
+                onCancel={() => setReadyModal(false)}
+            >
+                <ReadyModal
+                    yes={deleteFunc}
+                    no={() => setReadyModal(false)}
+                >
+                    <div>
+                        <p>Вы уверены?</p>
+                        <p>Пользователь будет удален безвозвратно!</p>
+                    </div>
+                </ReadyModal>
             </Modal>
         </div>
     );

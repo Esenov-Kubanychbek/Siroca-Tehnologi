@@ -1,14 +1,10 @@
-import { ChangeEvent, LegacyRef } from "react";
+import { ChangeEvent } from "react";
 
-export interface IText {
+export interface ICustomTextArea {
     placeholder: string;
-    height?: number;
-    width?: number;
-    variant: string;
-    value?: string;
     name?: string;
-    change?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-    readOnly?: boolean;
+    value?: string;
+    onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
     maxLength?: number;
-    ref?: LegacyRef<HTMLTextAreaElement> | undefined;
+    paddingRight?: number
 }

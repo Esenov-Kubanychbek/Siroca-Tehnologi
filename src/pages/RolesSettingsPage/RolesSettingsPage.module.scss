@@ -11,9 +11,10 @@
     padding-left: 50px;
 }
 .Fixednav {
-    width: 90%;
-    position: fixed;
+    width: 93.6%;
+    position: absolute;
     top: 30px;
+    background: white;
 }
 .Popover{
     display: flex;
@@ -104,7 +105,7 @@
     width: 95%;
     height: 63%;
     padding-top: 180px;
-    padding-right: 30px;
+    padding-right: 35px;
     padding-bottom: 40px;
     overflow: auto;
 }

@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 export interface IReady {
-    content: string;
-    no?: () => void;
-    yes?: () => void;
+    children: ReactNode;
+    no: () => void;
+    yes: () => void;
 }

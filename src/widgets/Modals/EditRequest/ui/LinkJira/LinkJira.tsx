@@ -10,8 +10,7 @@ export const LinkJira: FC = () => {
         <div className={styles.LinkJira}>
             <CustomInput
                 name="jira"
-                width={570}
-                height={44}
+                width={580}
                 placeholder="https://"
                 paddingLeft={45}
                 change={requestChange}

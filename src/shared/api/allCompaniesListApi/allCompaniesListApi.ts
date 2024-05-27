@@ -1,11 +1,12 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL, authToken } from "../variables/variables";
+import { BASE_URL, authToken } from "../../variables/variables";
 import { ChangeEvent } from "react";
-import { IAllCompaniesName } from "../types/companyTypes";
+import { IAllCompaniesName } from "../../types/companyTypes";
 
 interface IAllCompaniesListApi {
     companyInputState: string;
+    setCompanyInputState: (companyInputState: string) => void;
     companyExists: boolean;
     allCompaniesNamesList: string[];
     companyInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -15,13 +16,16 @@ interface IAllCompaniesListApi {
 
 export const allCompaniesListApi = create<IAllCompaniesListApi>((set, get) => ({
     companyInputState: "",
+    setCompanyInputState: (companyInputState) => {
+        set({ companyInputState: companyInputState });
+        const setCompanyExists = get().setCompanyExists;
+        setCompanyExists(false);
+    },
     companyExists: false,
     allCompaniesList: [],
     allCompaniesNamesList: [],
     companyInputChange: (e) => {
         set({ companyInputState: e.target.value });
-        const allCompaniesNamesList = get().allCompaniesNamesList;
-        set({ allCompaniesNamesList: allCompaniesNamesList.filter((company) => company.includes(e.target.value)) });
         const setCompanyExists = get().setCompanyExists;
         setCompanyExists();
     },
@@ -40,9 +44,9 @@ export const allCompaniesListApi = create<IAllCompaniesListApi>((set, get) => ({
             try {
                 const response = await axios.get(`${BASE_URL}/company/name_list/`, authToken);
                 set({ allCompaniesNamesList: response.data.map((company: IAllCompaniesName) => company.name) });
-                console.log(response, "getAllUsersListSuccess");
+                console.log(response, "getAllCompaniesListSuccess");
             } catch (error) {
-                console.log(error, "getAllUsersListError");
+                console.log(error, "getAllCompaniesListError");
             }
         }
     },

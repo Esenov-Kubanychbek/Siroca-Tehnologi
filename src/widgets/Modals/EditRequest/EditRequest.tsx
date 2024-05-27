@@ -1,4 +1,4 @@
-import { FC, FormEvent, useEffect } from "react";
+import { FC, FormEvent, useEffect, useState } from "react";
 import styles from "./EditRequest.module.scss";
 import { CloseSquare } from "iconsax-react";
 import { CustomButton } from "@/shared/ui";
@@ -8,27 +8,22 @@ import { IEditRequest } from "./types/types";
 import { getOneRequestApi } from "../ViewRequest/api/getOneRequestApi";
 import { createRequestApi } from "../CreateRequest/api/createRequestApi";
 import { allUsersListApi } from "@/shared/api";
+import { Modal } from "antd";
+import { CreateChecklist } from "../CreateChecklist/CreateChecklist";
 
 export const EditRequest: FC<IEditRequest> = (props) => {
     const { setModal, requestFrom } = props;
     const { oneRequest, getOneRequest } = getOneRequestApi();
     const fetchEdit = editRequestApi();
     const fetchCreate = createRequestApi();
-    const {
-        managerExists,
-        companyUserExists,
-        setManagerExists,
-        setCompanyUserExists,
-        getAllUsersList,
-    } = allUsersListApi();
+    const [checklistModal, setChecklistModal] = useState<boolean>(false);
+    const { managerExists, companyUserExists, setManagerExists, setCompanyUserExists, getAllUsersList } =
+        allUsersListApi();
     useEffect(() => {
         if (fetchCreate.oneRequest.id !== 0) {
             getOneRequest(fetchCreate.oneRequest.id);
         }
     }, [fetchCreate.oneRequest]);
-    useEffect(() => {
-        console.log(managerExists, companyUserExists, "useEffect");
-    }, [managerExists, companyUserExists]);
     useEffect(() => {
         fetchEdit.setRequestData(oneRequest);
         console.log(fetchEdit.requestState);
@@ -70,7 +65,7 @@ export const EditRequest: FC<IEditRequest> = (props) => {
                         size={34}
                     />
                 </div>
-                <Collapses />
+                <Collapses setChecklistModal={setChecklistModal} />
                 <div className={styles.Buttons}>
                     <CustomButton
                         type="button"
@@ -87,6 +82,14 @@ export const EditRequest: FC<IEditRequest> = (props) => {
                     />
                 </div>
             </div>
+            <Modal
+                width={460}
+                centered
+                open={checklistModal}
+                onCancel={() => setChecklistModal(false)}
+            >
+                <CreateChecklist setChecklistModal={setChecklistModal} />
+            </Modal>
         </form>
     );
 };

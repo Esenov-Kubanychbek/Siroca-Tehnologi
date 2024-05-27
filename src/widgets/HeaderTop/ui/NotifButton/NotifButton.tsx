@@ -35,7 +35,8 @@ export const NotifButton: FC = () => {
                 variant={"Bold"}
                 color="#717171"
             />
-            <div className={styles.NotifNumber}>{count}</div>
+            {count ? <div className={styles.NotifNumber}>{count}</div> : null}
+            
         </button>
     );
 };

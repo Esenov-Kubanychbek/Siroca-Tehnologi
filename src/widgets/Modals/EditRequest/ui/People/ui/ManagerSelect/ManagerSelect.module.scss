@@ -8,15 +8,15 @@
     input {
         outline: none;
     }
-    svg {
-        position: absolute;
+    .Arrow {
         top: 16px;
         transition: all 0.6s;
-    }
-    .Arrow {
+        position: absolute;
         right: 16px;
     }
     .NotExist {
+        top: 16px;
+        position: absolute;
         right: 56px;
     }
 }

@@ -8,7 +8,9 @@ export const AdminNavigate: FC = () => {
     const role_type = localStorage.getItem("role_type");
     const roles = idRoles();
     useEffect(() => {
-        roles.getting();
+        if (role_type !== "") {
+            roles.getting();
+        }
     }, []);
     useEffect(() => {
         roles.formateState();

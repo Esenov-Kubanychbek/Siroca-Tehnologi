@@ -3,9 +3,10 @@ import styles from "./DatesContainer.module.scss";
 import { editRequestApi } from "../../api/editRequestApi";
 import { PayContainer } from "./ui/PayContainer/PayContainer";
 import { DateInput } from "./ui/DateInput/DateInput";
+import { CustomInput } from "@/shared/ui";
 
 export const DatesContainer: FC = () => {
-    const { requestState } = editRequestApi();
+    const { requestState, requestChange } = editRequestApi();
     return (
         <div className={styles.DatesContainer}>
             <div className={styles.Dates}>
@@ -15,15 +16,20 @@ export const DatesContainer: FC = () => {
                         name="start_date"
                         value={requestState.start_date}
                     />
-                    <DateInput
-                        text="Срок выполнения"
-                        name="deadline_date"
-                        value={requestState.deadline_date}
-                    />
+                    <div className={styles.DateInput}>
+                        <p>Срок выполнения</p>
+                        <CustomInput
+                            placeholder="N часов"
+                            value={requestState.deadline_date === null ? "" : requestState.deadline_date}
+                            name="deadline_date"
+                            change={requestChange}
+                            width={282}
+                        />
+                    </div>
                     <DateInput
                         text="Дата отправки"
-                        name="deadline_date"
-                        value={requestState.deadline_date}
+                        name="offer_date"
+                        value={requestState.offer_date}
                     />
                 </div>
                 <div className={styles.Inner}>

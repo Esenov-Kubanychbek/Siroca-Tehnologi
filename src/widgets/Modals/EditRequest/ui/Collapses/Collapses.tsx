@@ -1,14 +1,25 @@
 import { Collapse, CollapseProps } from "antd";
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { Comments, DatesContainer, Description, Details, People, LinkJira, ShortDescription } from "..";
 import { AddSquare } from "iconsax-react";
 import { CheckLists } from "@/features";
 import { idRoles } from "@/pages/MainPage/api/idRoles";
 import { ExpandIcon } from "@/shared/ui";
+import { createChecklistApi } from "@/widgets/Modals/CreateChecklist/api/createChecklistApi";
 
-export const Collapses: FC = () => {
+interface ICollapses {
+    setChecklistModal: Dispatch<SetStateAction<boolean>>;
+}
+
+export const Collapses: FC<ICollapses> = ({setChecklistModal}) => {
     const roles = idRoles();
     const role_type = localStorage.getItem("role_type");
+    const { resetOneChecklist } = createChecklistApi();
+    const openChecklistModal = (e: { stopPropagation: () => void }) => {
+        resetOneChecklist();
+        setChecklistModal(true);
+        e.stopPropagation();
+    };
     const items: CollapseProps["items"] = [
         {
             key: "1",
@@ -55,7 +66,7 @@ export const Collapses: FC = () => {
                       key: "8",
                       label: "Чек-листы",
                       children: <CheckLists />,
-                      extra: <AddSquare />,
+                      extra: <AddSquare onClick={(e) => openChecklistModal(e)}/>,
                   },
               ]
             : []),

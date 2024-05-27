@@ -6,7 +6,7 @@ import { ProfileTick } from "iconsax-react";
 import { CreateSubtaskModals } from "./ui/CreateSubtaskModals";
 import { getOneRequestApi } from "@/widgets/Modals/ViewRequest/api/getOneRequestApi";
 import { createSubtaskApi } from "../../api/createSubtaskApi";
-import { CreateSubtaskInput } from "./ui/CreateSubtaskInput";
+import { CreateSubtaskInput } from "./ui/CreateSubtaskInput/CreateSubtaskInput";
 
 interface ICreateSubTask {
     subtask?: ISubtask;
@@ -31,13 +31,19 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
             createSubTask();
         }
     };
+    const createSubtaskInputChange = (text: string) => {
+        setCreateSubtaskState({ ...createSubtaskState, text: text });
+    };
+    const editSubtaskInputChange = (text: string) => {
+        setOneSubtask({ ...oneSubtask, text: text });
+    };
     useEffect(() => {
         if (forWhat === "createSubtask") {
             setCreateSubtaskState({
                 text: "",
                 completed: false,
                 checklist: checklistId,
-                manager: "admin@siroca.com",
+                manager: "",
                 deadline: "",
             });
         } else if (forWhat === "editSubtask" && subtask?.text !== "") {
@@ -45,18 +51,17 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
         } else if (forWhat === "editSubtask" && oneSubtask.text === "") {
             setDisplay(false);
         }
-    }, []);
+    }, [checklistId]);
     useEffect(() => {
         if (forWhat === "createSubtask" && createSubtaskState.id && createSubtaskState.id > 0) {
-            console.log("seSubtaskToOnerequest is working");
+            console.log("setSubtaskToOnerequest is working");
             setSubtaskToOneRequest(createSubtaskState);
         }
     }, [createSubtaskState.id]);
     return (
         <div className={styles.CreateSubTask}>
             <CreateSubtaskInput
-            keyWords={["pepsi", "nitro", "shoro"]}
-                onChange={forWhat === "createSubtask" ? createSubtaskChange : oneSubtaskChange}
+                onChange={forWhat === "createSubtask" ? createSubtaskInputChange : editSubtaskInputChange}
                 value={forWhat === "createSubtask" ? createSubtaskState.text : oneSubtask.text}
             />
             <div className={styles.Bottom}>

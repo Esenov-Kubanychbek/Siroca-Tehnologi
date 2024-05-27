@@ -28,7 +28,7 @@ export const ManagerSelect: FC = () => {
             <div className={styles.Input}>
                 <CustomInput
                     trim={managerExists === false ? false : true}
-                    paddinfRight={managerExists === false ? 80 : 45}
+                    paddingRight={managerExists === false ? 80 : 45}
                     name="main_manager"
                     onClick={() => setOpened(true)}
                     value={managerInputState}
@@ -36,11 +36,12 @@ export const ManagerSelect: FC = () => {
                     width={282}
                     placeholder="Менеджер..."
                 />
-                <CustomErrorCircle
-                    className={styles.NotExist}
-                    exist={managerExists}
-                    text="Данного менеджера не существует! Повторите попытку."
-                />
+                <div className={styles.NotExist}>
+                    <CustomErrorCircle
+                        exist={managerExists}
+                        text="Данного менеджера не существует! Повторите попытку."
+                    />
+                </div>
                 <ArrowDown2
                     className={styles.Arrow}
                     onClick={() => setOpened(!opened)}

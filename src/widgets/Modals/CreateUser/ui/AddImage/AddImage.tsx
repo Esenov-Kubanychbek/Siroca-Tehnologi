@@ -1,45 +1,43 @@
-import { GalleryAdd } from "iconsax-react";
 import styles from "./AddImage.module.scss";
+import { GalleryAdd } from "iconsax-react";
 import { ChangeEvent, FC, useState } from "react";
+import { postUserApi } from "../../api/postUserApi";
 
-interface IAddImage {
-    added: boolean | undefined;
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
-
-export const AddImage: FC<IAddImage> = (props) => {
-    const { added, onChange } = props;
+export const AddImage: FC = () => {
+    const { postUserState, postUserChange, postUserAdded } = postUserApi();
     const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             const imageUrl = URL.createObjectURL(file);
             setImageUrl(imageUrl);
-            onChange(e);
+            postUserChange(e);
         }
     };
     return (
-        <div
+        <label
+            htmlFor="postUserImage"
             className={styles.AddImage}
-            style={{ border: added ? "none" : "1px solid red" }}
+            style={{ border: postUserAdded.image ? "none" : "1px solid red" }}
         >
             <GalleryAdd
                 size={50}
                 color="#252525"
             />
             <p>Добавьте фотографию пользователя</p>
-            {imageUrl && (
+            {postUserState.image !== "" && imageUrl && (
                 <img
                     src={imageUrl}
                     alt="ChosenImage"
                 />
             )}
             <input
-                name="image"
-                onChange={handleImageChange}
                 type="file"
+                name="image"
                 accept="image/*"
+                id="postUserImage"
+                onChange={handleImageChange}
             />
-        </div>
+        </label>
     );
 };

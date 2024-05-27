@@ -1,13 +1,12 @@
 import { Modal } from "antd";
 import { FC } from "react";
 import { CreateJobTitle } from "../../../Modals/CreateJobTitle/CreateJobTitle";
-import { SuccessModal } from "../../../Modals/SuccessModal/SuccessModal";
 import { ReadyModal } from "../../../Modals/ReadyModal/ReadyModal";
 import { jobTitleApi } from "../api/jobTitleApi";
-import { IModalTypes } from "../types/types";
+import { IJobTitleModal } from "../types/types";
 
-export const Modals: FC<IModalTypes> = (props) => {
-    const { position, modal, setModal, modalReady, setModalReady, modalSuccess, setModalSuccess } = props;
+export const JobTitleModals: FC<IJobTitleModal> = (props) => {
+    const { position, modal, setModal, modalReady, setModalReady } = props;
     const fetchData = jobTitleApi();
     return (
         <>
@@ -22,16 +21,6 @@ export const Modals: FC<IModalTypes> = (props) => {
             </Modal>
             <Modal
                 centered
-                width={350}
-                open={modalSuccess}
-                onCancel={() => setModalSuccess(false)}
-                zIndex={11}
-            >
-                <SuccessModal content="Должность добавлена!" />
-            </Modal>
-            <Modal
-                centered
-                width={550}
                 open={modalReady}
                 onCancel={() => setModalReady(false)}
                 zIndex={12}
@@ -42,8 +31,12 @@ export const Modals: FC<IModalTypes> = (props) => {
                         fetchData.deleteJobTitle(position);
                         setModalReady(false);
                     }}
-                    content="Вы уверены? Данная должность удалится безвозвратно"
-                />
+                >
+                    <div>
+                        <p>Вы уверены?</p>
+                        <p>Данная должность будет удалена безвозвратно!</p>
+                    </div>
+                </ReadyModal>
             </Modal>
         </>
     );

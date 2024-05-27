@@ -1,10 +1,10 @@
 @import "index.scss";
 
 .DatesContainer {
+    width: 580px;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
     gap: 16px;
+    flex-direction: column;
     .Dates {
         display: flex;
         justify-content: center;
@@ -18,3 +18,10 @@
     }
 }
 
+.DateInput {
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL, authToken } from "../../../../shared/variables/variables";
+import { BASE_URL, authToken } from "@/shared/variables/variables";
 import { ChangeEvent } from "react";
 
 interface ISubtask {
@@ -25,7 +25,7 @@ interface ICreateChecklistApi {
     oneChecklist: ICheckList;
     resetOneChecklist: () => void;
     oneChecklistChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    createChecklist: (checklist: ICheckList) => void;
+    postChecklist: (checklist: ICheckList) => void;
 }
 
 export const createChecklistApi = create<ICreateChecklistApi>((set, get) => ({
@@ -45,7 +45,7 @@ export const createChecklistApi = create<ICreateChecklistApi>((set, get) => ({
             },
         });
         const state = get().oneChecklist;
-        console.log(state);
+        console.log(state, "oneChecklistIsReseted");
     },
     oneChecklistChange: (e) => {
         set((prevState) => ({
@@ -55,9 +55,9 @@ export const createChecklistApi = create<ICreateChecklistApi>((set, get) => ({
             },
         }));
         const state = get().oneChecklist;
-        console.log(state);
+        console.log(state, "oneChecklistChange");
     },
-    createChecklist: async (checklist) => {
+    postChecklist: async (checklist) => {
         try {
             const response = await axios.post(`${BASE_URL}/applications/checklist/`, checklist, authToken);
             set({ oneChecklist: response.data });

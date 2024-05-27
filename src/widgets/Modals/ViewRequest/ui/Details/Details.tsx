@@ -10,7 +10,7 @@ export const Details: FC = () => {
             <div className={styles.Name}>
                 <p>Название заявки:</p>
                 <p>Название компании:</p>
-                <p>Приоритнет:</p>
+                <p>Приоритет:</p>
                 <p>Статус заявки: </p>
             </div>
             <div className={styles.Data}>
