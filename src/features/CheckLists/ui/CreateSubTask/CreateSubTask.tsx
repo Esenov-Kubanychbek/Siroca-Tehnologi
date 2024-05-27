@@ -54,7 +54,6 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
     }, [checklistId]);
     useEffect(() => {
         if (forWhat === "createSubtask" && createSubtaskState.id && createSubtaskState.id > 0) {
-            console.log("setSubtaskToOnerequest is working");
             setSubtaskToOneRequest(createSubtaskState);
         }
     }, [createSubtaskState.id]);
