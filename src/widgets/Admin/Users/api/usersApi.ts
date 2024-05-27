@@ -10,16 +10,19 @@ interface IUsersApi {
     setSearchList: (searchState: string) => void;
 }
 
-export const usersApi = create<IUsersApi>((set) => ({
+export const usersApi = create<IUsersApi>((set, get) => ({
     count: 1,
     usersList: [],
     getUsersList: async (page) => {
-        try {
-            const response = await axios.get(`${BASE_URL}/users/profiles/?page=${page}`, authToken);
-            set({ usersList: response.data.data, count: response.data.count });
-            console.log(response, "getUsersListSuccess");
-        } catch (error) {
-            console.log(error, "getUsersListError");
+        const usersList = get().usersList;
+        if (usersList.length === 0) {
+            try {
+                const response = await axios.get(`${BASE_URL}/users/profiles/?page=${page}`, authToken);
+                set({ usersList: response.data.data, count: response.data.count });
+                console.log(response, "getUsersListSuccess");
+            } catch (error) {
+                console.log(error, "getUsersListError");
+            }
         }
     },
     setSearchList: async (searchState) => {
@@ -29,5 +32,5 @@ export const usersApi = create<IUsersApi>((set) => ({
         } catch (error) {
             console.log(error, "getUsersListError");
         }
-    }
+    },
 }));
