@@ -6,6 +6,7 @@ import { IAllCompaniesName } from "../../types/companyTypes";
 
 interface IAllCompaniesListApi {
     companyInputState: string;
+    setCompanyInputState: (companyInputState: string) => void;
     companyExists: boolean;
     allCompaniesNamesList: string[];
     companyInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -15,6 +16,11 @@ interface IAllCompaniesListApi {
 
 export const allCompaniesListApi = create<IAllCompaniesListApi>((set, get) => ({
     companyInputState: "",
+    setCompanyInputState: (companyInputState) => {
+        set({ companyInputState: companyInputState });
+        const setCompanyExists = get().setCompanyExists;
+        setCompanyExists(false);
+    },
     companyExists: false,
     allCompaniesList: [],
     allCompaniesNamesList: [],

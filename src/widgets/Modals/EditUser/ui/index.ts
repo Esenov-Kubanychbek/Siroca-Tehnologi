@@ -1,3 +1,3 @@
-export { Modals } from "./Modals/Modals";
+export { EditUserModals } from "./EditUserModals/EditUserModals";
 export { EditImage } from "./EditImage/EditImage";
 export { RoleButton } from "./RoleButton/RoleButton";

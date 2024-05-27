@@ -36,11 +36,12 @@ export const ManagerSelect: FC = () => {
                     width={282}
                     placeholder="Менеджер..."
                 />
-                <CustomErrorCircle
-                    className={styles.NotExist}
-                    exist={managerExists}
-                    text="Данного менеджера не существует! Повторите попытку."
-                />
+                <div className={styles.NotExist}>
+                    <CustomErrorCircle
+                        exist={managerExists}
+                        text="Данного менеджера не существует! Повторите попытку."
+                    />
+                </div>
                 <ArrowDown2
                     className={styles.Arrow}
                     onClick={() => setOpened(!opened)}
