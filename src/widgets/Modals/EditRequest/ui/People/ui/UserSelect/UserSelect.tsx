@@ -44,11 +44,12 @@ export const UserSelect: FC = () => {
                     width={282}
                     placeholder="Заявитель..."
                 />
-                <CustomErrorCircle
-                    className={styles.NotExist}
-                    exist={companyUserExists}
-                    text="Данного пользователя не существует! Повторите попытку."
-                />
+                <div className={styles.NotExist}>
+                    <CustomErrorCircle
+                        exist={companyUserExists}
+                        text="Данного пользователя не существует! Повторите попытку."
+                    />
+                </div>
                 <ArrowDown2
                     className={styles.Arrow}
                     onClick={() => setOpened(!opened)}

@@ -1,9 +1,9 @@
 import axios from "axios";
 import { create } from "zustand";
-import { BASE_URL, authToken } from "@/shared/variables/variables";
 import { ChangeEvent } from "react";
+import { BASE_URL, authToken } from "@/shared/variables/variables";
 
-interface IJobTitle {
+export interface IJobTitle {
     id?: number;
     title: string;
 }
@@ -34,13 +34,16 @@ export const jobTitleApi = create<IJobTitleApi>((set, get) => ({
         }));
     },
     getJobTitleList: async () => {
-        try {
-            const response = await axios.get(`${BASE_URL}/company/list_job-title/?limit=12&offset=0`, authToken);
-            set({ jobTitleList: response.data });
-            set({ searchList: response.data });
-            console.log(response, "getJobTitlesListSuccess");
-        } catch (error) {
-            console.log(error, "getJobTitleListError");
+        const jobTitleList = get().jobTitleList;
+        if (jobTitleList.length === 0) {
+            try {
+                const response = await axios.get(`${BASE_URL}/company/list_job-title/`, authToken);
+                set({ jobTitleList: response.data });
+                set({ searchList: response.data });
+                console.log(response, "getJobTitlesListSuccess");
+            } catch (error) {
+                console.log(error, "getJobTitleListError");
+            }
         }
     },
     setSearchList: (searchState) => {

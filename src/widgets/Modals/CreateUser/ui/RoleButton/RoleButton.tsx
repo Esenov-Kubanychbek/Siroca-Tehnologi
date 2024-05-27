@@ -1,42 +1,36 @@
-import { ChangeEvent, FC } from "react";
+import { FC } from "react";
 import styles from "./RoleButton.module.scss";
+import { postUserApi } from "../../api/postUserApi";
 
-interface IRoleButton {
-    trim: boolean | undefined;
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
-
-export const RoleButton: FC<IRoleButton> = (props) => {
-    const { trim, onChange } = props;
+export const RoleButton: FC = () => {
+    const { postUserState, postUserAdded, postUserChange } = postUserApi();
     return (
         <div className={styles.RoleButton}>
             <div className={styles.Name}>Тип роли</div>
             <div
-                className={styles.RoleContainer}
-                style={{ border: trim ? "none" : "2px solid #E51616" }}
+                className={styles.Container}
+                style={{ border: postUserAdded.role_type ? "none" : "2px solid #E51616" }}
             >
-                <div className={styles.Role}>
-                    <label className={styles.Text}>
-                        Клиент
-                        <input
-                            type="radio"
-                            onChange={onChange}
-                            name="role_type"
-                            value="client"
-                        />
-                    </label>
-                </div>
-                <div className={styles.Role}>
-                    <label className={styles.Text}>
-                        Менеджер
-                        <input
-                            type="radio"
-                            onChange={onChange}
-                            name="role_type"
-                            value="manager"
-                        />
-                    </label>
-                </div>
+                <label>
+                    Клиент
+                    <input
+                        checked={postUserState.role_type === "client" && true}
+                        type="radio"
+                        onChange={postUserChange}
+                        name="role_type"
+                        value="client"
+                    />
+                </label>
+                <label>
+                    Менеджер
+                    <input
+                        checked={postUserState.role_type === "manager" && true}
+                        type="radio"
+                        onChange={postUserChange}
+                        name="role_type"
+                        value="manager"
+                    />
+                </label>
             </div>
         </div>
     );

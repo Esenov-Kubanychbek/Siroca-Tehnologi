@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
-import { AuthorizationPage, WorkPage, RolesSettingsPage, MainPage } from "../pages";
-import { PATHS } from "../shared/variables/variables";
+import { AuthorizationPage, WorkPage, RolesSettingsPage, MainPage } from "@/pages";
+import { PATHS } from "@/shared/variables/variables";
 
 export const App: FC = () => {
     return (

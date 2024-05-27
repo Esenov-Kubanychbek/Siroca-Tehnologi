@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ListTop, ListTopName } from "../../../../../shared/ui";
+import { ListTop, ListTopName } from "@/shared/ui";
 
 export const UsersTop: FC<{ view: boolean }> = ({ view }) => {
     return (

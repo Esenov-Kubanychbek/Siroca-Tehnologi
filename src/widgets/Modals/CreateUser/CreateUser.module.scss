@@ -15,18 +15,13 @@
     font-weight: 700;
     width: 560px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-}
-
-.Text {
-    font-size: 18px;
-    font-weight: 700;
-}
-
-.Text2 {
-    font-size: 16px;
-    font-weight: 500;
-    color: $black;
+    svg {
+        width: 34px;
+        height: 34px;
+        cursor: pointer;
+    }
 }
 
 .UserRole {
@@ -36,71 +31,10 @@
     gap: 16px;
 }
 
-.Name {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
 .Description {
     display: flex;
     justify-content: center;
     gap: 20px;
-}
-
-.Login {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-}
-
-.Bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.PasswordInput {
-    position: relative;
-    input {
-        padding-right: 55px;
-    }
-    svg {
-        cursor: pointer;
-        position: absolute;
-        top: 16px;
-        right: 24px;
-    }
-}
-
-.Input {
-    position: relative;
-    input {
-        box-sizing: border-box;
-        padding-right: 25px;
-        padding-left: 25px;
-        color: $black5c;
-        font-size: 18px;
-        font-weight: 500;
-        border-radius: 8px;
-        background-color: $blackf4;
-        height: 56px;
-        display: flex;
-        align-items: center;
-        font-weight: 700;
-        outline: none;
-    }
-    svg {
-        position: absolute;
-        top: 16px;
-        right: 24px;
-    }
-}
-
-.AddRole {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
 }
 
 .MustTrim {
@@ -124,11 +58,4 @@
     display: flex;
     justify-content: start;
     gap: 16px;
-}
-
-.NotExist {
-    width: 277px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #e51616;
 }

@@ -92,6 +92,7 @@
 }
 
 .MustTrim {
+    height: 40px;
     width: 100%;
     p {
         display: flex;
@@ -111,13 +112,4 @@
     display: flex;
     justify-content: start;
     gap: 16px;
-}
-
-.NotExist {
-    font-size: 14px;
-    font-weight: 700;
-    border-radius: 8px;
-    background-color: $blackf4;
-    padding: 10px 5px;
-    color: #e51616;
 }

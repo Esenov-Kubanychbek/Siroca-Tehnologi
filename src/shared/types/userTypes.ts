@@ -25,7 +25,7 @@ export interface IAllUsersName {
     [key: string]: number | string;
     id: number;
     full_name: string;
-    main_company: string
+    main_company: string;
     role_type: string;
 }
 
@@ -42,13 +42,13 @@ export interface ISendUser {
 }
 
 export interface IAddUser {
-    [key: string]: boolean | undefined;
-    first_name?: boolean;
-    image?: boolean;
-    job_title?: boolean;
-    main_company?: boolean;
-    role_type?: boolean;
-    surname?: boolean;
-    username?: boolean;
-    password?: boolean;
+    [key: string]: boolean;
+    image: boolean;
+    first_name: boolean;
+    surname: boolean;
+    role_type: boolean;
+    username: boolean;
+    password: boolean;
+    main_company: boolean;
+    job_title: boolean;
 }
