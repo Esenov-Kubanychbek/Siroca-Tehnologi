@@ -28,9 +28,7 @@
     background: rgba(255, 255, 255, 0);
     border: none;
 }
-.date[type="date"]::before {
-    content: url("<>");
-}
+
 .Clear {
     display: flex;
     width: 178px;

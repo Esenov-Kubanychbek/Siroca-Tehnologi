@@ -1,7 +1,7 @@
 import { TabsProps } from "antd";
 import { RequestList } from "../../widgets";
 import { ConfigProvider, Tabs } from "antd";
-import { FC, useEffect, useState } from "react";
+import { FC, KeyboardEvent, useEffect, useState } from "react";
 import styles from "./TimeFilter.module.scss";
 import { IGetRequest, getRequestApi } from "../../widgets/RequestList/api/getRequestApi";
 import { ArrowLeft2, CloseSquare } from "iconsax-react";
@@ -43,6 +43,7 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         },
         { text: "Заявитель", type: "main_client", isOpen: false, values: [], prevValues: [], pos: 564, selected: [] },
         { text: "Менеджер", type: "main_manager", isOpen: false, values: [], prevValues: [], pos: 719, selected: [] },
+        { text: "Дата начала", type: "start_date", isOpen: false, values: [], prevValues: [], pos: 1049, selected: [] },
         {
             text: "Дата завершения",
             type: "finish_date",
@@ -52,7 +53,6 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             pos: 877,
             selected: [],
         },
-        { text: "Дата начала", type: "start_date", isOpen: false, values: [], prevValues: [], pos: 1049, selected: [] },
         { text: "Приоритет", type: "priority", isOpen: false, values: [], prevValues: [], pos: 1222, selected: [] },
         { text: "Статус", type: "status", isOpen: false, values: [], prevValues: [], pos: 1350, selected: [] },
     ]);
@@ -169,10 +169,11 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
     };
 
     //Func to get date input values
-    const onChangeDate = (e: { target: { value: string; id: string } }) => {
-        console.log(e.target.value);
-        const newSelect = { selected: [e.target.value], type: e.target.id };
-        getSelect(newSelect);
+    const onChangeDate = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            const newSelect = { selected: [e.currentTarget.value], type: e.currentTarget.id };
+            getSelect(newSelect);
+        }
     };
 
     //There im uping the filters to backend, im mapping all choosed selects end filter.
@@ -230,15 +231,15 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
             prevFilterItems.map((el: FilterItem) =>
                 el.type === e.target.id
                     ? {
-                          ...el,
-                          selected: el.selected.filter((el) => {
-                              if (el === e.target.className) {
-                                  return;
-                              } else {
-                                  return el;
-                              }
-                          }),
-                      }
+                        ...el,
+                        selected: el.selected.filter((el) => {
+                            if (el === e.target.className) {
+                                return;
+                            } else {
+                                return el;
+                            }
+                        }),
+                    }
                     : { ...el, selected: el.selected },
             ),
         );
@@ -256,13 +257,12 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                             if (el.type === "finish_date" || el.type === "start_date") {
                                 return (
                                     <div key={i}>
-                                        {" "}
                                         <input
                                             className={styles.date}
                                             type="date"
                                             id={el.type}
                                             value={el.selected[0]}
-                                            onChange={(e) => onChangeDate(e)}
+                                            onKeyDown={(e) => onChangeDate(e)}
                                         />
                                     </div>
                                 );
@@ -334,31 +334,31 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
                         {/* There im rendering always choosed selects */}
                         {filterItems
                             ? filterItems.map((el) => {
-                                  return el.selected.map((elim) => {
-                                      return (
-                                          <div
-                                              className={styles.selectedItem}
-                                              key={elim}
-                                          >
-                                              <EllipsisOutlined />
-                                              <p>{elim.length > 5 ? elim.substring(0, 8) + "..." : elim}</p>
-                                              <div
-                                                  onClick={() =>
-                                                      delSelect({ target: { id: el.type, className: `${elim}` } })
-                                                  }
-                                                  id={el.type}
-                                                  className={`${elim}`}
-                                              >
-                                                  <CloseSquare
-                                                      size={16}
-                                                      id={el.type}
-                                                      className={`${elim}`}
-                                                  />
-                                              </div>
-                                          </div>
-                                      );
-                                  });
-                              })
+                                return el.selected.map((elim) => {
+                                    return (
+                                        <div
+                                            className={styles.selectedItem}
+                                            key={elim}
+                                        >
+                                            <EllipsisOutlined />
+                                            <p>{elim.length > 5 ? elim.substring(0, 8) + "..." : elim}</p>
+                                            <div
+                                                onClick={() =>
+                                                    delSelect({ target: { id: el.type, className: `${elim}` } })
+                                                }
+                                                id={el.type}
+                                                className={`${elim}`}
+                                            >
+                                                <CloseSquare
+                                                    size={16}
+                                                    id={el.type}
+                                                    className={`${elim}`}
+                                                />
+                                            </div>
+                                        </div>
+                                    );
+                                });
+                            })
                             : null}
                     </div>
                 </div>

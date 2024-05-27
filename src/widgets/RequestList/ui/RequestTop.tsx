@@ -39,7 +39,7 @@ export const RequestTop: FC<IRequestTop> = (props) => {
                 width={role === "" ? (view ? 98.28 : 164) : 180}
             />
             <ListTopName
-                name={view ? "Дата..." : "Дата завершение"}
+                name={view ? "Дата..." : "Дата завершения"}
                 width={role === "" ? (view ? 98.28 : 194) : 180}
             />
             <ListTopName
