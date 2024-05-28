@@ -1,0 +1,79 @@
+@import "index.scss";
+
+.CustomDatePicker {
+    width: 250px;
+    height: 234px;
+    font-size: 12px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0px 1px 21.8px 0px #b9b9b940;
+}
+
+.CustomDatePickerTop {
+    width: 220px;
+    height: 34px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    div {
+        width: 58px;
+        display: flex;
+        justify-content: space-between;
+        svg {
+            cursor: pointer;
+        }
+    }
+}
+
+.Month {
+    width: 79px;
+    height: 22px;
+    border-radius: 4px;
+    text-align: center;
+    color: white;
+    background-color: $blue;
+}
+
+.Calendar {
+    width: 220px;
+    height: 168px;
+    display: flex;
+    flex-direction: column;
+}
+
+.WeekDays {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    p {
+        width: 24px;
+        height: 24px;
+        text-align: center;
+        font-weight: 500;
+        color: $blacka8;
+    }
+    .WeekendDay {
+        color: $blue;
+    }
+}
+
+.CalendarMain {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 8.66px;
+    button {
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        font-weight: 500;
+        background: none;
+        border: none;
+    }
+}

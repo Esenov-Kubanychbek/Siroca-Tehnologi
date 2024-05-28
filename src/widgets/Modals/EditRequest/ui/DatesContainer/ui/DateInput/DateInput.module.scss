@@ -5,3 +5,20 @@
     flex-direction: column;
     gap: 6px;
 }
+
+.Input {
+    position: relative;
+    .Icon {
+        cursor: pointer;
+        position: absolute;
+        top: 16px;
+        right: 16px;
+    }
+}
+
+.DatePicker {
+    z-index: 2;
+    position: absolute;
+    top: 56px;
+    left: 0;
+}

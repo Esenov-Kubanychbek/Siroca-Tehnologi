@@ -82,12 +82,16 @@ export const CreateSubTask: FC<ICreateSubTask> = (props) => {
                 >
                     <ProfileTick />
                     {forWhat === "createSubtask"
-                        ? String(createSubtaskState.manager).length > 8
-                            ? `${createSubtaskState.manager?.slice(0, 8)}...`
-                            : "Назначить"
-                        : String(oneSubtask.manager).length > 8
-                          ? `${oneSubtask.manager?.slice(0, 8)}...`
-                          : "Назначить"}
+                        ? String(createSubtaskState.manager).length === 0
+                            ? "Назначить"
+                            : String(createSubtaskState.manager).length > 8
+                              ? `${createSubtaskState.manager?.slice(0, 8)}...`
+                              : createSubtaskState.manager
+                        : String(oneSubtask.manager).length === 0
+                          ? "Назначить"
+                          : String(oneSubtask.manager).length > 8
+                            ? `${oneSubtask.manager?.slice(0, 8)}...`
+                            : oneSubtask.manager}
                 </button>
                 <button
                     className={styles.AddUser}
