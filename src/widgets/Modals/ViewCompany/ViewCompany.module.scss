@@ -156,13 +156,14 @@
     .hint {
         width: 184px;
         height: 60px;
-        background-color:    #929292;
-        color: white;
+        background-color:    rgba(216, 236, 255, 1);
+        color: black;
         box-sizing: border-box;
         padding: 8px;
         font-size: 14px;
         border-radius: 8px;
         text-align: center;
+        font-weight: 500;
         margin-top: -80px;
     }
 
@@ -171,7 +172,7 @@
         height: 0;
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
-        border-top: 10px solid #929292;
+        border-top: 10px solid rgba(216, 236, 255, 1);
         position: relative;
         left: 90px;
     }

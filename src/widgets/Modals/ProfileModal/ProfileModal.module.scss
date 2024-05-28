@@ -29,7 +29,7 @@
                 height: 100px;
             }
             p {
-                width: 96px;
+                width: 120px;
                 height: 32px;
             }
         }
@@ -91,5 +91,11 @@
         height: 100px;
         border-radius: 21px;
         color: rgba(255, 0, 0, 0);
+    }
+    .adminContacts input, .adminContacts p  {
+        margin: 16px 0;
+    }
+    .adminContacts input:nth-of-type(1),.adminContacts p:nth-of-type(1){
+        margin-top: 0;
     }
 }
