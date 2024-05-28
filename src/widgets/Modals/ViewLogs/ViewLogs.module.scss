@@ -1,8 +1,8 @@
 .ViewLogs {
-    height: 905px;
+    height: 505px;
     display: inline-flex;
     flex-direction: column;
-    padding: 50px;
+    padding: 30px;
     align-items: flex-start;
     gap: 12px;
     border-radius: 8px;
@@ -75,9 +75,9 @@ hr {
     }
 
     .LogMain {
-        width: 80%;
+        width: 90%;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
 
         .TypeOf {
             color: var(---600, #5c5c5c);
@@ -88,6 +88,7 @@ hr {
         }
 
         .MainItem {
+            max-width: 33%;
             .Prev {
                 color: #000;
                 font-size: 18px;
@@ -106,7 +107,7 @@ hr {
             }
 
             .Content {
-                margin-top: 32px;
+                margin-top: 22px;
                 gap: 8px;
 
                 p {

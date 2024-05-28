@@ -1,4 +1,4 @@
-import { ArrowDown2, CloseSquare, MoreSquare } from "iconsax-react";
+import { ArrowDown2, CloseSquare } from "iconsax-react";
 import styles from "./ChangeCompany.module.scss";
 import { FC, useState } from "react";
 import { useDataStoreComponies } from "../../Admin/Companies/api/componiesApi";
@@ -7,6 +7,8 @@ import { ViewCompany } from "../ViewCompany/ViewCompany";
 import { useDataInputCompaniesStore } from "../ViewCompany/api/dataInputCompanies";
 import { CreateUser } from "../CreateUser/CreateUser";
 import { allUsersListApi } from "@/shared/api";
+import { ReadyModal } from "../ReadyModal/ReadyModal";
+import { CustomMoreSquare } from "@/shared/ui";
 
 interface props {
     message: (text: string, number: number) => void;
@@ -14,18 +16,15 @@ interface props {
     page: number;
 }
 export const ChangeCompany: FC<props> = ({ message, count, page }) => {
-    const [modalButtons, setModalButtons] = useState<boolean>(false);
     const { deleteCompany, idCompany, closeModalView, modalViewCompany, selectedCompanyData } = useDataStoreComponies();
     const { resetInput } = useDataInputCompaniesStore();
-    const { allUsersList } = allUsersListApi()
+    const { allUsersList } = allUsersListApi();
     const [modalCreateUser, setModalCreateUser] = useState<boolean>(false);
     const [viewModal, setViewModal] = useState<boolean>(false);
     const [managerState, setManagerState] = useState<boolean>(false);
     const [userState, setUserState] = useState<boolean>(false);
-    const userssss = selectedCompanyData.users !== undefined && selectedCompanyData.users.length > 0
-    ? `${selectedCompanyData.users[1].first_name + selectedCompanyData.users[1].surname} ${selectedCompanyData.users[0].surname}`
-    : 'Пользователей нету!';
-    
+    const [readyModal, setReadyModal] = useState<boolean>(false);
+
     const closeView = () => {
         setViewModal(false);
     };
@@ -34,6 +33,7 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
     };
 
     const deleteComp = () => {
+        setReadyModal(false);
         deleteCompany(idCompany, page);
         const number = count + 1;
         message(`Компания "${selectedCompanyData.name}" была удалена!`, number);
@@ -41,8 +41,8 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
         closeModalView();
     };
     const names = (id: number | undefined): string => {
-        const manager = allUsersList.find(manager => manager.id === id);
-        return manager ? `${manager.full_name}` : '';
+        const manager = allUsersList.find((manager) => manager.id === id);
+        return manager ? `${manager.full_name}` : "";
     };
 
     return (
@@ -52,32 +52,22 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                 style={{ display: `${modalViewCompany ? "block" : "none"}` }}
             >
                 <div className={styles.buttons}>
-                    <div>
-                        <MoreSquare
-                            cursor={"pointer"}
-                            color="black"
-                            size={34}
-                            onClick={() => setModalButtons((prevState) => !prevState)}
-                        />
-                        <div
-                            style={{ display: `${modalButtons ? "block" : "none"}` }}
-                            className={styles.moreClick}
+                    <CustomMoreSquare>
+                        <button
+                            onClick={() => {
+                                openView();
+                            }}
                         >
-                            <p
-                                onClick={() => {
-                                    openView();
-                                }}
-                            >
-                                Редактировать
-                            </p>
-                            <p onClick={() => setModalCreateUser(true)}>Создать пользователя</p>
-                            <p onClick={deleteComp}>Удалить</p>
-                        </div>
-                    </div>
+                            Редактировать
+                        </button>
+                        <button onClick={() => setModalCreateUser(true)}>Создать пользователя</button>
+                        <button onClick={() => setReadyModal(true)}>Удалить</button>
+                    </CustomMoreSquare>
                     <CloseSquare
                         cursor={"pointer"}
                         onClick={closeModalView}
                         size={34}
+                        style={{ marginLeft: "8px" }}
                     />
                 </div>
                 <div className={styles.datasCompany}>
@@ -107,17 +97,29 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
 
                     <div className={styles.main_manager}>
                         <span>Ответственный менеджер:</span>
-                        <div className={styles.mainManagers}>{selectedCompanyData.main_manager ? names(selectedCompanyData.main_manager) : 'Нету!'}<ArrowDown2 onClick={() => {
-                            setManagerState(!managerState);
-                            managerState ? setUserState(false) : null
-                        }} style={{ transform: `${managerState ? 'rotate(360deg)' : 'rotate(270deg)'}` }} color="rgba(28, 106, 177, 1)" /></div>
+                        <div className={styles.mainManagers}>
+                            {selectedCompanyData.main_manager
+                                ? names(selectedCompanyData.main_manager)
+                                : "Менеджеров отсутствует!"}
+                            <ArrowDown2
+                                onClick={() => {
+                                    setManagerState(!managerState);
+                                    managerState ? setUserState(false) : null;
+                                }}
+                                style={{ transform: `${managerState ? "rotate(360deg)" : "rotate(270deg)"}` }}
+                                color="rgba(28, 106, 177, 1)"
+                            />
+                        </div>
                     </div>
-                    <div className={styles.managers} style={{
-                        display: managerState ? 'block' : 'none',
-                        zIndex: managerState ? '100' : '0'
-                    }}>
+                    <div
+                        className={styles.managers}
+                        style={{
+                            display: managerState ? "block" : "none",
+                            zIndex: managerState ? "100" : "0",
+                        }}
+                    >
                         <div>
-                            {selectedCompanyData.managers.map(manager => (
+                            {selectedCompanyData.managers.map((manager) => (
                                 <p key={manager}>{names(manager)}</p>
                             ))}
                         </div>
@@ -125,13 +127,27 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                     <div className={styles.main_manager}>
                         <span>Список пользователей</span>
                         <div>
-                            {userssss}
-                            <ArrowDown2 color="rgba(28, 106, 177, 1)" onClick={() => {setUserState(!userState); userState ? setManagerState(false) : null}} style={{ transform: `${userState ? 'rotate(360deg)' : 'rotate(270deg)'}` }} />
+                            {selectedCompanyData?.users && selectedCompanyData.users.length > 0
+                                ? selectedCompanyData.users.length > 1
+                                    ? `${selectedCompanyData.users[1].first_name} ${selectedCompanyData.users[1].surname}`
+                                    : `${selectedCompanyData.users[0].first_name} ${selectedCompanyData.users[0].surname}`
+                                : "Пользователей отсутствует!"}
+                            <ArrowDown2
+                                color="rgba(28, 106, 177, 1)"
+                                onClick={() => {
+                                    setUserState(!userState);
+                                    userState ? setManagerState(false) : null;
+                                }}
+                                style={{ transform: `${userState ? "rotate(360deg)" : "rotate(270deg)"}` }}
+                            />
                         </div>
                     </div>
-                    <div style={{
-                        display: `${userState ? 'block' : 'none'}`
-                    }} className={styles.users}>
+                    <div
+                        style={{
+                            display: `${userState ? "block" : "none"}`,
+                        }}
+                        className={styles.users}
+                    >
                         {selectedCompanyData.users?.map((user) => (
                             <p key={user.id}>{`${user.first_name} ${user.surname}`}</p>
                         ))}
@@ -182,6 +198,22 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                 zIndex={5}
             >
                 <CreateUser setModal={setModalCreateUser} />
+            </Modal>
+            <Modal
+                centered
+                width={550}
+                open={readyModal}
+                onCancel={() => setReadyModal(false)}
+            >
+                <ReadyModal
+                    yes={deleteComp}
+                    no={() => setReadyModal(false)}
+                >
+                    <div>
+                        <p>Вы уверены?</p>
+                        <p>Компания будет удалена безвозвратно!</p>
+                    </div>
+                </ReadyModal>
             </Modal>
         </>
     );
