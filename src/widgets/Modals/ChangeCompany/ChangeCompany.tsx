@@ -18,7 +18,7 @@ interface props {
 export const ChangeCompany: FC<props> = ({ message, count, page }) => {
     const { deleteCompany, idCompany, closeModalView, modalViewCompany, selectedCompanyData } = useDataStoreComponies();
     const { resetInput } = useDataInputCompaniesStore();
-    const { allUsersList } = allUsersListApi()
+    const { allUsersList } = allUsersListApi();
     const [modalCreateUser, setModalCreateUser] = useState<boolean>(false);
     const [viewModal, setViewModal] = useState<boolean>(false);
     const [managerState, setManagerState] = useState<boolean>(false);
@@ -33,17 +33,16 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
     };
 
     const deleteComp = () => {
-        setReadyModal(false)
+        setReadyModal(false);
         deleteCompany(idCompany, page);
         const number = count + 1;
         message(`Компания "${selectedCompanyData.name}" была удалена!`, number);
         closeView();
         closeModalView();
-        
     };
     const names = (id: number | undefined): string => {
-        const manager = allUsersList.find(manager => manager.id === id);
-        return manager ? `${manager.full_name}` : '';
+        const manager = allUsersList.find((manager) => manager.id === id);
+        return manager ? `${manager.full_name}` : "";
     };
 
     return (
@@ -53,22 +52,22 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                 style={{ display: `${modalViewCompany ? "block" : "none"}` }}
             >
                 <div className={styles.buttons}>
-                        <CustomMoreSquare>
-                            <button
-                                onClick={() => {
-                                    openView();
-                                }}
-                            >
-                                Редактировать
-                            </button>
-                            <button onClick={() => setModalCreateUser(true)}>Создать пользователя</button>
-                            <button onClick={() => setReadyModal(true)}>Удалить</button>
-                            </CustomMoreSquare>
+                    <CustomMoreSquare>
+                        <button
+                            onClick={() => {
+                                openView();
+                            }}
+                        >
+                            Редактировать
+                        </button>
+                        <button onClick={() => setModalCreateUser(true)}>Создать пользователя</button>
+                        <button onClick={() => setReadyModal(true)}>Удалить</button>
+                    </CustomMoreSquare>
                     <CloseSquare
                         cursor={"pointer"}
                         onClick={closeModalView}
                         size={34}
-                        style={{marginLeft: '8px'}}
+                        style={{ marginLeft: "8px" }}
                     />
                 </div>
                 <div className={styles.datasCompany}>
@@ -98,17 +97,29 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
 
                     <div className={styles.main_manager}>
                         <span>Ответственный менеджер:</span>
-                        <div className={styles.mainManagers}>{selectedCompanyData.main_manager ? names(selectedCompanyData.main_manager) : 'Менеджеров отсутствует!'}<ArrowDown2 onClick={() => {
-                            setManagerState(!managerState);
-                            managerState ? setUserState(false) : null
-                        }} style={{ transform: `${managerState ? 'rotate(360deg)' : 'rotate(270deg)'}` }} color="rgba(28, 106, 177, 1)" /></div>
+                        <div className={styles.mainManagers}>
+                            {selectedCompanyData.main_manager
+                                ? names(selectedCompanyData.main_manager)
+                                : "Менеджеров отсутствует!"}
+                            <ArrowDown2
+                                onClick={() => {
+                                    setManagerState(!managerState);
+                                    managerState ? setUserState(false) : null;
+                                }}
+                                style={{ transform: `${managerState ? "rotate(360deg)" : "rotate(270deg)"}` }}
+                                color="rgba(28, 106, 177, 1)"
+                            />
+                        </div>
                     </div>
-                    <div className={styles.managers} style={{
-                        display: managerState ? 'block' : 'none',
-                        zIndex: managerState ? '100' : '0'
-                    }}>
+                    <div
+                        className={styles.managers}
+                        style={{
+                            display: managerState ? "block" : "none",
+                            zIndex: managerState ? "100" : "0",
+                        }}
+                    >
                         <div>
-                            {selectedCompanyData.managers.map(manager => (
+                            {selectedCompanyData.managers.map((manager) => (
                                 <p key={manager}>{names(manager)}</p>
                             ))}
                         </div>
@@ -116,21 +127,27 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                     <div className={styles.main_manager}>
                         <span>Список пользователей</span>
                         <div>
-                            {selectedCompanyData?.users && selectedCompanyData.users.length > 0 ? (
-                                selectedCompanyData.users.length > 1 ? (
-                                    `${selectedCompanyData.users[1].first_name} ${selectedCompanyData.users[1].surname}`
-                                ) : (
-                                    `${selectedCompanyData.users[0].first_name} ${selectedCompanyData.users[0].surname}`
-                                )
-                            ) : (
-                                'Пользователей отсутствует!'
-                            )}
-                            <ArrowDown2 color="rgba(28, 106, 177, 1)" onClick={() => { setUserState(!userState); userState ? setManagerState(false) : null }} style={{ transform: `${userState ? 'rotate(360deg)' : 'rotate(270deg)'}` }} />
+                            {selectedCompanyData?.users && selectedCompanyData.users.length > 0
+                                ? selectedCompanyData.users.length > 1
+                                    ? `${selectedCompanyData.users[1].first_name} ${selectedCompanyData.users[1].surname}`
+                                    : `${selectedCompanyData.users[0].first_name} ${selectedCompanyData.users[0].surname}`
+                                : "Пользователей отсутствует!"}
+                            <ArrowDown2
+                                color="rgba(28, 106, 177, 1)"
+                                onClick={() => {
+                                    setUserState(!userState);
+                                    userState ? setManagerState(false) : null;
+                                }}
+                                style={{ transform: `${userState ? "rotate(360deg)" : "rotate(270deg)"}` }}
+                            />
                         </div>
                     </div>
-                    <div style={{
-                        display: `${userState ? 'block' : 'none'}`
-                    }} className={styles.users}>
+                    <div
+                        style={{
+                            display: `${userState ? "block" : "none"}`,
+                        }}
+                        className={styles.users}
+                    >
                         {selectedCompanyData.users?.map((user) => (
                             <p key={user.id}>{`${user.first_name} ${user.surname}`}</p>
                         ))}
@@ -188,7 +205,15 @@ export const ChangeCompany: FC<props> = ({ message, count, page }) => {
                 open={readyModal}
                 onCancel={() => setReadyModal(false)}
             >
-                <ReadyModal yes={deleteComp} no={() => setReadyModal(false)} content="Вы уверены? Компания будет удалена безвозвратно!"/>
+                <ReadyModal
+                    yes={deleteComp}
+                    no={() => setReadyModal(false)}
+                >
+                    <div>
+                        <p>Вы уверены?</p>
+                        <p>Компания будет удалена безвозвратно!</p>
+                    </div>
+                </ReadyModal>
             </Modal>
         </>
     );
