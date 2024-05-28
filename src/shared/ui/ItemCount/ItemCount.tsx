@@ -3,9 +3,10 @@ import styles from "./ItemCount.module.scss";
 interface IItemCount {
     count: number;
     page: number;
+    text: string;
 }
 
-export const ItemCount: FC<IItemCount> = ({ count, page }) => {
+export const ItemCount: FC<IItemCount> = ({ count, page, text }) => {
     const [counter, setCounter] = useState<number[]>([]);
     const setingCounter = () => {
         const all = 50 * Math.floor(count / 50);
@@ -22,7 +23,7 @@ export const ItemCount: FC<IItemCount> = ({ count, page }) => {
     }, [page, count]);
     return (
         <p className={styles.p}>
-            Количество заявок c {counter[0]} по {counter[1]} из {counter[2]}.
+            {text} {counter[0]=== 0 ? counter[0] + 1 : counter[0]} по {counter[1]} из {counter[2]}.
         </p>
     );
 };

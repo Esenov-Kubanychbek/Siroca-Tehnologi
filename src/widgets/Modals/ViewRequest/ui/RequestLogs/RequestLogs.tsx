@@ -24,13 +24,13 @@ export const RequestLogs: FC = () => {
                     </div>
                     <div className={styles.LogMain}>
                         <div className={styles.TypeOf}>
-                            Изменения: <p>{card.field}</p>
+                            Изменения: <p>{card.field?.slice(0, 10) + "..."}</p>
                         </div>
                         <div className={styles.Prev}>
-                            Изначально: <p>{card.initially}</p>
+                            Изначально: <p>{card.initially?.slice(0, 10)}</p>
                         </div>
                         <div className={styles.Prev}>
-                            Новая: <p>{card.new.slice(0, 15) + "..."}</p>
+                            Новая: <p>{card.new?.slice(0, 10) + "..."}</p>
                         </div>
                     </div>
                 </div>

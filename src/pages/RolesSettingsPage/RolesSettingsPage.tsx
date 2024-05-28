@@ -196,31 +196,11 @@ export const RolesSettingsPage: FC = () => {
                                 </div>
                                 <p>Назад</p>
                             </div>
-                            <p className={styles.Par}>Дополнительные настройки</p>
+                            <p className={styles.Par}>Расширенные настройки</p>
+                            
                         </div>
 
                         <div className={styles.Search}>
-                            <div>
-                                <SearchInput
-                                    onChange={(event) => {
-                                        onSearch(event);
-                                    }}
-                                    onKeyDown={onEnterSearch}
-                                />
-                                <Popover
-                                    placement="top"
-                                    content={
-                                        <div className={styles.Popover}>
-                                            <p>
-                                                Правила пользования расширенными настройками прав пользователей:Для того, чтобы присвоить, или лишить право пользователя необходимо кликнуть дважды на чек-бокс выбранного пользователя и соответствующего права.
-                                                Те изменения, которые были сделаны в расширенных настройках остаются неизменными, даже если админ на странице общих настроек прав ролей "Клиент" и "Менеджер " менял права пользователям ролей
-                                            </p>
-                                        </div>
-                                    }
-                                >
-                                    <InfoCircle size={36} color="#1c6ab1" style={{ cursor: "pointer" }} />
-                                </Popover>
-                            </div>
                             <CustomButton
                                 width={130}
                                 variant="Primary"
@@ -244,6 +224,27 @@ export const RolesSettingsPage: FC = () => {
                         >
                             Менеджер
                         </button>
+                        <div>
+                                <SearchInput
+                                    onChange={(event) => {
+                                        onSearch(event);
+                                    }}
+                                    onKeyDown={onEnterSearch}
+                                />
+                                <Popover
+                                    placement="top"
+                                    content={
+                                        <div className={styles.Popover}>
+                                            <p>
+                                                Правила пользования расширенными настройками прав пользователей:Для того, чтобы присвоить, или лишить право пользователя необходимо кликнуть дважды на чек-бокс выбранного пользователя и соответствующего права.
+                                                Те изменения, которые были сделаны в расширенных настройках остаются неизменными, даже если админ на странице общих настроек прав ролей "Клиент" и "Менеджер " менял права пользователям ролей
+                                            </p>
+                                        </div>
+                                    }
+                                >
+                                    <InfoCircle size={36} color="#1c6ab1" style={{ cursor: "pointer" }} />
+                                </Popover>
+                            </div>
                     </div>
                 </div>
                 <HeaderSettings
