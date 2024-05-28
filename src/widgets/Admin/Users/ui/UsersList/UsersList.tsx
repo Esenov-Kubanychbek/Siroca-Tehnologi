@@ -42,6 +42,7 @@ export const UsersList: FC = () => {
                     />
                     <div className={styles.ItemCount}>
                         <ItemCount
+                            text="пользователей"
                             page={page}
                             count={count}
                         />

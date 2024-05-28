@@ -23,7 +23,7 @@ export const ItemCount: FC<IItemCount> = ({ count, page, text }) => {
     }, [page, count]);
     return (
         <p className={styles.p}>
-            {text} {counter[0]=== 0 ? counter[0] + 1 : counter[0]} по {counter[1]} из {counter[2]}.
+            Количество {text} с {counter[0]=== 0 ? counter[0] + 1 : counter[0]} по {counter[1]} из {counter[2]}.
         </p>
     );
 };

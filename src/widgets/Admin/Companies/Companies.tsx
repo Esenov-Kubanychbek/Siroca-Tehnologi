@@ -212,6 +212,7 @@ export const Companies: FC = () => {
                 />
                 <div className={styles.count}>
                     <ItemCount
+                    text="компаний"
                         page={page}
                         count={countCompany}
                     />
