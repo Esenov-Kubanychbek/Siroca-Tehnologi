@@ -107,7 +107,7 @@ const deleteCompanies = async (id: number) => {
 const selectedId = async (id: number | undefined) => {
     try {
         const response = await axios.get(`${BASE_URL}/company/detail/${id}/`, authToken);
-
+        console.log(response)
         return response.data;
     } catch (error) {
         console.log(error);
