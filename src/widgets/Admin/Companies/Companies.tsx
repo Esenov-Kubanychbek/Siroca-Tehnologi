@@ -159,29 +159,29 @@ export const Companies: FC = () => {
                                     key={dataCompany.id}
                                 >
                                     <ItemInner
-                                        width={modalViewCompany ? 160 : 201}
+                                        width={modalViewCompany ? 160 : 215}
                                         content={modalViewCompany ? truncatedStr(dataCompany.name) : dataCompany.name}
                                     />
                                     <ItemInner
-                                        width={modalViewCompany ? 160 : 206}
+                                        width={modalViewCompany ? 160 : 220}
                                         content={modalViewCompany ? truncatedStr(dataCompany.country) : dataCompany.country}
                                     />
                                     <ItemInner
-                                        width={modalViewCompany ? 160 : 301}
+                                        width={modalViewCompany ? 160 : 325}
                                         content={dataCompany.count_users}
                                     />
                                     <ItemInner
-                                        width={modalViewCompany ? 160 : 284}
+                                        width={modalViewCompany ? 160 : 300}
                                         content={dataCompany.count_applications}
                                     />
                                     <div
                                         className={styles.managerName}
-                                        style={{ width: `${modalViewCompany ? "160px" : "221px"}` }}
+                                        style={{ width: `${modalViewCompany ? "160px" : "230px"}` }}
                                     >
                                         {modalViewCompany ? truncatedStr(names(dataCompany.main_manager)) : names(dataCompany.main_manager)}
                                     </div>
                                     <ItemInner
-                                        width={modalViewCompany ? 160 : 226}
+                                        width={modalViewCompany ? 160 : 220}
                                         content={dataCompany.created_at}
                                     />
                                     <ItemInner
