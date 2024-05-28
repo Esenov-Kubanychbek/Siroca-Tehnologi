@@ -107,12 +107,19 @@ export const TimeFilter: FC<ITimeFilter> = ({ role, isFilter }) => {
         fullFilterState();
         const timeState = [...filterItems];
         timeState.forEach((el: FilterItem) => {
-            const vals = reqsFilter.map((elem: IGetRequest) => {
-                const id = el.type;
-                return String(elem[id]); // Преобразуем значение в строку
-            });
-            el.values = vals;
-            el.prevValues = vals;
+            if (el.type === "status" || el.type === "priority") {
+                const vals1 = ["Самый высокий", "Высокий", "Средний", "Низкий", "Самый низкий"]
+                const vals2 = ["К выполнению", "В работе", "В тестировании", "Выполнено", "Проверено"]
+                el.values = el.type === "priority" ? vals1 : vals2;
+                el.prevValues = el.type === "priority" ? vals1 : vals2;
+            } else {
+                const vals = reqsFilter.map((elem: IGetRequest) => {
+                    const id = el.type;
+                    return String(elem[id]); // Преобразуем значение в строку
+                });
+                el.values = vals;
+                el.prevValues = vals;
+            }
         });
         setFilterItems(timeState);
     };
