@@ -13,4 +13,5 @@ export { ExpandIcon } from "./ExpandIcon/ExpandIcon";
 export { Pagination } from "./Pagination/Pagination";
 export { ItemCount } from "./ItemCount/ItemCount";
 export { CustomErrorCircle } from "./CustomErrorCircle/CustomErrorCircle";
-export {ItemExists} from "./ItemExists/ItemExists"
+export { ItemExists } from "./ItemExists/ItemExists";
+export { CustomDatePicker } from "./CustomDatePicker/CustomDatePicker";

@@ -20,6 +20,8 @@ export const createSubtaskApi = create<ICreateSubtaskApi>((set, get) => ({
     },
     setCreateSubtaskState: (subtask) => {
         set({ createSubtaskState: subtask });
+        const createSubtaskState = get().createSubtaskState;
+        console.log(createSubtaskState, "createSubtaskState");
     },
     addManagerToCreateSubtask: (manager) => {
         set((prevState) => ({
@@ -28,6 +30,8 @@ export const createSubtaskApi = create<ICreateSubtaskApi>((set, get) => ({
                 manager: manager,
             },
         }));
+        const createSubtaskState = get().createSubtaskState;
+        console.log(createSubtaskState, "createSubtaskState");
     },
     addUserToCreateSubtask: (user) => {
         const text = get().createSubtaskState.text;
@@ -37,6 +41,8 @@ export const createSubtaskApi = create<ICreateSubtaskApi>((set, get) => ({
                 text: `${text} @${user}`,
             },
         }));
+        const createSubtaskState = get().createSubtaskState;
+        console.log(createSubtaskState, "createSubtaskState");
     },
     createSubtaskChange: (e) => {
         set((prevState) => ({
@@ -46,11 +52,12 @@ export const createSubtaskApi = create<ICreateSubtaskApi>((set, get) => ({
             },
         }));
         const createSubtaskState = get().createSubtaskState;
-        console.log(createSubtaskState, "changing");
+        console.log(createSubtaskState, "createSubtaskState");
     },
     createSubTask: async () => {
         try {
             const createSubtaskState = get().createSubtaskState;
+            console.log(createSubtaskState, "forPost");
             const response = await axios.post(`${BASE_URL}/applications/subtask/`, createSubtaskState, authToken);
             set({ createSubtaskState: response.data });
             console.log(response, "createSubtaskSuccess");
