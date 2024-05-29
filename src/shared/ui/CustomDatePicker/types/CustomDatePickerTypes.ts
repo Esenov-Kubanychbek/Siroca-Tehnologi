@@ -1,4 +1,7 @@
+import { ChangeEvent } from "react";
+
 export interface ICustomDatePicker {
     value: string;
-    onClick: () => void;
+    name: string;
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }

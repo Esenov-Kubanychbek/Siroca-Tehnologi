@@ -73,7 +73,22 @@
         height: 24px;
         border-radius: 4px;
         font-weight: 500;
-        background: none;
-        border: none;
     }
+}
+
+.NotChosen {
+    border: none;
+    background: none;
+}
+
+.Today {
+    color: $black5c !important;
+    border: 1px solid $blue;
+    background: none;
+}
+
+.Chosen {
+    border: none;
+    color: white !important;
+    background-color: $blue;
 }

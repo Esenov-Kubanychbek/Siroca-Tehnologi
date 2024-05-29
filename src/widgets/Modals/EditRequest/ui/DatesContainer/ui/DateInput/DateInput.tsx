@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from "react";
+import { FC, useState } from "react";
 import styles from "./DateInput.module.scss";
 import { CustomDatePicker, CustomInput } from "@/shared/ui";
 import { IDateInput } from "./types/DateInputTypes";
@@ -29,7 +29,8 @@ export const DateInput: FC<IDateInput> = (props) => {
                     <div className={styles.DatePicker}>
                         <CustomDatePicker
                             value={value ? value : ""}
-                            onClick={() => console.log("this date")}
+                            name={name}
+                            onChange={requestChange}
                         />
                     </div>
                 )}

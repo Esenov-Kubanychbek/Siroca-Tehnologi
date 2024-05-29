@@ -1,25 +1,23 @@
-import { FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import styles from "./CustomDatePicker.module.scss";
 import { ArrowSquareLeft, ArrowSquareRight } from "iconsax-react";
-import { changeMonth, dateHelper, getMonthName, getYear } from "./helpers";
+import { changeMonth, dateHelper, dayClassName, getMonthName, getYear } from "./helpers";
 import { ICustomDatePicker } from "./types/CustomDatePickerTypes";
 import { currentDate } from "@/shared/variables/variables";
 
 export const CustomDatePicker: FC<ICustomDatePicker> = (props) => {
-    const { value, onClick } = props;
+    const { value, name, onChange } = props;
     const [date, setDate] = useState<string>(value ? (value === "" ? currentDate : value) : currentDate);
-    useEffect(() => {
-        console.log(date, "date");
-        console.log(value, "value");
-    }, [date, value]);
-    const handleChange = () => {
-        const fakeEvent = {
+    const handleChange = (chosenDate: string) => {
+        const event = {
             target: {
                 name: name,
-                value: value
-            }
+                value: chosenDate === value ? "" : chosenDate,
+            },
         } as ChangeEvent<HTMLInputElement>;
-    }
+        setDate(chosenDate);
+        onChange(event);
+    };
     return (
         <div className={styles.CustomDatePicker}>
             <div className={styles.CustomDatePickerTop}>
@@ -27,16 +25,12 @@ export const CustomDatePicker: FC<ICustomDatePicker> = (props) => {
                 <p>{getYear(date)}</p>
                 <div>
                     <ArrowSquareLeft
-                        onClick={() => {
-                            setDate(changeMonth(date, "prev")), console.log(changeMonth(date, "prev"));
-                        }}
+                        onClick={() => setDate(changeMonth(date, "prev"))}
                         color="#717171"
                         variant="Bold"
                     />
                     <ArrowSquareRight
-                        onClick={() => {
-                            setDate(changeMonth(date, "next")), console.log(changeMonth(date, "next"));
-                        }}
+                        onClick={() => setDate(changeMonth(date, "next"))}
                         color="#717171"
                         variant="Bold"
                     />
@@ -53,19 +47,18 @@ export const CustomDatePicker: FC<ICustomDatePicker> = (props) => {
                     <p className={styles.WeekendDay}>ВС</p>
                 </div>
                 <div className={styles.CalendarMain}>
-                    {dateHelper(date).map((day, i) => (
-                        <button
-                            style={{
-                                color: date === day.value ? "white" : day.color,
-                                backgroundColor: date === day.value ? "#1C6AB1" : "none",
-                            }}
-                            key={i}
-                            type="button"
-                            onClick={onClick}
-                        >
-                            {day.day}
-                        </button>
-                    ))}
+                    {dateHelper(date).length > 0 &&
+                        dateHelper(date).map((day, i) => (
+                            <button
+                                key={i}
+                                type="button"
+                                style={{ color: day.color }}
+                                onClick={() => handleChange(day.value)}
+                                className={styles[dayClassName(value, day)]}
+                            >
+                                {day.day}
+                            </button>
+                        ))}
                 </div>
             </div>
         </div>

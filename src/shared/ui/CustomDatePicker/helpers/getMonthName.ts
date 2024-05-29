@@ -1,7 +1,6 @@
 export const getMonthName = (dateString: string): string => {
     const date = new Date(dateString);
     const month = date.getMonth() + 1;
-
     switch (month) {
         case 1:
             return "Январь";
@@ -27,9 +26,7 @@ export const getMonthName = (dateString: string): string => {
             return "Ноябрь";
         case 12:
             return "Декабрь";
-        default: {
-            const currentMonth = new Date().getMonth() + 1;
-            return getMonthName(`2021-${currentMonth.toString().padStart(2, '0')}-01`);
-        }
+        default:
+            return "";
     }
 };
