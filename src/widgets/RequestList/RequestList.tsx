@@ -69,6 +69,7 @@ export const RequestList: FC<IRequest> = (props) => {
                     )}
                     <div className={styles.ItemCount}>
                         <ItemCount
+                            text="заявок"
                             count={reqCount}
                             page={page}
                         />

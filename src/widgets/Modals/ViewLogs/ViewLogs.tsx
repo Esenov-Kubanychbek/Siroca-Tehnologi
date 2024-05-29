@@ -32,19 +32,24 @@ export const ViewLogs: FC<{ setViewLogs: Dispatch<SetStateAction<boolean>> }> = 
                             </div>
                             <div className={styles.LogMain}>
                                 <div className={styles.MainItem}>
-                                    <p className={styles.TypeOf}>{el.field}</p>
-                                </div>
-                                <div className={styles.MainItem}>
                                     <div className={styles.Prev}>
-                                        Изначально: <p> </p>
+                                        Изменения:
                                     </div>
                                     <div className={styles.Content}>
-                                        <p>{el.initially}</p>
+                                    <p className={styles.TypeOf}>{el.field}</p>
                                     </div>
                                 </div>
                                 <div className={styles.MainItem}>
                                     <div className={styles.Prev}>
-                                        Новая: <p> </p>
+                                        Изначальный:
+                                    </div>
+                                    <div className={styles.Content}>
+                                        <p>{el.initially ? el.initially : "-----------"}</p>
+                                    </div>
+                                </div>
+                                <div className={styles.MainItem}>
+                                    <div className={styles.Prev}>
+                                        Новый: <p> </p>
                                     </div>
                                     <div className={styles.Content}>
                                         <p>{el.new}</p>

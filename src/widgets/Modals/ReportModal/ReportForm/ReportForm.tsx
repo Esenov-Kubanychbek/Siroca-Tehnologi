@@ -119,7 +119,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
                     </div>
                     <input
                         type="text"
-                        placeholder="Выбрать"
+                        placeholder="Введите текст..."
                         value={openCompany}
                         id="company"
                         onChange={(e) => handleInputChange(e, setOpenCompany)}
@@ -160,7 +160,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
                     </div>
                     <input
                         type="text"
-                        placeholder="Выбрать"
+                        placeholder="Введите текст..."
                         value={openManeger}
                         id="manager"
                         onChange={(e) => handleInputChange(e, setOpenManeger)}
@@ -203,7 +203,7 @@ const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
                     <p>Дата начала</p>
                     <input
                         type="date"
-                        placeholder="Выбрать"
+                        placeholder=""
                         value={openBegin}
                         onChange={(e) => handleInputChange(e, setOpenBegin)}
                     />
@@ -224,9 +224,9 @@ const ReportForm: FC<ReportFormProps> = ({ onSub, setExcel }) => {
                     href="#"
                     onClick={CleanFilters}
                 >
-                    Очистить фильтр
+                    Сбросить фильтр
                 </a>
-                <button type="submit">Показать</button>
+                <button type="submit">Применить</button>
             </div>
         </form>
     );
